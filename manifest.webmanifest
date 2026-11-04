@@ -1,0 +1,16 @@
+{
+  "name": "Pokémon Atlas — Покедекс",
+  "short_name": "Pokémon Atlas",
+  "description": "Национальный Покедекс с поиском, типами, характеристиками и Shiny-изображениями.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1020",
+  "theme_color": "#0c1426",
+  "lang": "ru",
+  "icons": [
+    {"src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
