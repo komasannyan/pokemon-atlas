@@ -3,7 +3,7 @@ import {loadCachedDex, fetchNationalDex, saveDex, getDemo} from './data.js';
 import {fetchPokemon, fetchEncounters, fetchSpecies, fetchMove, fetchAbility} from './api.js';
 import {t, isEnglish, getLanguage, setLanguage, translateStatic, typeLabel, regionLabel, methodLabel, damageLabel} from './i18n.js';
 import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from './moves.js';
-import {ruMoveEffect, ruAbilityEffect, genericRuEffect} from './effects-ru.js';
+import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './effects-ru.js';
 import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
 
 const $=selector=>document.querySelector(selector);
@@ -112,9 +112,10 @@ function moveStats(m){
 }
 function moveDetailsHTML(m,extra=''){
   const original=m.effect?describeEffect(m.effect,m.effectChance):'';
-  const ru=!isEnglish()?(ruMoveEffect(m.slug)||genericRuEffect(original,m.effectChance)):'';
+  const info=!isEnglish()?fullRuMoveInfo(m,original):null;
+  const ru=info?.text||'';
   const short=ru||original;
-  const untranslated=!isEnglish()&&!ru&&!!original;
+  const untranslated=!isEnglish()&&info&&!info.verified;
   return `<details class="move-entry" data-move="${esc(m.slug)}" data-move-id="${m.id||''}"><summary><div class="move-list-identity"><span class="move-id">${m.id?'#'+String(m.id).padStart(3,'0'):''}</span><span class="move-main-name"><strong>${moveName(m)}</strong>${moveRu(m)}</span></div><div class="move-list-tags">${typetag(m.type)}<span class="class-badge class-${esc(m.category)}">${esc(damageLabel(m.category))}</span></div>${moveStats(m)}<span class="expand-chevron" aria-hidden="true">⌄</span></summary><div class="move-expanded"><div class="move-effect-text">${short?`<h4>${esc(t('effect'))}</h4><p>${esc(short)}</p>${untranslated?`<small class="foreign-note">${esc(t('englishEffect'))}</small>`:''}`:`<p>${esc(t('loadingEffect'))}</p>`}</div>${extra?`<div class="move-extra">${extra}</div>`:''}</div></details>`;
 }
 async function ensureMoves(){
@@ -164,7 +165,7 @@ function evolutionHTML(p){
 }
 function renderOverview(p){
   const stats=p.stats.length===6?p.stats.map((v,i)=>`<div class="stat-row"><span>${STAT_NAMES[i]}</span><b>${v}</b><div class="stat-track" role="progressbar" aria-label="${STAT_NAMES[i]}" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="255"><div class="stat-fill" style="width:${Math.max(1,Math.min(100,100*v/255))}%"></div></div></div>`).join(''):`<p class="helper-note">${esc(t('noData'))}</p>`;
-  const abilities=(p.abilities||[]).map(a=>{const ru=!isEnglish()?ruAbilityEffect(abSlug(a.name)):'';return `<details class="ability-entry" data-ability="${esc(abSlug(a.name))}"><summary><span>${esc(a.name)}</span>${a.hidden?`<small>${esc(t('hiddenAbility'))}</small>`:''}<span class="expand-chevron">⌄</span></summary><div class="ability-effect">${ru?`<h4>${esc(t('effect'))}</h4><p>${esc(ru)}</p>`:esc(t('loadingEffect'))}</div></details>`;}).join('');
+  const abilities=(p.abilities||[]).map(a=>{const ru=!isEnglish()?fullRuAbilityInfo(abSlug(a.name)).text:'';return `<details class="ability-entry" data-ability="${esc(abSlug(a.name))}"><summary><span>${esc(a.name)}</span>${a.hidden?`<small>${esc(t('hiddenAbility'))}</small>`:''}<span class="expand-chevron">⌄</span></summary><div class="ability-effect">${ru?`<h4>${esc(t('effect'))}</h4><p>${esc(ru)}</p>`:esc(t('loadingEffect'))}</div></details>`;}).join('');
   $('#detail-body').innerHTML=`<div class="pokedex-description"><div class="pokedex-heading"><span>◈</span><h3>${esc(t('pokedexText'))}</h3></div><p id="pokedex-entry" data-species-id="${p.id}">${esc(t('pokedexLoading'))}</p><div class="pokedex-source" id="pokedex-source"></div></div>
   <div class="two-column"><div><h3>${esc(t('stats'))}</h3>${stats}<div class="stat-sum">${esc(t('statsTotal'))} <b>${p.bst||'—'}</b></div></div><div><h3>${esc(t('abilities'))}</h3><div class="ability-list">${abilities||`<span class="helper-note">${esc(t('noData'))}</span>`}</div><h3 style="margin-top:29px">${esc(t('evolution'))}</h3>${evolutionHTML(p)}<p class="helper-note">${esc(t('formNote'))}</p></div></div>`;
   loadPokedexDescription(p.id);
@@ -241,7 +242,8 @@ async function openEffect(details){
     const actual=describeEffect(effect,data.effect_chance);
     if(!target.isConnected)return;
     const slug=ability?ability:(data.name||details.dataset.move);
-    const russian=!isEnglish()?(ability?ruAbilityEffect(slug):(ruMoveEffect(slug)||genericRuEffect(actual,data.effect_chance))):'';
+    const info=!isEnglish()?(ability?fullRuAbilityInfo(slug,actual):fullRuMoveInfo({slug,type:data.type?.name,category:data.damage_class?.name,effectChance:data.effect_chance},actual)):null;
+    const russian=info?.text||'';
     const primary=russian||actual||t('noEffect');
     const statChanges=!ability?(data.stat_changes||[]):[];
     const extras=[];
@@ -249,7 +251,7 @@ async function openEffect(details){
     if(statChanges.length){extras.push(`<span class="effect-meta-chip">${esc(t('statChanges'))}: ${statChanges.map(c=>`${esc(toTitle(c.stat.name))} ${c.change>0?'+':''}${c.change}`).join(', ')}</span>`);}
     if(!ability&&data.priority){extras.push(`<span class="effect-meta-chip">${esc(t('priority'))}: ${data.priority>0?'+':''}${data.priority}</span>`);}
     const originalSection=russian&&actual?`<details class="original-effect"><summary>Original · EN</summary><p>${esc(actual)}</p></details>`:'';
-    target.innerHTML=`<h4>${esc(t('effect'))}</h4><p>${esc(primary)}</p>${extras.length?`<div class="effect-meta">${extras.join('')}</div>`:''}${originalSection}${!isEnglish()&&!russian&&actual?`<small class="foreign-note">${esc(t('englishEffect'))}</small>`:''}`;
+    target.innerHTML=`<h4>${esc(t('effect'))}</h4><p>${esc(primary)}</p>${extras.length?`<div class="effect-meta">${extras.join('')}</div>`:''}${originalSection}${!isEnglish()&&!info?.verified?`<small class="foreign-note">${esc('Краткая сводка: точный перевод редкой механики ещё не проверен.')}</small>`:''}`;
     details.dataset.loaded='yes';
   }catch(err){
     if(!target?.isConnected)return;
@@ -306,7 +308,7 @@ updateFavoriteCount();
 if(state.full){state.statusKey='catalogCache';state.alertKey=null;}
 displayStatus();
 fetchNationalDex().then(records=>{
-  state.dex=records;state.full=true;saveDex(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
+  state.dex=records;state.full=true;window.dispatchEvent(new CustomEvent('atlas:dex-ready'));saveDex(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
   const id=+new URL(location.href).searchParams.get('pokemon');if(id&&!state.detail)openDetail(id,false);
 }).catch(err=>{
   console.warn('Could not update the National Dex:',err);
@@ -314,4 +316,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=031').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=04').catch(console.warn));}

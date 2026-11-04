@@ -225,3 +225,46 @@ export function genericRuEffect(prose, chance){
  if(m){const label={burn:'обжечь',freeze:'заморозить',paralyze:'парализовать',poison:'отравить'}[m[2].toLowerCase()];return `С вероятностью ${m[1]}% может ${label} цель.`;}
  return '';
 }
+
+// v0.4: Russian summaries for *every* move/ability display, using battle metadata.
+// Only MOVE/ABILITY and exact-rule translations above count as verified translations.
+// An incomplete summary is explicitly labelled; never pass a guess off as an exact effect.
+const N_STAT={'attack':'Attack','defense':'Defense','special attack':'Sp. Atk','special defense':'Sp. Def','speed':'Speed','accuracy':'точность','evasion':'уклонение'};
+function inflect(n){return Number(n)===1?'ступень':Number(n)>1&&Number(n)<5?'ступени':'ступеней';}
+function translateCommon(input){
+ const original=String(input||'').replace(/\$effect_chance/g,'?').replace(/\s+/g,' ').trim();
+ if(!original)return '';
+ const parts=original.split(/(?<=\.)\s+/),out=[];
+ for(const clause of parts){
+  let m;
+  if(/^(Inflicts|Deals|Causes) (regular |normal )?damage( with no additional effect)?\.?$/i.test(clause)){out.push('Наносит урон без гарантированного дополнительного эффекта.');continue;}
+  if(/^(Never misses|Cannot miss)\.?$/i.test(clause)){out.push('Атака не промахивается при обычной проверке точности.');continue;}
+  if((m=clause.match(/^(Has a |Has an? )?(\d+|\?)% chance to (burn|freeze|paralyze|poison|confuse|flinch) (the )?(target|opponent)\.?$/i))){const verb={burn:'обжечь',freeze:'заморозить',paralyze:'парализовать',poison:'отравить',confuse:'сбить с толку',flinch:'заставить вздрогнуть'}[m[3].toLowerCase()];out.push(`С вероятностью ${m[2]}% может ${verb} цель.`);continue;}
+  if((m=clause.match(/^(Raises|Lowers) (the )?(user's|target's) (attack|defense|speed|special attack|special defense|accuracy|evasion) by (one|two|three|four|\d+) stages?\.?$/i))){const level={one:1,two:2,three:3,four:4}[m[5].toLowerCase()]||+m[5];out.push(`${m[1].toLowerCase()==='raises'?'Повышает':'Снижает'} ${N_STAT[m[4].toLowerCase()]} ${m[3].toLowerCase()==="user's"?'пользователя':'цели'} на ${level} ${inflect(level)}.`);continue;}
+  if((m=clause.match(/^Heals? (the )?(user|target) (?:by|for|up to) (half|one quarter|one third|1\/2|1\/4|1\/3) (?:of )?(?:its )?(?:maximum |max )?(?:HP|health)\.?$/i))){out.push(`Восстанавливает HP ${m[2]==='user'?'пользователя':'цели'} (${m[3]==='half'||m[3]==='1/2'?'50%':m[3]==='one quarter'||m[3]==='1/4'?'25%':'33%'} максимального здоровья).`);continue;}
+ }
+ return out.join(' ');
+}
+const RU_TYPES={normal:'Normal',fire:'Fire',water:'Water',electric:'Electric',grass:'Grass',ice:'Ice',fighting:'Fighting',poison:'Poison',ground:'Ground',flying:'Flying',psychic:'Psychic',bug:'Bug',rock:'Rock',ghost:'Ghost',dragon:'Dragon',dark:'Dark',steel:'Steel',fairy:'Fairy'};
+export function fullRuMoveInfo(move,source=''){
+ const slug=String(move?.slug||move?.name||'').toLowerCase();
+ const curated=ruMoveEffect(slug);if(curated)return {text:curated,verified:true};
+ const common=genericRuEffect(source,move?.effectChance)||translateCommon(source);
+ if(common && common.length>12 && common.length>=String(source||'').length*.35)return {text:common,verified:false};
+ const type=RU_TYPES[move?.type]||String(move?.type||'неизвестного');
+ const prefix=move?.category==='status'?'Статусный приём.':`Наносит ${move?.category==='special'?'специальный':'физический'} урон типа ${type}.`;
+ const parts=[prefix];
+ if(move?.effectChance!=null)parts.push(`Вероятность дополнительного эффекта: ${move.effectChance}%.`);
+ if(common)parts.push(common);
+ parts.push('Точное описание дополнительной механики ещё требует перевода.');
+ return {text:parts.join(' '),verified:false};
+}
+export function fullRuAbilityInfo(slug,source=''){
+ const curated=ruAbilityEffect(slug);if(curated)return {text:curated,verified:true};
+ const en=String(source||'').trim(),simple=[];
+ let m;
+ if((m=en.match(/(?:This Pokémon|The Pokémon|The user) (?:is |becomes )?immune to (.+?)\.?$/i)))simple.push(`Дает иммунитет к ${m[1].replace(/-type moves?/gi,'-атакам')}.`);
+ if(/^(?:Prevents|Protects against) (?:the )?pokemon from (?:being )?(?:poisoned|burned|paralyzed|asleep)/i.test(en))simple.push('Предотвращает получение некоторых негативных состояний.');
+ if((m=en.match(/(?:Doubles|Boosts) (?:the )?(?:Pokémon's |user's )?(Attack|Defense|Special Attack|Special Defense|Speed) (?:in|during|under) (rain|sunlight|sandstorm|snow)/i)))simple.push(`Усиливает ${m[1]} во время погоды: ${m[2]}.`);
+ return simple.length?{text:simple.join(' '),verified:false}:{text:'Уникальная способность покемона. Точный перевод её действия пока не подтверждён; можно раскрыть оригинальное описание на английском.',verified:false};
+}

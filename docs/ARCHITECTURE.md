@@ -122,3 +122,10 @@ source_ref(id, url, author, license, verified_at, confidence)
 **Stat allocations**: Showdown-style examples use 252/252/4 EV templates with standard natures; for Champions, templates output 66 Stat Points (32/32/2) under the M-C rules. They are not interchangeable. The Champions copy function deliberately outputs a human-readable build rather than masquerading as an importable Showdown team.
 
 **Future work**: automate data-set provenance, add date-aware format snapshots and official legality checks, support alternate forms without base-species artwork ambiguity, replace simple rule-based scoring with calibrated matchup scoring, add coverage vs metagame threats, and allow every Pokémon with fully verified sets.
+
+
+## v0.4: правила форматов и полный список видов
+
+Конструктор использует 1025 видов из кэша Национального Покедекса. Статические таблицы `src/format-rules.json` и `src/champions-learnsets.json` — срез Pokémon Showdown за ноябрь 2026. Общие learnsets ген9 загружаются из публичного JSON Showdown; если источник недоступен, конструктор не генерирует непроверенные наборы. `src/team-universe.js` фильтрует виды и предметы, выбирает допустимые атаки и создаёт шаблоны ролей. `src/team-engine.js` оценивает синергию и подбирает команду.
+
+Champions — Regulation M-C от 9 сентября до 2 декабря 2026, без легендарных, с Item Clause и одной Mega Evolution. Нельзя гарантировать полную легальность составов без Showdown Team Validator; эта версия не проверяет сложные форменные и событийные ограничения. Русские описания способностей и атак пока частично проверены, остальная информация помечена как требующая ручного перевода и сверки.

@@ -1,4 +1,5 @@
-import {FORMATS, POKEMON_SETS, validSets, availablePool, ROLE_NAMES} from './team-data.js';
+import {FORMATS, ROLE_NAMES} from './team-data.js';
+import {fullPool, setsFor, adjustItem} from './team-universe.js';
 
 export const TYPE_CHART = {
  normal:{rock:.5,steel:.5,ghost:0},fire:{fire:.5,water:.5,grass:2,ice:2,bug:2,rock:.5,dragon:.5,steel:2},water:{fire:2,water:.5,grass:.5,ground:2,rock:2,dragon:.5},electric:{water:2,electric:.5,grass:.5,ground:0,flying:2,dragon:.5},grass:{fire:.5,water:2,grass:.5,poison:.5,ground:2,flying:.5,bug:.5,rock:2,dragon:.5,steel:.5},ice:{fire:.5,water:.5,grass:2,ice:.5,ground:2,flying:2,dragon:2,steel:.5},fighting:{normal:2,ice:2,poison:.5,flying:.5,psychic:.5,bug:.5,rock:2,ghost:0,dark:2,steel:2,fairy:.5},poison:{grass:2,poison:.5,ground:.5,rock:.5,ghost:.5,steel:0,fairy:2},ground:{fire:2,electric:2,grass:.5,poison:2,flying:0,bug:.5,rock:2,steel:2},flying:{electric:.5,grass:2,fighting:2,bug:2,rock:.5,steel:.5},psychic:{fighting:2,poison:2,psychic:.5,dark:0,steel:.5},bug:{fire:.5,grass:2,fighting:.5,poison:.5,flying:.5,psychic:2,ghost:.5,dark:2,steel:.5,fairy:.5},rock:{fire:2,ice:2,fighting:.5,ground:.5,flying:2,bug:2,steel:.5},ghost:{normal:0,psychic:2,ghost:2,dark:.5},dragon:{steel:.5,dragon:2,fairy:0},dark:{fighting:.5,psychic:2,ghost:2,dark:.5,fairy:.5},steel:{fire:.5,water:.5,electric:.5,ice:2,rock:2,steel:.5,fairy:2},fairy:{fire:.5,fighting:2,poison:.5,dragon:2,dark:2,steel:.5}
@@ -36,11 +37,11 @@ export function teamCoverage(roster){
  const results=TYPES.map(type=>({type,weak:roster.filter(p=>multiplier(type,p.entry.types,p.set.ability)>=2).length,resist:roster.filter(p=>multiplier(type,p.entry.types,p.set.ability)<1).length}));
  return results.sort((a,b)=>b.weak-a.weak||a.resist-b.resist);
 }
-const isMega=s=>/ite$/i.test(s.item) && !['Eviolite'].includes(s.item);
+const isMega=s=>/(?:ite|itex|itey|itez)$/i.test(String(s.item||'').replace(/[^a-z]/gi,'')) && !['Eviolite'].includes(s.item);
 function candidateValue(entry,set,roster,format,plan,index){
  const flags=countFlags(roster),fmt=FORMATS[format];
  if(roster.some(p=>p.entry.id===entry.id))return -1e9;
- if(fmt.champions&&roster.some(p=>p.set.item===set.item))return -1e9;
+ if(fmt.champions&&set.item&&roster.some(p=>p.set.item===set.item))return -1e9;
  if(fmt.champions&&isMega(set)&&roster.some(p=>isMega(p.set)))return -1e9;
  const before=weaknessCounts(roster),after=weaknessCounts([...roster,{entry,set}]);
  let score=8;
@@ -72,24 +73,33 @@ function candidateValue(entry,set,roster,format,plan,index){
  return score;
 }
 function buildWithSeeds(seedIds,roles,format,size,plan,variant){
- const pool=availablePool(format);const byId=new Map(pool.map(p=>[p.id,p]));
+ const entire=fullPool(format);
+ // Every eligible species is manually selectable; automatic recommendations scan a
+ // competitively relevant, diverse shortlist for responsiveness on mobile devices.
+ const pool=entire;const candidatesPool=entire.filter(p=>!!setsFor(p,format).length).sort((a,b)=>(b.stats?.reduce((x,y)=>x+y,0)||0)-(a.stats?.reduce((x,y)=>x+y,0)||0)).slice(0,175);
+ const byId=new Map(pool.map(p=>[p.id,p]));
  const seeds=seedIds.map(id=>byId.get(id));if(seeds.some(x=>!x))return null;
  // Enumerate all seed roles (up to 2 seed mons) to optimize the sets for the existing team.
- const choices=seeds.map((entry,i)=>validSets(entry,format).filter(s=>!roles[i]||roles[i]==='auto'||s.role===roles[i]));
+ const choices=seeds.map((entry,i)=>setsFor(entry,format).filter(s=>!roles[i]||roles[i]==='auto'||s.role===roles[i]));
  if(choices.some(c=>!c.length))return null;
  const combos=choices.reduce((arr,sets)=>arr.flatMap(prefix=>sets.map(set=>[...prefix,set])),[[]]);
  let result=null;
  for(const combo of combos){
-  const roster=seeds.map((entry,i)=>({entry,set:combo[i],seed:true,why:[]}));
+  const roster=[];
+  for(let i=0;i<seeds.length;i++){
+   const set=adjustItem(combo[i],format,roster);
+   roster.push({entry:seeds[i],set,seed:true,why:[]});
+  }
   if(FORMATS[format].champions){
-    const items=new Set(combo.map(s=>s.item));if(items.size!==combo.length||combo.filter(isMega).length>1)continue;
+    const items=roster.map(x=>x.set.item).filter(Boolean);if(new Set(items).size!==items.length||roster.filter(x=>isMega(x.set)).length>1)continue;
   }
   let quality=combo.reduce((v,set,i)=>v+candidateValue(seeds[i],set,roster.filter((_,j)=>j!==i),format,plan,i),0);
   while(roster.length<size){
    const candidates=[];
-   for(const entry of pool)if(!roster.some(p=>p.entry.id===entry.id))for(const set of validSets(entry,format)){
-    const value=candidateValue(entry,set,roster,format,plan,variant+roster.length);
-    if(value>-100000)candidates.push({entry,set,value});
+   for(const entry of candidatesPool)if(!roster.some(p=>p.entry.id===entry.id))for(const set of setsFor(entry,format)){
+    const candidateSet=adjustItem(set,format,roster);
+    const value=candidateValue(entry,candidateSet,roster,format,plan,variant+roster.length);
+    if(value>-100000)candidates.push({entry,set:candidateSet,value});
    }
    candidates.sort((a,b)=>b.value-a.value||a.entry.id-b.entry.id);
    if(!candidates.length)break;
@@ -141,7 +151,7 @@ export function showdownExport(roster,format){
  if(FORMATS[format]?.champions)return '';
  return roster.map(({entry,set})=>{
   const evs=displaySpread(set.spread,false);
-  return `${entry.name} @ ${set.item}\nAbility: ${set.ability}\nTera Type: ${set.tera}\nEVs: ${evs}\n${set.nature} Nature\n${set.moves.map(x=>'- '+x).join('\n')}`;
+  return `${entry.name}${set.item?" @ "+set.item:""}\nAbility: ${set.ability}\nTera Type: ${set.tera}\nEVs: ${evs}\n${set.nature} Nature\n${set.moves.map(x=>'- '+x).join('\n')}`;
  }).join('\n\n');
 }
-export function championsText(roster){return roster.map(({entry,set})=>`${entry.name} @ ${set.item}\nAbility: ${set.ability}\nStat Points: ${displaySpread(set.spread,true)} (66 total max)\nAlignment: ${set.nature}\n${set.moves.join(' / ')}`).join('\n\n');}
+export function championsText(roster){return roster.map(({entry,set})=>`${entry.name}${set.item?" @ "+set.item:""}\nAbility: ${set.ability}\nStat Points: ${displaySpread(set.spread,true)} (66 total max)\nAlignment: ${set.nature}\n${set.moves.join(' / ')}`).join('\n\n');}
