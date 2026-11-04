@@ -8,10 +8,11 @@
   <link rel="icon" type="image/png" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=080">
-  <link rel="stylesheet" href="./styles-v02.css?v=080">
-  <link rel="stylesheet" href="./styles-v03.css?v=080">
-  <link rel="stylesheet" href="./collection.css?v=080">\n  <link rel="stylesheet" href="./pokedex-v08.css?v=080">
+  <link rel="stylesheet" href="./styles.css?v=090">
+  <link rel="stylesheet" href="./styles-v02.css?v=090">
+  <link rel="stylesheet" href="./styles-v03.css?v=090">
+  <link rel="stylesheet" href="./collection.css?v=090">\n  <link rel="stylesheet" href="./pokedex-v08.css?v=090">
+  <link rel="stylesheet" href="./styles-v09.css?v=090">
   <title>Pokémon Atlas — Pokédex, Moves & Team Builder</title>
 </head>
 <body>
@@ -28,14 +29,12 @@
         <button type="button" class="nav-link" data-view="abilities"><span class="nav-glyph">✧</span><span data-t="navAbilities">База способностей</span></button>
         <button type="button" class="nav-link" data-view="builder"><span class="nav-glyph">◈</span><span data-t="navBuilder">Конструктор команд</span><span class="tiny-soon">BETA</span></button>
         <button type="button" class="nav-link" data-view="collection"><span class="nav-glyph">▣</span><span data-t="navCollection">Коллекция</span></button>
+        <button type="button" class="nav-link" data-view="guides"><span class="nav-glyph">▤</span><span data-t="navGuides">Гайды по играм</span></button>
         <button type="button" class="nav-link" data-view="favorites"><span class="nav-glyph">♡</span><span data-t="navFav">Избранное</span><span class="nav-count" id="fav-count">0</span></button>
         <button type="button" class="nav-link" data-view="roadmap"><span class="nav-glyph">◇</span><span data-t="navRoadmap">Планы развития</span></button>
       </nav>
-      <div class="sidebar-section-label soon-label" data-t="navSoon">СКОРО В ATLAS</div>
-      
-      <div class="coming-link"><span class="nav-glyph">▤</span> <span data-t="navGuides">Гайды по играм</span> <span class="tiny-soon">SOON</span></div>
       <div class="sidebar-bottom">
-        <div class="sidebar-note"><span class="note-star">✦</span><strong data-t="navNoteTitle">Версия 0.8</strong><p data-t="navNoteBody">Покедекс, база атак и экспериментальный конструктор команд.</p></div>
+        <div class="sidebar-note"><span class="note-star">✦</span><strong data-t="navNoteTitle">Версия 0.9</strong><p data-t="navNoteBody">Покедекс, база атак и экспериментальный конструктор команд.</p></div>
         <div class="sidebar-foot" data-t="navDisclaimer">Фанатский проект · Не связан с Nintendo</div>
       </div>
     </aside>
@@ -103,6 +102,7 @@
         </section>
 
         <section id="collection-view" class="section-view" hidden></section>
+        <section id="guides-view" class="section-view" hidden></section>
         <section id="builder-view" class="section-view" hidden><div id="team-builder-root"></div></section>
 
         <section id="roadmap-view" class="section-view" hidden>
@@ -111,7 +111,7 @@
             <article class="roadmap-card"><span class="roadmap-num">01 / MVP</span><h3 data-t="road1">Национальный Покедекс</h3><p data-t="road1desc"></p><span class="roadmap-status ready" data-t="available">ДОСТУПНО</span></article>
             <article class="roadmap-card"><span class="roadmap-num">02 / DATA</span><h3 data-t="road2">Энциклопедия атак и эффектов</h3><p data-t="road2desc"></p><span class="roadmap-status ready" data-t="available">ДОСТУПНО</span></article>
             <article class="roadmap-card"><span class="roadmap-num">03 / BATTLE</span><h3 data-t="road3">Конструктор команд</h3><p data-t="road3desc"></p><span class="roadmap-status ready" data-t="inProgress">В РАЗРАБОТКЕ</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">04 / GAMES</span><h3 data-t="road4">Гайды по играм</h3><p data-t="road4desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">04 / GAMES</span><h3 data-t="road4">Гайды по играм</h3><p data-t="road4desc"></p><span class="roadmap-status ready" data-t="available">ДОСТУПНО</span></article>
             <article class="roadmap-card"><span class="roadmap-num">05 / COLLECTION</span><h3 data-t="road5">Личная коллекция</h3><p data-t="road5desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
             <article class="roadmap-card"><span class="roadmap-num">06 / MEDIA</span><h3 data-t="road6">Галерея и 3D</h3><p data-t="road6desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
           </div>
@@ -128,6 +128,6 @@
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./src/app.js?v=080"></script>
+  <script type="module" src="./src/app.js?v=090"></script>
 </body>
 </html>

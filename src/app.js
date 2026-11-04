@@ -6,6 +6,9 @@ import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from '
 import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './effects-ru.js';
 import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
 import {setupCollection,refreshCollection} from './collection-ui.js';
+import {fetchRegionalDex} from './collection-games.js';
+import {locationMatrixHTML} from './locations-v09.js';
+import {setupGuides,refreshGuides,openGuideTab} from './guides-v09.js';
 import {formSnapshot,formArtwork,varietyLabel} from './pokedex-extended.js';
 import {formSelector,evolutionPage,historyPage} from './pokedex-extended-ui.js';
 import {fetchEvolutionChain} from './api.js';
@@ -93,9 +96,10 @@ function navigation(viewName,scroll=true){
   $('#roadmap-view').hidden=viewName!=='roadmap';
   $('#builder-view').hidden=viewName!=='builder';
   $('#collection-view').hidden=viewName!=='collection';
+  $('#guides-view').hidden=viewName!=='guides';
   $('#hero').hidden=viewName!=='catalog';
   document.querySelectorAll('.nav-link').forEach(el=>el.classList.toggle('active',el.dataset.view===viewName));
-  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='collection'?'crumbCollection':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
+  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='collection'?'crumbCollection':viewName==='guides'?'crumbGuides':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
   $('#breadcrumb-page').textContent=t(crumb);
   $('#list-title').textContent=t(viewName==='favorites'?'favTitle':'dexTitle');
   $('#list-subtitle').textContent=t(viewName==='favorites'?'favSubtitle':'dexSubtitle');
@@ -103,6 +107,7 @@ function navigation(viewName,scroll=true){
   if(viewName==='moves'){ensureMoves();renderMoveCards();}
   if(viewName==='abilities'){ensureAbilities();renderAbilityCards();}
   if(viewName==='collection')refreshCollection();
+  if(viewName==='guides')refreshGuides();
   if(scroll)window.scrollTo({top:0,behavior:'smooth'});
 }
 function moveFilterOptions(){
@@ -248,7 +253,7 @@ function detailTop(p){
 }
 function openDetail(id,updateUrl=true){
   const p=state.dex.find(x=>x.id===id);if(!p)return;
-  state.detail=p;state.detailTab='overview';state.shiny=false;state.style='art';state.moveGame='scarlet-violet';state.method='all';state.encounterGame='';
+  state.detail=p;state.detailTab='overview';state.shiny=false;state.style='art';state.moveGame='scarlet-violet';state.method='all';state.encounterGame='legends-za';
   state.speciesExtra=null;state.formData=null;state.formSlug='';state.formBusy=false;state.formError=false;state.evoData=null;state.evoError=false;const ticket=++state.detailRequest;
   state.lastFocus=document.activeElement;$('#detail-overlay').hidden=false;document.body.style.overflow='hidden';renderDetail();$('.detail-dialog').focus();loadExtendedDetail(p,ticket);
   if(updateUrl){const url=new URL(location.href);url.searchParams.set('pokemon',id);history.pushState({},'',url);}
@@ -327,22 +332,24 @@ async function renderLearnset(p){
   }catch(err){if(currentDetailIs(p.id,'moves'))$('#detail-body').innerHTML=`<p class="error-detail">${esc(t('movesError'))} (${esc(err.message)})</p>`;}
 }
 async function renderLocations(p){
- $('#detail-body').innerHTML=`<div class="loading-detail">${esc(t('locationsLoading'))}</div>`;
- try{
-  const [entries,detail]=await Promise.all([fetchEncounters(p.pokemonId||p.id),fetchPokemon(p.pokemonId||p.id)]);
-  if(!currentDetailIs(p.id,'locations'))return;
-  const discovered=recordedVersions(entries);
-  // Game indices are supplementary evidence only. Not every playable game is represented.
-  const indexed=new Set((detail.game_indices||[]).map(x=>x.version.name));
-  const options=CORE_GAMES.map(([code,name])=>({code,name,found:recordedInVersion(entries,code),index:indexed.has(code)}));
-  const current=options.find(x=>x.code===state.encounterGame);
-  if(!current){state.encounterGame=options.find(x=>x.found.length)?.code||options[options.length-1].code;}
-  const selected=options.find(x=>x.code===state.encounterGame)||options[0];
-  const known=options.filter(x=>x.found.length).length;
-  const gallery=options.map(x=>`<button type="button" class="game-status ${x.code===state.encounterGame?'selected':''} ${x.found.length?'has-encounter':''}" data-game="${esc(x.code)}"><b>${esc(x.name)}</b><small>${esc(t(x.found.length?'gameWildKnown':x.index?'gameIndexKnown':'gameUnknown'))}</small></button>`).join('');
-  const list=selected.found.map(e=>`<div class="location-item"><strong>${esc(toTitle(e.location))}</strong><span>${esc(t('level'))} ${e.min==null?'—':e.min===e.max?e.min:e.min+'–'+e.max} · ${esc(e.methods.map(toTitle).join(', ')||t('unknownMethod'))} · ${esc(t('maxChance'))}: ${esc(e.chance??'—')}%</span></div>`).join('');
-  $('#detail-body').innerHTML=`<h3>${esc(t('gameCatalogTitle'))} <span class="muted-count">· ${CORE_GAMES.length}</span></h3><p class="helper-note">${esc(t('gamesOverviewNote'))}</p><div class="game-status-grid">${gallery}</div><h3>${esc(selected.name)} · ${esc(t('locationsTitle'))} <span class="muted-count">· ${selected.found.length}</span></h3><div class="game-location-list">${list||`<p class="helper-note">${esc(t('locationsNone'))}</p>`}</div>`;
- }catch(err){if(currentDetailIs(p.id,'locations'))$('#detail-body').innerHTML=`<p class="error-detail">${esc(t('locationsError'))} (${esc(err.message)})</p>`;}
+ const panel=$('#detail-body');if(!panel)return;
+ panel.innerHTML='<div class="loading-detail">'+esc(t('locationsLoading'))+'</div>';
+ const results=await Promise.allSettled([
+   fetchEncounters(p.pokemonId||p.id),
+   fetchPokemon(p.pokemonId||p.id),
+   fetchRegionalDex()
+ ]);
+ if(!currentDetailIs(p.id,'locations'))return;
+ const encounters=results[0].status==='fulfilled'?results[0].value:[];
+ const api=results[1].status==='fulfilled'?results[1].value:null;
+ const dexes=results[2].status==='fulfilled'?results[2].value:null;
+ if(!state.encounterGame)state.encounterGame='legends-za';
+ panel.innerHTML=locationMatrixHTML({p:state.detail||p,gameKey:state.encounterGame,dexes,entries:encounters,api,en:isEnglish()});
+ if(results.some(r=>r.status==='rejected')){
+   const notice=document.createElement('p');notice.className='availability-help';
+   notice.textContent=isEnglish()?'Some online sources could not be loaded. Showing available records without assuming missing Pokémon are unavailable.':'Не все источники удалось загрузить. Показаны доступные сведения; отсутствие записей не считается доказательством недоступности.';
+   panel.prepend(notice);
+ }
 }
 function renderGallery(p){
   const variants=[['art',false,'art'],['artShiny',true,'art'],['HOME',false,'home'],['homeShiny',true,'home'],['pixel',false,'pixel'],['pixelShiny',true,'pixel']];
@@ -391,12 +398,13 @@ async function openEffect(details){
 function applyLanguage(){
   translateStatic();
   document.querySelectorAll('[data-region]').forEach(opt=>{const n=+opt.dataset.region;opt.textContent=`${['I','II','III','IV','V','VI','VII','VIII','IX'][n-1]} — ${regionLabel(n)}`;});
-  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();refreshCollection();
+  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();refreshCollection();refreshGuides();
   if(state.detail)renderDetail();
 }
 // Event handlers
 setupTeamBuilder(()=>state.dex);
 setupCollection(()=>state.dex);
+setupGuides({pokemonByName:()=>state.dex,onOpenPokemon:id=>openDetail(id)});
 $('#language-switch').addEventListener('change',e=>{setLanguage(e.target.value);applyLanguage();});
 $('#type-filters').addEventListener('click',e=>{const btn=e.target.closest('[data-type]');if(!btn)return;const type=btn.dataset.type;state.types=state.types.includes(type)?state.types.filter(t=>t!==type):[...state.types,type];state.shown=30;renderTypes();renderCards();});
 $('#search').addEventListener('input',e=>{state.search=e.target.value;state.shown=30;renderCards();});
@@ -421,6 +429,7 @@ $('#detail-overlay').addEventListener('click',e=>{
   if(e.target.closest('[data-shiny]')){state.shiny=!state.shiny;renderDetail();return;}
    const form=e.target.closest('[data-form-slug]');if(form){selectDetailForm(form.dataset.formSlug);return;}
   const tab=e.target.closest('[data-tab]');if(tab){state.detailTab=tab.dataset.tab;renderTab();return;}
+  const guide=e.target.closest('[data-guide-go]');if(guide){closeDetail();openGuideTab('main','legends-za');navigation('guides');return;}
   const game=e.target.closest('[data-game]');if(game){state.encounterGame=game.dataset.game;renderLocations(activeDetailPokemon());return;}
   const pok=e.target.closest('[data-open]');if(pok){const id=+pok.dataset.open;const url=new URL(location.href);url.searchParams.set('pokemon',id);history.replaceState({},'',url);openDetail(id,false);}
 });
@@ -454,4 +463,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=080').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=090').catch(console.warn));}
