@@ -8,9 +8,9 @@
   <link rel="icon" type="image/png" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=04">
-  <link rel="stylesheet" href="./styles-v02.css?v=04">
-  <link rel="stylesheet" href="./styles-v03.css?v=04">
+  <link rel="stylesheet" href="./styles.css?v=06">
+  <link rel="stylesheet" href="./styles-v02.css?v=06">
+  <link rel="stylesheet" href="./styles-v03.css?v=06">
   <title>Pokémon Atlas — Pokédex, Moves & Team Builder</title>
 </head>
 <body>
@@ -24,6 +24,7 @@
       <nav class="nav">
         <button type="button" class="nav-link active" data-view="catalog"><span class="nav-glyph">▦</span><span data-t="navDex">Покедекс</span><span class="nav-count" id="side-count">1025</span></button>
         <button type="button" class="nav-link" data-view="moves"><span class="nav-glyph">⚔</span><span data-t="navMoves">База атак</span></button>
+        <button type="button" class="nav-link" data-view="abilities"><span class="nav-glyph">✧</span><span data-t="navAbilities">База способностей</span></button>
         <button type="button" class="nav-link" data-view="builder"><span class="nav-glyph">◈</span><span data-t="navBuilder">Конструктор команд</span><span class="tiny-soon">BETA</span></button>
         <button type="button" class="nav-link" data-view="favorites"><span class="nav-glyph">♡</span><span data-t="navFav">Избранное</span><span class="nav-count" id="fav-count">0</span></button>
         <button type="button" class="nav-link" data-view="roadmap"><span class="nav-glyph">◇</span><span data-t="navRoadmap">Планы развития</span></button>
@@ -52,7 +53,7 @@
             <p data-t="heroCopy">От первых приключений в Канто до загадок Палдеи. Изучай, сравнивай и находи своих любимых покемонов.</p>
             <div class="hero-stats"><span><b id="hero-total">1 025</b><small data-t="heroPokemon">ПОКЕМОНОВ</small></span><i></i><span><b>9</b><small data-t="heroGens">ПОКОЛЕНИЙ</small></span><i></i><span><b>18</b><small data-t="heroTypes">ТИПОВ</small></span></div>
           </div>
-          <div class="hero-art"><div class="hero-halo"></div><div class="hero-halo hero-halo-small"></div><img id="hero-pokemon" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/248.png" alt="Tyranitar" onerror="this.style.display='none'"/><div class="hero-art-label">#0248 <b>TYRANITAR</b><small>THE ARMOR POKÉMON</small></div><span class="hero-spark spark-1">✧</span><span class="hero-spark spark-2">✦</span></div>
+          <div class="hero-art"><div class="hero-halo"></div><div class="hero-halo hero-halo-small"></div><img id="hero-pokemon" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/248.png" alt="Tyranitar" onerror="this.style.display='none'"/><div class="hero-art-label"><span id="hero-number">#0248</span> <b id="hero-name">TYRANITAR</b><small id="hero-genus">THE ARMOR POKÉMON</small></div><span class="hero-spark spark-1">✧</span><span class="hero-spark spark-2">✦</span></div>
         </section>
 
         <section id="catalog-view" class="section-view">
@@ -76,6 +77,7 @@
               <label class="field-select"><span data-t="type">ТИП</span><select id="move-type"></select></label>
               <label class="field-select"><span data-t="damageClass">КАТЕГОРИЯ</span><select id="move-class"></select></label>
               <label class="field-select"><span data-t="generation">ПОКОЛЕНИЕ</span><select id="move-generation"></select></label>
+              <label class="field-select"><span data-t="sort">СОРТИРОВКА</span><select id="move-sort"><option value="number" data-t="sortNumber">По номеру ↑</option><option value="power-asc" data-t="movePowerAsc">По силе ↑</option><option value="power-desc" data-t="movePowerDesc">По силе ↓</option></select></label>
             </div>
             <div class="move-filter-foot"><span data-t="movesDataNote">Текущие параметры PokéAPI; в отдельных поколениях они могут отличаться.</span><button type="button" class="clear-btn" id="move-clear" data-t="reset">Сбросить фильтры ↺</button></div>
           </div>
@@ -83,7 +85,19 @@
           <div id="move-list" class="move-dex-list"></div>
           <div class="empty-state" id="move-empty" hidden><span class="empty-glyph">⌕</span><h3 data-t="movesEmpty">Атак с такими фильтрами не найдено.</h3></div>
           <div class="load-more-wrap"><button id="move-more" type="button" class="load-more" hidden></button></div>
-          <p class="helper-note" data-t="movesSource">Эффекты из PokéAPI. Русские переводы пока доступны не для всех атак.</p>
+          <p class="helper-note" data-t="movesSource">Русские описания загружаются при открытии. Машинный перевод требует проверки.</p>
+        </section>
+
+        <section id="abilities-view" class="section-view" hidden>
+          <div class="section-heading"><div><div class="section-kicker">ABILITY DATABASE</div><h2 data-t="abilitiesTitle">Энциклопедия способностей</h2><p data-t="abilitiesSubtitle">Все способности, эффекты и покемоны-носители.</p></div><div class="view-counter"><span id="ability-count">—</span> <span data-t="found">найдено</span></div></div>
+          <div class="filters-panel move-filters-panel"><div class="filters-primary">
+            <label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m16 16 5 5"/></svg><input id="ability-search" type="search" data-t-placeholder="abilitySearch" data-t-aria="abilitySearch" placeholder="Название способности..." autocomplete="off"></label>
+            <label class="field-select"><span data-t="generation">ПОКОЛЕНИЕ</span><select id="ability-generation"></select></label>
+          </div><div class="move-filter-foot"><span data-t="abilitiesHelp">Открой способность, чтобы увидеть эффект и список покемонов.</span><button type="button" class="clear-btn" id="ability-clear" data-t="reset">Сбросить фильтры ↺</button></div></div>
+          <div class="loading-row" id="abilities-alert" role="status" hidden></div>
+          <div id="ability-list" class="move-dex-list"></div>
+          <div class="empty-state" id="ability-empty" hidden><h3 data-t="abilitiesEmpty">Способности не найдены.</h3></div>
+          <div class="load-more-wrap"><button id="ability-more" type="button" class="load-more" hidden></button></div>
         </section>
 
         <section id="builder-view" class="section-view" hidden><div id="team-builder-root"></div></section>
@@ -111,6 +125,6 @@
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./src/app.js?v=04"></script>
+  <script type="module" src="./src/app.js?v=06"></script>
 </body>
 </html>

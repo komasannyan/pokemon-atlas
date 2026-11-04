@@ -61,3 +61,30 @@
 @media(max-width:900px){.builder-seeds{grid-template-columns:1fr}.builder-mon-art{width:80px;height:80px}}
 @media(max-width:760px){.sidebar .nav{grid-template-columns:repeat(5,minmax(0,1fr))}.nav-link .tiny-soon{display:none}.builder-panel{padding:16px}.builder-team-grid{grid-template-columns:1fr 1fr}.builder-result-head{align-items:start}}
 @media(max-width:550px){.builder-top-line{align-items:start}.builder-team-grid{grid-template-columns:1fr}.builder-config-grid{grid-template-columns:1fr}.builder-seeds-head{align-items:start;flex-direction:column;gap:5px}.builder-picker button{padding:11px 12px}.builder-score strong{font-size:19px}.builder-result-head{flex-direction:column;gap:5px}.builder-score{text-align:left}.builder-score strong{display:inline-block;margin:0 5px}.builder-score small{display:inline;margin:0}.builder-team-bottom{flex-direction:column;align-items:stretch}.builder-team-bottom button{width:100%}.builder-mon-top{gap:14px}.builder-mon-art{width:99px;height:99px}}
+/* Pokémon Atlas 0.6 — ability encyclopedia, game coverage grid, and move sorting */
+#abilities-view{min-width:0}
+.ability-dex-card{background:linear-gradient(140deg,#1d314b,#14243b);border:1px solid #354b68;border-radius:12px;margin-bottom:9px;overflow:hidden}
+.ability-dex-card>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 19px;cursor:pointer;list-style:none;color:#d9e6f8}
+.ability-dex-card>summary::-webkit-details-marker{display:none}
+.ability-dex-card[open]{border-color:#ad8d52}
+.ability-dex-title{display:flex;align-items:center;gap:16px;min-width:0}
+.ability-dex-title>small{color:#96abc4;font-size:10px;min-width:92px}
+.ability-dex-title>strong{font-size:14px;font-weight:850;overflow-wrap:anywhere}
+.ability-dex-expanded{padding:0 19px 18px;border-top:1px solid #394f6a}
+.ability-dex-expanded h4,.ability-owners h4{color:#f0d388;font-size:12px;margin:17px 0 9px}
+.ability-effect p,.ability-dex-expanded p{color:#bdcfe2;font-size:13px;line-height:1.8;white-space:normal}
+.ability-owner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-height:320px;overflow-y:auto;scrollbar-color:#526783 transparent;padding:3px}
+.ability-owner{background:#102037;border:1px solid #384d66;border-radius:7px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.ability-owner strong{color:#e5edf9;font-size:11px;overflow-wrap:anywhere}
+.ability-owner small{color:#a5bbcf;font-size:10px}
+.game-status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:14px 0 24px}
+.game-status{padding:12px 8px;text-align:left;display:flex;flex-direction:column;gap:6px;border-radius:9px;border:1px solid #344a63;background:#14253b;cursor:pointer;color:#d6e3f4;min-width:0}
+.game-status.has-encounter{border-color:#447465;background:#153a39}
+.game-status.selected{border-color:#dfc075;box-shadow:0 0 0 1px #dfc07585}
+.game-status b{font-size:12px;overflow-wrap:anywhere}
+.game-status small{color:#9eafc4;font-size:10px;line-height:1.4}
+.game-location-list{margin:12px 0 14px}
+#move-sort{min-width:140px}
+@media(max-width:940px){.game-status-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ability-owner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.sidebar .nav{grid-template-columns:repeat(3,minmax(0,1fr))}.game-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ability-dex-title{gap:9px}.ability-dex-title>small{min-width:75px}}
+@media(max-width:430px){.ability-owner-grid{grid-template-columns:1fr}.ability-dex-card>summary{padding:13px}.ability-dex-expanded{padding:0 12px 12px}}
