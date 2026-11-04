@@ -1,0 +1,32 @@
+/* Pokédex 0.8 · battle forms, historical data, full evolution chains */
+.form-panel{border-top:1px solid #2c4058;background:#15243a;padding:17px 26px 19px}
+.form-panel-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:12px}
+.form-panel-head h3{margin:0;font-size:12px;color:#e7d4ab;text-transform:uppercase;letter-spacing:1px}
+.form-panel-head small{font-size:10px;color:#94a9c4}
+.form-selector{display:flex;gap:8px;flex-wrap:wrap}
+.form-button{appearance:none;border:1px solid #3c526d;border-radius:9px;background:#1d3049;padding:9px 12px;color:#dbe6f7;font-size:11px;cursor:pointer;transition:border-color .15s,background .15s}
+.form-button:hover,.form-button:focus-visible{border-color:#deb66b;outline:none}
+.form-button[aria-pressed="true"]{background:#4a3e2d;border-color:#e1ba71;color:#ffe8b3;font-weight:700}
+.form-button:disabled{opacity:.55;cursor:wait}
+.form-inline-note{margin:11px 0 0;font-size:11px;color:#95a9bd;line-height:1.5}
+.form-error{color:#e4a893}
+.evo-panel{min-height:200px}
+.evo-intro{font-size:12px;color:#99adc6;line-height:1.65;margin:0 0 17px}
+.evo-branches{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.evo-branch{margin:0 0 0 8px;padding:0 0 0 14px;border-left:1px solid #40536e;display:flex;flex-direction:column;gap:12px}
+.evo-step{display:flex;flex-direction:column;gap:6px;max-width:100%}
+.evo-step[aria-current="true"] .evo-entry{border-color:#d4ac69;background:#3a3529}
+.evo-entry{display:flex;gap:13px;align-items:center;border-radius:12px;border:1px solid #334b69;background:#1b2c43;padding:7px 16px 7px 8px;color:#f0f5fe;font-size:13px;min-width:205px;cursor:pointer;text-align:left}
+.evo-entry img{width:54px;height:54px;object-fit:contain}
+.evo-entry small{display:block;color:#9babc1;font-size:10px;margin-top:3px}
+.evo-condition{font-size:11px;color:#dbcba7;line-height:1.5;padding:6px 10px;background:#2a2d35;border-radius:7px;max-width:480px}
+.evo-arrow{color:#bba26e;font-size:17px;line-height:1}
+.history-block{padding:13px 16px;margin:10px 0;background:#1a2a40;border:1px solid #354960;border-radius:12px}
+.history-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.history-head strong{color:#f0d397;font-size:13px}
+.history-head small{color:#91a6bf;font-size:11px}
+.history-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.history-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 8px;border-radius:7px;background:#263952;border:1px solid #384e65;color:#dce8fa;font-size:11px}
+.history-chip b{color:#f3cb75}
+.history-notice{font-size:11px;color:#8ba1bc;line-height:1.65;margin-top:15px}
+@media(max-width:760px){.form-panel{padding:14px}.form-selector{flex-wrap:nowrap;overflow:auto;padding-bottom:7px}.form-button{flex:none}.evo-entry{min-width:0}.evo-step{width:100%}.evo-branch{margin-left:5px;padding-left:10px}.history-block{padding:12px}}

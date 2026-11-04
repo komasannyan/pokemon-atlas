@@ -6,6 +6,9 @@ import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from '
 import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './effects-ru.js';
 import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
 import {setupCollection,refreshCollection} from './collection-ui.js';
+import {formSnapshot,formArtwork,varietyLabel} from './pokedex-extended.js';
+import {formSelector,evolutionPage,historyPage} from './pokedex-extended-ui.js';
+import {fetchEvolutionChain} from './api.js';
 import {fetchAbilityDex} from './abilities.js';
 import {CORE_GAMES, recordedInVersion, recordedVersions} from './game-availability.js';
 import {translatedRussian,cachedRussian,cleanSource,translationWarning} from './translate-ru.js';
@@ -20,6 +23,7 @@ const state={
   view:'catalog',search:'',generation:'all',types:[],sort:'number',shown:30,
   abilities:[],abilityError:false,abilityLoading:null,abilitySearch:'',abilityGeneration:'all',abilityShown:40,moveSort:'number',heroId:null,
   moveSearch:'',moveType:'all',moveClass:'all',moveGeneration:'all',moveShown:40,
+  speciesExtra:null,formData:null,formSlug:'',formBusy:false,formError:false,evoData:null,evoError:false,detailRequest:0,
   detail:null,detailTab:'overview',shiny:false,style:'art',moveGame:'scarlet-violet',method:'all',encounterGame:'',lastFocus:null,
   statusKey:'demoCollection',alertKey:'loadingDex'
 };
@@ -188,26 +192,73 @@ function chooseHero(records){
   if(genus)$('#hero-genus').textContent='THE '+genus.toUpperCase();
  }).catch(()=>{});
 }
+function activeDetailPokemon(){
+ if(!state.detail)return null;
+ const snapshot=formSnapshot(state.formData);
+ return snapshot?{...state.detail,...snapshot}:state.detail;
+}
+function activeFormName(p){return state.formData?.name?varietyLabel(state.formData.name,state.detail?.name||p.name):p.name;}
+function activeFormArt(p,shiny=state.shiny,style=state.style){return formArtwork(state.formData,shiny,style,artUrl(p.id,shiny,style));}
+function extraCurrent(id,ticket){return state.detail?.id===id&&state.detailRequest===ticket;}
+async function loadExtendedDetail(p,ticket){
+ try{
+  const species=await fetchSpecies(p.id);
+  if(!extraCurrent(p.id,ticket))return;
+  state.speciesExtra=species;
+  const initial=(species.varieties||[]).find(v=>v.is_default)?.pokemon?.name || (species.varieties||[])[0]?.pokemon?.name || p.pokemonId || p.id;
+  state.formSlug=String(initial);
+  renderDetail();
+  const evoId=Number(species.evolution_chain?.url?.match(/\/(\d+)\/?$/)?.[1]||0);
+  if(evoId)fetchEvolutionChain(evoId).then(data=>{
+   if(!extraCurrent(p.id,ticket))return;
+   state.evoData=data;
+   if(state.detailTab==='evolution')renderTab();
+  }).catch(err=>{console.warn('Evolution data failed',err);if(extraCurrent(p.id,ticket)){state.evoError=true;if(state.detailTab==='evolution')renderTab();}});
+  const form=await fetchPokemon(initial);
+  if(!extraCurrent(p.id,ticket)||state.formSlug!==String(initial))return;
+  state.formData=form;
+  renderDetail();
+ }catch(err){
+  console.warn('Form data failed',err);
+  if(extraCurrent(p.id,ticket)){state.formError=true;state.speciesExtra ||= {varieties:[]};renderDetail();}
+ }
+}
+async function selectDetailForm(slug){
+ if(!state.detail||state.formBusy||slug===state.formSlug)return;
+ const id=state.detail.id,ticket=state.detailRequest,previous=state.formSlug;
+ if(!state.speciesExtra?.varieties?.some(v=>v.pokemon?.name===slug))return;
+ state.formSlug=slug;state.formBusy=true;state.formError=false;renderDetail();
+ try{
+  const form=await fetchPokemon(slug);
+  if(!extraCurrent(id,ticket)||state.formSlug!==slug)return;
+  state.formData=form;
+ }catch(err){
+  console.warn('Failed to fetch form',slug,err);
+  if(extraCurrent(id,ticket)){state.formSlug=previous;state.formError=true;}
+ }finally{if(extraCurrent(id,ticket)){state.formBusy=false;renderDetail();}}
+}
 function detailTop(p){
   const extra=p.legendary?t('legendary'):p.mythical?t('mythical'):'';
-  return `<div class="detail-top"><div class="detail-visual" style="--type-glow:${typeColors[p.types[0]]||'#8a95a5'}66"><div class="detail-toolbar"><button type="button" class="detail-icon-btn ${state.shiny?'active':''}" data-shiny="true">✦ ${t('shiny')} ${state.shiny?'ON':'OFF'}</button><button type="button" class="detail-icon-btn" id="detail-fav" data-favorite="${p.id}">${favorites.has(p.id)?`♥ ${t('inFav')}`:`♡ ${t('toFav')}`}</button></div><img class="detail-art" src="${artUrl(p.id,state.shiny,state.style)}" alt="${esc(p.name)}" onerror="this.style.opacity='.15'"></div>
-  <div class="detail-head"><div class="detail-no">${numberLabel(p.id)} · GENERATION ${p.gen}</div><h2 id="detail-title">${esc(p.name)}</h2>${!isEnglish()?`<div class="detail-ru">${esc(p.ru||'')}</div>`:''}<div class="detail-tags">${p.types.map(typetag).join('')}</div>${extra?`<div class="detail-special">✦ ${esc(extra)}</div>`:''}
+  return `<div class="detail-top"><div class="detail-visual" style="--type-glow:${typeColors[p.types[0]]||'#8a95a5'}66"><div class="detail-toolbar"><button type="button" class="detail-icon-btn ${state.shiny?'active':''}" data-shiny="true">✦ ${t('shiny')} ${state.shiny?'ON':'OFF'}</button><button type="button" class="detail-icon-btn" id="detail-fav" data-favorite="${p.id}">${favorites.has(p.id)?`♥ ${t('inFav')}`:`♡ ${t('toFav')}`}</button></div><img class="detail-art" src="${esc(activeFormArt(p))}" alt="${esc(activeFormName(p))}" onerror="this.style.opacity='.15'"></div>
+  <div class="detail-head"><div class="detail-no">${numberLabel(p.id)} · GENERATION ${p.gen}</div><h2 id="detail-title">${esc(activeFormName(p))}</h2>${!isEnglish()?`<div class="detail-ru">${esc(p.ru||'')}</div>`:''}<div class="detail-tags">${p.types.map(typetag).join('')}</div>${extra?`<div class="detail-special">✦ ${esc(extra)}</div>`:''}
   <div class="detail-meta"><div class="meta-cell"><small>${esc(t('gen'))}</small><b>${esc(regionLabel(p.gen))}</b></div><div class="meta-cell"><small>${esc(t('totalStats'))}</small><b>${p.bst||'—'} BST</b></div><div class="meta-cell"><small>${esc(t('height'))}</small><b>${p.height!=null?p.height+' m':'—'}</b></div><div class="meta-cell"><small>${esc(t('weight'))}</small><b>${p.weight!=null?p.weight+' kg':'—'}</b></div></div></div><button type="button" class="detail-close" data-close="true" aria-label="${esc(t('close'))}">×</button></div>
-  <div class="detail-tabs"><button type="button" class="detail-tab ${state.detailTab==='overview'?'active':''}" data-tab="overview">${t('tabOverview')}</button><button type="button" class="detail-tab ${state.detailTab==='moves'?'active':''}" data-tab="moves">${t('tabMoves')}</button><button type="button" class="detail-tab ${state.detailTab==='locations'?'active':''}" data-tab="locations">${t('tabLocations')}</button><button type="button" class="detail-tab ${state.detailTab==='gallery'?'active':''}" data-tab="gallery">${t('tabGallery')}</button></div>
+  ${formSelector(state.speciesExtra,state.detail?.name||p.name,state.formSlug,state.formBusy,isEnglish(),state.formError)}
+  <div class="detail-tabs"><button type="button" class="detail-tab ${state.detailTab==='overview'?'active':''}" data-tab="overview">${t('tabOverview')}</button><button type="button" class="detail-tab ${state.detailTab==='moves'?'active':''}" data-tab="moves">${t('tabMoves')}</button><button type="button" class="detail-tab ${state.detailTab==='locations'?'active':''}" data-tab="locations">${t('tabLocations')}</button><button type="button" class="detail-tab ${state.detailTab==='gallery'?'active':''}" data-tab="gallery">${t('tabGallery')}</button><button type="button" class="detail-tab ${state.detailTab==='evolution'?'active':''}" data-tab="evolution">${isEnglish()?'Evolution':'Эволюции'}</button><button type="button" class="detail-tab ${state.detailTab==='history'?'active':''}" data-tab="history">${isEnglish()?'History':'История'}</button></div>
   <div class="detail-body" id="detail-body"></div>`;
 }
 function openDetail(id,updateUrl=true){
   const p=state.dex.find(x=>x.id===id);if(!p)return;
   state.detail=p;state.detailTab='overview';state.shiny=false;state.style='art';state.moveGame='scarlet-violet';state.method='all';state.encounterGame='';
-  state.lastFocus=document.activeElement;$('#detail-overlay').hidden=false;document.body.style.overflow='hidden';renderDetail();$('.detail-dialog').focus();
+  state.speciesExtra=null;state.formData=null;state.formSlug='';state.formBusy=false;state.formError=false;state.evoData=null;state.evoError=false;const ticket=++state.detailRequest;
+  state.lastFocus=document.activeElement;$('#detail-overlay').hidden=false;document.body.style.overflow='hidden';renderDetail();$('.detail-dialog').focus();loadExtendedDetail(p,ticket);
   if(updateUrl){const url=new URL(location.href);url.searchParams.set('pokemon',id);history.pushState({},'',url);}
 }
 function closeDetail(updateUrl=true){
-  if(!state.detail)return;state.detail=null;$('#detail-overlay').hidden=true;document.body.style.overflow='';
+  if(!state.detail)return;state.detail=null;state.detailRequest++;$('#detail-overlay').hidden=true;document.body.style.overflow='';
   if(updateUrl){const url=new URL(location.href);url.searchParams.delete('pokemon');history.replaceState({},'',url);}
   state.lastFocus?.focus?.();
 }
-function renderDetail(){if(state.detail){$('#detail-content').innerHTML=detailTop(state.detail);renderTab();}}
+function renderDetail(){if(state.detail){$('#detail-content').innerHTML=detailTop(activeDetailPokemon());renderTab();}}
 function evolutionHTML(p){
   const family=state.dex.filter(x=>p.chainId!=null&&x.chainId===p.chainId).sort((a,b)=>a.id-b.id);
   if(!family.length)return `<p class="helper-note">${esc(t('evoMissing'))}</p>`;
@@ -217,7 +268,7 @@ function renderOverview(p){
   const stats=p.stats.length===6?p.stats.map((v,i)=>`<div class="stat-row"><span>${STAT_NAMES[i]}</span><b>${v}</b><div class="stat-track" role="progressbar" aria-label="${STAT_NAMES[i]}" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="255"><div class="stat-fill" style="width:${Math.max(1,Math.min(100,100*v/255))}%"></div></div></div>`).join(''):`<p class="helper-note">${esc(t('noData'))}</p>`;
   const abilities=(p.abilities||[]).map(a=>{const ru=!isEnglish()?fullRuAbilityInfo(abSlug(a.name)).text:'';return `<details class="ability-entry" data-ability="${esc(abSlug(a.name))}"><summary><span>${esc(a.name)}</span><small>${esc(t(a.hidden?'hiddenAbilitySlot':a.slot===2?'secondAbility':'firstAbility'))}</small><span class="expand-chevron">⌄</span></summary><div class="ability-effect">${ru?`<h4>${esc(t('effect'))}</h4><p>${esc(ru)}</p>`:esc(t('russianPending'))}</div></details>`;}).join('');
   $('#detail-body').innerHTML=`<div class="pokedex-description"><div class="pokedex-heading"><span>◈</span><h3>${esc(t('pokedexText'))}</h3></div><p id="pokedex-entry" data-species-id="${p.id}">${esc(t('pokedexLoading'))}</p><div class="pokedex-source" id="pokedex-source"></div></div>
-  <div class="two-column"><div><h3>${esc(t('stats'))}</h3>${stats}<div class="stat-sum">${esc(t('statsTotal'))} <b>${p.bst||'—'}</b></div></div><div><h3>${esc(t('abilities'))}</h3><div class="ability-list">${abilities||`<span class="helper-note">${esc(t('noData'))}</span>`}</div><h3 style="margin-top:29px">${esc(t('evolution'))}</h3>${evolutionHTML(p)}<p class="helper-note">${esc(t('formNote'))}</p></div></div>`;
+  <div class="two-column"><div><h3>${esc(t('stats'))}</h3>${stats}<div class="stat-sum">${esc(t('statsTotal'))} <b>${p.bst||'—'}</b></div></div><div><h3>${esc(t('abilities'))}</h3><div class="ability-list">${abilities||`<span class="helper-note">${esc(t('noData'))}</span>`}</div><h3 style="margin-top:29px">${esc(t('evolution'))}</h3>${evolutionHTML(p)}<p class="helper-note">${esc(t('formNote'))}</p><button type="button" class="evo-link" data-tab="evolution">${isEnglish()?'See all evolution requirements':'Все способы эволюции →'}</button></div></div>`;
   loadPokedexDescription(p.id);
 }
 function pokedexRuFallback(id){
@@ -246,10 +297,12 @@ async function loadPokedexDescription(id){
 function renderTab(){
   if(!state.detail)return;
   document.querySelectorAll('.detail-tab').forEach(el=>el.classList.toggle('active',el.dataset.tab===state.detailTab));
-  if(state.detailTab==='overview')renderOverview(state.detail);
-  else if(state.detailTab==='moves')renderLearnset(state.detail);
-  else if(state.detailTab==='locations')renderLocations(state.detail);
-  else if(state.detailTab==='gallery')renderGallery(state.detail);
+  const effective=activeDetailPokemon();if(state.detailTab==='overview')renderOverview(effective);
+  else if(state.detailTab==='moves')renderLearnset(effective);
+  else if(state.detailTab==='locations')renderLocations(effective);
+  else if(state.detailTab==='gallery')renderGallery(effective);
+   else if(state.detailTab==='evolution')$('#detail-body').innerHTML=state.evoError?'<p class="error-detail">'+(isEnglish()?'Evolution data are unavailable.':'Не удалось загрузить цепочку эволюции.')+'</p>':evolutionPage(state.evoData,state.detail.id,isEnglish());
+   else if(state.detailTab==='history')$('#detail-body').innerHTML=historyPage(state.formData,state.detail.name,isEnglish());
 }
 const currentDetailIs=(id,tab)=>state.detail?.id===id&&state.detailTab===tab;
 async function renderLearnset(p){
@@ -293,7 +346,7 @@ async function renderLocations(p){
 }
 function renderGallery(p){
   const variants=[['art',false,'art'],['artShiny',true,'art'],['HOME',false,'home'],['homeShiny',true,'home'],['pixel',false,'pixel'],['pixelShiny',true,'pixel']];
-  $('#detail-body').innerHTML=`<h3>${esc(t('galleryTitle'))}</h3><p class="helper-note">${esc(t('galleryNote'))}</p><div class="gallery-grid">${variants.map(([key,shiny,style])=>`<div class="gallery-cell"><img loading="lazy" src="${artUrl(p.id,shiny,style)}" alt="${esc(p.name)} — ${esc(t(key))}" onerror="this.style.opacity='.12'"><strong>${esc(t(key))}</strong><small>PokéAPI Sprites</small></div>`).join('')}</div>`;
+  $('#detail-body').innerHTML=`<h3>${esc(t('galleryTitle'))}</h3><p class="helper-note">${esc(t('galleryNote'))}</p><div class="gallery-grid">${variants.map(([key,shiny,style])=>`<div class="gallery-cell"><img loading="lazy" src="${esc(activeFormArt(p,shiny,style))}" alt="${esc(activeFormName(p))} — ${esc(t(key))}" onerror="this.style.opacity='.12'"><strong>${esc(t(key))}</strong><small>PokéAPI Sprites</small></div>`).join('')}</div>`;
 }
 // Native HTML details preserve keyboard support and close on a second click.
 async function openEffect(details){
@@ -366,14 +419,15 @@ $('#detail-overlay').addEventListener('click',e=>{
   if(e.target.closest('[data-close]')){closeDetail();return;}
   const fav=e.target.closest('[data-favorite]');if(fav){toggleFavorite(+fav.dataset.favorite);return;}
   if(e.target.closest('[data-shiny]')){state.shiny=!state.shiny;renderDetail();return;}
+   const form=e.target.closest('[data-form-slug]');if(form){selectDetailForm(form.dataset.formSlug);return;}
   const tab=e.target.closest('[data-tab]');if(tab){state.detailTab=tab.dataset.tab;renderTab();return;}
-  const game=e.target.closest('[data-game]');if(game){state.encounterGame=game.dataset.game;renderLocations(state.detail);return;}
+  const game=e.target.closest('[data-game]');if(game){state.encounterGame=game.dataset.game;renderLocations(activeDetailPokemon());return;}
   const pok=e.target.closest('[data-open]');if(pok){const id=+pok.dataset.open;const url=new URL(location.href);url.searchParams.set('pokemon',id);history.replaceState({},'',url);openDetail(id,false);}
 });
 $('#detail-overlay').addEventListener('change',e=>{
-  if(e.target.id==='move-game'){state.moveGame=e.target.value;renderLearnset(state.detail);}
-  if(e.target.id==='move-method'){state.method=e.target.value;renderLearnset(state.detail);}
-  if(e.target.id==='encounter-game'){state.encounterGame=e.target.value;renderLocations(state.detail);}
+  if(e.target.id==='move-game'){state.moveGame=e.target.value;renderLearnset(activeDetailPokemon());}
+  if(e.target.id==='move-method'){state.method=e.target.value;renderLearnset(activeDetailPokemon());}
+  if(e.target.id==='encounter-game'){state.encounterGame=e.target.value;renderLocations(activeDetailPokemon());}
 });
 document.addEventListener('toggle',e=>{if(e.target.matches('details[data-ability], details[data-move]')&&e.target.open)openEffect(e.target);},true);
 document.addEventListener('keydown',e=>{
@@ -400,4 +454,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=071').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=080').catch(console.warn));}
