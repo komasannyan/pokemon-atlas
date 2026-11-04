@@ -1,3 +1,4 @@
+import {EXTRA_RU_ABILITIES} from './abilities-ru-expanded.js';
 // Hand-reviewed Russian effect summaries. Intentionally do not machine-translate unknown game mechanics.
 // In the bilingual mode an unsupported effect keeps its original English source with a visible notice.
 const MOVE = {
@@ -209,8 +210,8 @@ const ABILITY={
  'good-as-gold':'Даёт иммунитет к большинству направленных статусных атак других покемонов.'
 };
 export const ruMoveEffect=(slug)=>MOVE[String(slug||'').toLowerCase()]||'';
-export const ruAbilityEffect=(slug)=>ABILITY[String(slug||'').toLowerCase()]||'';
-export const effectCoverage=()=>({moves:Object.keys(MOVE).length,abilities:Object.keys(ABILITY).length});
+export const ruAbilityEffect=(slug)=>EXTRA_RU_ABILITIES[String(slug||'').toLowerCase()]||ABILITY[String(slug||'').toLowerCase()]||'';
+export const effectCoverage=()=>({moves:Object.keys(MOVE).length,abilities:new Set([...Object.keys(EXTRA_RU_ABILITIES),...Object.keys(ABILITY)]).size});
 
 // Conservative reusable translations for common API prose. No broad machine translation.
 export function genericRuEffect(prose, chance){
@@ -266,5 +267,5 @@ export function fullRuAbilityInfo(slug,source=''){
  if((m=en.match(/(?:This Pokémon|The Pokémon|The user) (?:is |becomes )?immune to (.+?)\.?$/i)))simple.push(`Дает иммунитет к ${m[1].replace(/-type moves?/gi,'-атакам')}.`);
  if(/^(?:Prevents|Protects against) (?:the )?pokemon from (?:being )?(?:poisoned|burned|paralyzed|asleep)/i.test(en))simple.push('Предотвращает получение некоторых негативных состояний.');
  if((m=en.match(/(?:Doubles|Boosts) (?:the )?(?:Pokémon's |user's )?(Attack|Defense|Special Attack|Special Defense|Speed) (?:in|during|under) (rain|sunlight|sandstorm|snow)/i)))simple.push(`Усиливает ${m[1]} во время погоды: ${m[2]}.`);
- return simple.length?{text:simple.join(' '),verified:false}:{text:'Уникальная способность покемона. Точный перевод её действия пока не подтверждён; можно раскрыть оригинальное описание на английском.',verified:false};
+ return simple.length?{text:simple.join(' '),verified:false}:{text:'',verified:false};
 }

@@ -329,7 +329,7 @@ async function openEffect(details){
    }
   }
   details.dataset.loaded='yes';
- }catch(err){console.warn('Effect failed',err);if(target?.isConnected)target.innerHTML=`<p>${esc(t('errorEffect'))}</p>`;}
+ }catch(err){console.warn('Effect failed',err);if(target?.isConnected){const fallback=ability&&!isEnglish()?fullRuAbilityInfo(ability):null;target.innerHTML=fallback?.verified?`<h4>${esc(t('effect'))}</h4><p>${esc(fallback.text)}</p>`:`<p>${esc(t('errorEffect'))}</p>`;}}
  finally{delete details.dataset.loading;}
 }
 function applyLanguage(){
@@ -396,4 +396,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=06').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=061').catch(console.warn));}

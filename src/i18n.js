@@ -1,7 +1,7 @@
 import {TYPE_VALUES, GENERATIONS, MOVE_METHODS} from './constants.js';
 
 const ru = {
-  navExplore:'ИССЛЕДОВАНИЕ',navDex:'Покедекс',navMoves:'База атак',navAbilities:'База способностей',navFav:'Избранное',navRoadmap:'Планы развития',navSoon:'СКОРО В ATLAS',navBuilder:'Конструктор команд',navGuides:'Гайды по играм',navNoteTitle:'Версия 0.6',navNoteBody:'Покедекс, база атак и конструктор команд (бета).',navDisclaimer:'Фанатский проект · Не связан с Nintendo',
+  navExplore:'ИССЛЕДОВАНИЕ',navDex:'Покедекс',navMoves:'База атак',navAbilities:'База способностей',navFav:'Избранное',navRoadmap:'Планы развития',navSoon:'СКОРО В ATLAS',navBuilder:'Конструктор команд',navGuides:'Гайды по играм',navNoteTitle:'Версия 0.6.1',navNoteBody:'Покедекс, база атак и конструктор команд (бета).',navDisclaimer:'Фанатский проект · Не связан с Nintendo',
   library:'БИБЛИОТЕКА',crumbDex:'НАЦИОНАЛЬНЫЙ ПОКЕДЕКС',crumbMoves:'СПРАВОЧНИК АТАК',crumbAbilities:'СПРАВОЧНИК СПОСОБНОСТЕЙ',crumbBuilder:'КОНСТРУКТОР КОМАНД',crumbFav:'ИЗБРАННЫЕ ПОКЕМОНЫ',crumbRoadmap:'ПЛАНЫ РАЗВИТИЯ',install:'Установить',
   heroEyebrow:'ТВОЯ ПОКÉМОН-ЭНЦИКЛОПЕДИЯ',heroTitle:'Весь мир Pokémon.',heroAccent:'В одном месте.',heroCopy:'От первых приключений в Канто до загадок Палдеи. Изучай, сравнивай и находи своих любимых покемонов.',heroPokemon:'ПОКЕМОНОВ',heroGens:'ПОКОЛЕНИЙ',heroTypes:'ТИПОВ',
   dexKicker:'EXPLORE THE DEX',dexTitle:'Национальный Покедекс',dexSubtitle:'Все поколения Pokémon в одной коллекции',favTitle:'Избранные покемоны',favSubtitle:'Твоя сохранённая коллекция',found:'найдено',
@@ -22,7 +22,7 @@ const ru = {
   methodLevel:'Уровень',methodMachine:'TM / HM',methodEgg:'Яйцо',methodTutor:'Наставник',methodForm:'Смена формы'
 };
 const en = {
-  navExplore:'EXPLORE',navDex:'Pokédex',navMoves:'Move Database',navAbilities:'Ability Database',navFav:'Favorites',navRoadmap:'Roadmap',navSoon:'COMING SOON',navBuilder:'Team Builder',navGuides:'Game Guides',navNoteTitle:'Version 0.6',navNoteBody:'Pokédex, moves and a beta team builder.',navDisclaimer:'Unofficial fan project · Not affiliated with Nintendo',
+  navExplore:'EXPLORE',navDex:'Pokédex',navMoves:'Move Database',navAbilities:'Ability Database',navFav:'Favorites',navRoadmap:'Roadmap',navSoon:'COMING SOON',navBuilder:'Team Builder',navGuides:'Game Guides',navNoteTitle:'Version 0.6.1',navNoteBody:'Pokédex, moves and a beta team builder.',navDisclaimer:'Unofficial fan project · Not affiliated with Nintendo',
   library:'LIBRARY',crumbDex:'NATIONAL POKÉDEX',crumbMoves:'MOVE DATABASE',crumbAbilities:'ABILITY DATABASE',crumbBuilder:'TEAM BUILDER',crumbFav:'FAVORITE POKÉMON',crumbRoadmap:'ROADMAP',install:'Install',
   heroEyebrow:'YOUR POKÉMON ENCYCLOPEDIA',heroTitle:'The world of Pokémon.',heroAccent:'All in one place.',heroCopy:'From the first adventures in Kanto to the mysteries of Paldea. Explore, compare and discover your favorite Pokémon.',heroPokemon:'POKÉMON',heroGens:'GENERATIONS',heroTypes:'TYPES',
   dexKicker:'EXPLORE THE DEX',dexTitle:'National Pokédex',dexSubtitle:'Every Pokémon generation in one collection',favTitle:'Favorite Pokémon',favSubtitle:'Your saved collection',found:'found',

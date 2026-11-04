@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {EXTRA_RU_ABILITIES} from '../src/abilities-ru-expanded.js';
+import {fullRuAbilityInfo,effectCoverage} from '../src/effects-ru.js';
+
+const keys=Object.keys(EXTRA_RU_ABILITIES);
+assert.equal(keys.length,314,'all 314 current main-series abilities must have a Russian description');
+assert.equal(effectCoverage().abilities,314);
+for(const id of keys){
+ const info=fullRuAbilityInfo(id);
+ assert.equal(info.verified,true,id);
+ assert.match(info.text,/[А-Яа-яЁё]/,id);
+ assert(!/Точный перевод|Описание пока|Уникальная способность покемона/.test(info.text),id);
+}
+const test=(key,rx)=>assert.match(fullRuAbilityInfo(key).text,rx);
+test('overgrow',/1\/3.*Grass.*50%/);
+test('static',/30%.*паралич/);
+test('lightning-rod',/Electric.*Sp\. Atk/);
+test('chlorophyll',/Speed/);
+test('piercing-drill',/25%/);
+test('aura-guard',/вдвое/);
+const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+assert(html.includes('app.js?v=061'));
+assert(worker.includes('abilities-ru-expanded.js'));
+assert(worker.includes('atlas-shell-v061'));
+console.log('Russian ability localization: 314/314; no placeholders; PWA assets versioned.');
