@@ -176,7 +176,7 @@ function chooseHero(records){
  let last=0;try{last=+localStorage.getItem('atlas-last-hero-id')||0;}catch{}
  const pool=available.filter(p=>p.id!==last);const pokemon=pool[Math.floor(Math.random()*pool.length)]||available[0];
  state.heroId=pokemon.id;try{localStorage.setItem('atlas-last-hero-id',pokemon.id);}catch{}
- const img=$('#hero-pokemon');img.style.display='';img.src=artUrl(pokemon.id);img.alt=pokemon.name;
+ const img=$('#hero-pokemon');img.style.visibility='hidden';img.style.display='';img.onload=()=>{if(state.heroId===pokemon.id)img.style.visibility='visible';};img.onerror=()=>{if(state.heroId===pokemon.id)img.style.visibility='hidden';};img.alt=pokemon.name;img.src=artUrl(pokemon.id);
  $('#hero-number').textContent=numberLabel(pokemon.id);$('#hero-name').textContent=pokemon.name.toUpperCase();
  $('#hero-genus').textContent='THE POKÉMON';
  fetchSpecies(pokemon.id).then(data=>{
@@ -383,17 +383,17 @@ window.addEventListener('appinstalled',()=>{$('#install-btn').hidden=true;showTo
 
 // Initial UI is usable even if remote APIs are temporarily unavailable.
 applyLanguage();
-chooseHero(state.dex);
+if(state.full)chooseHero(state.dex);
 updateFavoriteCount();
 if(state.full){state.statusKey='catalogCache';state.alertKey=null;}
 displayStatus();
 fetchNationalDex().then(records=>{
-  state.dex=records;state.full=true;window.dispatchEvent(new CustomEvent('atlas:dex-ready'));saveDex(records);if(!dexCache)chooseHero(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
+  state.dex=records;state.full=true;window.dispatchEvent(new CustomEvent('atlas:dex-ready'));saveDex(records);if(!state.heroId)chooseHero(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
   const id=+new URL(location.href).searchParams.get('pokemon');if(id&&!state.detail)openDetail(id,false);
 }).catch(err=>{
   console.warn('Could not update the National Dex:',err);
-  state.statusKey=state.full?'catalogCache':'demoMode';state.alertKey=state.full?null:'failedDex';displayStatus();
+  state.statusKey=state.full?'catalogCache':'demoMode';state.alertKey=state.full?null:'failedDex';displayStatus();if(!state.heroId)chooseHero(state.dex);
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=061').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=062').catch(console.warn));}
