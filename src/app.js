@@ -3,6 +3,8 @@ import {loadCachedDex, fetchNationalDex, saveDex, getDemo} from './data.js';
 import {fetchPokemon, fetchEncounters, fetchSpecies, fetchMove, fetchAbility} from './api.js';
 import {t, isEnglish, getLanguage, setLanguage, translateStatic, typeLabel, regionLabel, methodLabel, damageLabel} from './i18n.js';
 import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from './moves.js';
+import {ruMoveEffect, ruAbilityEffect, genericRuEffect} from './effects-ru.js';
+import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
 
 const $=selector=>document.querySelector(selector);
 const esc=text=>String(text??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -79,9 +81,10 @@ function navigation(viewName,scroll=true){
   $('#catalog-view').hidden=!['catalog','favorites'].includes(viewName);
   $('#moves-view').hidden=viewName!=='moves';
   $('#roadmap-view').hidden=viewName!=='roadmap';
+  $('#builder-view').hidden=viewName!=='builder';
   $('#hero').hidden=viewName!=='catalog';
   document.querySelectorAll('.nav-link').forEach(el=>el.classList.toggle('active',el.dataset.view===viewName));
-  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
+  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='builder'?'crumbBuilder':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
   $('#breadcrumb-page').textContent=t(crumb);
   $('#list-title').textContent=t(viewName==='favorites'?'favTitle':'dexTitle');
   $('#list-subtitle').textContent=t(viewName==='favorites'?'favSubtitle':'dexSubtitle');
@@ -108,8 +111,11 @@ function moveStats(m){
   return `<div class="move-card-stats"><span><small>${esc(t('power'))}</small><b>${esc(power)}</b></span><span><small>${esc(t('accuracy'))}</small><b>${esc(accuracy)}</b></span><span><small>PP</small><b>${esc(pp)}</b></span></div>`;
 }
 function moveDetailsHTML(m,extra=''){
-  const short=m.effect?describeEffect(m.effect,m.effectChance):'';
-  return `<details class="move-entry" data-move="${esc(m.slug)}" data-move-id="${m.id||''}"><summary><div class="move-list-identity"><span class="move-id">${m.id?'#'+String(m.id).padStart(3,'0'):''}</span><span class="move-main-name"><strong>${moveName(m)}</strong>${moveRu(m)}</span></div><div class="move-list-tags">${typetag(m.type)}<span class="class-badge class-${esc(m.category)}">${esc(damageLabel(m.category))}</span></div>${moveStats(m)}<span class="expand-chevron" aria-hidden="true">⌄</span></summary><div class="move-expanded"><div class="move-effect-text">${short?`<h4>${esc(t('effect'))}</h4><p>${esc(short)}</p>`:`<p>${esc(t('loadingEffect'))}</p>`}</div>${extra?`<div class="move-extra">${extra}</div>`:''}</div></details>`;
+  const original=m.effect?describeEffect(m.effect,m.effectChance):'';
+  const ru=!isEnglish()?(ruMoveEffect(m.slug)||genericRuEffect(original,m.effectChance)):'';
+  const short=ru||original;
+  const untranslated=!isEnglish()&&!ru&&!!original;
+  return `<details class="move-entry" data-move="${esc(m.slug)}" data-move-id="${m.id||''}"><summary><div class="move-list-identity"><span class="move-id">${m.id?'#'+String(m.id).padStart(3,'0'):''}</span><span class="move-main-name"><strong>${moveName(m)}</strong>${moveRu(m)}</span></div><div class="move-list-tags">${typetag(m.type)}<span class="class-badge class-${esc(m.category)}">${esc(damageLabel(m.category))}</span></div>${moveStats(m)}<span class="expand-chevron" aria-hidden="true">⌄</span></summary><div class="move-expanded"><div class="move-effect-text">${short?`<h4>${esc(t('effect'))}</h4><p>${esc(short)}</p>${untranslated?`<small class="foreign-note">${esc(t('englishEffect'))}</small>`:''}`:`<p>${esc(t('loadingEffect'))}</p>`}</div>${extra?`<div class="move-extra">${extra}</div>`:''}</div></details>`;
 }
 async function ensureMoves(){
   if(state.moves.length)return Promise.resolve(state.moves);
@@ -158,7 +164,7 @@ function evolutionHTML(p){
 }
 function renderOverview(p){
   const stats=p.stats.length===6?p.stats.map((v,i)=>`<div class="stat-row"><span>${STAT_NAMES[i]}</span><b>${v}</b><div class="stat-track" role="progressbar" aria-label="${STAT_NAMES[i]}" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="255"><div class="stat-fill" style="width:${Math.max(1,Math.min(100,100*v/255))}%"></div></div></div>`).join(''):`<p class="helper-note">${esc(t('noData'))}</p>`;
-  const abilities=(p.abilities||[]).map(a=>`<details class="ability-entry" data-ability="${esc(abSlug(a.name))}"><summary><span>${esc(a.name)}</span>${a.hidden?`<small>${esc(t('hiddenAbility'))}</small>`:''}<span class="expand-chevron">⌄</span></summary><div class="ability-effect">${esc(t('loadingEffect'))}</div></details>`).join('');
+  const abilities=(p.abilities||[]).map(a=>{const ru=!isEnglish()?ruAbilityEffect(abSlug(a.name)):'';return `<details class="ability-entry" data-ability="${esc(abSlug(a.name))}"><summary><span>${esc(a.name)}</span>${a.hidden?`<small>${esc(t('hiddenAbility'))}</small>`:''}<span class="expand-chevron">⌄</span></summary><div class="ability-effect">${ru?`<h4>${esc(t('effect'))}</h4><p>${esc(ru)}</p>`:esc(t('loadingEffect'))}</div></details>`;}).join('');
   $('#detail-body').innerHTML=`<div class="pokedex-description"><div class="pokedex-heading"><span>◈</span><h3>${esc(t('pokedexText'))}</h3></div><p id="pokedex-entry" data-species-id="${p.id}">${esc(t('pokedexLoading'))}</p><div class="pokedex-source" id="pokedex-source"></div></div>
   <div class="two-column"><div><h3>${esc(t('stats'))}</h3>${stats}<div class="stat-sum">${esc(t('statsTotal'))} <b>${p.bst||'—'}</b></div></div><div><h3>${esc(t('abilities'))}</h3><div class="ability-list">${abilities||`<span class="helper-note">${esc(t('noData'))}</span>`}</div><h3 style="margin-top:29px">${esc(t('evolution'))}</h3>${evolutionHTML(p)}<p class="helper-note">${esc(t('formNote'))}</p></div></div>`;
   loadPokedexDescription(p.id);
@@ -234,12 +240,16 @@ async function openEffect(details){
     if(!effect){const desc=(data.flavor_text_entries||[]).filter(x=>x.language?.name==='en');effect=desc.at(-1)?.flavor_text||'';}
     const actual=describeEffect(effect,data.effect_chance);
     if(!target.isConnected)return;
+    const slug=ability?ability:(data.name||details.dataset.move);
+    const russian=!isEnglish()?(ability?ruAbilityEffect(slug):(ruMoveEffect(slug)||genericRuEffect(actual,data.effect_chance))):'';
+    const primary=russian||actual||t('noEffect');
     const statChanges=!ability?(data.stat_changes||[]):[];
     const extras=[];
     if(!ability&&data.effect_chance!=null){extras.push(`<span class="effect-meta-chip">${esc(t('secondaryChance'))}: <b>${data.effect_chance}%</b></span>`);}
     if(statChanges.length){extras.push(`<span class="effect-meta-chip">${esc(t('statChanges'))}: ${statChanges.map(c=>`${esc(toTitle(c.stat.name))} ${c.change>0?'+':''}${c.change}`).join(', ')}</span>`);}
     if(!ability&&data.priority){extras.push(`<span class="effect-meta-chip">${esc(t('priority'))}: ${data.priority>0?'+':''}${data.priority}</span>`);}
-    target.innerHTML=`<h4>${esc(t('effect'))}</h4><p>${esc(actual||t('noEffect'))}</p>${extras.length?`<div class="effect-meta">${extras.join('')}</div>`:''}${!isEnglish()&&actual?`<small class="foreign-note">${esc(t('englishEffect'))}</small>`:''}`;
+    const originalSection=russian&&actual?`<details class="original-effect"><summary>Original · EN</summary><p>${esc(actual)}</p></details>`:'';
+    target.innerHTML=`<h4>${esc(t('effect'))}</h4><p>${esc(primary)}</p>${extras.length?`<div class="effect-meta">${extras.join('')}</div>`:''}${originalSection}${!isEnglish()&&!russian&&actual?`<small class="foreign-note">${esc(t('englishEffect'))}</small>`:''}`;
     details.dataset.loaded='yes';
   }catch(err){
     if(!target?.isConnected)return;
@@ -250,10 +260,11 @@ async function openEffect(details){
 function applyLanguage(){
   translateStatic();
   document.querySelectorAll('[data-region]').forEach(opt=>{const n=+opt.dataset.region;opt.textContent=`${['I','II','III','IV','V','VI','VII','VIII','IX'][n-1]} — ${regionLabel(n)}`;});
-  renderTypes();moveFilterOptions();displayStatus();renderCards();renderMoveCards();navigation(state.view,false);
+  renderTypes();moveFilterOptions();displayStatus();renderCards();renderMoveCards();navigation(state.view,false);refreshTeamBuilder();
   if(state.detail)renderDetail();
 }
 // Event handlers
+setupTeamBuilder(()=>state.dex);
 $('#language-switch').addEventListener('change',e=>{setLanguage(e.target.value);applyLanguage();});
 $('#type-filters').addEventListener('click',e=>{const btn=e.target.closest('[data-type]');if(!btn)return;const type=btn.dataset.type;state.types=state.types.includes(type)?state.types.filter(t=>t!==type):[...state.types,type];state.shown=30;renderTypes();renderCards();});
 $('#search').addEventListener('input',e=>{state.search=e.target.value;state.shown=30;renderCards();});

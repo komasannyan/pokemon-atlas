@@ -1,0 +1,43 @@
+import {strict as assert} from 'node:assert';
+import {FORMATS,POKEMON_SETS,availablePool} from '../src/team-data.js';
+import {multiplier,generateSuggestions,showdownExport,championsText,spread} from '../src/team-engine.js';
+import {ruMoveEffect,ruAbilityEffect,effectCoverage} from '../src/effects-ru.js';
+const f=effectCoverage();assert(f.moves>=90&&f.abilities>=45,JSON.stringify(f));
+assert(ruMoveEffect('earthquake').includes('урон'));
+assert(ruMoveEffect('stealth-rock').includes('камни'));
+assert(ruAbilityEffect('sand-stream').includes('песчаную'));
+assert.equal(multiplier('ground',['rock','poison']),4);
+assert.equal(multiplier('ground',['steel','flying']),0);
+assert.equal(multiplier('ground',['electric'],'Levitate'),0);
+assert.equal(availablePool('ou').some(x=>x.id===970),true);
+const pairs=generateSuggestions({format:'ou',seedIds:[970,1000],roles:['lead','setup'],size:6,lang:'ru'});
+assert(pairs.length>0,'OU with two seeds must generate');
+assert(pairs[0].roster.some(x=>x.entry.id===970&&x.set.role==='lead'));
+assert(pairs[0].roster.some(x=>x.entry.id===1000&&x.set.role==='setup'));
+assert.equal(new Set(pairs[0].roster.map(p=>p.entry.id)).size,6);
+const exportText=showdownExport(pairs[0].roster,'ou');
+assert(exportText.includes('Glimmora @ Focus Sash')&&exportText.includes('Gholdengo @ Air Balloon'));
+assert(exportText.includes('EVs: '));
+const sand=generateSuggestions({format:'casual',seedIds:[248,530],roles:['weather','removal'],size:6,lang:'en'});
+assert(sand.length>0&&sand[0].roster[0].entry.id===248&&sand[0].roster[1].entry.id===530);
+const uu=generateSuggestions({format:'uu',seedIds:[],size:6});
+assert(uu.length>0&&uu[0].roster.length===6);
+const doubles=generateSuggestions({format:'doubles',seedIds:[],size:6});
+assert(doubles.length>0&&doubles[0].roster.length===6);
+const natdex=generateSuggestions({format:'natdex',seedIds:[282],roles:['mega'],size:6});
+assert(natdex.length>0&&natdex[0].roster[0].set.item==='Gardevoirite');
+const champs=generateSuggestions({format:'champions',seedIds:[970],roles:['mega'],size:6});
+assert(champs.length>0&&champs[0].roster[0].set.item==='Glimmoranite');
+const set=champs[0].roster;assert.equal(new Set(set.map(x=>x.set.item)).size,set.length);
+assert.equal(set.filter(x=>x.set.item.endsWith('ite')).length,1);
+assert(showdownExport(set,'champions')==='');
+assert(championsText(set).includes('Stat Points: '));
+assert(Object.values(spread('spa',true)).reduce((a,b)=>a+b,0)===66);
+assert(Object.values(spread('spdef',true)).reduce((a,b)=>a+b,0)===66);
+assert(Object.values(spread('spdef',false)).reduce((a,b)=>a+b,0)<=510);
+for(const [format,fmt] of Object.entries(FORMATS)){
+ const generated=generateSuggestions({format,size:6});assert(generated.length,format+' no results');
+ for(const team of generated)for(const {entry,set} of team.roster){assert(set.formats.includes(format),`Cross-format build for ${entry.name} in ${format}`);assert(set.moves.length===4,entry.name);assert(set.item&&set.nature&&set.ability,entry.name);}
+}
+assert.equal(new Set(POKEMON_SETS.map(x=>x.id)).size,POKEMON_SETS.length,'No duplicate dex IDs');
+console.log(`Team builder smoke tests passed: ${POKEMON_SETS.length} species templates; ${f.moves} move translations, ${f.abilities} ability translations.`);

@@ -105,3 +105,20 @@ source_ref(id, url, author, license, verified_at, confidence)
 Появились отдельный список атак и семантические раскрывающиеся карточки (`<details>`), использующие метаданные из CSV и дополнительные подробности из REST API по клику. Общий компонент карточки атаки используется также внутри подробностей покемона. Разделение `i18n.js` и `moves.js` оставляет возможность заменить или дополнить источники данных без переписывания всей навигации.
 
 В следующем этапе нужны: 1) модель изменения атак по поколениям (`past_values`) и гарантированная проверка version group; 2) редактор локализации для переводов эффектов и описаний (с источником и проверкой); 3) индексация форм и эволюционных условий; 4) автоматический браузерный regression test перед публикацией.
+
+---
+
+## Release 0.3 — Team Builder beta and localized effects
+
+**New modules**
+- `src/effects-ru.js`: manually reviewed Russian descriptions for common moves and abilities, plus conservative regex rules for simple API effect prose. Untranslated advanced effects remain visibly labeled in English (do not fabricate a translation).
+- `src/team-data.js`: versioned, format-scoped candidate sets. Each entry includes Pokémon, a role, four moves, item, ability, nature, stat spread, and allowed prototype formats.
+- `src/team-engine.js`: deterministic heuristic team composition. Seeds (0–2), role locking, type matchup chart, immunities, hazard/removal/speed/coverage evaluation, weather, item and Mega duplication safeguards, and Showdown or Champions text export.
+- `src/team-ui.js`: UI state, format/size selector, searchable available pool, role selectors, three generated options, reasons, shared weaknesses and clipboard export.
+- `styles-v03.css`: responsive UI for the team lab; the original layout remains intact.
+
+**Supported prototype formats**: casual Gen 9 singles, Gen 9 OU/UU/Ubers, Gen 9 Doubles OU, Gen 9 National Dex, and Champions Regulation M-C Doubles. A format label identifies a *prototype template pool*, not current legal validation. Champions enforces no duplicate items and at most one active Mega-stone candidate in recommended teams as a conservative restriction. The builder does not yet validate the Pokémon Champions eligible roster, banned items/moves, exact format usage tiers, or move learnability across all forms.
+
+**Stat allocations**: Showdown-style examples use 252/252/4 EV templates with standard natures; for Champions, templates output 66 Stat Points (32/32/2) under the M-C rules. They are not interchangeable. The Champions copy function deliberately outputs a human-readable build rather than masquerading as an importable Showdown team.
+
+**Future work**: automate data-set provenance, add date-aware format snapshots and official legality checks, support alternate forms without base-species artwork ambiguity, replace simple rule-based scoring with calibrated matchup scoring, add coverage vs metagame threats, and allow every Pokémon with fully verified sets.
