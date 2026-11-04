@@ -1,8 +1,8 @@
 // Offline shell + cached data requests. Not a promise of offline access to every image or API result.
-const SHELL='atlas-shell-v1';
-const DATA='atlas-data-v1';
-const IMAGES='atlas-images-v1';
-const ASSETS=['./','./index.html','./styles.css','./manifest.webmanifest','./src/app.js','./src/data.js','./src/demo.js','./src/api.js','./src/constants.js','./icons/icon-192.png','./icons/icon-512.png'];
+const SHELL='atlas-shell-v02';
+const DATA='atlas-data-v02';
+const IMAGES='atlas-images-v02';
+const ASSETS=['./','./index.html','./styles.css','./styles-v02.css','./manifest.webmanifest','./src/app.js','./src/data.js','./src/demo.js','./src/api.js','./src/constants.js','./src/i18n.js','./src/moves.js','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });

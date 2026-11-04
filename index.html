@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0c1426">
-  <meta name="description" content="Pokémon Atlas — интерактивный Pokédex на русском языке: все поколения, типы, характеристики, Shiny и избранное.">
+  <meta name="description" content="Pokémon Atlas — bilingual Pokédex and move encyclopedia with detailed abilities and effects.">
   <link rel="icon" type="image/png" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
-  <title>Pokémon Atlas — национальный Pokédex</title>
+  <link rel="stylesheet" href="./styles-v02.css">
+  <title>Pokémon Atlas — Pokédex & Moves</title>
 </head>
 <body>
   <div class="app-shell">
@@ -18,66 +19,83 @@
         <span class="brand-orb"><span></span></span>
         <span class="brand-text">POKÉMON <strong>ATLAS</strong><small>THE COMPLETE DEX</small></span>
       </a>
-      <div class="sidebar-section-label">ИССЛЕДОВАНИЕ</div>
+      <div class="sidebar-section-label" data-t="navExplore">ИССЛЕДОВАНИЕ</div>
       <nav class="nav">
-        <button type="button" class="nav-link active" data-view="catalog"><span class="nav-glyph">▦</span><span>Покедекс</span><span class="nav-count" id="side-count">1025</span></button>
-        <button type="button" class="nav-link" data-view="favorites"><span class="nav-glyph">♡</span><span>Избранное</span><span class="nav-count" id="fav-count">0</span></button>
-        <button type="button" class="nav-link" data-view="roadmap"><span class="nav-glyph">◇</span><span>Планы развития</span></button>
+        <button type="button" class="nav-link active" data-view="catalog"><span class="nav-glyph">▦</span><span data-t="navDex">Покедекс</span><span class="nav-count" id="side-count">1025</span></button>
+        <button type="button" class="nav-link" data-view="moves"><span class="nav-glyph">⚔</span><span data-t="navMoves">База атак</span></button>
+        <button type="button" class="nav-link" data-view="favorites"><span class="nav-glyph">♡</span><span data-t="navFav">Избранное</span><span class="nav-count" id="fav-count">0</span></button>
+        <button type="button" class="nav-link" data-view="roadmap"><span class="nav-glyph">◇</span><span data-t="navRoadmap">Планы развития</span></button>
       </nav>
-      <div class="sidebar-section-label soon-label">СКОРО В ATLAS</div>
-      <div class="coming-link"><span class="nav-glyph">⚔</span> Конструктор команд <span class="tiny-soon">SOON</span></div>
-      <div class="coming-link"><span class="nav-glyph">◈</span> База атак <span class="tiny-soon">SOON</span></div>
-      <div class="coming-link"><span class="nav-glyph">▤</span> Гайды по играм <span class="tiny-soon">SOON</span></div>
+      <div class="sidebar-section-label soon-label" data-t="navSoon">СКОРО В ATLAS</div>
+      <div class="coming-link"><span class="nav-glyph">◇</span> <span data-t="navBuilder">Конструктор команд</span> <span class="tiny-soon">SOON</span></div>
+      <div class="coming-link"><span class="nav-glyph">▤</span> <span data-t="navGuides">Гайды по играм</span> <span class="tiny-soon">SOON</span></div>
       <div class="sidebar-bottom">
-        <div class="sidebar-note"><span class="note-star">✦</span><strong>Первая версия</strong><p>Исследуй покемонов девяти поколений. Новые функции будут добавляться постепенно.</p></div>
-        <div class="sidebar-foot">Фанатский проект · Не связан с Nintendo</div>
+        <div class="sidebar-note"><span class="note-star">✦</span><strong data-t="navNoteTitle">Версия 0.2</strong><p data-t="navNoteBody">Покедекс и справочник атак. Новые функции добавляются постепенно.</p></div>
+        <div class="sidebar-foot" data-t="navDisclaimer">Фанатский проект · Не связан с Nintendo</div>
       </div>
     </aside>
 
     <main class="main-area">
       <header class="topbar">
         <div class="mobile-brand"><span class="brand-orb small"><span></span></span><b>POKÉMON <em>ATLAS</em></b></div>
-        <div class="breadcrumbs">БИБЛИОТЕКА <span>/</span> <strong id="breadcrumb-page">НАЦИОНАЛЬНЫЙ ПОКЕДЕКС</strong></div>
-        <div class="top-actions"><span class="online-status" id="online-status"><span class="status-dot"></span> Проверка базы</span><button type="button" class="top-icon-button" id="install-btn" title="Установить приложение" hidden>↓ <span>Установить</span></button></div>
+        <div class="breadcrumbs"><span data-t="library">БИБЛИОТЕКА</span> <span>/</span> <strong id="breadcrumb-page">НАЦИОНАЛЬНЫЙ ПОКЕДЕКС</strong></div>
+        <div class="top-actions"><label class="language-picker" aria-label="Language"><select id="language-switch" aria-label="Language"><option value="ru">RU / EN</option><option value="en">EN</option></select></label><span class="online-status" id="online-status"><span class="status-dot"></span> Проверка базы</span><button type="button" class="top-icon-button" id="install-btn" title="Установить приложение" hidden>↓ <span data-t="install">Установить</span></button></div>
       </header>
 
       <div class="content">
         <section class="hero" id="hero">
           <div class="hero-copy">
-            <div class="eyebrow"><span class="eyebrow-mark">✦</span> ТВОЯ ПОКÉМОН-ЭНЦИКЛОПЕДИЯ</div>
-            <h1>Весь мир Pokémon.<br><span>В одном месте.</span></h1>
-            <p>От первых приключений в Канто до загадок Палдеи. Изучай, сравнивай и находи своих любимых покемонов.</p>
-            <div class="hero-stats"><span><b id="hero-total">1 025</b><small>ПОКЕМОНОВ</small></span><i></i><span><b>9</b><small>ПОКОЛЕНИЙ</small></span><i></i><span><b>18</b><small>ТИПОВ</small></span></div>
+            <div class="eyebrow"><span class="eyebrow-mark">✦</span> <span data-t="heroEyebrow">ТВОЯ ПОКÉМОН-ЭНЦИКЛОПЕДИЯ</span></div>
+            <h1><span data-t="heroTitle">Весь мир Pokémon.</span><br><span data-t="heroAccent">В одном месте.</span></h1>
+            <p data-t="heroCopy">От первых приключений в Канто до загадок Палдеи. Изучай, сравнивай и находи своих любимых покемонов.</p>
+            <div class="hero-stats"><span><b id="hero-total">1 025</b><small data-t="heroPokemon">ПОКЕМОНОВ</small></span><i></i><span><b>9</b><small data-t="heroGens">ПОКОЛЕНИЙ</small></span><i></i><span><b>18</b><small data-t="heroTypes">ТИПОВ</small></span></div>
           </div>
           <div class="hero-art"><div class="hero-halo"></div><div class="hero-halo hero-halo-small"></div><img id="hero-pokemon" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/248.png" alt="Tyranitar" onerror="this.style.display='none'"/><div class="hero-art-label">#0248 <b>TYRANITAR</b><small>THE ARMOR POKÉMON</small></div><span class="hero-spark spark-1">✧</span><span class="hero-spark spark-2">✦</span></div>
         </section>
 
         <section id="catalog-view" class="section-view">
-          <div class="section-heading"><div><div class="section-kicker">EXPLORE THE DEX</div><h2 id="list-title">Национальный Покедекс</h2><p id="list-subtitle">Все поколения Pokémon в одной коллекции</p></div><div class="view-counter"><span id="matched-count">—</span> найдено</div></div>
+          <div class="section-heading"><div><div class="section-kicker" data-t="dexKicker">EXPLORE THE DEX</div><h2 id="list-title">Национальный Покедекс</h2><p id="list-subtitle">Все поколения Pokémon в одной коллекции</p></div><div class="view-counter"><span id="matched-count">—</span> <span data-t="found">найдено</span></div></div>
           <div class="filters-panel">
-            <div class="filters-primary"><label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Имя, русский перевод или номер..." autocomplete="off" aria-label="Поиск покемонов"><kbd>/</kbd></label>
-              <label class="field-select"><span>ПОКОЛЕНИЕ</span><select id="generation"><option value="all">Все поколения</option><option value="1">I — Канто</option><option value="2">II — Джото</option><option value="3">III — Хоэнн</option><option value="4">IV — Синно</option><option value="5">V — Юнова</option><option value="6">VI — Калос</option><option value="7">VII — Алола</option><option value="8">VIII — Галар</option><option value="9">IX — Палдея</option></select></label>
-              <label class="field-select sort-select"><span>СОРТИРОВКА</span><select id="sort"><option value="number">По номеру ↑</option><option value="number-desc">По номеру ↓</option><option value="name">По имени</option><option value="bst">По сумме статов ↓</option></select></label></div>
-            <div class="filter-bottom"><div class="filter-label">ТИП</div><div class="type-chips" id="type-filters"></div><button type="button" id="clear-filters" class="clear-btn">Сбросить фильтры ↺</button></div>
+            <div class="filters-primary"><label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Имя, русский перевод или номер..." data-t-placeholder="searchPokemon" autocomplete="off" aria-label="Поиск покемонов" data-t-aria="searchPokemonLabel"><kbd>/</kbd></label>
+              <label class="field-select"><span data-t="generation">ПОКОЛЕНИЕ</span><select id="generation"><option value="all" data-t="allGenerations">Все поколения</option><option value="1" data-region="1">I — Канто</option><option value="2" data-region="2">II — Джото</option><option value="3" data-region="3">III — Хоэнн</option><option value="4" data-region="4">IV — Синно</option><option value="5" data-region="5">V — Юнова</option><option value="6" data-region="6">VI — Калос</option><option value="7" data-region="7">VII — Алола</option><option value="8" data-region="8">VIII — Галар</option><option value="9" data-region="9">IX — Палдея</option></select></label>
+              <label class="field-select sort-select"><span data-t="sort">СОРТИРОВКА</span><select id="sort"><option value="number" data-t="sortNumber">По номеру ↑</option><option value="number-desc" data-t="sortReverse">По номеру ↓</option><option value="name" data-t="sortName">По имени</option><option value="bst" data-t="sortBst">По сумме статов ↓</option></select></label></div>
+            <div class="filter-bottom"><div class="filter-label" data-t="type">ТИП</div><div class="type-chips" id="type-filters"></div><button type="button" id="clear-filters" class="clear-btn" data-t="reset">Сбросить фильтры ↺</button></div>
           </div>
           <div class="loading-row" id="load-alert" role="status">Загрузка полного национального каталога. Пока доступна демонстрационная коллекция.</div>
           <div class="pokemon-grid" id="pokemon-grid" aria-live="polite"></div>
-          <div class="empty-state" id="empty-state" hidden><span class="empty-glyph">⌕</span><h3>Ничего не найдено</h3><p>Попробуй другое имя, поколение или сочетание типов.</p><button type="button" id="empty-reset">Сбросить фильтры</button></div>
+          <div class="empty-state" id="empty-state" hidden><span class="empty-glyph">⌕</span><h3 data-t="empty">Ничего не найдено</h3><p data-t="emptySub">Попробуй другое имя, поколение или сочетание типов.</p><button type="button" id="empty-reset" data-t="resetPlain">Сбросить фильтры</button></div>
           <div class="load-more-wrap"><button id="load-more" class="load-more" type="button" hidden>Показать ещё <span>↓</span></button></div>
         </section>
 
+        <section id="moves-view" class="section-view" hidden>
+          <div class="section-heading"><div><div class="section-kicker" data-t="movesKicker">MOVE DATABASE</div><h2 data-t="movesTitle">Энциклопедия атак</h2><p data-t="movesSub">Тип, сила, точность, PP и эффекты боевых атак.</p></div><div class="view-counter"><span id="move-count">—</span> <span data-t="found">найдено</span></div></div>
+          <div class="filters-panel move-filters-panel">
+            <div class="filters-primary"><label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.4"/><path d="m16 16 5 5"/></svg><input id="move-search" type="search" data-t-placeholder="searchMove" data-t-aria="searchMoveLabel" placeholder="Название атаки..." autocomplete="off"><kbd>/</kbd></label>
+              <label class="field-select"><span data-t="type">ТИП</span><select id="move-type"></select></label>
+              <label class="field-select"><span data-t="damageClass">КАТЕГОРИЯ</span><select id="move-class"></select></label>
+              <label class="field-select"><span data-t="generation">ПОКОЛЕНИЕ</span><select id="move-generation"></select></label>
+            </div>
+            <div class="move-filter-foot"><span data-t="movesDataNote">Текущие параметры PokéAPI; в отдельных поколениях они могут отличаться.</span><button type="button" class="clear-btn" id="move-clear" data-t="reset">Сбросить фильтры ↺</button></div>
+          </div>
+          <div class="loading-row" id="moves-alert" role="status" hidden></div>
+          <div id="move-list" class="move-dex-list"></div>
+          <div class="empty-state" id="move-empty" hidden><span class="empty-glyph">⌕</span><h3 data-t="movesEmpty">Атак с такими фильтрами не найдено.</h3></div>
+          <div class="load-more-wrap"><button id="move-more" type="button" class="load-more" hidden></button></div>
+          <p class="helper-note" data-t="movesSource">Эффекты из PokéAPI. Русские переводы пока доступны не для всех атак.</p>
+        </section>
+
         <section id="roadmap-view" class="section-view" hidden>
-          <div class="section-heading"><div><div class="section-kicker">PROJECT ROADMAP</div><h2>Планы развития</h2><p>Двигаемся от полного Покедекса к настоящему игровому помощнику.</p></div></div>
+          <div class="section-heading"><div><div class="section-kicker" data-t="roadmapKicker">PROJECT ROADMAP</div><h2 data-t="roadmapTitle">Планы развития</h2><p data-t="roadmapSub">От Покедекса к полноценному игровому помощнику.</p></div></div>
           <div class="roadmap-grid">
-            <article class="roadmap-card"><span class="roadmap-num">01 / MVP</span><h3>Национальный Покедекс</h3><p>Поиск, типы, поколения, характеристики, изображения, избранное и подробные карточки.</p><span class="roadmap-status ready">ДОСТУПНО</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">02 / DATA</span><h3>Атаки и места встреч</h3><p>Первые справочные вкладки уже работают на основе PokéAPI. Дальше — все версии, формы и DLC.</p><span class="roadmap-status">В РАЗРАБОТКЕ</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">03 / BATTLE</span><h3>Конструктор команд</h3><p>Покрытие типов, синергия, EV/IV, подбор предметов, легальность наборов атак, импорт Showdown.</p><span class="roadmap-status">ЗАПЛАНИРОВАНО</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">04 / GAMES</span><h3>Гайды по играм</h3><p>Маршруты, прохождение, легенды, NPC, карты, DLC и варианты команд по прогрессу.</p><span class="roadmap-status">ЗАПЛАНИРОВАНО</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">05 / COLLECTION</span><h3>Личная коллекция</h3><p>Покемоны по сохранениям, Shiny, прогресс National Dex, собственные команды и экспорт.</p><span class="roadmap-status">ЗАПЛАНИРОВАНО</span></article>
-            <article class="roadmap-card"><span class="roadmap-num">06 / MEDIA</span><h3>Галерея и 3D</h3><p>Исторические спрайты, изображения форм и просмотр разрешённых для использования 3D-моделей.</p><span class="roadmap-status">ЗАПЛАНИРОВАНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">01 / MVP</span><h3 data-t="road1">Национальный Покедекс</h3><p data-t="road1desc"></p><span class="roadmap-status ready" data-t="available">ДОСТУПНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">02 / DATA</span><h3 data-t="road2">Энциклопедия атак и эффектов</h3><p data-t="road2desc"></p><span class="roadmap-status ready" data-t="available">ДОСТУПНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">03 / BATTLE</span><h3 data-t="road3">Конструктор команд</h3><p data-t="road3desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">04 / GAMES</span><h3 data-t="road4">Гайды по играм</h3><p data-t="road4desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">05 / COLLECTION</span><h3 data-t="road5">Личная коллекция</h3><p data-t="road5desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
+            <article class="roadmap-card"><span class="roadmap-num">06 / MEDIA</span><h3 data-t="road6">Галерея и 3D</h3><p data-t="road6desc"></p><span class="roadmap-status" data-t="planned">ЗАПЛАНИРОВАНО</span></article>
           </div>
         </section>
-        <footer class="main-footer">Pokémon Atlas · Данные: <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a> · <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noopener noreferrer">Sprites</a> · Неофициальный фанатский проект. Pokémon © Nintendo / Game Freak / Creatures.</footer>
+        <footer class="main-footer">Pokémon Atlas · Данные: <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a> · <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noopener noreferrer">Sprites</a> · <span data-t="footer">Неофициальный фанатский проект. Pokémon © Nintendo / Game Freak / Creatures.</span></footer>
       </div>
     </main>
   </div>

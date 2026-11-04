@@ -12,3 +12,5 @@ async function getJson(path){
 export const fetchPokemon=id=>getJson(`/pokemon/${id}/`);
 export const fetchEncounters=id=>getJson(`/pokemon/${id}/encounters/`);
 export const fetchSpecies=id=>getJson(`/pokemon-species/${id}/`);
+export const fetchMove=nameOrId=>getJson(`/move/${encodeURIComponent(nameOrId)}/`);
+export const fetchAbility=nameOrId=>getJson(`/ability/${encodeURIComponent(nameOrId)}/`);
