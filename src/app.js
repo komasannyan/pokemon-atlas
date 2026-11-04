@@ -5,6 +5,7 @@ import {t, isEnglish, getLanguage, setLanguage, translateStatic, typeLabel, regi
 import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from './moves.js';
 import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './effects-ru.js';
 import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
+import {setupCollection,refreshCollection} from './collection-ui.js';
 import {fetchAbilityDex} from './abilities.js';
 import {CORE_GAMES, recordedInVersion, recordedVersions} from './game-availability.js';
 import {translatedRussian,cachedRussian,cleanSource,translationWarning} from './translate-ru.js';
@@ -87,15 +88,17 @@ function navigation(viewName,scroll=true){
   $('#abilities-view').hidden=viewName!=='abilities';
   $('#roadmap-view').hidden=viewName!=='roadmap';
   $('#builder-view').hidden=viewName!=='builder';
+  $('#collection-view').hidden=viewName!=='collection';
   $('#hero').hidden=viewName!=='catalog';
   document.querySelectorAll('.nav-link').forEach(el=>el.classList.toggle('active',el.dataset.view===viewName));
-  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
+  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='collection'?'crumbCollection':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
   $('#breadcrumb-page').textContent=t(crumb);
   $('#list-title').textContent=t(viewName==='favorites'?'favTitle':'dexTitle');
   $('#list-subtitle').textContent=t(viewName==='favorites'?'favSubtitle':'dexSubtitle');
   if(['catalog','favorites'].includes(viewName))renderCards();
   if(viewName==='moves'){ensureMoves();renderMoveCards();}
   if(viewName==='abilities'){ensureAbilities();renderAbilityCards();}
+  if(viewName==='collection')refreshCollection();
   if(scroll)window.scrollTo({top:0,behavior:'smooth'});
 }
 function moveFilterOptions(){
@@ -335,11 +338,12 @@ async function openEffect(details){
 function applyLanguage(){
   translateStatic();
   document.querySelectorAll('[data-region]').forEach(opt=>{const n=+opt.dataset.region;opt.textContent=`${['I','II','III','IV','V','VI','VII','VIII','IX'][n-1]} — ${regionLabel(n)}`;});
-  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();
+  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();refreshCollection();
   if(state.detail)renderDetail();
 }
 // Event handlers
 setupTeamBuilder(()=>state.dex);
+setupCollection(()=>state.dex);
 $('#language-switch').addEventListener('change',e=>{setLanguage(e.target.value);applyLanguage();});
 $('#type-filters').addEventListener('click',e=>{const btn=e.target.closest('[data-type]');if(!btn)return;const type=btn.dataset.type;state.types=state.types.includes(type)?state.types.filter(t=>t!==type):[...state.types,type];state.shown=30;renderTypes();renderCards();});
 $('#search').addEventListener('input',e=>{state.search=e.target.value;state.shown=30;renderCards();});
@@ -388,7 +392,7 @@ updateFavoriteCount();
 if(state.full){state.statusKey='catalogCache';state.alertKey=null;}
 displayStatus();
 fetchNationalDex().then(records=>{
-  state.dex=records;state.full=true;window.dispatchEvent(new CustomEvent('atlas:dex-ready'));saveDex(records);if(!state.heroId)chooseHero(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
+  state.dex=records;state.full=true;refreshCollection();window.dispatchEvent(new CustomEvent('atlas:dex-ready'));saveDex(records);if(!state.heroId)chooseHero(records);state.statusKey='catalogLoaded';state.alertKey=null;displayStatus();renderCards();
   const id=+new URL(location.href).searchParams.get('pokemon');if(id&&!state.detail)openDetail(id,false);
 }).catch(err=>{
   console.warn('Could not update the National Dex:',err);
@@ -396,4 +400,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=062').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=070').catch(console.warn));}

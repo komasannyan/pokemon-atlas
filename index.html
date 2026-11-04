@@ -8,9 +8,10 @@
   <link rel="icon" type="image/png" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css?v=061">
-  <link rel="stylesheet" href="./styles-v02.css?v=061">
-  <link rel="stylesheet" href="./styles-v03.css?v=061">
+  <link rel="stylesheet" href="./styles.css?v=070">
+  <link rel="stylesheet" href="./styles-v02.css?v=070">
+  <link rel="stylesheet" href="./styles-v03.css?v=070">
+  <link rel="stylesheet" href="./collection.css?v=070">
   <title>Pokémon Atlas — Pokédex, Moves & Team Builder</title>
 </head>
 <body>
@@ -26,6 +27,7 @@
         <button type="button" class="nav-link" data-view="moves"><span class="nav-glyph">⚔</span><span data-t="navMoves">База атак</span></button>
         <button type="button" class="nav-link" data-view="abilities"><span class="nav-glyph">✧</span><span data-t="navAbilities">База способностей</span></button>
         <button type="button" class="nav-link" data-view="builder"><span class="nav-glyph">◈</span><span data-t="navBuilder">Конструктор команд</span><span class="tiny-soon">BETA</span></button>
+        <button type="button" class="nav-link" data-view="collection"><span class="nav-glyph">▣</span><span data-t="navCollection">Коллекция</span></button>
         <button type="button" class="nav-link" data-view="favorites"><span class="nav-glyph">♡</span><span data-t="navFav">Избранное</span><span class="nav-count" id="fav-count">0</span></button>
         <button type="button" class="nav-link" data-view="roadmap"><span class="nav-glyph">◇</span><span data-t="navRoadmap">Планы развития</span></button>
       </nav>
@@ -100,6 +102,7 @@
           <div class="load-more-wrap"><button id="ability-more" type="button" class="load-more" hidden></button></div>
         </section>
 
+        <section id="collection-view" class="section-view" hidden></section>
         <section id="builder-view" class="section-view" hidden><div id="team-builder-root"></div></section>
 
         <section id="roadmap-view" class="section-view" hidden>
@@ -125,6 +128,6 @@
     </section>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./src/app.js?v=062"></script>
+  <script type="module" src="./src/app.js?v=070"></script>
 </body>
 </html>
