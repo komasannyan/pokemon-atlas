@@ -1,7 +1,7 @@
 // Offline shell + cached data requests. Not a promise of offline access to every image or API result.
-const SHELL='atlas-shell-v03';
-const DATA='atlas-data-v03';
-const IMAGES='atlas-images-v03';
+const SHELL='atlas-shell-v031';
+const DATA='atlas-data-v031';
+const IMAGES='atlas-images-v031';
 const ASSETS=['./','./index.html','./styles.css','./styles-v02.css','./styles-v03.css','./manifest.webmanifest','./src/app.js','./src/data.js','./src/demo.js','./src/api.js','./src/constants.js','./src/i18n.js','./src/moves.js','./src/effects-ru.js','./src/team-data.js','./src/team-engine.js','./src/team-ui.js','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
