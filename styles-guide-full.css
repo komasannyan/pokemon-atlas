@@ -80,3 +80,8 @@
 .guide-spawn-table button:hover{color:#fff}
 .guide-alpha{display:inline-block;margin-left:6px;border:1px solid #a47d38;border-radius:7px;padding:2px 5px;color:#ebce91;font-size:.69rem;vertical-align:middle}
 @media(max-width:510px){.guide-table-scroll{margin-left:-4px;margin-right:-4px}.guide-spawn-table{font-size:.75rem}.guide-spawn-table th,.guide-spawn-table td{padding:9px}}
+
+/* 0.9.3: contextual source links below walkthrough cards */
+.guide-source{margin:12px 0 0;font-size:.76rem}
+.guide-source a{color:#a7d5fa;text-decoration:underline;text-underline-offset:3px}
+.guide-source a:focus-visible,.guide-source a:hover{color:#fff}
