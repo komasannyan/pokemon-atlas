@@ -98,3 +98,20 @@ Claude's older 0.9.4 folder-reorganization patch was adapted on top of the actua
 Source is now grouped into `src/guides/`, `src/pokedex/`, `src/team/`, `src/collection/`, plus `css/`. Import paths, in-browser JSON loads, HTML, service worker and test imports were adjusted. Full recursive syntax and static path-integrity tests were added. See `docs/REFACTOR-CLAUDE-ADAPTATION.md`.
 
 This is an architectural maintenance release, not gameplay fact verification or release 1.0.
+
+## Session: lazy guide loading and safe offline fallback (0.9.8)
+
+- Adapted Claude's second patch to the current 0.9.7 modular project. **No guide-content edits**: all 42 main quests and 119 base-game side quests remain in `src/guides/` and are only imported by the guide view when needed.
+- The application now imports only `src/guides/guides-loader.js` eagerly; that loader dynamically imports `guides-v09.js` on first visit to Guides. Parallel open actions share one promise, and queued deep links (including Pokémon detail → Legends Z-A guide) select the requested tab. Network failures show a bilingual retry button.
+- The Service Worker now uses network-first responses with an exact offline cache match ignoring query strings. Missing JS/CSS/JSON return **503 text**, not an HTML shell. Only actual page navigations fall back to `index.html` offline.
+- Activation deletes only outdated `atlas-*` caches; unrelated caches on the same origin are preserved.
+- The guide data is **still precached** during Service Worker installation for offline use. Lazy importing improves startup JavaScript parsing and first-render work, but it does not eliminate the background data download needed for precaching. No claimed percentage/speedup without browser performance measurement.
+- New tests `tests/guides-lazy.mjs` and `tests/service-worker.mjs` cover lazy-load edge cases and offline response behavior, including the GitHub Pages project path.
+- Version 0.9.8 is infrastructure only; no part of the 1.0 gameplay, Pokédex accuracy or design gate is automatically satisfied.
+
+### Relevant new checks
+
+```sh
+node tests/guides-lazy.mjs
+node tests/service-worker.mjs
+```

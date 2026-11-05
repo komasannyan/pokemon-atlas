@@ -31,6 +31,8 @@ assert.match(collection,/\.\/src\/collection\/collection-dex\.json/,'runtime col
 const team=readFileSync(join(root,'src/team/team-universe.js'),'utf8');
 assert.match(team,/\.\/src\/team\//,'runtime team JSON URLs');
 const app=readFileSync(join(root,'src/app.js'),'utf8');
-assert.match(app,/\.\/guides\/guides-v09\.js/);
+assert.match(app,/\.\/guides\/guides-loader\.js/,'app must eagerly import only the lazy guide loader');
+const loader=readFileSync(join(root,'src/guides/guides-loader.js'),'utf8');
+assert.match(loader,/import\('\.\/guides-v09\.js'\)/,'loader must import guide UI dynamically');
 assert.match(app,/\.\/pokedex\/moves\.js/);
 console.log('Path integrity verified: '+modules.length+' modules, '+testFiles.length+' tests, HTML and PWA assets.');

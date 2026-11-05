@@ -8,7 +8,7 @@ import {setupTeamBuilder,refreshTeamBuilder} from './team/team-ui.js';
 import {setupCollection,refreshCollection} from './collection/collection-ui.js';
 import {fetchRegionalDex} from './collection/collection-games.js';
 import {locationMatrixHTML} from './pokedex/locations-v09.js';
-import {setupGuides,refreshGuides,openGuideTab} from './guides/guides-v09.js';
+import {createLazyGuides} from './guides/guides-loader.js';
 import {formSnapshot,formArtwork,varietyLabel} from './pokedex/pokedex-extended.js';
 import {formSelector,evolutionPage,historyPage} from './pokedex/pokedex-extended-ui.js';
 import {fetchEvolutionChain} from './api.js';
@@ -34,6 +34,16 @@ let toastTimer=null,installEvent=null;
 let favorites=new Set();
 try{favorites=new Set(JSON.parse(localStorage.getItem('atlas-favorites-v1')||'[]'));}catch{}
 setLanguage(getLanguage());
+// The guide is only loaded when first visited; errors show a retry action.
+function guidesStatus(status){
+  const root=$('#guides-view');
+  if(!root||status==='ready')return;
+  const retry=isEnglish()?'Retry':'Повторить';
+  root.innerHTML=status==='loading'
+    ?`<p class="loading-row" role="status">${esc(isEnglish()?'Loading guides…':'Загрузка гайдов…')}</p>`
+    :`<div class="loading-row" role="alert">${esc(isEnglish()?'Unable to load guides. Check your connection and retry.':'Не удалось загрузить гайды. Проверь соединение и повтори попытку.')} <button type="button" data-guides-retry>${esc(retry)}</button></div>`;
+}
+const guides=createLazyGuides({options:{pokemonByName:()=>state.dex,onOpenPokemon:id=>openDetail(id)},onStatus:guidesStatus});
 
 const comma=n=>new Intl.NumberFormat(isEnglish()?'en-US':'ru-RU').format(n);
 const typetag=type=>`<span class="type-badge" style="background:${typeColors[type]||'#76889c'}"><span class="type-dot"></span>${esc(typeLabel(type))}</span>`;
@@ -107,7 +117,7 @@ function navigation(viewName,scroll=true){
   if(viewName==='moves'){ensureMoves();renderMoveCards();}
   if(viewName==='abilities'){ensureAbilities();renderAbilityCards();}
   if(viewName==='collection')refreshCollection();
-  if(viewName==='guides')refreshGuides();
+  if(viewName==='guides')guides.show();
   if(scroll)window.scrollTo({top:0,behavior:'smooth'});
 }
 function moveFilterOptions(){
@@ -398,13 +408,13 @@ async function openEffect(details){
 function applyLanguage(){
   translateStatic();
   document.querySelectorAll('[data-region]').forEach(opt=>{const n=+opt.dataset.region;opt.textContent=`${['I','II','III','IV','V','VI','VII','VIII','IX'][n-1]} — ${regionLabel(n)}`;});
-  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();refreshCollection();refreshGuides();
+  renderTypes();moveFilterOptions();abilityOptions();displayStatus();renderCards();renderMoveCards();renderAbilityCards();navigation(state.view,false);refreshTeamBuilder();refreshCollection();guides.refresh();
   if(state.detail)renderDetail();
 }
 // Event handlers
 setupTeamBuilder(()=>state.dex);
 setupCollection(()=>state.dex);
-setupGuides({pokemonByName:()=>state.dex,onOpenPokemon:id=>openDetail(id)});
+$('#guides-view').addEventListener('click',e=>{if(e.target.closest('[data-guides-retry]'))guides.show();});
 $('#language-switch').addEventListener('change',e=>{setLanguage(e.target.value);applyLanguage();});
 $('#type-filters').addEventListener('click',e=>{const btn=e.target.closest('[data-type]');if(!btn)return;const type=btn.dataset.type;state.types=state.types.includes(type)?state.types.filter(t=>t!==type):[...state.types,type];state.shown=30;renderTypes();renderCards();});
 $('#search').addEventListener('input',e=>{state.search=e.target.value;state.shown=30;renderCards();});
@@ -429,7 +439,7 @@ $('#detail-overlay').addEventListener('click',e=>{
   if(e.target.closest('[data-shiny]')){state.shiny=!state.shiny;renderDetail();return;}
    const form=e.target.closest('[data-form-slug]');if(form){selectDetailForm(form.dataset.formSlug);return;}
   const tab=e.target.closest('[data-tab]');if(tab){state.detailTab=tab.dataset.tab;renderTab();return;}
-  const guide=e.target.closest('[data-guide-go]');if(guide){closeDetail();openGuideTab('main','legends-za');navigation('guides');return;}
+  const guide=e.target.closest('[data-guide-go]');if(guide){closeDetail();guides.openTab('main','legends-za');navigation('guides');return;}
   const game=e.target.closest('[data-game]');if(game){state.encounterGame=game.dataset.game;renderLocations(activeDetailPokemon());return;}
   const pok=e.target.closest('[data-open]');if(pok){const id=+pok.dataset.open;const url=new URL(location.href);url.searchParams.set('pokemon',id);history.replaceState({},'',url);openDetail(id,false);}
 });
@@ -463,4 +473,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=097').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=098').catch(console.warn));}
