@@ -15,6 +15,7 @@ import {ZA_MAIN_STEPS,ZA_BOSS_TIPS,ZA_GLOBAL_HELP} from './za-walkthrough-detail
 import {ZA_SIDE_DETAILED,ZA_REWARDS,ZA_EX_MISSIONS,ZA_DONUT_RECIPES} from './za-guide-extras.js';
 import {isEnglish} from './i18n.js';
 import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED} from './za-guide-handbook.js';
+import {ZA_BASE_DEEP} from './za-base-handbook.js';
 
 const KEY='pokemon-atlas-guide-progress-v1',STEP_KEY='pokemon-atlas-guide-steps-v1',GAME_KEY='pokemon-atlas-guide-game-v1';
 const $=s=>document.querySelector(s);
@@ -30,7 +31,7 @@ const sideRows=ZA_SIDE.map(x=>{
  return {...x,kind:'side',name:checked.name||namesFix[x.id]||x.name,
   location:checked.location||ZA_SIDE_LOCATIONS[x.id-1]||x.location,
   startHint:checked.start||'',rank:checked.rank||'',
-  steps:detailed?.steps||ZA_SIDE_CLARIFICATIONS[x.id]||String(short).split('|').filter(Boolean),
+  steps:detailed?.steps||ZA_SIDE_CLARIFICATIONS[x.id]||ZA_BASE_DEEP[x.id]||String(short).split('|').filter(Boolean),
   reward:checked.reward||ZA_REWARDS[x.id]||x.reward||null,
   unlock:checked.mission||sideUnlock(x.id),
   extraReq:checked.unlockExtra
