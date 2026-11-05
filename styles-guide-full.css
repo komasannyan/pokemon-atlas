@@ -68,3 +68,15 @@
 .guide-footer{font-size:.75rem;color:#8a9eb7;margin:20px 0;line-height:1.6}
 @media(max-width:850px){.guide-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-head{align-items:stretch}.guide-head>label{width:100%}.guide-card-heading strong{font-size:.9rem}.guide-recipe{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:480px){.guide-dashboard{gap:7px}.guide-progress-card{padding:10px}.guide-card{padding:11px;grid-template-columns:22px minmax(0,1fr);gap:6px}.guide-card-check{padding-top:15px}.guide-card-heading strong{font-size:.85rem}.guide-tag{font-size:.64rem}.guide-info-line{padding-left:8px}.guide-recipe{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-bar{align-items:flex-start}.guide-global-search input{font-size:.86rem}}
+
+/* 0.9.2: verified encounter-spot grid */
+.guide-table-scroll{max-width:100%;overflow-x:auto;border:1px solid #375573;border-radius:11px;margin:10px 0 15px}
+.guide-spawn-table{width:100%;border-collapse:collapse;min-width:460px;background:#152941;color:#d9eaff;font-size:.82rem}
+.guide-spawn-table th,.guide-spawn-table td{text-align:left;padding:10px 12px;vertical-align:top;border-bottom:1px solid #29445e}
+.guide-spawn-table th{color:#9fc8e5;font-weight:750;background:#1c3650;white-space:nowrap}
+.guide-spawn-table tr:last-child td{border-bottom:0}
+.guide-spawn-table tbody tr:nth-child(2n){background:#1a3048}
+.guide-spawn-table button{background:transparent;color:#b7defc;border:0;padding:0;font:inherit;font-weight:750;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px}
+.guide-spawn-table button:hover{color:#fff}
+.guide-alpha{display:inline-block;margin-left:6px;border:1px solid #a47d38;border-radius:7px;padding:2px 5px;color:#ebce91;font-size:.69rem;vertical-align:middle}
+@media(max-width:510px){.guide-table-scroll{margin-left:-4px;margin-right:-4px}.guide-spawn-table{font-size:.75rem}.guide-spawn-table th,.guide-spawn-table td{padding:9px}}

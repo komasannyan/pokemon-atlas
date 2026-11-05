@@ -1,6 +1,7 @@
 import {CORE_GAMES,recordedInVersion} from './game-availability.js';
 import {COLLECTION_GAMES,gameFor,gameEntries} from './collection-games.js';
 import {ZA_ZONES,ZA_DATA_SOURCES,zaLocations} from './za-data.js';
+import {ZA_ZONE_SPAWNS} from './za-wild-spawns.js';
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const txt=(en,ru,a)=>en?a:ru;
 const urls={
@@ -44,9 +45,16 @@ export function locationMatrixHTML({p,gameKey,dexes,entries=[],api=null,en=false
  if(gameKey==='legends-za'){
    main+='<p class="availability-help">'+(en?'The map below lists verified Wild Zone species pools. Some Pokémon are obtained through quests, trades, evolution, special encounters or the Mega Dimension DLC.':'Ниже — проверенные списки покемонов в Wild Zones. Другие виды могут получаться по сюжету, эволюцией, обменом, через особые встречи или в Mega Dimension.')+'</p>';
    if(zones.length)main+='<div class="location-places">'+zones.map(z=>{
-     const info=exact[p.name.toLowerCase()]?.[String(z.name.split(' ')[2])];
-     const when=z.time==='day'?(en?'Day only':'Только днём'):z.time==='night'?(en?'Night only':'Только ночью'):z.time==='sunny-day'?(en?'Sunny weather, daytime':'Солнечная погода, днём'):(en?'Day/night details not verified':'Условия времени не уточнены');
-     return '<article class="avail-location"><div><b>'+esc(z.name)+'</b><small>'+(en?'Available by main mission':'Открывается к заданию')+' №'+z.unlock+'</small></div><p><b>'+esc(z.area||'')+'</b> · '+esc(info?.detail||z.name)+'. '+esc(when)+'</p><p>'+(en?'Level':'Уровень')+': <b>'+esc(info?.level||'—')+'</b> · '+(en?'Spawn rate':'Шанс появления')+': <b>'+(en?'Not published':'Не опубликован')+'</b>'+(info?.alpha?' · Alpha: '+esc(info.alpha):'')+'</p><a href="'+esc(z.source)+'" target="_blank" rel="noopener noreferrer">'+(en?'Source: Wild Zones':'Источник: Wild Zones')+'</a></article>';
+     const zoneNumber=Number(z.name.split(' ')[2]);
+     const detail=ZA_ZONE_SPAWNS.find(x=>x.n===zoneNumber);
+     const norm=x=>String(x||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
+     const spots=(detail?.spots||[]).filter(s=>norm(s.name.replace(/^Alpha /i,''))===norm(p.name));
+     const spot=spots.find(s=>!s.alpha)||spots[0];
+     const info=exact[p.name.toLowerCase()]?.[String(zoneNumber)];
+     const when=spot?.when
+      ?spot.when==='Day / Night'?(en?'Day and night':'Днём и ночью'):spot.when==='Night'?(en?'Night only':'Только ночью'):spot.when==='Day'?(en?'Day only':'Только днём'):spot.when
+      :z.time==='day'?(en?'Day only':'Только днём'):z.time==='night'?(en?'Night only':'Только ночью'):z.time==='sunny-day'?(en?'Sunny weather, daytime':'Солнечная погода, днём'):(en?'Day/night details not verified':'Условия времени не уточнены');
+     return '<article class="avail-location"><div><b>'+esc(z.name)+'</b><small>'+(en?'Available by main mission':'Открывается к заданию')+' №'+z.unlock+'</small></div><p><b>'+esc(z.area||'')+'</b> · '+esc(spot?.where||info?.detail||z.name)+'. '+esc(when)+'</p><p>'+(en?'Level':'Уровень')+': <b>'+esc(info?.level||'—')+'</b> · '+(en?'Spawn rate':'Шанс появления')+': <b>'+(en?'Not published':'Не опубликован')+'</b>'+(spots.some(q=>q.alpha)?' · Alpha: '+(en?'specific spawn recorded':'есть отдельная точка появления'):info?.alpha?' · Alpha: '+esc(info.alpha):'')+'</p><a href="'+esc(z.source)+'" target="_blank" rel="noopener noreferrer">'+(en?'Source: Wild Zones':'Источник: Wild Zones')+'</a></article>';
     }).join('')+'</div>';
    else main+='<p class="availability-info">'+(en?'No verified Wild Zone spawn in the current dataset. This does not mean the Pokémon is unavailable. Check special encounters, quests, trades, evolution and DLC.':'В проверенной таблице Wild Zones встреча не указана. Это не означает недоступность: проверь задания, подарки, эволюцию, обмены и DLC.')+'</p>';
    if(flags.some(x=>x.dex===35))main+='<p class="availability-info">'+(en?'Listed in the Mega Dimension Hyperspace Pokédex; exact portals and appearance conditions depend on the DLC.':'Присутствует в Hyperspace Pokédex дополнения Mega Dimension. Условия конкретного портала требуют отдельной проверки.')+' <a href="'+urls.dlc+'" target="_blank" rel="noopener noreferrer">'+(en?'Hyperspace guide':'Справочник Hyperspace')+'</a></p>';

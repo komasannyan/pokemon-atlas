@@ -6,7 +6,10 @@ import {ZA_SIDE_STEPS} from './za-side-steps.js';
 import {ZA_DLC_MAIN} from './za-dlc-data.js';
 import {ZA_DLC_81} from './za-dlc-all-side.js';
 import {ZA_ZONES,ZA_TIME_CONDITIONS} from './za-data.js';
-import {ZA_TMS_FULL} from './za-tms-complete.js';
+import {ZA_TMS_ENRICHED} from './za-tms-enriched.js';
+import {ZA_SIDE_VERIFIED} from './za-verified-catalog.js';
+import {ZA_SIDE_CLARIFICATIONS} from './za-mission-clarifications.js';
+import {ZA_ZONE_SPAWNS} from './za-wild-spawns.js';
 import {ZA_MEGA,ZA_RESOURCES} from './za-items-data.js';
 import {ZA_MAIN_STEPS,ZA_BOSS_TIPS,ZA_GLOBAL_HELP} from './za-walkthrough-details.js';
 import {ZA_SIDE_DETAILED,ZA_REWARDS,ZA_EX_MISSIONS,ZA_DONUT_RECIPES} from './za-guide-extras.js';
@@ -20,19 +23,25 @@ const normalize=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300
 const num=n=>String(n).padStart(3,'0');
 const namesFix={45:'On Maintenance Duty',67:'Sylveon the Soother',92:'The Beldum Blockade'};
 const sideRows=ZA_SIDE.map(x=>{
+ const checked=ZA_SIDE_VERIFIED[x.id-1]||{};
  const detailed=ZA_SIDE_DETAILED[x.id];
- return {...x,kind:'side',name:namesFix[x.id]||x.name,
-  location:ZA_SIDE_LOCATIONS[x.id-1]||x.location,
-  steps:detailed?.steps||(x.steps||ZA_SIDE_STEPS[x.id-1]||'').split(/\|/).filter(Boolean),
-  reward:ZA_REWARDS[x.id]||x.reward||null,
-  unlock:sideUnlock(x.id),extraReq:ZA_SIDE_SPECIAL_UNLOCK[x.id]||null};
+ const short=ZA_SIDE_STEPS[x.id-1]||x.steps||'';
+ return {...x,kind:'side',name:checked.name||namesFix[x.id]||x.name,
+  location:checked.location||ZA_SIDE_LOCATIONS[x.id-1]||x.location,
+  startHint:checked.start||'',rank:checked.rank||'',
+  steps:detailed?.steps||ZA_SIDE_CLARIFICATIONS[x.id]||String(short).split('|').filter(Boolean),
+  reward:checked.reward||ZA_REWARDS[x.id]||x.reward||null,
+  unlock:checked.mission||sideUnlock(x.id),
+  extraReq:checked.unlockExtra
+    ?(/20 Reward Matches/i.test(checked.unlockExtra)?'Выиграй 20 Reward Matches в Infinite Z-A Royale':checked.unlockExtra)
+    :ZA_SIDE_SPECIAL_UNLOCK[x.id]||null};
 });
 const mainRows=ZA_MAIN.map(x=>({...x,kind:'main',steps:(ZA_MAIN_STEPS[x.id]||x.steps||'').split('|').filter(Boolean)}));
 const dlcRows=[...ZA_DLC_MAIN.map(x=>({...x,kind:'dlc-main',steps:(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)})),...ZA_DLC_81.map(x=>({...x,kind:'dlc-side',steps:ZA_SIDE_DETAILED[x.id]?.steps||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)}))];
 const exRows=ZA_EX_MISSIONS.map(x=>({...x,kind:'extra'}));
 const bossRows=ZA_BOSS_TIPS.map(x=>({...x,kind:'boss',name:'Rogue Mega '+x.pokemon,steps:[x.tactic],location:mainRows.find(m=>m.id===x.id)?.location||null}));
-const zoneRows=ZA_ZONES.map(z=>({...z,id:z.n,kind:'zone',name:'Wild Zone '+z.n,unlock:z.mission,location:z.area,steps:['Открывается к основному заданию №'+z.mission+'.','Район: '+z.area+'.','Возможные виды: '+z.names.join(', ')+'.']}));
-const tmRows=ZA_TMS_FULL.map(x=>({...x,id:x.n,kind:'tm',name:'TM'+num(x.n)+' · '+x.name,steps:[x.location],location:x.location,reward:null}));
+const zoneRows=ZA_ZONES.map(z=>({...z,id:z.n,kind:'zone',name:'Wild Zone '+z.n,unlock:z.mission,location:z.area,spawnDetails:ZA_ZONE_SPAWNS.find(x=>x.n===z.n)?.spots||[],steps:['Открывается с началом основного задания №'+z.mission+'.','Район: '+z.area+'.','Список видов и ориентиры приведены ниже.']}));
+const tmRows=ZA_TMS_ENRICHED.map(x=>({...x,id:x.n,kind:'tm',name:'TM'+num(x.n)+' · '+x.name,steps:[x.location],location:x.location,reward:null}));
 const itemRows=[...ZA_MEGA,...ZA_RESOURCES].map((x,i)=>({...x,id:i+1,kind:'item',name:x.name,steps:[x.location],location:x.location}));
 const recipeRows=ZA_DONUT_RECIPES.map((x,i)=>({...x,id:i+1,kind:'recipe',location:'Hotel Z, кухня Ansha',steps:[tx('Приготовь пончик у Ansha после открытия соответствующего рецепта по сюжету.','Prepare the donut with Ansha after unlocking its story recipe.')] }));
 const helpRows=ZA_GLOBAL_HELP.map((x,i)=>({...x,id:i+1,kind:'help',location:'',steps:x.steps}));
@@ -70,7 +79,7 @@ function tableFor(tab){
  return ALL;
 }
 function keywords(x){
- const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' ')];
+ const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' ')];
  return normalize(values.join(' '));
 }
 function filtered(){
@@ -115,12 +124,15 @@ function stepMarkup(x){
 function recipeMarkup(x){if(x.kind!=='recipe')return '';const r=x.requirements||{};return '<div class="guide-recipe">'+Object.entries(r).map(([k,v])=>'<span><small>'+esc(({sweet:'Sweet',sour:'Sour',spicy:'Spicy',bitter:'Bitter',fresh:'Fresh'})[k])+'</small><strong>'+v+'</strong></span>').join('')+'</div><p class="guide-muted">'+tx('Это минимальные суммы вкусов. Используй Hyper Berries с нужными значениями, превышать порог можно. Рецепт должен быть открыт по сюжету.','Minimum flavor totals. Use suitable Hyper Berries; exceeding them is fine. Recipe must be unlocked in the story.')+'</p>';}
 function zoneMarkup(x){
  if(x.kind!=='zone')return '';
- const day=ZA_TIME_CONDITIONS||{};
- return '<h4>'+tx('Какие покемоны здесь встречаются','Pokémon encountered here')+'</h4><div class="guide-pokemon-list">'+(x.names||[]).map(name=>{
-  const condition=day[x.n+':'+normalize(name)]||day[x.n+':'+name.toLowerCase().replace(/[^a-z0-9]/g,'')]||'';
-  const conditionText=condition==='day'?tx('день','day'):condition==='night'?tx('ночь','night'):condition==='sunny-day'?tx('солнечно','sunny'):'';
-  return '<button type="button" data-guide-pokemon="'+esc(name)+'">'+esc(name)+(conditionText?'<small>'+esc(conditionText)+'</small>':'')+'</button>';
- }).join('')+'</div><p class="guide-muted">'+tx('Точные координаты, уровни и вероятность каждого экземпляра зависят от точки появления. Отсутствие процента означает, что он не подтверждён.','Exact spawn coordinates, levels and rates vary by spawn spot. Missing percentages are not verified.')+'</p>';
+ const details=x.spawnDetails||[];
+ const rows=details.map(sp=>{
+   const name=sp.name.replace(/^Alpha /i,'');
+   const isAlpha=sp.alpha;
+   return '<tr><td><button type="button" data-guide-pokemon="'+esc(name)+'">'+esc(name)+'</button>'+(isAlpha?'<small class="guide-alpha">Alpha</small>':'')+'</td><td>'+esc(sp.where||'—')+'</td><td>'+esc(sp.when||'—')+'</td></tr>';
+ }).join('');
+ const list='<h4>'+tx('Все подтверждённые виды этой зоны','Verified species of this zone')+'</h4><div class="guide-pokemon-list">'+(x.names||[]).map(name=>'<button type="button" data-guide-pokemon="'+esc(name)+'">'+esc(name)+'</button>').join('')+'</div>';
+ const spots=details.length?'<h4>'+tx('Конкретные точки появления и время','Spawn locations and times')+'</h4><div class="guide-table-scroll"><table class="guide-spawn-table"><thead><tr><th>Pokémon</th><th>'+tx('Где искать','Location')+'</th><th>'+tx('Время','Time')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div>':'';
+ return list+spots+'<p class="guide-muted">'+tx('Детальные точки появления указаны только для подтверждённых наблюдений; список видов шире, особенно в Wild Zone 20. Alpha-формы показаны отдельно. Шансы появления не придуманы.','Detailed spawn spots are only shown when verified. The species pool may be larger, especially in Wild Zone 20. Alpha spawns are separate; rates are not invented.')+'</p>';
 }
 function bossMarkup(x){
  if(x.kind!=='boss')return '';
@@ -131,6 +143,7 @@ function topInfo(x){
  if(x.kind==='main'||x.kind==='side')a.push(badge(tx('Основная игра','Base game')));
  if(['dlc-main','dlc-side','recipe'].includes(x.kind)||x.dlc)a.push(badge('Mega Dimension'));
  if(x.kind==='side'&&x.unlock)a.push(badge(tx('После осн. задания ','After main mission ')+x.unlock));
+ if(x.kind==='side'&&x.rank&&x.rank!=='??')a.push(badge(tx('Ранг ','Rank ')+x.rank));
  if(x.kind==='zone')a.push(badge(tx('Открытие: миссия ','Unlock: main mission ')+x.mission));
  if(x.kind==='tm')a.push(badge('TM'+num(x.id)));
  if(x.kind==='tm'&&x.researchLevel)a.push(badge('Mable Research Lv. '+x.researchLevel));
@@ -144,6 +157,8 @@ function card(x){
   '<div class="guide-card-check"><input type="checkbox" data-guide-done="'+esc(key)+'" '+(checked?'checked':'')+' aria-label="'+tx('Отметить как выполненное','Mark completed')+'"></div>'+
   '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+' · '+esc(x.kind==='extra'?x.id:x.id)+'</small><strong>'+esc(x.name)+'</strong><span class="guide-card-tags">'+topInfo(x)+'</span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
   (x.location?'<div class="guide-info-line"><b>'+tx('ГДЕ ИСКАТЬ','WHERE TO GO')+'</b><p>'+esc(x.location)+'</p></div>':'')+
+  (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(x.startHint)+'</p></div>':'')+
+  (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
   (x.extraReq||x.specialUnlock||x.kind==='extra'?'<div class="guide-info-line"><b>'+tx('УСЛОВИЯ','REQUIREMENTS')+'</b><p>'+esc(x.extraReq||x.specialUnlock||x.unlock||'—')+'</p></div>':'')+
   (x.kind==='main'&&x.id>1?'<div class="guide-info-line"><b>'+tx('ПЕРЕД НАЧАЛОМ','BEFORE STARTING')+'</b><p>'+tx('Заверши предыдущее сюжетное задание или обязательные параллельные цели.','Complete the previous main mission or required parallel objectives.')+'</p></div>':'')+
   ((x.kind==='recipe')?recipeMarkup(x):'')+
@@ -171,7 +186,7 @@ function hero(){
  }).join('')+'</div>';
 }
 function intro(){
- return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Не нужно искать информацию на других сайтах: введи название задания, покемона, TM, предмета или район. Поиск проверит все разделы Z-A. Нажми на карточку и выполняй пункты по очереди.','Search a mission, Pokémon, TM, item or district across all Z-A sections. Open a card and follow each step.')+'</p></div>';
+ return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Введи название задания, покемона, TM, предмета или района: поиск работает по всем разделам Z-A. В карточках указаны проверенные условия и ориентиры, а неполные сведения отмечены.','Search a mission, Pokémon, TM, item or district across all Z-A sections. Open a card and follow each step.')+'</p></div>';
 }
 function render(){
  if(!root)return;
@@ -192,7 +207,14 @@ function render(){
 }
 const CSSsafe=s=>s.replace(/[^a-zA-Z0-9-_]/g,'');
 function renderResults(){
- const r=root?.querySelector('#guide-results');if(r)r.innerHTML=pageItems();
+ const r=root?.querySelector('#guide-results');
+ if(r){
+  const open=new Set([...r.querySelectorAll('.guide-card details[open]')].map(d=>d.closest('.guide-card')?.id).filter(Boolean));
+  r.innerHTML=pageItems();
+  for(const id of open){const card=r.querySelector('#'+CSSsafe(id));card?.querySelector('details')?.setAttribute('open','');}
+ }
+ const progress=root?.querySelector('.guide-dashboard');
+ if(progress)progress.outerHTML=hero();
  const title=root?.querySelector('.guide-bar span');if(title)title.textContent=state.query?tx('Поиск по всем разделам','Searching all sections'):tx('Раздел','Section');
 }
 function navigateTo(kind,id){
