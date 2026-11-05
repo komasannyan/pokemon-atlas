@@ -5,7 +5,7 @@
 
 ## Side missions: session 3 (November 5, 2026)
 
-- All **119** base-game side missions (001–119) now use the unified `src/za-side-handbook.js`. The current release has **511 structured original Russian steps** in total, each quest with **at least three** steps. Existing base mission data, verified NPC/location/reward catalogs, and previous clarifications remain available for comparison.
+- All **119** base-game side missions (001–119) now use the unified `src/za-side-handbook.js`. The current release has **528 structured original Russian steps** in total, each quest with **at least three** steps. Existing base mission data, verified NPC/location/reward catalogs, and previous clarifications remain available for comparison.
 - All entries include NPC/starting landmark, area, verified-catalog reward, starting main-story stage where the source supplies it, detailed per-quest steps, source-page links, research status and special prerequisites when known.
 - Hard missions now have more concrete walkthroughs, notably #7 (Chespin rematches), #8 (five branches for Fennekin), #9 (three Froakie trial times), #12 (five Flabébé colors), #13 (three fountain shrub waves), #17 (Shiny Mareep spot), #21 (12 Spewpa positions), #30–32 (linked Mega Evolution requests), #63 (XL Gogoat), #67 (five arguments for Sylveon), #76 (all quiz answers), #82 (Water Gun), #83 (Pupitar), #93 (Heliolisk rooftop), #94 (ten 3-star restaurant rounds / 30 Pokémon), #103 (four Furfrou restaurants and final), #108 (Alolan Raichu), #118 (Gwynn follow-up route), #119 (20 Reward Matches and four Jacinthe finals).
 - Game-related prerequisites link directly to main mission cards; linked side prerequisites #30→31→32 and #117→118 have side-mission jump buttons.
@@ -35,7 +35,7 @@
 
 ## Existing coverage outside session 2
 
-- **119** base-game side quests with 511 structured steps from `ZA_SIDE_HANDBOOK` (the earlier summary modules are legacy fallbacks).
+- **119** base-game side quests with 528 structured steps from `ZA_SIDE_HANDBOOK` (the earlier summary modules are legacy fallbacks).
 - **14** DLC storyline missions; **81** DLC side quests numbered **120–200** with additional special prerequisites for 23.
 - **20** Wild Zones, 179 described encounter observations (39 Alpha-labeled), **160** TM entries.
 - **8** completion-roadmap stages and 17 expanded help/FAQ subjects.
