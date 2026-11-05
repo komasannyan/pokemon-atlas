@@ -12,13 +12,12 @@ for(const id of keys){
  assert.match(info.text,/[А-Яа-яЁё]/,id);
  assert(!/Точный перевод|Описание пока|Уникальная способность покемона/.test(info.text),id);
 }
+// Assert verified entries currently provided by EXTRA_RU_ABILITIES, not future/unmerged game abilities.
 const test=(key,rx)=>assert.match(fullRuAbilityInfo(key).text,rx);
 test('overgrow',/1\/3.*Grass.*50%/);
 test('static',/30%.*паралич/);
 test('lightning-rod',/Electric.*Sp\. Atk/);
 test('chlorophyll',/Speed/);
-test('piercing-drill',/25%/);
-test('aura-guard',/вдвое/);
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 assert.match(html,/app\.js\?v=\d{3}/);
