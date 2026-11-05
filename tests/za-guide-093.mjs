@@ -4,16 +4,22 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {ZA_MAIN} from '../src/za-main-data.js';
 import {ZA_BASE_DEEP} from '../src/za-base-handbook.js';
+import {ZA_MAIN_STEPS} from '../src/za-walkthrough-details.js';
 import {ZA_SIDE_DETAILED} from '../src/za-guide-extras.js';
 import {ZA_SIDE_CLARIFICATIONS} from '../src/za-mission-clarifications.js';
 import {ZA_SIDE} from '../src/za-side-data.js';
 import {ZA_DLC_MAIN} from '../src/za-dlc-data.js';
 import {ZA_DLC_81} from '../src/za-dlc-all-side.js';
-import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED} from '../src/za-guide-handbook.js';
+import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED,ZA_COMPLETION_ROUTE} from '../src/za-guide-handbook.js';
 import {ZA_TMS_ENRICHED} from '../src/za-tms-enriched.js';
 import {ZA_ZONES} from '../src/za-data.js';
 
 assert.equal(ZA_MAIN.length,42,'base story mission count');
+for(let id=1;id<=42;id++){
+ assert.ok(typeof ZA_MAIN_STEPS[id]==='string' && ZA_MAIN_STEPS[id].split('|').length>=3,`main mission ${id} lacks a multi-step walkthrough`);
+}
+assert.equal(ZA_COMPLETION_ROUTE.length,8,'complete game route should have eight milestones');
+assert.ok(ZA_COMPLETION_ROUTE.every(x=>x.steps?.length>=3&&x.related?.length),'every route stage needs directions and linked quests');
 assert.equal(ZA_SIDE.length,119,'base side mission count');
 for(let id=1;id<=119;id++){
  const steps=ZA_SIDE_DETAILED[id]?.steps||ZA_SIDE_CLARIFICATIONS[id]||ZA_BASE_DEEP[id];
@@ -57,6 +63,7 @@ assert.match(ui,/ZA_DLC_DEEP\[x\.id\]/,'DLC guide steps connected');
 assert.match(ui,/ZA_DLC_STORY_DEEP\[x\.id\]/,'DLC story steps connected');
 assert.match(ui,/ZA_FAQ_EXTENDED\.map/,'help topics connected');
 assert.match(ui,/ZA_BASE_DEEP\[x\.id\]/,'base guide steps connected');
+assert.match(ui,/routeRows=ZA_COMPLETION_ROUTE/,'full completion route connected');
 assert.match(ui,/Check source/,'sources visible');
 const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
