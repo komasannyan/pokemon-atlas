@@ -847,3 +847,248 @@ export const ZA_FAQ_EXTENDED=[
     ]
   }
 ];
+
+// Completion route: practical ordering rather than an in-game achievement list.
+export const ZA_COMPLETION_ROUTE=[
+  {
+    "id": 1,
+    "name": "01. Первые часы: открыть Люмиос и систему заданий",
+    "location": "Gare de Lumiose → Hotel Z → Looker Bureau",
+    "steps": [
+      "Пройди основные миссии №1–4: выбери стартера, освой ловлю, открой Wild Zone 1 и получи первый ранг.",
+      "Во время основной миссии №5 обязательно выполни конкретные побочные №1, №2 и №3 — все три поручает Emma.",
+      "Сначала получи Heracross в обмен на Pikachu в №2; это может облегчить встречу с Alpha Bunnelby в №1.",
+      "Заверши разговор и бой с Emma, после чего продолжай сюжетные ранги."
+    ],
+    "related": [
+      [
+        "main",
+        5
+      ],
+      [
+        "side",
+        1
+      ],
+      [
+        "side",
+        2
+      ],
+      [
+        "side",
+        3
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/mainmissions.shtml"
+  },
+  {
+    "id": 2,
+    "name": "02. Ранги, Mega Evolution и первые Rogue Mega",
+    "location": "Z-A Royale → новые Wild Zones",
+    "steps": [
+      "Выполняй основные миссии №6–14 по порядку и используй билеты претендента для повышений ранга.",
+      "Освой Mega Evolution в сюжетной миссии №10.",
+      "Закрой Rogue Mega Slowbro, Camerupt и Victreebel в основных миссиях №11–13.",
+      "После каждого открытия Wild Zone проверяй новые покемоны, Alpha и TM, а также появившиеся побочные задания."
+    ],
+    "related": [
+      [
+        "main",
+        10
+      ],
+      [
+        "main",
+        11
+      ],
+      [
+        "main",
+        12
+      ],
+      [
+        "main",
+        13
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/mainmissions.shtml"
+  },
+  {
+    "id": 3,
+    "name": "03. Продолжить сюжет и не пропустить задания",
+    "location": "Миссии №15–35, все районы Люмиоса",
+    "steps": [
+      "Последовательно продвигайся по основным заданиям №15–35, включая наборы Rogue Mega и ранговые испытания.",
+      "По мере открытия районов закрывай обычные побочные миссии №4–119, доступные на текущем этапе.",
+      "Не считай отсутствие синего маркера ошибкой: некоторые задания открываются только после повышения ранга, конкретной миссии или предыдущего поручения.",
+      "Для новых видов и TM сверяй карточки Wild Zones и раздел TM."
+    ],
+    "related": [
+      [
+        "main",
+        15
+      ],
+      [
+        "main",
+        24
+      ],
+      [
+        "main",
+        35
+      ],
+      [
+        "help",
+        "missing-quest"
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/sidemissions.shtml"
+  },
+  {
+    "id": 4,
+    "name": "04. Финал и постгейм основной игры",
+    "location": "Prism Tower → Z-A Royale → легендарные встречи",
+    "steps": [
+      "Заверши основной сюжет до №37 «Operation Protect Lumiose».",
+      "Пройди постгейм №38–42, включая Infinite Z-A Royale, Xerneas, Yveltal и Zygarde.",
+      "Закрой оставшиеся побочные задания основной игры №1–119; поздние условия проверяй в их карточках.",
+      "Открой и исследуй все 20 Wild Zones; Wild Zone 20 открывается по постгейм-прогрессу."
+    ],
+    "related": [
+      [
+        "main",
+        37
+      ],
+      [
+        "main",
+        39
+      ],
+      [
+        "main",
+        40
+      ],
+      [
+        "main",
+        41
+      ],
+      [
+        "main",
+        42
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/mainmissions.shtml"
+  },
+  {
+    "id": 5,
+    "name": "05. Запустить Mega Dimension",
+    "location": "Крыша Hotel Z → Magenta Sector 6",
+    "steps": [
+      "Проверь установку Mega Dimension, завершение миссии №42 и наличие побочного задания №120.",
+      "На крыше Hotel Z поговори с Ansha и Hoopa, затем добудь масло в Magenta Sector 6.",
+      "Вернись в кухню отеля, изготовь пончик и открой Hyperspace.",
+      "Пройди Hyperspace Missions №1–11 по порядку, собирая Survey Points и побеждая Rogue Mega."
+    ],
+    "related": [
+      [
+        "dlc-side",
+        120
+      ],
+      [
+        "dlc-main",
+        1
+      ],
+      [
+        "dlc-main",
+        11
+      ],
+      [
+        "help",
+        "start-dlc"
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/hyperspacemissions.shtml"
+  },
+  {
+    "id": 6,
+    "name": "06. Завершить DLC и легендарных покемонов",
+    "location": "Hyperspace Lumiose, портал легенд",
+    "steps": [
+      "После финальной истории DLC открой Hyperspace Mission №12 «The Greatest Gift».",
+      "Изготовь Delta Old-Fashioned Donut для Rayquaza и специальные Omega/Alpha пончики для Groudon/Kyogre.",
+      "Пройди миссии DLC №12–14 и проверь полученных легендарных покемонов.",
+      "Сверяй требования рецептов в разделе «Пончики DLC», чтобы не расходовать Hyper Berries зря."
+    ],
+    "related": [
+      [
+        "dlc-main",
+        12
+      ],
+      [
+        "dlc-main",
+        13
+      ],
+      [
+        "dlc-main",
+        14
+      ],
+      [
+        "help",
+        "donut"
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/hyperspacemissions.shtml"
+  },
+  {
+    "id": 7,
+    "name": "07. Все побочные DLC, редкие виды и последняя миссия",
+    "location": "Все районы Люмиоса + Hyperspace",
+    "steps": [
+      "Закрой DLC-побочные задания №120–187, сверяя условия появления.",
+      "После открытия завершай №188–199: Special Scan, Latios/Latias, Genesect, Marshadow, Meltan/Melmetal, Volcanion, Magearna и Hoopa.",
+      "Убедись, что в игровом журнале выполнены ВСЕ обычные побочные №1–199, включая основную игру.",
+      "Войди в Hotel Z, чтобы открыть №200, пройди финальный бой и завершающую сцену."
+    ],
+    "related": [
+      [
+        "dlc-side",
+        188
+      ],
+      [
+        "dlc-side",
+        191
+      ],
+      [
+        "dlc-side",
+        195
+      ],
+      [
+        "dlc-side",
+        200
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/sidemissions.shtml"
+  },
+  {
+    "id": 8,
+    "name": "08. Проверка полного прохождения",
+    "location": "Покедекс, карта, журнал заданий, TM",
+    "steps": [
+      "Сверь журнал: основные миссии №1–42 и Hyperspace Missions №1–14; обычные побочные №1–200.",
+      "Проверь все 20 Wild Zones, 160 TM, доступные Mega Stones, рецепты и коллекционные предметы по отдельным разделам Атласа.",
+      "Проверь региональные формы, эволюции обменом или предметами, Alpha и редкие виды в Pokédex.",
+      "Отдельно проверь EX1–EX3: их доступность зависит от полученных событий/Mystery Gift и может отличаться от обычного полного прохождения.",
+      "Помни: галочки Атласа хранятся локально и не синхронизируются автоматически с игровым сохранением."
+    ],
+    "related": [
+      [
+        "help",
+        "missing-ex"
+      ],
+      [
+        "help",
+        "tm-missing"
+      ],
+      [
+        "help",
+        "zawild"
+      ]
+    ],
+    "source": "https://www.serebii.net/legendsz-a/sidemissions.shtml"
+  }
+];
