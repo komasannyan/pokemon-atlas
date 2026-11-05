@@ -16,6 +16,7 @@ import {ZA_SIDE_DETAILED,ZA_REWARDS,ZA_EX_MISSIONS,ZA_DONUT_RECIPES} from './za-
 import {isEnglish} from './i18n.js';
 import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED,ZA_COMPLETION_ROUTE} from './za-guide-handbook.js';
 import {ZA_BASE_DEEP} from './za-base-handbook.js';
+import {ZA_MAIN_HANDBOOK} from './za-main-handbook.js';
 
 const KEY='pokemon-atlas-guide-progress-v1',STEP_KEY='pokemon-atlas-guide-steps-v1',GAME_KEY='pokemon-atlas-guide-game-v1';
 const $=s=>document.querySelector(s);
@@ -38,7 +39,10 @@ const sideRows=ZA_SIDE.map(x=>{
     ?(/20 Reward Matches/i.test(checked.unlockExtra)?'Выиграй 20 Reward Matches в Infinite Z-A Royale':checked.unlockExtra)
     :ZA_SIDE_SPECIAL_UNLOCK[x.id]||null};
 });
-const mainRows=ZA_MAIN.map(x=>({...x,kind:'main',steps:(ZA_MAIN_STEPS[x.id]||x.steps||'').split('|').filter(Boolean)}));
+const mainRows=ZA_MAIN.map(x=>{
+ const checked=ZA_MAIN_HANDBOOK[x.id];
+ return {...x,...checked,kind:'main',steps:checked?.steps||(ZA_MAIN_STEPS[x.id]||x.steps||'').split('|').filter(Boolean)};
+});
 const dlcRows=[...ZA_DLC_MAIN.map(x=>({...x,kind:'dlc-main',steps:ZA_DLC_STORY_DEEP[x.id]||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)})),...ZA_DLC_81.map(x=>({...x,kind:'dlc-side',extraReq:ZA_DLC_UNLOCKS[x.id]||null,steps:ZA_DLC_DEEP[x.id]||ZA_SIDE_DETAILED[x.id]?.steps||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)}))];
 const exRows=ZA_EX_MISSIONS.map(x=>({...x,kind:'extra'}));
 const bossRows=ZA_BOSS_TIPS.map(x=>({...x,kind:'boss',name:'Rogue Mega '+x.pokemon,steps:[x.tactic],location:mainRows.find(m=>m.id===x.id)?.location||null}));
@@ -63,7 +67,7 @@ try{const saved=localStorage.getItem(GAME_KEY);if(COLLECTION_GAMES.some(g=>g.key
 function idOf(x){return x.kind+':'+x.id;}
 function savedKey(x){const oldType=x.kind==='zone'?'zone':x.kind==='item'?'item':x.kind==='tm'?'tm':x.kind;return state.game+':'+oldType+':'+x.id;}
 function done(x){return !!state.completed[savedKey(x)];}
-function stepKey(x,i){return savedKey(x)+':'+i;}
+function stepKey(x,i){const step=x.steps?.[i];return x.kind==='main'&&step?.id?savedKey(x)+':v2:'+step.id:savedKey(x)+':'+i;}
 function setStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));notice='';return true;}catch{notice=tx('Браузер не дал сохранить прогресс. Проверь свободное место и настройки хранения.','Unable to save progress. Check browser storage permissions and space.');return false;}}
 function groupOf(x){return x.kind==='main'?'main':x.kind==='side'?'side':x.kind==='dlc-main'||x.kind==='dlc-side'?'dlc':x.kind;}
 function labelOf(kind){const labels={route:['Этап маршрута','Completion route'],main:['Основное задание','Main mission'],side:['Побочное задание','Side mission'],boss:['Босс','Boss'],zone:['Зона','Zone'],tm:['Техническая машина','Technical Machine'],item:['Предмет','Item'],'dlc-main':['Сюжет DLC','DLC story'],'dlc-side':['Побочное DLC','DLC side quest'],extra:['Особое задание','Extra mission'],recipe:['Рецепт','Recipe'],help:['Справка','Help']};return tx(...(labels[kind]||['Запись','Entry']));}
@@ -82,7 +86,7 @@ function tableFor(tab){
  return ALL;
 }
 function keywords(x){
- const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic];
+ const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
  return normalize(values.join(' '));
 }
 function filtered(){
@@ -128,17 +132,23 @@ function linksFor(x){
 function objectiveSteps(x){
  let arr=Array.isArray(x.steps)?x.steps:[x.steps||''];
  arr=arr.filter(Boolean);
- if(x.kind==='side'||x.kind==='dlc-side'){
-   // Mission-specific directions are supplied as standalone steps where checked.
+ if(x.kind==='side'){
+   // Standard base-game side quests have ordinary map markers; portal quests do not.
    const place=x.location||'';
-   return [tx('На карте найди голубой маркер побочного задания №'+x.id+' рядом с '+place+'. Если его нет — сначала выполни условия открытия.','Find the blue marker for side mission #'+x.id+' near '+place+'. If absent, check prerequisites.'),...arr,tx('После выполнения условий проверь, завершился ли квест. При необходимости поговори с заказчиком ещё раз.','Confirm the mission was completed; speak to the requester again if needed.')];
+   return [tx('Найди голубой маркер задания №'+x.id+' около '+place+'. Если маркера нет, проверь условия открытия.','Find the side-mission marker #'+x.id+' near '+place+'. If missing, check prerequisites.'),...arr];
  }
+ // The DLC also includes distortion/portal quests that are not ordinary blue markers.
+ // Do not prepend a universal and potentially false location hint.
+
  return arr;
 }
 function stepMarkup(x){
  const steps=objectiveSteps(x);
  if(!steps.length)return '<p class="guide-warning">'+tx('Пошаговые цели пока не установлены.','Detailed objectives not available yet.')+'</p>';
- return '<ol class="guide-steps">'+steps.map((step,i)=>'<li><label><input type="checkbox" data-guide-step="'+esc(idOf(x))+':'+i+'" '+(state.checkedSteps[stepKey(x,i)]?'checked':'')+'><span>'+esc(step)+'</span></label></li>').join('')+'</ol>';
+ return '<ol class="guide-steps">'+steps.map((step,i)=>{
+  const body=typeof step==='string'?step:tx(step.ru,step.en||step.ru);
+  return '<li><label><input type="checkbox" data-guide-step="'+esc(idOf(x))+':'+i+'" '+(state.checkedSteps[stepKey(x,i)]?'checked':'')+'><span>'+esc(body)+'</span></label></li>';
+ }).join('')+'</ol>';
 }
 function recipeMarkup(x){if(x.kind!=='recipe')return '';const r=x.requirements||{};return '<div class="guide-recipe">'+Object.entries(r).map(([k,v])=>'<span><small>'+esc(({sweet:'Sweet',sour:'Sour',spicy:'Spicy',bitter:'Bitter',fresh:'Fresh'})[k])+'</small><strong>'+v+'</strong></span>').join('')+'</div><p class="guide-muted">'+tx('Это минимальные суммы вкусов. Используй Hyper Berries с нужными значениями, превышать порог можно. Рецепт должен быть открыт по сюжету.','Minimum flavor totals. Use suitable Hyper Berries; exceeding them is fine. Recipe must be unlocked in the story.')+'</p>';}
 function zoneMarkup(x){
@@ -179,15 +189,20 @@ function card(x){
   (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(x.startHint)+'</p></div>':'')+
   (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
   (x.extraReq||x.specialUnlock||x.kind==='extra'?'<div class="guide-info-line"><b>'+tx('УСЛОВИЯ','REQUIREMENTS')+'</b><p>'+esc(x.extraReq||x.specialUnlock||x.unlock||'—')+'</p></div>':'')+
-  (x.kind==='main'&&x.id>1?'<div class="guide-info-line"><b>'+tx('ПЕРЕД НАЧАЛОМ','BEFORE STARTING')+'</b><p>'+tx('Заверши предыдущее сюжетное задание или обязательные параллельные цели.','Complete the previous main mission or required parallel objectives.')+'</p></div>':'')+
+  (x.kind==='main'&&x.unlock?'<div class="guide-info-line"><b>'+tx('УСЛОВИЕ ОТКРЫТИЯ','UNLOCK REQUIREMENT')+'</b><p>'+esc(x.unlock)+'</p></div>':'')+
+  (x.kind==='main'&&x.id>1&&!x.unlock?'<div class="guide-info-line"><b>'+tx('ПЕРЕД НАЧАЛОМ','BEFORE STARTING')+'</b><p>'+tx('Заверши предыдущее сюжетное задание или обязательные параллельные цели.','Complete the previous main mission or required parallel objectives.')+'</p></div>':'')+
   ((x.kind==='recipe')?recipeMarkup(x):'')+
   (x.kind==='boss'?bossMarkup(x):'')+
+  (x.kind==='main'&&x.battle?'<div class="guide-info-line"><b>'+tx('БОИ И ПОДГОТОВКА','BATTLES & PREPARATION')+'</b><p>'+esc(x.battle)+'</p></div>':'')+
   '<h4>'+tx('Что делать — по шагам','Step-by-step')+'</h4>'+stepMarkup(x)+
+  (x.kind==='main'&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
+  (x.kind==='main'&&x.steps?.some(s=>typeof s==='object'&&!s.en)?'<p class="guide-muted">'+tx('Инструкции проверены по англоязычным источникам и пока доступны по-русски.','Mission walkthrough text is currently Russian-only; English translation is planned.')+'</p>':'')+
   (x.kind==='zone'?zoneMarkup(x):'')+
   (x.reward?'<div class="guide-info-line"><b>'+tx('НАГРАДА','REWARDS')+'</b><p>'+esc(x.reward)+'</p></div>':'')+
   (x.kind==='side'&&!x.reward?'<p class="guide-muted">'+tx('Точные награды этой миссии ещё не сверены.','Exact rewards are not yet verified for this mission.')+'</p>':'')+
   linksFor(x)+
-  (x.source?'<p class="guide-source"><a href="'+esc(x.source)+'" target="_blank" rel="noopener noreferrer">'+tx('Проверить источник','Check source')+'</a></p>':'')+
+  (x.sources?.length?'<p class="guide-source">'+tx('Источники: ','Sources: ')+x.sources.map((url,i)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc((url.match(/https?:\/\/([^/]+)/)||[])[1]||'Reference')+'</a>').join(' · ')+'</p>':
+    x.source?'<p class="guide-source"><a href="'+esc(x.source)+'" target="_blank" rel="noopener noreferrer">'+tx('Проверить источник','Check source')+'</a></p>':'')+
  '</div></details></article>';
 }
 function pageItems(){
