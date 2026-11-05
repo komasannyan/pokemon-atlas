@@ -1673,11 +1673,15 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Сопровождай мужчину в канализацию через кафе."
+        "ru": "Найди заказчика Camerupt Entrepreneur возле входа в канализацию; после миссии №19 вход туда уже известен."
       },
       {
         "id": "s02",
-        "ru": "Побеждай Camerupt (уровень 46) для получения награды."
+        "ru": "Согласись на поручение и следуй за предпринимателем через обозначенный вход в Lumiose Sewers."
+      },
+      {
+        "id": "s03",
+        "ru": "Внутри сразись с отмеченным Camerupt уровня 46, затем вернись к заказчику и получи награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1685,8 +1689,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Исследуйте местность для новых покемонов.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Эту побочную миссию можно начать и использовать для повторного посещения канализации, даже если пока не завершать её.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "58": {
@@ -1849,27 +1853,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди XL Gogoat и отдай его мужчине."
+        "ru": "Поговори с заказчиком, которому нужен Gogoat размера XL: размер проверяется в информации о покемоне."
       },
       {
         "id": "s02",
-        "ru": "Проверь размер на экране характеристик покемона."
+        "ru": "Отправляйся в Wild Zone 12 и ищи Gogoat. По данным прохождения шанс экземпляра XL составляет примерно 1/16, так что понадобится несколько проверок."
       },
       {
         "id": "s03",
-        "ru": "Ищи в Wild Zone 12, вероятность XL Gogoat 1/16."
+        "ru": "Альтернативный путь: найди Alpha Skiddo в Wild Zone 3; Alpha имеет подходящий крупный размер. Развей Skiddo до Gogoat с уровня 32."
       },
       {
         "id": "s04",
-        "ru": "Можно также найти Skiddo в Wild Zone 3 и получить Alpha для 5-10% шанса XL."
+        "ru": "Покажи заказчику Gogoat размера XL и подтверди передачу — покемон покинет твою коллекцию."
       },
       {
         "id": "s05",
-        "ru": "На Alpha Skiddo уровень 20, так что он эволюционирует на 32."
-      },
-      {
-        "id": "s06",
-        "ru": "Вы теряете XL Gogoat, но получаете $8000 и 10 x Carbos."
+        "ru": "После передачи получишь Carbos ×10 и денежную награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -1877,8 +1877,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Соберите информацию о размерах покемонов.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Покемон отдаётся NPC навсегда. Не передавай единственного редкого Alpha, если хочешь оставить его для команды.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "64": {
@@ -1963,23 +1963,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди лишнего Shuppet для миссии."
+        "ru": "До начала задания приготовь запасного Shuppet. Ночью он встречается в Wild Zone 7 и Wild Zone 15."
       },
       {
         "id": "s02",
-        "ru": "Shuppet доступен в Wild Zone 7 и 15 ночью."
+        "ru": "Поговори с заказчиком и выбери экземпляр Shuppet, которого готов передать для расследования."
       },
       {
         "id": "s03",
-        "ru": "Выбери Shuppet для отзыва."
+        "ru": "Следуй за Shuppet через улицы города до района Café Cyclone; не отправляйся сразу к финальному зданию, пока сопровождающий не активировал нужные этапы."
       },
       {
         "id": "s04",
-        "ru": "Следуй за ним к Café Cyclone."
-      },
-      {
-        "id": "s05",
-        "ru": "После завершения получи $3000 и 5 x Exp. Candy M."
+        "ru": "Заверши сцену расследования возле Café Cyclone и забери награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -1987,8 +1983,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Ищите Shuppet в вечернее время.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для задания нужен Shuppet, с которым можно расстаться; заранее сохрани любимый экземпляр.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "67": {
@@ -2001,31 +1997,31 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с женщиной с Sylveon."
+        "ru": "Поговори с хозяйкой Sylveon у канала. Она просит прекратить пять ссор — в боях участвовать не нужно."
       },
       {
         "id": "s02",
-        "ru": "Найди пять пар людей, которые ссорятся, не сражаясь с ними."
+        "ru": "Приведи Sylveon к первой паре: двое строителей находятся справа от заказчицы, внизу у воды."
       },
       {
         "id": "s03",
-        "ru": "Первый: два строителя справа у реки."
+        "ru": "Вторая пара — двое детей слева от неё, под мостом."
       },
       {
         "id": "s04",
-        "ru": "Второй: два ребенка под мостом слева."
+        "ru": "Третья — мужчина старшего возраста и молодая женщина на противоположном берегу относительно Sylveon."
       },
       {
         "id": "s05",
-        "ru": "Третий: мужчина и женщина по другую сторону реки."
+        "ru": "Четвёртая — спорящая пара среднего возраста через реку от строителей."
       },
       {
         "id": "s06",
-        "ru": "Четвертый: супружеская пара возле строителей."
+        "ru": "Пятая — два участника Rust Syndicate на одном из зелёных мостиков через канал."
       },
       {
         "id": "s07",
-        "ru": "Пятый: два гангстера на зеленом мосту."
+        "ru": "Когда Sylveon поможет всем пяти парам, игра автоматически вернёт тебя к исходной точке; заверши разговор и забери награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2033,8 +2029,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Планируйте маршрут для Sylveon заранее.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Ищи пять отдельных пар. Ни одной из них не требуется побеждать в бою.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "68": {
@@ -2077,19 +2073,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Собери команду только с покемонами летающего типа."
+        "ru": "Подойди к тренеру, который хочет воспроизвести Sky Battle, и проверь установленное ограничение."
       },
       {
         "id": "s02",
-        "ru": "Для битвы используй только их."
+        "ru": "Перед разговором оставь в активной команде только Pokémon Flying-типа; обычные левитирующие Pokémon без Flying-типа не подходят."
       },
       {
         "id": "s03",
-        "ru": "Противник: уровень 47 Noibat и Talonflame, уровень 48 Altaria."
+        "ru": "Вызови тренера: у него Noibat и Talonflame уровня 47, Altaria уровня 48."
       },
       {
         "id": "s04",
-        "ru": "После победы получи $3900, Sharp Beak и Power Anklet."
+        "ru": "Выиграй бой с разрешённым составом, после чего получи Sharp Beak, Power Anklet и денежную награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2097,8 +2093,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте ударные атаки, чтобы быстрее побеждать.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Система проверяет именно Flying-тип, а не внешний вид и способность Pokémon летать.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "70": {
@@ -2111,19 +2107,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с каждым Соперником (Grunt) для начала битвы."
+        "ru": "Подойди к участникам Rust Syndicate, которые предлагают испытание для одного покемона."
       },
       {
         "id": "s02",
-        "ru": "Бей только с одним покемоном в команде."
+        "ru": "Оставь в активной команде ровно одного Pokémon. Он должен пройти оба боя: между ними нельзя подменить его другим членом команды."
       },
       {
         "id": "s03",
-        "ru": "Первый Grunt: уровень 45 Arbok, второй: уровень 45 Glalie."
+        "ru": "Победи первого участника, который использует Arbok уровня 45."
       },
       {
         "id": "s04",
-        "ru": "После победы получи $2000, Black Glasses и Focus Band."
+        "ru": "После этого победи второго — Glalie уровня 45, затем забери награды Black Glasses и Focus Band."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2131,8 +2127,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Подготовьте сильный покемон для боя.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Разница типов двух соперников делает универсальный атакующий набор полезнее одной узкой специализации.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "71": {
@@ -2183,19 +2179,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Зайди в Wild Zone 11 для поиска Галарийского Stunfisk."
+        "ru": "После разговора с Terri войди в Wild Zone 11 и направляйся к руслу реки."
       },
       {
         "id": "s02",
-        "ru": "Ищи в хорошем месте около реки на противоположной стороне от Альфа Slowbro."
+        "ru": "Ищи небольшой выступ берега напротив точки, где находится Alpha Slowbro."
       },
       {
         "id": "s03",
-        "ru": "Когда увидишь его (выглядит как маленький покебол), выбери 'Pick Up'."
+        "ru": "Galarian Stunfisk маскируется под крошечный Poké Ball. Увидев соответствующий предмет на земле, выбери действие Pick Up."
       },
       {
         "id": "s04",
-        "ru": "Этот Stunfisk даст тебе $800, Max Revive и Power Weight."
+        "ru": "После обнаружения Terri подойдёт к тебе; заверши сцену и получи Galarian Stunfisk и награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2203,8 +2199,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Ищите его в течение дня.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не ищи обычную стоящую модель Stunfisk: он выглядит как предмет для подбора.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "73": {
@@ -2511,15 +2507,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Научите покемона приему Water Gun."
+        "ru": "Подготовь Pokémon, который знает именно Water Gun. Другие Water-атаки для этой головоломки заказчик не принимает."
       },
       {
         "id": "s02",
-        "ru": "Встань на платформе под Clauncher."
+        "ru": "Займи платформу непосредственно под Clauncher и найди слой грязи, на который указывает задание."
       },
       {
         "id": "s03",
-        "ru": "Прицелься на грязь и очисти её с помощью Water Gun."
+        "ru": "Прицелься в грязь и используй Water Gun, чтобы очистить проход."
+      },
+      {
+        "id": "s04",
+        "ru": "Когда грязь исчезнет, поговори с заказчиком и забери Pearl ×3 и Big Pearl."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2527,8 +2527,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Проверяй, подходит ли покемон для этого приема.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для решения нужен конкретный приём Water Gun, а не просто любая атака Water-типа.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "83": {
@@ -2541,27 +2541,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди Larvitar в Wild Zone 15 на крыше."
+        "ru": "Найди Larvitar в Wild Zone 15. Доступный путь начинается с крыши: восстанови Holovator к юго-западу от зоны и поднимись на верхний уровень."
       },
       {
         "id": "s02",
-        "ru": "Разблокируй Holovator и поднимись на крышу."
+        "ru": "На крыше разбей мешающий кокон, перейди к входу в Wild Zone 15 и поймай Larvitar подходящего уровня."
       },
       {
         "id": "s03",
-        "ru": "Разбери кокон и дойди до входа."
+        "ru": "Развей Larvitar в Pupitar начиная с уровня 30. Если пойманный Larvitar уже превысил этот уровень, достаточно поднять уровень один раз."
       },
       {
         "id": "s04",
-        "ru": "Эволюционируй Larvitar в Pupitar (уровень 42)."
+        "ru": "Перед боем убери остальных Pokémon из активной команды, оставив только Pupitar."
       },
       {
         "id": "s05",
-        "ru": "Сменяй команду, оставляя только Pupitar."
-      },
-      {
-        "id": "s06",
-        "ru": "Сразись с мальчиком. Его Honedge уровень 52."
+        "ru": "Поговори с заказчиком у Honedge и победи Honedge уровня 52 в установленном одиночном испытании."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2569,8 +2565,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используй приемы типа Dark, чтобы справиться с Honedge.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для испытания нужен Pupitar, не Tyranitar и не Larvitar. Следи за составом активной команды.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "84": {
@@ -2613,15 +2609,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Следи за Litwick, когда он движется."
+        "ru": "Найди Litwick, за которым просит проследить заказчик, и подойди к нему."
       },
       {
         "id": "s02",
-        "ru": "Включи указания для навигации."
+        "ru": "Преследуй Litwick по городским проходам: на остановках он будет перемещаться дальше. Включи отслеживание миссии, если пропадёт из виду."
       },
       {
         "id": "s03",
-        "ru": "В конечном итоге, зайди в канализацию и подойди к девушке."
+        "ru": "Продолжай сопровождение до входа в Lumiose Sewers и спустись за Litwick."
+      },
+      {
+        "id": "s04",
+        "ru": "Дойди до самой дальней комнаты канализации и поговори с девушкой, которая там находится."
+      },
+      {
+        "id": "s05",
+        "ru": "После финальной сцены получи Life Orb и денежную награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2629,8 +2633,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Не теряй из виду Litwick, чтобы не потерять след.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Litwick не требуется ловить. Цель — пройти весь маршрут до девушки в дальней комнате канализации.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "86": {
@@ -2643,23 +2647,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Исследуй отверстие перед офисом Rust Syndicate."
+        "ru": "Перед Rust Syndicate HQ осмотри первую дырку в земле, на которую указывает заказчик."
       },
       {
         "id": "s02",
-        "ru": "Следи за следующими отверстиями."
+        "ru": "Иди от дырки к дырке: следующая обычно видна с места предыдущей. Не уходи на другой этаж или дальнюю крышу."
       },
       {
         "id": "s03",
-        "ru": "Дойди до отверстия к югу от Wild Zone 10."
+        "ru": "Последняя дырка находится южнее Wild Zone 10 — на треугольном клочке травы возле строительных лесов."
       },
       {
         "id": "s04",
-        "ru": "Исследуй отверстие, чтобы сразиться с Drilbur (уровень 53)."
+        "ru": "Взаимодействуй с последней дыркой. Появится Drilbur уровня 53; победи его."
       },
       {
         "id": "s05",
-        "ru": "Вернись в офис, чтобы завершить миссию."
+        "ru": "Вернись к участнику Rust Syndicate у штаба, чтобы получить Weakness Policy и остальные награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2667,8 +2671,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Осторожно, Drilbur может использовать сильные атаки.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Финальная точка — треугольная лужайка у лесов, а не произвольная яма рядом с Wild Zone 10.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "87": {
@@ -2711,19 +2715,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с таксисткой, чтобы начать миссию."
+        "ru": "Поговори с начинающей таксисткой и попроси отвезти тебя к Magenta Pokémon Center — пока она знает только этот маршрут."
       },
       {
         "id": "s02",
-        "ru": "Попроси её отвезти тебя в Pokémon Center Magenta."
+        "ru": "В поездке можно предложить ₽710 или отказаться от оплаты: оба варианта позволяют продолжить задание."
       },
       {
         "id": "s03",
-        "ru": "При желании предложи ей оплату (это не обязательно)."
+        "ru": "После поездки снова поговори с таксисткой и согласись на тренировочный бой."
       },
       {
         "id": "s04",
-        "ru": "После этого она бросит тебе вызов."
+        "ru": "Победи её Emolga и Excadrill уровня 53, а также Lopunny уровня 54. Противник активно усиливает скорость приёмом Agility."
+      },
+      {
+        "id": "s05",
+        "ru": "Забери TM047 Agility и Swift Feather ×10."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2731,8 +2739,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Будь готов к битве сразу после поездки.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Выбор платить за поездку или нет не влияет на завершение задания.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "89": {
@@ -2865,15 +2873,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Помоги мужчине найти квартиру."
+        "ru": "Поговори с заказчиком, который ищет подходящее жильё для Heliolisk. Условия: рядом Prism Tower, Saison Canal, кафе и Pokémon Center; наверху должны быть столики и зонтики."
       },
       {
         "id": "s02",
-        "ru": "Ищи вблизи Prism Tower и Saison Canal."
+        "ru": "Иди по Magenta Street к западной стороне канала и Prism Tower. Нужное здание стоит на южной стороне улицы."
       },
       {
         "id": "s03",
-        "ru": "Заберись на крышу на южной стороне Magenta Street."
+        "ru": "Найди длинную лестницу на внешней стене здания и поднимись на крышу, где расставлены столики с зонтиками."
+      },
+      {
+        "id": "s04",
+        "ru": "Осмотри подходящую крышу, чтобы подтвердить выбор квартиры, затем вернись к заказчику и получи Sun Stone."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2881,8 +2893,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Убедись, что все указатели соответствуют описанию квартиры.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Конкретное решение — крыша на южной стороне Magenta Street с длинной лестницей и зонтиками. Не нужно проверять каждый жилой дом вокруг башни.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "94": {
@@ -2895,11 +2907,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Подготовь команду для длительной серии битв (30 боев)."
+        "ru": "Поговори с управляющим ресторанного испытания Full Course of Battles: Three Stars и согласись на длинную серию боёв."
       },
       {
         "id": "s02",
-        "ru": "Сразись с каждым противником без возможности восстановления здоровья."
+        "ru": "Подготовь запас лечащих предметов и универсальные атаки до входа; противников будет много, а их составы меняются."
+      },
+      {
+        "id": "s03",
+        "ru": "Проходи поединки серии до завершения турнира. Проигрыш не блокирует повторную попытку: вход снова бесплатный."
+      },
+      {
+        "id": "s04",
+        "ru": "После последнего сражения забери предусмотренные рестораном награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2907,8 +2927,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Убедись, что покемоны готовы к жестким битвам без перерыва.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это длительный gauntlet; если проиграл, опыт уже полученных уровней сохраняется.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "95": {
@@ -3003,15 +3023,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди Jumbo Variety Pumpkaboo."
+        "ru": "Поговори с заказчицей, которая ищет Pumpkaboo размера Jumbo Variety. Обычный Alpha Pumpkaboo не подходит автоматически."
       },
       {
         "id": "s02",
-        "ru": "Лови его с помощью уникального крика."
+        "ru": "Отправляйся в Wild Zone 15 и поймай несколько Pumpkaboo. Варианты по размерам здесь нельзя надёжно различить по обычному значению размера в summary."
       },
       {
         "id": "s03",
-        "ru": "Покажите женщине, чтобы выполнить задание."
+        "ru": "Открой summary пойманных Pumpkaboo и сравни их крики. У Jumbo Variety более глубокий, низкий звук."
+      },
+      {
+        "id": "s04",
+        "ru": "Когда найдёшь нужный вариант, предъяви его заказчице и получи награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3019,8 +3043,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Внимательно слушай звуки криков, чтобы найти нужного Pumpkaboo.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не подменяй Jumbo Variety обычным Alpha — по условию задания это разные критерии.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "99": {
@@ -3149,23 +3173,35 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Посети четыре указанных ресторана."
+        "ru": "Перед вступлением в Furfrou League подготовь Furfrou для одиночных матчей. Другие виды для этой цепочки испытаний не подходят."
       },
       {
         "id": "s02",
-        "ru": "Используй только Furfrou в боях с Фурфру-тренерами."
+        "ru": "В Restaurant Le Nah победи Brill: Furfrou уровня 58, использует в том числе Surf и Bite."
       },
       {
         "id": "s03",
-        "ru": "Побеждайте каждого тренера с одним Furfrou уровня 58."
+        "ru": "В Restaurant Le Yeah победи Diamant: Furfrou уровня 58 с Protect, Dig, Iron Tail и Rock Smash."
       },
       {
         "id": "s04",
-        "ru": "После победы идите в Café Woof для боя с чемпионом Soignée."
+        "ru": "В Sushi High Roller победи Mie: Furfrou уровня 58 использует Work Up, Snarl, Hyper Voice и Roar."
       },
       {
         "id": "s05",
-        "ru": "Побеждай со Soignée, использующую 6 Furfrou уровня 59 и одно Shiny уровня 60."
+        "ru": "В Restaurant Le Wow победи Marta: Furfrou уровня 58 с Thunder Wave, Substitute, U-turn и Double-Edge."
+      },
+      {
+        "id": "s06",
+        "ru": "После всех четырёх соперников отправляйся в Café Woof и поговори с чемпионкой Soignée."
+      },
+      {
+        "id": "s07",
+        "ru": "Выиграй финальную серию против шести её Furfrou: пять на уровне 59 и последний Shiny Furfrou уровня 60. Пригодятся лечение и Fighting-атаки, но учитывай покрытия Steel/Psychic в приёмах соперников."
+      },
+      {
+        "id": "s08",
+        "ru": "После победы получи крупную денежную награду и Gold Bottle Cap."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3173,8 +3209,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Имея разный стиль боя, используй защитные стратегии на сильных покемонов противника.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Здесь четыре отдельных ресторана и финал в Café Woof. У Soignée шесть, а не семь Furfrou.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "104": {
@@ -3247,15 +3283,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с женщиной о потерянном ключе."
+        "ru": "Поговори с женщиной, потерявшей ключ после посещения парикмахерской, ресторана и боевой площадки."
       },
       {
         "id": "s02",
-        "ru": "Посети батл-корт между Café Classé и Hair Salon в Vert Sector 9."
+        "ru": "Сопоставь её подсказки: такое сочетание мест есть в Vert Sector 9."
       },
       {
         "id": "s03",
-        "ru": "Подбери красный блестящий предмет на земле, чтобы вернуть ключ."
+        "ru": "Отправляйся на battle court между Café Classe и Hair Salon в Vert Sector 9."
+      },
+      {
+        "id": "s04",
+        "ru": "Подними красный блестящий предмет на земле — это потерянный ключ. Верни его заказчице, чтобы получить Nugget и деньги."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3263,8 +3303,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Проверь все области вокруг, чтобы найти ключ.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Ключ лежит непосредственно на battle court, а не в парикмахерской или ресторане.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "107": {
@@ -3277,15 +3317,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Добавь одного Pikachu в свою команду."
+        "ru": "Поймай Pikachu и оставь его единственным Pokémon в активной команде. Удобный вариант — Alpha Pikachu на крыше кафе в Wild Zone 6."
       },
       {
         "id": "s02",
-        "ru": "Поговори с мальчиком для начала поединка."
+        "ru": "Подготовь Pikachu к дуэли и поговори с мальчиком. Противник использует Pikachu уровня 66 с Light Ball."
       },
       {
         "id": "s03",
-        "ru": "Побеждай его Pikachu уровня 66 используя тактики избегания."
+        "ru": "Следи за приёмами Dig, Quick Attack, Protect и Iron Tail: когда противник использует Dig, отвечай собственным Dig с подходящим таймингом либо уходи из точки поражения."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи противника в одиночном бою и забери Light Ball и дополнительные награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3293,8 +3337,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используй разные стратегии для легкого избежания атак его Pikachu.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Покемонов в активной команде должен быть ровно один — Pikachu; просто поставить его первым недостаточно.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "108": {
@@ -3307,15 +3351,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Сражайся с Alolan Raichu один на один с обычным Raichu."
+        "ru": "Возьми обычного Raichu. Если уже есть Pikachu из №107, используй Thunder Stone для эволюции."
       },
       {
         "id": "s02",
-        "ru": "Используй эволюционированного Pikachu с Thunder Stone."
+        "ru": "Перед разговором с заказчицей оставь в команде только этого Raichu: требуется бой один на один."
       },
       {
         "id": "s03",
-        "ru": "Побеждай Alolan Raichu уровня 66. Обменяй любой Raichu за Alolan Raichu."
+        "ru": "Победи Alolan Raichu уровня 66, который использует Thunder, Play Rough и Psychic."
+      },
+      {
+        "id": "s04",
+        "ru": "После дуэли поговори с заказчицей снова и обменяй обычного Raichu на Alolan Raichu."
+      },
+      {
+        "id": "s05",
+        "ru": "Заверши обмен и забери Tamato Berry ×10, Pomeg Berry ×10 и деньги."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3323,8 +3375,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Силы электического типа будут твоим преимуществом.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Нужен обычный Raichu; Alolan Raichu выдаётся именно после победы и внутриигрового обмена.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "109": {
@@ -3363,15 +3415,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с тренером для начала поединка."
+        "ru": "Поговори с заказчицей, использующей Perish Song, и начни бой с её командой."
       },
       {
         "id": "s02",
-        "ru": "Избегай покемонов, которые могут слышать Perish Song."
+        "ru": "Против тебя будут Absol и Altaria уровня 67, а затем Gengar уровня 68."
       },
       {
         "id": "s03",
-        "ru": "Побеждай уровни 67 Absol и Altaria и уровень 68 Gengar."
+        "ru": "Следи за Perish Song: через примерно 30 секунд Pokémon, услышавшие песню, потеряют сознание, если останутся под её эффектом."
+      },
+      {
+        "id": "s04",
+        "ru": "Меняй активного Pokémon, когда звучит Perish Song, и старайся побеждать соперников до окончания отсчёта."
+      },
+      {
+        "id": "s05",
+        "ru": "После победы забери Kasib Berry и Exp. Candy M."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3379,8 +3439,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Сосредоточься на атакующих стратегиях, если твои покемоны имеют уверенность.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Если после Perish Song просто продолжать долгий бой тем же Pokémon, можно проиграть даже при большом запасе HP.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "111": {
@@ -3479,11 +3539,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди красный свет между двумя трубами на крыше в Wild Zone 17."
+        "ru": "Войди в Wild Zone 17 и доберись до крыши с Alpha Mawile."
       },
       {
         "id": "s02",
-        "ru": "Как только найдешь, вызови уровень 67 Skarmory на бой."
+        "ru": "На этой крыше отыщи два дымохода: между ними лежит нужный предмет, обозначенный красным свечением."
+      },
+      {
+        "id": "s03",
+        "ru": "Подними предмет — после этого тебя вызовет на бой Skarmory уровня 67."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи Skarmory, чтобы завершить получение пера и забрать Metal Coat и остальные награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3491,8 +3559,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Избегай использования атак, которые могут не быть эффективными против летящих покемонов.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не путай светящиеся предметы на разных крышах: нужный находится между двумя дымоходами на крыше Alpha Mawile.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "115": {
@@ -3505,15 +3573,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Добавь Tyrantrum в свою команду."
+        "ru": "Кинорежиссёру для съёмок нужен Tyrantrum. Если такого покемона нет, купи Jaw Fossil в Stone Emporium."
       },
       {
         "id": "s02",
-        "ru": "Приобрети Jaw Fossil в Stone Emporium и воскреси его в Research Lab."
+        "ru": "В Pokémon Research Lab у Reg восстанови Jaw Fossil, чтобы получить Tyrunt."
       },
       {
         "id": "s03",
-        "ru": "Эволюционируй его на уровне 39 в день."
+        "ru": "Прокачай Tyrunt до уровня 39 и выше, затем проведи эволюцию в дневное время — получится Tyrantrum."
+      },
+      {
+        "id": "s04",
+        "ru": "Помести Tyrantrum в активную команду и снова поговори с режиссёром, чтобы провести сцену и получить Protein ×10."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3521,8 +3593,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Проверь время еволюции, чтобы избежать ошибок.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для Tyrantrum важны и уровень 39+, и день. Ночью Tyrunt может не эволюционировать.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "116": {
@@ -3535,15 +3607,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Измени состав команды на Aurorus."
+        "ru": "Подойди к двум детям, обсуждающим Jaw Fossil и Sail Fossil, и начни задание."
       },
       {
         "id": "s02",
-        "ru": "Купи Sail Fossil и воскреси Aurorus в Research Lab."
+        "ru": "Чтобы получить Aurorus, купи Sail Fossil в Stone Emporium и восстанови его у Reg в Pokémon Research Lab — выйдет Amaura."
       },
       {
         "id": "s03",
-        "ru": "Поговори с детьми для начала боя с уровнем 60 Tyrantrum."
+        "ru": "Прокачай Amaura до уровня 39 или выше и эволюционируй ночью в Aurorus."
+      },
+      {
+        "id": "s04",
+        "ru": "Перед повторным разговором убери всех других Pokémon из активной команды, оставив только Aurorus."
+      },
+      {
+        "id": "s05",
+        "ru": "Победи Tyrantrum уровня 60 в одиночном бою, после чего получи Rare Candy ×3 и Lemonade."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3551,8 +3631,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Проверь группу покемонов перед тем, как драться, чтобы не потерять.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Нужно оставить единственного Aurorus: сильная команда с Aurorus на первом месте не проходит условие.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "117": {
@@ -3565,15 +3645,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Josée для начала боя."
+        "ru": "В Justice Dojo поговори с Josée и согласись на заключительную тренировку."
       },
       {
         "id": "s02",
-        "ru": "Сразись с уровнями 63 Machamp, Medicham, Scrafty и Hawlucha."
+        "ru": "Сначала победи её команду: Machamp, Medicham, Scrafty и Hawlucha уровня 63."
       },
       {
         "id": "s03",
-        "ru": "После этого сразись с двумя уровнями 65 Alpha Pangoro."
+        "ru": "Далее тебе предстоит сражение одновременно с двумя Alpha Pangoro уровня 65. Используй Fairy-атаки против их Fighting/Dark-типов и следи за атаками по площади."
+      },
+      {
+        "id": "s04",
+        "ru": "После победы забери Expert Belt и Seed of Mastery ×10. Это также открывает побочную миссию №118."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3581,25 +3665,37 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Удостоверься в защите во время боя с Alpha Pangoro.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Здесь две боевые части: команда Josée, затем два Alpha Pangoro одновременно.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "118": {
     "startHint": "Speak with Gänger inside the old building",
     "location": "South of Wild Zone 10",
     "unlockMain": 39,
-    "unlockExtra": null,
+    "unlockExtra": "Завершить побочную миссию №117 (Josée’s Training).",
     "rank": "A",
     "reward": "₽4,000 / Exp. Candy L x2 / Exp. Candy XL",
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Gwynn в доджо для начала боя."
+        "ru": "После завершения №117 поговори с Gwynn в Justice Dojo и согласись на поединок."
       },
       {
         "id": "s02",
-        "ru": "Побеждай ее уровни 69 Banette, Gengar, Gourgeist, Froslass и уровень 70 Mega Chandelure."
+        "ru": "Победи её Ghost-команду: Banette, Gengar, Gourgeist и Froslass уровня 69, затем Mega Chandelure уровня 70."
+      },
+      {
+        "id": "s03",
+        "ru": "После боя отправляйся к Hotel Richissime, где Gwynn ждёт снаружи. Поговори с ней, чтобы начать поиск."
+      },
+      {
+        "id": "s04",
+        "ru": "Следуй за Gwynn по набережным и водным проходам, включая отмеченные остановки на маршруте."
+      },
+      {
+        "id": "s05",
+        "ru": "Последняя точка — Galerie de la Lune. Заверши финальную сцену там, чтобы задание засчиталось и были выданы награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3607,29 +3703,37 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Чтобы эффективно победить, управляй командой покемонов правильно.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Победа над Gwynn в доджо — лишь первая половина. После неё обязательно пройти маршрут Hotel Richissime → waterways → Galerie de la Lune.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "119": {
-    "startHint": null,
+    "startHint": "Hotel Richissime: Jacinthe / Lebanne после 20 Reward Matches Infinite Z-A Royale.",
     "location": "Hotel Richissime",
     "unlockMain": 39,
-    "unlockExtra": "Win 20 Reward Matches",
+    "unlockExtra": "20 Reward Matches после открытия Infinite Z-A Royale (основное задание №39).",
     "rank": null,
     "reward": "₽300,000, Luxury Ball x 30",
     "steps": [
       {
         "id": "s01",
-        "ru": "Завершите 20 матчей вознаграждений в Infinite Z-A Royale."
+        "ru": "Пройди основную историю и открой Infinite Z-A Royale, затем выиграй 20 Reward Matches. Речь именно о двадцати победах, не пятнадцати."
       },
       {
         "id": "s02",
-        "ru": "Поговори с Jacinthe в Hotel Richissime."
+        "ru": "После двадцатого Reward Match вернись в Hotel Richissime и поговори с Jacinthe или Lebanne о новом Le Super-Tournoi de Jacinthe O."
       },
       {
         "id": "s03",
-        "ru": "Пройдите турнир 'Le Super-Tournoi de Jacinthe O'."
+        "ru": "Согласись на серию из четырёх матчей против Jacinthe. Она повторяет один и тот же состав: Carbink (73), Mawile (74), Aurorus (74), Gardevoir (74), Sylveon (74), Mega Clefable (75)."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи Jacinthe четыре раза. Между раундами команды восстанавливаются, а сама игра допускает перерыв между матчами."
+      },
+      {
+        "id": "s05",
+        "ru": "После четвёртой победы получи ₽300000 и 30 Luxury Ball. Затем станет доступна бесконечная повторяемая версия турнира."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3637,8 +3741,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Убедись, что ты готов к нескольким схваткам подряд.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для открытия требуется 20 Reward Matches, а не завершение миссии №42 и не только 15 матчей ради Floette. Четыре противостояния с Jacinthe — в одном побочном задании.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   }
 };
