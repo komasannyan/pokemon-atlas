@@ -17,6 +17,7 @@ import {isEnglish} from './i18n.js';
 import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED,ZA_COMPLETION_ROUTE} from './za-guide-handbook.js';
 import {ZA_BASE_DEEP} from './za-base-handbook.js';
 import {ZA_MAIN_HANDBOOK} from './za-main-handbook.js';
+import {ZA_SIDE_HANDBOOK} from './za-side-handbook.js';
 
 const KEY='pokemon-atlas-guide-progress-v1',STEP_KEY='pokemon-atlas-guide-steps-v1',GAME_KEY='pokemon-atlas-guide-game-v1';
 const $=s=>document.querySelector(s);
@@ -27,17 +28,19 @@ const num=n=>String(n).padStart(3,'0');
 const namesFix={45:'On Maintenance Duty',67:'Sylveon the Soother',92:'The Beldum Blockade'};
 const sideRows=ZA_SIDE.map(x=>{
  const checked=ZA_SIDE_VERIFIED[x.id-1]||{};
+ const handbook=ZA_SIDE_HANDBOOK[x.id];
  const detailed=ZA_SIDE_DETAILED[x.id];
  const short=ZA_SIDE_STEPS[x.id-1]||x.steps||'';
- return {...x,kind:'side',name:checked.name||namesFix[x.id]||x.name,
-  location:checked.location||ZA_SIDE_LOCATIONS[x.id-1]||x.location,
-  startHint:checked.start||'',rank:checked.rank||'',
-  steps:detailed?.steps||ZA_SIDE_CLARIFICATIONS[x.id]||ZA_BASE_DEEP[x.id]||String(short).split('|').filter(Boolean),
-  reward:checked.reward||ZA_REWARDS[x.id]||x.reward||null,
-  unlock:checked.mission||sideUnlock(x.id),
-  extraReq:checked.unlockExtra
+ return {...x,...handbook,kind:'side',name:checked.name||namesFix[x.id]||x.name,
+  location:handbook?.location||checked.location||ZA_SIDE_LOCATIONS[x.id-1]||x.location,
+  startHint:handbook?.startHint||checked.start||'',rank:handbook?.rank||checked.rank||'',
+  steps:handbook?.steps||detailed?.steps||ZA_SIDE_CLARIFICATIONS[x.id]||ZA_BASE_DEEP[x.id]||String(short).split('|').filter(Boolean),
+  reward:handbook?.reward||checked.reward||ZA_REWARDS[x.id]||x.reward||null,
+  unlock:handbook?.unlockMain??checked.mission??sideUnlock(x.id),
+  extraReq:handbook?.unlockExtra
+    ||(checked.unlockExtra
     ?(/20 Reward Matches/i.test(checked.unlockExtra)?'Выиграй 20 Reward Matches в Infinite Z-A Royale':checked.unlockExtra)
-    :ZA_SIDE_SPECIAL_UNLOCK[x.id]||null};
+    :ZA_SIDE_SPECIAL_UNLOCK[x.id]||null)};
 });
 const mainRows=ZA_MAIN.map(x=>{
  const checked=ZA_MAIN_HANDBOOK[x.id];
@@ -74,12 +77,12 @@ function stepDigest(s){
 }
 function stepKey(x,i){
  const step=x.steps?.[i];
- if(x.kind==='main'&&step?.id)return savedKey(x)+':v2:'+step.id;
+ if((x.kind==='main'||x.kind==='side')&&step?.id)return savedKey(x)+':v2:'+step.id;
  if(x.kind==='dlc-side')return savedKey(x)+':content:'+stepDigest(objectiveSteps(x)[i]);
  return savedKey(x)+':'+i;
 }
 function hasLegacyStepMarks(x){
- if(x.kind!=='main'&&x.kind!=='dlc-side')return false;
+ if(x.kind!=='main'&&x.kind!=='side'&&x.kind!=='dlc-side')return false;
  const prefix=savedKey(x)+':';
  return Object.keys(state.checkedSteps).some(key=>key.startsWith(prefix)&&/^\d+$/.test(key.slice(prefix.length)));
 }
@@ -147,8 +150,8 @@ function linksFor(x){
 function objectiveSteps(x){
  let arr=Array.isArray(x.steps)?x.steps:[x.steps||''];
  arr=arr.filter(Boolean);
- if(x.kind==='side'){
-   // Standard base-game side quests have ordinary map markers; portal quests do not.
+ if(x.kind==='side'&&!arr.some(s=>s&&typeof s==='object'&&s.id)){
+   // Only old brief side quests need a generic marker hint; authored steps provide precise directions.
    const place=x.location||'';
    return [tx('Найди голубой маркер задания №'+x.id+' около '+place+'. Если маркера нет, проверь условия открытия.','Find the side-mission marker #'+x.id+' near '+place+'. If missing, check prerequisites.'),...arr];
  }
@@ -205,14 +208,15 @@ function card(x){
   (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
   (x.extraReq||x.specialUnlock||x.kind==='extra'?'<div class="guide-info-line"><b>'+tx('УСЛОВИЯ','REQUIREMENTS')+'</b><p>'+esc(x.extraReq||x.specialUnlock||x.unlock||'—')+'</p></div>':'')+
   (x.kind==='main'&&x.unlock?'<div class="guide-info-line"><b>'+tx('УСЛОВИЕ ОТКРЫТИЯ','UNLOCK REQUIREMENT')+'</b><p>'+esc(x.unlock)+'</p></div>':'')+
+  (x.kind==='side'&&x.unlock?'<div class="guide-info-line"><b>'+tx('ПОСЛЕ КАКОЙ СЮЖЕТНОЙ МИССИИ','STORY UNLOCK')+'</b><p>'+tx('Миссия №','Main mission #')+esc(x.unlock)+'</p></div>':'')+
   (x.kind==='main'&&x.id>1&&!x.unlock?'<div class="guide-info-line"><b>'+tx('ПЕРЕД НАЧАЛОМ','BEFORE STARTING')+'</b><p>'+tx('Заверши предыдущее сюжетное задание или обязательные параллельные цели.','Complete the previous main mission or required parallel objectives.')+'</p></div>':'')+
   ((x.kind==='recipe')?recipeMarkup(x):'')+
   (x.kind==='boss'?bossMarkup(x):'')+
   (x.kind==='main'&&x.battle?'<div class="guide-info-line"><b>'+tx('БОИ И ПОДГОТОВКА','BATTLES & PREPARATION')+'</b><p>'+esc(x.battle)+'</p></div>':'')+
   '<h4>'+tx('Что делать — по шагам','Step-by-step')+'</h4>'+stepMarkup(x)+
-  (x.kind==='main'&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
+  ((x.kind==='main'||x.kind==='side')&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
   (hasLegacyStepMarks(x)?'<p class="guide-warning">'+tx('Шаги этого задания обновились. Старые отметки шагов сохранены в браузере, но не применяются к новым инструкциям, чтобы не отметить ошибочное действие. Отметка завершения всей миссии сохранена.','This quest checklist changed. Earlier step marks are kept in storage but not mapped to different instructions. Mission completion remains saved.')+'</p>':'')+
-  (x.kind==='main'&&x.steps?.some(s=>typeof s==='object'&&!s.en)?'<p class="guide-muted">'+tx('Инструкции проверены по англоязычным источникам и пока доступны по-русски.','Mission walkthrough text is currently Russian-only; English translation is planned.')+'</p>':'')+
+  ((x.kind==='main'||x.kind==='side')&&x.steps?.some(s=>typeof s==='object'&&!s.en)?'<p class="guide-muted">'+tx('Инструкции проверены по англоязычным источникам и пока доступны по-русски.','Mission walkthrough text is currently Russian-only; English translation is planned.')+'</p>':'')+
   (x.kind==='zone'?zoneMarkup(x):'')+
   (x.reward?'<div class="guide-info-line"><b>'+tx('НАГРАДА','REWARDS')+'</b><p>'+esc(x.reward)+'</p></div>':'')+
   (x.kind==='side'&&!x.reward?'<p class="guide-muted">'+tx('Точные награды этой миссии ещё не сверены.','Exact rewards are not yet verified for this mission.')+'</p>':'')+
