@@ -85,5 +85,5 @@ assert.ok(app.includes("':v3:'+step.id+':'+stepDigest(step.ru)"),'side checklist
 assert.ok(app.includes("key.startsWith(prefix+'v2:')"),'old side step marks must trigger migration warning');
 assert.ok(app.includes("if(x.kind==='side'&&!arr.some("),'no generic blue-marker filler for authored quests');
 assert.ok(app.includes("data-guide-jump=\"side:"));
-assert.ok(worker.includes("'./src/za-side-handbook.js'"),'new handbook must be cached offline');
+assert.ok(worker.includes("'./src/guides/za-side-handbook.js'"),'new handbook must be cached offline');
 console.log('0.9.7: checked 119 side quest records, '+stepsTotal+' steps, known guide regressions and navigation integration.');
