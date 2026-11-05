@@ -7,7 +7,7 @@ self.addEventListener('install',event=>{
   event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
 self.addEventListener('activate',event=>{
-  event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>![SHELL,DATA,IMAGES].includes(k)).map(k=>caches.delete(k)))),self.clients.claim()]));
+  event.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('atlas-')&&![SHELL,DATA,IMAGES].includes(k)).map(k=>caches.delete(k)))),self.clients.claim()]));
 });
 async function limitCache(cache,max){const keys=await cache.keys();if(keys.length>max)await Promise.all(keys.slice(0,keys.length-max).map(k=>cache.delete(k)));}
 const offlineResponse=()=>new Response('Offline: requested resource is not cached.',{
