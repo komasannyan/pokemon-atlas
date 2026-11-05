@@ -134,6 +134,12 @@ function linksFor(x){
    if(match)elems.push('<p class="guide-related">'+tx('Получить за задание: ','Quest reward: ')+'<button type="button" data-guide-jump="'+(x.dlc?'dlc-side':'side')+':'+match[1]+'">№'+match[1]+'</button></p>');
  }
  if(x.kind==='side'||x.kind==='dlc-side'){
+   if(x.kind==='side'&&Number.isInteger(x.unlock)&&x.unlock>=1&&x.unlock<=42)
+      elems.push('<p class="guide-related">'+tx('Для открытия: ','Unlocked after: ')+'<button type="button" data-guide-jump="main:'+x.unlock+'">'+tx('Основная миссия №','Main mission #')+x.unlock+'</button></p>');
+   if(x.kind==='side'){
+      const dependency=({31:30,32:31,118:117})[x.id];
+      if(dependency)elems.push('<p class="guide-related">'+tx('Сначала выполни: ','First complete: ')+'<button type="button" data-guide-jump="side:'+dependency+'">'+tx('Побочное задание №','Side mission #')+dependency+'</button></p>');
+   }
    const matching=tmRows.filter(t=>t.location&&t.location.includes('№'+x.id)&&((x.kind==='dlc-side')===!!t.dlc));
    if(matching.length)elems.push('<p class="guide-related">'+tx('Связанные TM: ','Related TMs: ')+matching.map(t=>'<button type="button" data-guide-jump="tm:'+t.id+'">TM'+num(t.id)+'</button>').join(' ')+'</p>');
  }
