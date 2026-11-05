@@ -1,4 +1,4 @@
-// 0.9.5: all 119 base-game side quests must be detailed, sourced, navigable.
+// 0.9.6: all 119 base-game side quests must be detailed, sourced, navigable.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {ZA_SIDE_HANDBOOK} from '../src/za-side-handbook.js';
@@ -32,7 +32,7 @@ for(const [s,id] of records.map(([key,value])=>[key,value])){
  assert.ok(id.review?.includes('source')||id.review?.includes('reviewed'),'provenance missing: '+n);
  stepsTotal+=id.steps.length;
 }
-assert.ok(stepsTotal>=490,'expected hundreds of concrete steps');
+assert.ok(stepsTotal>=525,'expected 525+ concrete side mission steps');
 const text=id=>ZA_SIDE_HANDBOOK[id].steps.map(x=>x.ru).join(' ');
 assert.match(text(9),/30 секунд/);
 assert.match(text(9),/40 секунд/);
@@ -55,6 +55,25 @@ assert.match(text(116),/Aurorus/);
 assert.match(text(118),/Galerie de la Lune/);
 assert.match(text(119),/20 Reward Matches/);
 assert.match(text(119),/четыр/);
+assert.match(text(23),/Diggersby уровня 28/);
+assert.match(text(26),/Numel/);
+assert.match(text(64),/Sliggoo/);
+assert.match(text(80),/ловить их нельзя/);
+assert.match(text(84),/King.s Rock/);
+assert.match(text(87),/Psycho Cut/);
+assert.match(text(90),/Froslass/);
+assert.match(text(92),/четыр/);
+assert.match(text(96),/Self-Destruct/);
+assert.match(text(101),/Steel\/Fairy/);
+assert.doesNotMatch(text(101),/Mawile[^.]*Dark[- ]тип/i);
+assert.match(text(102),/Ice-типа/);
+assert.match(text(104),/Constance использует/);
+assert.match(text(112),/Cheri Berry ×20/);
+for(const [id,quest] of records){
+ const all=quest.steps.map(s=>s.ru).join(' ');
+ assert.doesNotMatch(all,/[\u4e00-\u9fff]/,'untranslated CJK symbols in mission #'+id);
+ assert.doesNotMatch(all,/\b(?:Говорите с|Сразитесь с|Получите награду|Поймайте|Найдите|Подготовьте)\b/i,'inconsistent RU quest writing in #'+id);
+}
 assert.match(ZA_SIDE_HANDBOOK[119].startHint,/Hotel Richissime/);
 assert.match(ZA_SIDE_HANDBOOK[118].unlockExtra,/117/);
 const app=readFileSync(new URL('../src/guides-v09.js',import.meta.url),'utf8');
@@ -65,4 +84,4 @@ assert.ok(app.includes("(x.kind==='main'||x.kind==='side')&&step?.id"),'side ste
 assert.ok(app.includes("if(x.kind==='side'&&!arr.some("),'no generic blue-marker filler for authored quests');
 assert.ok(app.includes("data-guide-jump=\"side:"));
 assert.ok(worker.includes("'./src/za-side-handbook.js'"),'new handbook must be cached offline');
-console.log('0.9.5: verified 119 side quests, '+stepsTotal+' original steps, mission links and migration integration.');
+console.log('0.9.6: checked 119 side quest records, '+stepsTotal+' steps, known guide regressions and navigation integration.');
