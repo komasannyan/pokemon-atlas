@@ -955,15 +955,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Получите Cameruptite после битвы с Rogue Mega Evolution."
+        "ru": "Сначала получи Cameruptite за сюжетную победу над Rogue Mega Camerupt в миссии №12."
       },
       {
         "id": "s02",
-        "ru": "Поймайте Camerupt, эволюционируя Numel на 33 уровне."
+        "ru": "Если Camerupt ещё нет, поймай Numel в Wild Zone 8 и развей его с уровня 33."
       },
       {
         "id": "s03",
-        "ru": "Убедитесь, что Camerupt с Cameruptite включен в вашу команду для битвы."
+        "ru": "Дай Camerupt держать Cameruptite и добавь его в активную команду."
+      },
+      {
+        "id": "s04",
+        "ru": "Поговори с заказчицей и начни бой против Watchog, Krokorok и Sharpedo уровня 35. Во время боя обязательно активируй Mega Evolution у Camerupt."
+      },
+      {
+        "id": "s05",
+        "ru": "Выиграй матч и получи новые дизайны контактных линз; после завершения откроется побочная миссия №31."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -971,8 +979,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте Mega Evolution во время битвы.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для зачёта необходимо хотя бы один раз показать именно Mega Camerupt во время боя; если его затем нокаутируют, можно завершить бой другими покемонами.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "31": {
@@ -985,15 +993,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поймайте Sableye, если не сделали этого в квесте 003 или найдите его в Wild Zone 9."
+        "ru": "После выполнения побочной миссии №30 подготовь Sableye. Он доступен в Wild Zone 9, если ты не поймал его в миссии №3."
       },
       {
         "id": "s02",
-        "ru": "Купите Sablenite в Quasartico Inc. с Mega Shards."
+        "ru": "Приобрети Sablenite у Quasartico Inc. за Mega Shards и дай камень своему Sableye."
       },
       {
         "id": "s03",
-        "ru": "Начните битву с Mega развивающимся Sableye."
+        "ru": "Начни бой с заказчицей: против тебя Watchog, Carbink и Krokorok уровня 35."
+      },
+      {
+        "id": "s04",
+        "ru": "Накопи Mega Power обычными атаками и хотя бы раз активируй Mega Sableye; затем победи оставшуюся команду."
+      },
+      {
+        "id": "s05",
+        "ru": "После победы получи контактные линзы Starry Eyes и Black Void и открой побочную миссию №32."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1001,8 +1017,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте обычные атаки, чтобы зарядить Mega Gauge.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Выполнение №31 зависит от №30. Победа без демонстрации Mega Sableye не заменяет условия задания.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "32": {
@@ -1015,15 +1031,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поймайте Meditite днем в Wild Zone 6."
+        "ru": "Сначала заверши №31, затем найди Meditite на боевой площадке Wild Zone 6 днём."
       },
       {
         "id": "s02",
-        "ru": "Эволюционируйте Meditite на 37 уровне в Medicham."
+        "ru": "Развей Meditite в Medicham с уровня 37."
       },
       {
         "id": "s03",
-        "ru": "Добавьте его в свою команду с Medichamite и сразитесь с противником."
+        "ru": "Купи Medichamite за ₽50000 в Stone Emporium; дай его Medicham."
+      },
+      {
+        "id": "s04",
+        "ru": "Возьми Medicham в активную команду и поговори с заказчицей для боя против Watchog, Krokorok и Meowstic уровня 35."
+      },
+      {
+        "id": "s05",
+        "ru": "За время боя обязательно активируй Mega Medicham хотя бы раз; заверши матч и получи линзы Poké Ball и Cyber."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1031,8 +1055,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Не забудьте использовать Мега Эволюцию для получения награды.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не достаточно просто иметь Medicham с камнем: игрок должен показать Mega Evolution в поединке.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "33": {
@@ -1045,11 +1069,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поймайте Alpha Magikarp в Wild Zone 2."
+        "ru": "После разговора с мужчиной о соревновании по размерам направляйся в Wild Zone 2."
       },
       {
         "id": "s02",
-        "ru": "Вернитесь к мужчине и покажите ему Magikarp."
+        "ru": "Отыщи Alpha Magikarp — он может находиться в воде или выпрыгивать на берег."
+      },
+      {
+        "id": "s03",
+        "ru": "Поймай именно этого крупного Magikarp и вернись к заказчику; после предъявления размер будет засчитан."
+      },
+      {
+        "id": "s04",
+        "ru": "Забери Pearl и Exp. Candy S ×10 вместе с денежной наградой."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1057,8 +1089,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Он может быть на суше или в воде.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для надежного результата подходит Alpha Magikarp из Wild Zone 2: обычный экземпляр может не соответствовать требуемому размеру.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "34": {
@@ -1071,11 +1103,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Начни бой с тренером, у которого уровень 34 Vivillon и Kadabra."
+        "ru": "Найди тренера на боевой площадке и согласись на испытание защитных приёмов."
       },
       {
         "id": "s02",
-        "ru": "Получите награду после победы."
+        "ru": "Противник использует Vivillon уровня 34 с Light Screen и Kadabra уровня 34 с Reflect."
+      },
+      {
+        "id": "s03",
+        "ru": "Разберись с двумя целями: специальные атаки ослабляются Light Screen, а физические — Reflect. Можно атаковать другой категорией или переждать действие экрана."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи обоих покемонов, после чего получишь TM031 Reflect и Lemonade."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1083,8 +1123,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте отражающие способности против Кадбры.",
-    "review": "source-extracted-unplaytested",
+    "tip": "У противника два разных защитных экрана: не переключай все атаки на один тип урона.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "35": {
@@ -1097,11 +1137,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Получите подсказку от женщины о месте нахождения Yoga Master."
+        "ru": "Поговори с женщиной и прочитай загадку Yoga Master: «точка ближе всего к небу, в одном из пяти кругов, который указывает на 12 часов»."
       },
       {
         "id": "s02",
-        "ru": "Поговори с ней на вершине здания в Wild Zone 3."
+        "ru": "Правильное место — крыша здания внутри Wild Zone 3. Найди доступную лестницу для подъёма."
+      },
+      {
+        "id": "s03",
+        "ru": "При необходимости обойди или победи Alpha Litleo, лежащего перед лестницей."
+      },
+      {
+        "id": "s04",
+        "ru": "Поднимись до самого верха здания и поговори с Yoga Master, чтобы завершить поиски и получить Twisted Spoon."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1109,8 +1157,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Может понадобиться победить Альфа Лителей.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Искомый мастер не стоит на улице: подсказка «ближе к небу» указывает на крышу Wild Zone 3.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "36": {
@@ -1149,11 +1197,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Binnacle перед лодкой, чтобы начать битву."
+        "ru": "У причала найди пять Binacle, мешающих пройти к лодке, и начни сражение."
       },
       {
         "id": "s02",
-        "ru": "Убей пять уровня 34 Binnacle."
+        "ru": "Все пять Binacle уровня 34 вступают в бой одновременно. Не пытайся стоять посередине группы."
+      },
+      {
+        "id": "s03",
+        "ru": "Отступай назад вдоль пирса, чтобы отделить ближайших Binacle от остальных, или используй атаки, поражающие область."
+      },
+      {
+        "id": "s04",
+        "ru": "После победы над всей пятёркой поговори с заказчиком и забери Pearl ×3."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1161,8 +1217,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Лови их по одному, чтобы не оказаться окруженным.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Главная опасность — не уровни, а одновременный бой против пяти целей. Дистанция и массовые атаки существенно помогают.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "38": {
@@ -1201,11 +1257,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поймай Slowpoke в Wild Zone 10."
+        "ru": "Согласись на обмен обычного Slowpoke на Galarian Slowpoke."
       },
       {
         "id": "s02",
-        "ru": "Замените его на Galarian Slowpoke."
+        "ru": "Отправляйся в Wild Zone 10, поймай обычного Slowpoke и помести его в команду."
+      },
+      {
+        "id": "s03",
+        "ru": "Вернись к заказчику, подтверди внутриигровой обмен и получи Galarian Slowpoke."
+      },
+      {
+        "id": "s04",
+        "ru": "После обмена возьми Pearl и Power Belt."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1213,8 +1277,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Вы получите дополнительные награды за обмен.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Онлайн или другой игрок не требуются: это обмен с NPC.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "40": {
@@ -1227,11 +1291,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Используйте мощный Electric-type прием на Holovator."
+        "ru": "Поговори с работником у неработающего Holovator."
       },
       {
         "id": "s02",
-        "ru": "Я использовал Thunderbolt Ampharos."
+        "ru": "Возьми Pokémon с сильным Electric-приёмом: подходит Thunderbolt, например у Ampharos."
+      },
+      {
+        "id": "s03",
+        "ru": "Прицелься в Holovator и выполни мощную Electric-атаку, чтобы запустить механизм."
+      },
+      {
+        "id": "s04",
+        "ru": "После восстановления Holovator закончи разговор и получи Ultra Ball ×3 и Mega Shards ×10."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -1239,8 +1311,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Это включит Холоватор.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Требуется сильный Electric-приём. Если слабая атака не сработала, используй Thunderbolt.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "41": {
@@ -1253,15 +1325,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с тренером для начала боя."
+        "ru": "Поговори с тренером, устанавливающей ловушки, и начни испытание."
       },
       {
         "id": "s02",
-        "ru": "Победи её покемонов: уровень 36 Onix, Camerupt и уровень 37 Garbodor."
+        "ru": "Победи её Onix и Camerupt уровня 36 и Garbodor уровня 37."
       },
       {
         "id": "s03",
-        "ru": "Используй дальние атаки для избавления от ловушек."
+        "ru": "Пока на поле стоят Spikes и другие ловушки, не приближайся без необходимости; атакуй издалека. Surf доступен в наградах Mable Research с исследовательского уровня 29 и помогает наносить урон по площади."
+      },
+      {
+        "id": "s04",
+        "ru": "После победы забери TM088 Spikes и Super Potion ×5."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1269,8 +1345,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Если затрудняешься с ловушками, используй дальние атаки.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Если ловушки мешают ближнему бою, дальняя или площадная атака безопаснее.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "42": {
@@ -1413,11 +1489,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Имей покемона с движением Slash, который ты освоил как Plus."
+        "ru": "Найди мастера стрижек Furfrou и узнай, что необходимо проверить точность движения Slash."
       },
       {
         "id": "s02",
-        "ru": "Используй Slash на кукле Substitute."
+        "ru": "Подготовь Pokémon, который знает Slash и освоил его как Plus Move."
+      },
+      {
+        "id": "s03",
+        "ru": "Направь усиленный Slash на расположенную рядом куклу Substitute."
+      },
+      {
+        "id": "s04",
+        "ru": "После выполнения упражнения откроется Furfrou Salon, где можно менять причёски Furfrou; забери награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1425,8 +1509,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Движение Slash обязательно должно быть освоено как Plus.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Требуется освоенный Plus Move, не обычный Slash.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "48": {
@@ -1439,11 +1523,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Ударь кокон движением с базовой мощностью 100 или более."
+        "ru": "Найди Pokémon, запутавшегося в прочном коконе, и поговори с заказчиком."
       },
       {
         "id": "s02",
-        "ru": "Используй Dynamic Punch или аналогичное движение для успешного удара."
+        "ru": "Подготовь приём с базовой мощностью не менее 100. Подходит, например, Dynamic Punch."
+      },
+      {
+        "id": "s03",
+        "ru": "Примени подходящую атаку к кокону и освободи покемона."
+      },
+      {
+        "id": "s04",
+        "ru": "Заверши разговор с заказчиком, получи Net Ball ×10."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1451,8 +1543,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Идеально, если у вас есть атака с высокой мощностью.",
-    "review": "source-requires-manual-check",
+    "tip": "Важна именно базовая сила приёма (100+), а не реальный урон, уровень или тип атакующего Pokémon.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "49": {
@@ -1465,11 +1557,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с женщиной для начала боя."
+        "ru": "Вызови на бой тренера, чьи Pokémon восполняют HP за счёт поглощающих приёмов."
       },
       {
         "id": "s02",
-        "ru": "Победи её покемонов: уровень 43 Ariados, 44 Phantump и 44 Roselia."
+        "ru": "Сразись с Ariados и Phantump уровня 43 и Roselia уровня 44."
+      },
+      {
+        "id": "s03",
+        "ru": "Учитывай Horn Leech, Absorb, Leech Life и удерживаемый Big Root: противники восстанавливают HP и могут затягивать поединок."
+      },
+      {
+        "id": "s04",
+        "ru": "Используй сильные эффективные атаки, чтобы не давать лечиться несколько раз подряд, и забери Big Root после победы."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1477,8 +1577,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Эти покемоны имеют восстанавливающие движения.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Если бой затягивается, дело в сочетании поглощающих атак и Big Root.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "50": {
@@ -1491,11 +1591,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с полицейским для начала боя."
+        "ru": "Встреться с полицейской, задающей вопросы о Goomy."
       },
       {
         "id": "s02",
-        "ru": "Победи её покемонов: уровень 40 Manectric и Lucario."
+        "ru": "Выбирай любые варианты ответов: на дальнейший бой они не влияют."
+      },
+      {
+        "id": "s03",
+        "ru": "Победи её Manectric и Lucario уровня 40."
+      },
+      {
+        "id": "s04",
+        "ru": "Заверши разговор и получи Lax Mint ×3. Goomy возвращается настоящему владельцу и не остаётся наградой."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1503,8 +1611,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Независимо от ваших ответов, бой неизменен.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Тратить время на «правильные» ответы не нужно: вопросы не влияют на результат.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "51": {
@@ -1517,11 +1625,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Начни бой с Виваче."
+        "ru": "Снова поговори с Vivace в парикмахерском салоне и начни испытание с Floette."
       },
       {
         "id": "s02",
-        "ru": "Побеждены все пять Floette, разделяй их по одному."
+        "ru": "Против тебя сразу выйдут пять Floette одновременно."
+      },
+      {
+        "id": "s03",
+        "ru": "Двигайся так, чтобы заманить ближайшую Floette в сторону от остальных, и побеждай противников по очереди."
+      },
+      {
+        "id": "s04",
+        "ru": "После сражения в салоне появятся девять дополнительных пастельных цветов причёски; получи Rare Candy ×2."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1529,8 +1645,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Они не очень сильные, старайтесь изолировать их.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Пять Floette атакуют одновременно — лучше разделить их позиционированием.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "52": {
@@ -1543,11 +1659,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Ударь замороженный Numel огненным движением мощностью 95 и более."
+        "ru": "Отправляйся в Wild Zone 12 и найди Numel, заключённого в глыбу льда."
       },
       {
         "id": "s02",
-        "ru": "Используй Heat Wave для освобождения."
+        "ru": "Подготовь Fire-приём с базовой силой не меньше 95; проверенный пример — Heat Wave."
+      },
+      {
+        "id": "s03",
+        "ru": "Прицелься в ледяную глыбу и используй нужную Fire-атаку, чтобы освободить Numel."
+      },
+      {
+        "id": "s04",
+        "ru": "Закончи диалог и получи Ice Heal ×3 и Exp. Candy M ×2."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1555,8 +1679,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Показатели мощности очень важны.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Нужна Fire-атака с требуемой базовой мощностью, а не просто любая огненная атака.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "53": {
@@ -1673,15 +1797,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди заказчика Camerupt Entrepreneur возле входа в канализацию; после миссии №19 вход туда уже известен."
+        "ru": "Согласись помочь предпринимателю Camerupt и разыщи вход в канализацию: доступна лестница позади Café Woof или выход к водостокам в Wild Zone 5."
       },
       {
         "id": "s02",
-        "ru": "Согласись на поручение и следуй за предпринимателем через обозначенный вход в Lumiose Sewers."
+        "ru": "Спустись в Lumiose Sewers и включи отслеживание миссии: оно укажет положение заказчика внутри разветвлённого подземелья."
       },
       {
         "id": "s03",
-        "ru": "Внутри сразись с отмеченным Camerupt уровня 46, затем вернись к заказчику и получи награду."
+        "ru": "Найди заказчика и начни бой против Camerupt уровня 46."
+      },
+      {
+        "id": "s04",
+        "ru": "После победы получи Fire Stone и Charcoal. Заодно можешь осмотреть канализацию: там доступен Litwick."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
@@ -1689,7 +1817,7 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_41-60",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Эту побочную миссию можно начать и использовать для повторного посещения канализации, даже если пока не завершать её.",
+    "tip": "Для повторного входа в канализацию используй лестницу позади Café Woof либо проход из Wild Zone 5.",
     "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
@@ -2753,15 +2881,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Преследуй Emolga по крышам."
+        "ru": "Активируй побочное задание и найди Emolga, который перемещается между крышами."
       },
       {
         "id": "s02",
-        "ru": "Используй указания, чтобы навигация была проще."
+        "ru": "Преследуй его по доступным лестницам и переходам. Если потерял цель, включи отслеживание миссии на карте."
       },
       {
         "id": "s03",
-        "ru": "Сразись с Emolga после её поимки."
+        "ru": "Когда Emolga доберётся до строительных лесов, подойди для сражения; это Pokémon уровня 53."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи Emolga и при желании поймай его, затем получи Kelpsy Berry, Pomeg Berry и Tamato Berry (по 8)."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2769,8 +2901,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Следуй за Emolga внимательно, она может сбежать.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Emolga можно поймать после боя, но главное — довести преследование до строительных лесов.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "90": {
@@ -3057,11 +3189,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Используй Sludge Bomb на металл, чтобы удовлетворить женщину."
+        "ru": "Выполняя просьбу заказчицы, подготовь Pokémon с атакой Sludge Bomb."
       },
       {
         "id": "s02",
-        "ru": "Забери TM053, если еще не имеешь."
+        "ru": "Если Sludge Bomb нет, TM053 выдаётся после достижения исследовательского уровня 32 у Mable; некоторые Pokémon выучивают приём сами."
+      },
+      {
+        "id": "s03",
+        "ru": "Используй Sludge Bomb на металлическом объекте, который указан в задании."
+      },
+      {
+        "id": "s04",
+        "ru": "После сцены забери Zinc ×5 и Power Band."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3069,8 +3209,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Убедись, что ты готов к битве, прежде чем использовать прием.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Именно Sludge Bomb, а не Sludge или любой Poison-приём.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "100": {
