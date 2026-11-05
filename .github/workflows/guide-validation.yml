@@ -53,7 +53,7 @@ jobs:
           node tests/service-worker.mjs
       - name: Verify HTML, service-worker and new handbook are linked
         run: |
-          grep -q "app.js?v=0910" index.html
-          grep -q "atlas-shell-v0910" sw.js
+          grep -q "app.js?v=910" index.html
+          grep -q "atlas-shell-v910" sw.js
           grep -q "za-main-handbook.js" sw.js
           grep -q "za-side-handbook.js" sw.js
