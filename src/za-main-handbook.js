@@ -530,19 +530,23 @@ export const ZA_MAIN_HANDBOOK={
       },
       {
         "id": "s06",
-        "ru": "Вернись на конкурс. Затем выиграй бой за право ответить на заключительный вопрос; в финальном вопросе про первый компьютер ответ связан с её дедушкой."
+        "ru": "Вернись на конкурс и поговори с Mani из DYN4MO. Победи его команду (Helioptile и Emolga ур. 34, Raichu ур. 35). В финальном вопросе выбирай вариант 4: «её дедушка»."
       },
       {
         "id": "s07",
-        "ru": "После конкурса следуй к Racine Construction. В гараже осмотри маленькую комнату, откуда идёт трансляция Canari, затем поговори с ней лично."
+        "ru": "После викторины отправляйся в Racine Construction. Внутри сначала поговори с Tarragon и выиграй обязательный бой: Hippowdon и Diggersby ур. 36, Mega Excadrill ур. 37."
       },
       {
         "id": "s08",
-        "ru": "Вызови Canari на повышающий бой, подготовив Ground-атаки против её Electric-команды, и подними ранг до E."
+        "ru": "После победы над Tarragon пройди к отмеченной маленькой комнате в углу Racine Construction, где находится Canari. Поговори с ней: только теперь начнётся повышающий матч."
+      },
+      {
+        "id": "s09",
+        "ru": "Победи Canari: Heliolisk ур. 37, Stunfisk и Ampharos ур. 38, Mega Eelektross ур. 39. Для Electric-противников пригодятся Ground-атаки, но проверяй вторичные типы. Получи ранг E, TM066 Volt Switch и Autographed Plush."
       }
     ],
     "unlock": "Завершить основную миссию №10 и три поручения №11–13.",
-    "battle": "Canari использует Electric Pokémon. Важен Ground-покемон; проверяй индивидуальную защиту каждого противника.",
+    "battle": "Три боевых этапа: Naveen (Ariados/Sableye/Scraggy ур. 33), Mani (Helioptile/Emolga ур. 34, Raichu ур. 35), Tarragon (Hippowdon/Diggersby ур. 36, Mega Excadrill ур. 37), затем Canari (Heliolisk ур. 37, Stunfisk/Ampharos ур. 38, Mega Eelektross ур. 39).",
     "reward": "Ранг E и TM066 Volt Switch.",
     "sources": [
       "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
@@ -735,7 +739,7 @@ export const ZA_MAIN_HANDBOOK={
       },
       {
         "id": "s04",
-        "ru": "Для открытия прохода нужен Ice Beam: найди TM Ice Beam в Wild Zone 12, выучи приём подходящим покемоном и используй его прямо на воде фонтана."
+        "ru": "Для открытия канализации нужен Ice Beam. Самый простой способ — поймать Vanillite в Wild Zone 12 (примерно ур. 34), который уже знает Ice Beam. Также можно подобрать TM Ice Beam во дворе Wild Zone 12 и обучить совместимого покемона. Направь Ice Beam прямо на воду фонтана Clawitzer."
       },
       {
         "id": "s05",
@@ -763,9 +767,11 @@ export const ZA_MAIN_HANDBOOK={
     "reward": "Ранг D и доступ к следующей сюжетной цепочке.",
     "sources": [
       "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
-      "https://www.neoseeker.com/pokemon-legends-z-a/Main_Mission_19"
+      "https://www.neoseeker.com/pokemon-legends-z-a/Main_Mission_19",
+      "https://www.powerpyx.com/pokemon-legends-z-a-how-to-get-ice-beam/",
+      "https://www.thonky.com/pokemon-legends-z-a/main-mission-19-reaching-rank-d"
     ],
-    "tip": "Если не открывается канализация: нужен именно Ice Beam на фонтан Clawitzer. Если тупик в самой канализации: обследуй все четыре группы объектов и только потом проходи через иллюзорную стену.",
+    "tip": "Если не открывается канализация: нужен именно Ice Beam на фонтан Clawitzer; Wild Zone 12 даст Vanillite с Ice Beam или TM. Если тупик в канализации: обследуй отмеченные объекты, затем пройди через иллюзорную стену.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
     "status": "source-checked"
