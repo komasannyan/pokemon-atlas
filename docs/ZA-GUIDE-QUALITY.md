@@ -115,3 +115,14 @@ This is an architectural maintenance release, not gameplay fact verification or 
 node tests/guides-lazy.mjs
 node tests/service-worker.mjs
 ```
+
+## Third-party team builder: Grok engine adaptation (0.9.9)
+
+- Reviewed the user-supplied `team-engine.js` and `team-ui.js` against the current 0.9.8 builder. Kept both files in their existing `src/team/` directory and preserved the `atlas-team-builder-v03` localStorage key.
+- Updated the team builder to allow **0–3 seed Pokémon**, three team strategy variants (balanced, offense, control), stronger coverage/role penalties and contextual synergy hints.
+- **Fixed factual logic from the upload:** Thick Fat multiplies the calculated type matchup by 0.5 (rather than replacing the entire matchup); Dry Skin multiplies Fire damage by 1.25. Electric/Water absorbing ability checks remain.
+- **Fixed user-choice behavior:** three locked Pokémon sharing a weakness are still accepted. The suggested teammates and team fragility score reflect the risk rather than refusing to build a team.
+- **Performance adaptation:** a cached set pool and shared context avoid recomputing `setsFor`, team flags and pre-existing weaknesses for every candidate. Candidate sampling mixes the strongest species with lower-BST options. A local mock benchmark of 240 candidates showed roughly 3.4 s to 0.6 s for two seeds on this testing CPU, **not a verified mobile/web performance claim**.
+- The generator continues to use the existing Pokémon Showdown/Champions learnset and rule data; it does **not** guarantee current competitive metagame quality or 100% legal complex combinations. Synergy is a comparative score, **not a predicted win rate**.
+- `tests/team-grok.mjs` extends the existing team-engine tests with ability effectiveness, three locked seeds, intentionally shared weaknesses, Champions Item Clause, learnsets, Showdown export and persistent UI state.
+- Version **0.9.9** is a beta builder update, not Pokémon Atlas 1.0.

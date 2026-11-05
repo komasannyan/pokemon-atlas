@@ -49,11 +49,12 @@ jobs:
           node tests/pokedex-extended.test.mjs
           node tests/localization.mjs
           node tests/team.mjs
+          node tests/team-grok.mjs
           node tests/guides-lazy.mjs
           node tests/service-worker.mjs
       - name: Verify HTML, service-worker and new handbook are linked
         run: |
-          grep -q "app.js?v=098" index.html
-          grep -q "atlas-shell-v098" sw.js
+          grep -q "app.js?v=099" index.html
+          grep -q "atlas-shell-v099" sw.js
           grep -q "za-main-handbook.js" sw.js
           grep -q "za-side-handbook.js" sw.js
