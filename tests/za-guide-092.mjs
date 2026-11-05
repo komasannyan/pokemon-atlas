@@ -1,12 +1,12 @@
 // Pokémon Atlas 0.9.2 guide consistency checks.
 // Run: node tests/za-guide-092.mjs
 import assert from 'node:assert/strict';
-import {ZA_ZONES,zaLocations} from '../src/za-data.js';
-import {ZA_SIDE_VERIFIED,ZA_ZONES_VERIFIED,ZA_TMS_VERIFIED} from '../src/za-verified-catalog.js';
-import {ZA_ZONE_SPAWNS} from '../src/za-wild-spawns.js';
-import {ZA_DLC_TM_ACQUISITION} from '../src/za-dlc-tm-acquisition.js';
-import {ZA_TMS_ENRICHED} from '../src/za-tms-enriched.js';
-import {ZA_SIDE_CLARIFICATIONS} from '../src/za-mission-clarifications.js';
+import {ZA_ZONES,zaLocations} from '../src/guides/za-data.js';
+import {ZA_SIDE_VERIFIED,ZA_ZONES_VERIFIED,ZA_TMS_VERIFIED} from '../src/guides/za-verified-catalog.js';
+import {ZA_ZONE_SPAWNS} from '../src/guides/za-wild-spawns.js';
+import {ZA_DLC_TM_ACQUISITION} from '../src/guides/za-dlc-tm-acquisition.js';
+import {ZA_TMS_ENRICHED} from '../src/guides/za-tms-enriched.js';
+import {ZA_SIDE_CLARIFICATIONS} from '../src/guides/za-mission-clarifications.js';
 const consecutive=(arr,key,from=1)=>arr.every((x,i)=>x[key]===i+from);
 assert.equal(ZA_ZONES.length,20);
 assert.ok(consecutive(ZA_ZONES,'n'));

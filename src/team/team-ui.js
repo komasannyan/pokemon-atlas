@@ -1,8 +1,8 @@
 import {FORMATS, ROLE_NAMES, ROLE_DESC} from './team-data.js';
 import {fullPool, setsFor, loadUniverse, getUniverse} from './team-universe.js';
 import {generateSuggestions, showdownExport, championsText, teamCoverage, displaySpread} from './team-engine.js';
-import {t,isEnglish, typeLabel} from './i18n.js';
-import {artUrl,numberLabel} from './constants.js';
+import {t,isEnglish, typeLabel} from '../i18n.js';
+import {artUrl,numberLabel} from '../constants.js';
 
 const $=(sel)=>document.querySelector(sel);
 const e=(text)=>String(text??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));

@@ -40,7 +40,7 @@ export const COLLECTION_GAMES=[
 export const gameFor=key=>COLLECTION_GAMES.find(g=>g.key===key)||COLLECTION_GAMES.find(g=>g.key==='violet');
 let loader;
 export function fetchRegionalDex(){
- if(!loader)loader=fetch('./src/collection-dex.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{
+ if(!loader)loader=fetch('./src/collection/collection-dex.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{
   if(!data.dexes||!data.dexes['31']||data.dexes['31'].length!==400)throw Error('Incomplete regional dex');
   return data.dexes;
  }).catch(e=>{loader=null;throw e;});

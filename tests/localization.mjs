@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {EXTRA_RU_ABILITIES} from '../src/abilities-ru-expanded.js';
-import {fullRuAbilityInfo,effectCoverage} from '../src/effects-ru.js';
+import {EXTRA_RU_ABILITIES} from '../src/pokedex/abilities-ru-expanded.js';
+import {fullRuAbilityInfo,effectCoverage} from '../src/pokedex/effects-ru.js';
 
 const keys=Object.keys(EXTRA_RU_ABILITIES);
 assert.ok(keys.length>=300,'Russian ability dictionary must preserve broad curated coverage');

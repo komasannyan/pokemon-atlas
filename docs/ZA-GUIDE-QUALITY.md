@@ -5,7 +5,7 @@
 
 ## Side missions: session 3 (November 5, 2026)
 
-- All **119** base-game side missions (001–119) now use the unified `src/za-side-handbook.js`. The current release has **528 structured original Russian steps** in total, each quest with **at least three** steps. Existing base mission data, verified NPC/location/reward catalogs, and previous clarifications remain available for comparison.
+- All **119** base-game side missions (001–119) now use the unified `src/guides/za-side-handbook.js`. The current release has **528 structured original Russian steps** in total, each quest with **at least three** steps. Existing base mission data, verified NPC/location/reward catalogs, and previous clarifications remain available for comparison.
 - All entries include NPC/starting landmark, area, verified-catalog reward, starting main-story stage where the source supplies it, detailed per-quest steps, source-page links, research status and special prerequisites when known.
 - Hard missions now have more concrete walkthroughs, notably #7 (Chespin rematches), #8 (five branches for Fennekin), #9 (three Froakie trial times), #12 (five Flabébé colors), #13 (three fountain shrub waves), #17 (Shiny Mareep spot), #21 (12 Spewpa positions), #30–32 (linked Mega Evolution requests), #63 (XL Gogoat), #67 (five arguments for Sylveon), #76 (all quiz answers), #82 (Water Gun), #83 (Pupitar), #93 (Heliolisk rooftop), #94 (ten 3-star restaurant rounds / 30 Pokémon), #103 (four Furfrou restaurants and final), #108 (Alolan Raichu), #118 (Gwynn follow-up route), #119 (20 Reward Matches and four Jacinthe finals).
 - Game-related prerequisites link directly to main mission cards; linked side prerequisites #30→31→32 and #117→118 have side-mission jump buttons.
@@ -24,7 +24,7 @@
 
 ## Session 3 — base-game side quests (November 5, 2026)
 
-- **119/119 side quest IDs** have dedicated records in `src/za-side-handbook.js`, containing **528 mission-specific checklist steps** at the time of this report. Each includes a source page, NPC/start hint, area, reward, recorded story unlock, and optional special requirements; the UI now prioritizes these records over earlier brief summaries.
+- **119/119 side quest IDs** have dedicated records in `src/guides/za-side-handbook.js`, containing **528 mission-specific checklist steps** at the time of this report. Each includes a source page, NPC/start hint, area, reward, recorded story unlock, and optional special requirements; the UI now prioritizes these records over earlier brief summaries.
 - Individually clarified several easily missed puzzles and objectives, including Froakie timed climbs (#9); five Flabébé colors (#12); the museum's 12 Spewpa (#21); extra-large Gogoat (#63); five Sylveon disputes (#67); disguised Galarian Stunfisk (#72); solo Pupitar (#83); hidden Heliolisk home (#93); Furfrou restaurant battles (#103); and the 20-match requirement for Jacinthe (#119).
 - Re-checked seventeen thin or mistranslated records with the underlying walkthrough page, correcting mixed-up trainer teams (#104), Mawile type (#101), simultaneous uncatchable Pokémon (#80), Self-Destruct tactics (#96), and more.
 - **Step progress compatibility:** whole-quest completion state is retained. Updated side checklist step keys are fingerprinted (`:v3:sNN:<content hash>`) to avoid accidentally checking unrelated new objectives. Earlier step checkmarks are preserved separately and generate a visible migration warning rather than being silently reassigned.
@@ -35,8 +35,8 @@
 
 ## Main story: session 2 (November 5, 2026)
 
-- Every base-game main mission **1–42** has a new individual structured record in `src/za-main-handbook.js` (42/42), totaling **248 ordered mission-specific steps** at the time of this report.
-- Cards now show a starting landmark, unlock condition, checklist, encounters/battle preparation where applicable, common stuck-point advice, rewards when known, and reference links. Earlier concise summaries in `src/za-main-data.js` and `src/za-walkthrough-details.js` remain for compatibility.
+- Every base-game main mission **1–42** has a new individual structured record in `src/guides/za-main-handbook.js` (42/42), totaling **248 ordered mission-specific steps** at the time of this report.
+- Cards now show a starting landmark, unlock condition, checklist, encounters/battle preparation where applicable, common stuck-point advice, rewards when known, and reference links. Earlier concise summaries in `src/guides/za-main-data.js` and `src/guides/za-walkthrough-details.js` remain for compatibility.
 - Especially expanded: **#14** Canari password/quiz, Mani/Tarragon/Canari matches; **#19** Ice Beam, Vanillite alternative, Clawitzer fountain, sewer puzzles; **#35** Lysandre Labs key cards/elevator and battle teams; **#37** construction scaffolds/ally encounters/Hyperrogue battle; **#38–42** non-linear postgame prerequisites and legendary catches.
 - Important verified corrections: **Absolite is awarded in mission #9, not #10** (item catalog aligned); **Zygarde mission #42 can be done before finishing #39 Infinite Z-A Royale**; ordinary Abilities such as Thick Fat should not be carried over to Z-A real-time boss battle advice.
 - The main story uses discrete step IDs in `state.checkedSteps` (key suffix `:v2:sNN`); *old localStorage step progress stays untouched* but cannot be mapped reliably to rewritten directions and is not automatically checked against a different step. Whole-mission completion remains intact.
@@ -69,7 +69,7 @@
 ## Verification commands
 
 ```sh
-for f in src/*.js; do node --check "$f"; done
+find src -name '*.js' -print0 | xargs -0 -n1 node --check
 node tests/za-guide-092.mjs
 node tests/za-guide-093.mjs
 node tests/za-main-handbook.mjs
@@ -90,3 +90,11 @@ node tests/team.mjs
 - [Thonky — postgame order](https://www.thonky.com/pokemon-legends-z-a/post-game)
 - [PowerPyx — mission 19 Ice Beam](https://www.powerpyx.com/pokemon-legends-z-a-how-to-get-ice-beam/)
 - [Serebii — abilities and passive effects in Z-A](https://www.serebii.net/legendsz-a/passiveeffects.shtml)
+
+## Claude tidy layout refactor (0.9.7)
+
+Claude's older 0.9.4 folder-reorganization patch was adapted on top of the actual 0.9.6 branch. All latest guide records, including the 119-mission `src/guides/za-side-handbook.js`, were preserved; no older archive files replaced newer content.
+
+Source is now grouped into `src/guides/`, `src/pokedex/`, `src/team/`, `src/collection/`, plus `css/`. Import paths, in-browser JSON loads, HTML, service worker and test imports were adjusted. Full recursive syntax and static path-integrity tests were added. See `docs/REFACTOR-CLAUDE-ADAPTATION.md`.
+
+This is an architectural maintenance release, not gameplay fact verification or release 1.0.

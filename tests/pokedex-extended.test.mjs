@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import {normalizeVarieties,formSnapshot,formArtwork,varietyLabel,evolutionTree,evolutionRequirements,historySnapshots,generationLabel} from '../src/pokedex-extended.js';
-import {formSelector,evolutionPage,historyPage} from '../src/pokedex-extended-ui.js';
+import {normalizeVarieties,formSnapshot,formArtwork,varietyLabel,evolutionTree,evolutionRequirements,historySnapshots,generationLabel} from '../src/pokedex/pokedex-extended.js';
+import {formSelector,evolutionPage,historyPage} from '../src/pokedex/pokedex-extended-ui.js';
 const species={varieties:[{pokemon:{name:'charizard-mega-y'},is_default:false},{pokemon:{name:'charizard'},is_default:true},{pokemon:{name:'charizard-mega-x'},is_default:false}]};
 const v=normalizeVarieties(species,'Charizard');
 assert.equal(v.length,3);assert.equal(v[0].name,'Charizard');assert.equal(v[1].name,'Charizard — Mega X');

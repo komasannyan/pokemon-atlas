@@ -1,7 +1,7 @@
 import {CORE_GAMES,recordedInVersion} from './game-availability.js';
-import {COLLECTION_GAMES,gameFor,gameEntries} from './collection-games.js';
-import {ZA_ZONES,ZA_DATA_SOURCES,zaLocations} from './za-data.js';
-import {ZA_ZONE_SPAWNS} from './za-wild-spawns.js';
+import {COLLECTION_GAMES,gameFor,gameEntries} from '../collection/collection-games.js';
+import {ZA_ZONES,ZA_DATA_SOURCES,zaLocations} from '../guides/za-data.js';
+import {ZA_ZONE_SPAWNS} from '../guides/za-wild-spawns.js';
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const txt=(en,ru,a)=>en?a:ru;
 const urls={

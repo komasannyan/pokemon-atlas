@@ -1,7 +1,7 @@
 // Team Atlas v0.4 — rule-driven pool. All National Pokédex species can be searched,
 // but *only* format-eligible species and known-learnable moves can be proposed.
 import {POKEMON_SETS, FORMATS} from './team-data.js';
-import {fetchMoveDex} from './moves.js';
+import {fetchMoveDex} from '../pokedex/moves.js';
 export const norm=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g,'');
 const CURATED_BY_ID=new Map(POKEMON_SETS.map(p=>[p.id,p]));
 const L='https://play.pokemonshowdown.com/data/learnsets.json';
@@ -173,7 +173,7 @@ export function setsFor(entry,format){
 export async function loadUniverse(getDex){
  if(promise)return promise;
  promise=(async()=>{
-  const local=async name=>{const r=await fetch('./src/'+name,{cache:'no-cache'});if(!r.ok)throw Error(name+': HTTP '+r.status);return r.json();};
+  const local=async name=>{const r=await fetch('./src/team/'+name,{cache:'no-cache'});if(!r.ok)throw Error(name+': HTTP '+r.status);return r.json();};
   const [rules, champ, moves, main] = await Promise.all([
    local('format-rules.json'),local('champions-learnsets.json'),fetchMoveDex(),
    fetch(L,{cache:'default'}).then(r=>{if(!r.ok)throw Error('Showdown learnsets: '+r.status);return r.json();})
