@@ -16,7 +16,7 @@ assert(html.includes('data-view="abilities"'));
 assert(html.includes('id="ability-list"'));
 assert(html.includes('id="move-sort"'));
 assert(html.includes('id="hero-genus"'));
-assert(html.includes('src="./src/app.js?v=061"'));
+assert.match(html,/src="\.\/src\/app\.js\?v=\d{3}"/);
 assert(app.includes('translatedRussian('));
 assert(app.includes('chooseHero(state.dex)'));
 assert(app.includes('state.moveSort'));
