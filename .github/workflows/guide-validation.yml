@@ -25,6 +25,8 @@ jobs:
         run: |
           node --check src/guides-v09.js
           node --check src/za-guide-handbook.js
+          node --check src/za-base-handbook.js
+          node --check src/za-walkthrough-details.js
           node --check src/za-dlc-all-side.js
       - name: Check existing data catalog
         run: node tests/za-guide-092.mjs
