@@ -1,7 +1,7 @@
 import {COLLECTION_GAMES,gameFor,fetchRegionalDex,gameEntries} from './collection-games.js';
 import {STAT_KEYS,NATURES,ROLES,evaluateIndividual} from './collection-calc.js';
-import {artUrl,numberLabel} from './constants.js';
-import {isEnglish} from './i18n.js';
+import {artUrl,numberLabel} from '../constants.js';
+import {isEnglish} from '../i18n.js';
 
 const STORAGE='pokemon-atlas-collection-v1', GAME_KEY='pokemon-atlas-collection-game-v1';
 const $=sel=>document.querySelector(sel);

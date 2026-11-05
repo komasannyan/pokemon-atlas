@@ -1,5 +1,5 @@
-import {parseCSV} from './data.js';
-import {toTitle} from './constants.js';
+import {parseCSV} from '../data.js';
+import {toTitle} from '../constants.js';
 const CSV='https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/';
 const STORE='atlas-abilities-v2';
 let pending=null;

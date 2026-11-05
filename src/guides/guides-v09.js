@@ -1,4 +1,4 @@
-import {COLLECTION_GAMES} from './collection-games.js';
+import {COLLECTION_GAMES} from '../collection/collection-games.js';
 import {ZA_MAIN} from './za-main-data.js';
 import {ZA_SIDE} from './za-side-data.js';
 import {ZA_SIDE_LOCATIONS,sideUnlock,ZA_SIDE_SPECIAL_UNLOCK} from './za-side-locations.js';
@@ -13,7 +13,7 @@ import {ZA_ZONE_SPAWNS} from './za-wild-spawns.js';
 import {ZA_MEGA,ZA_RESOURCES} from './za-items-data.js';
 import {ZA_MAIN_STEPS,ZA_BOSS_TIPS,ZA_GLOBAL_HELP} from './za-walkthrough-details.js';
 import {ZA_SIDE_DETAILED,ZA_REWARDS,ZA_EX_MISSIONS,ZA_DONUT_RECIPES} from './za-guide-extras.js';
-import {isEnglish} from './i18n.js';
+import {isEnglish} from '../i18n.js';
 import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED,ZA_COMPLETION_ROUTE} from './za-guide-handbook.js';
 import {ZA_BASE_DEEP} from './za-base-handbook.js';
 import {ZA_MAIN_HANDBOOK} from './za-main-handbook.js';

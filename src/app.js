@@ -2,19 +2,19 @@ import {TYPE_VALUES, GENERATIONS, STAT_NAMES, GAME_GROUPS, artUrl, numberLabel, 
 import {loadCachedDex, fetchNationalDex, saveDex, getDemo} from './data.js';
 import {fetchPokemon, fetchEncounters, fetchSpecies, fetchMove, fetchAbility} from './api.js';
 import {t, isEnglish, getLanguage, setLanguage, translateStatic, typeLabel, regionLabel, methodLabel, damageLabel} from './i18n.js';
-import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from './moves.js';
-import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './effects-ru.js';
-import {setupTeamBuilder,refreshTeamBuilder} from './team-ui.js';
-import {setupCollection,refreshCollection} from './collection-ui.js';
-import {fetchRegionalDex} from './collection-games.js';
-import {locationMatrixHTML} from './locations-v09.js';
-import {setupGuides,refreshGuides,openGuideTab} from './guides-v09.js';
-import {formSnapshot,formArtwork,varietyLabel} from './pokedex-extended.js';
-import {formSelector,evolutionPage,historyPage} from './pokedex-extended-ui.js';
+import {fetchMoveDex, getRuMoveName, pickText, describeEffect, cleanText} from './pokedex/moves.js';
+import {ruMoveEffect, ruAbilityEffect, genericRuEffect,fullRuMoveInfo,fullRuAbilityInfo} from './pokedex/effects-ru.js';
+import {setupTeamBuilder,refreshTeamBuilder} from './team/team-ui.js';
+import {setupCollection,refreshCollection} from './collection/collection-ui.js';
+import {fetchRegionalDex} from './collection/collection-games.js';
+import {locationMatrixHTML} from './pokedex/locations-v09.js';
+import {setupGuides,refreshGuides,openGuideTab} from './guides/guides-v09.js';
+import {formSnapshot,formArtwork,varietyLabel} from './pokedex/pokedex-extended.js';
+import {formSelector,evolutionPage,historyPage} from './pokedex/pokedex-extended-ui.js';
 import {fetchEvolutionChain} from './api.js';
-import {fetchAbilityDex} from './abilities.js';
-import {CORE_GAMES, recordedInVersion, recordedVersions} from './game-availability.js';
-import {translatedRussian,cachedRussian,cleanSource,translationWarning} from './translate-ru.js';
+import {fetchAbilityDex} from './pokedex/abilities.js';
+import {CORE_GAMES, recordedInVersion, recordedVersions} from './pokedex/game-availability.js';
+import {translatedRussian,cachedRussian,cleanSource,translationWarning} from './pokedex/translate-ru.js';
 
 const $=selector=>document.querySelector(selector);
 const esc=text=>String(text??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -463,4 +463,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=096').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=097').catch(console.warn));}

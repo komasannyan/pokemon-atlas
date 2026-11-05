@@ -1,5 +1,5 @@
-import {parseCSV} from './data.js';
-import {TYPES,toTitle} from './constants.js';
+import {parseCSV} from '../data.js';
+import {TYPES,toTitle} from '../constants.js';
 
 const CSV_BASE='https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/';
 const STORE='atlas-moves-v2';
