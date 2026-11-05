@@ -789,15 +789,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Исследуйте участок земли перед Holovator."
+        "ru": "На тротуаре перед Boutique Couture поговори с Terra, который просит выяснить причину поломки Holovator."
       },
       {
         "id": "s02",
-        "ru": "Сразитесь с Pokémon уровня 28 Diggersby."
+        "ru": "Осмотри участок рыхлой земли непосредственно перед подъёмником. В диалоге выбери вариант сражения с Pokémon."
       },
       {
         "id": "s03",
-        "ru": "После победы получите шанс его поймать."
+        "ru": "Из земли появится Diggersby уровня 28. Победи его; после победы предоставляется возможность поимки."
+      },
+      {
+        "id": "s04",
+        "ru": "После завершения события Holovator снова заработает. Получи ₽1500, Soft Sand и Revive."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -805,8 +809,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Холоватор снова заработает после победы.",
-    "review": "source-extracted-unplaytested",
+    "tip": "До боя нужно взаимодействовать именно с подозрительной землёй перед Holovator, а не с панелью подъёмника.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "24": {
@@ -887,15 +891,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Armie, чтобы начать битву."
+        "ru": "Перед Restaurant Le Yeah поговори с Armie и согласись на тренировочный бой."
       },
       {
         "id": "s02",
-        "ru": "У него уровень 30 Litleo, Houndoom и Numel."
+        "ru": "Противник использует Litleo, Houndoom и Numel — все уровня 30. Это преимущественно Fire-команда, но Numel имеет также Ground-тип."
       },
       {
         "id": "s03",
-        "ru": "Победи их для получения награды."
+        "ru": "Подготовь Water-атаки: они особенно эффективны против Fire/Ground Numel (четырёхкратный урон) и хорошо работают против остальных."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи всех трёх и получи ₽900, Burn Heal, Fire Stone и TM057 Will-O-Wisp."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -903,8 +911,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Рекомендуется использовать Water-type Pokémon.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Против Numel осторожнее с Electric-покемонами: из-за Ground-типа он невосприимчив к Electric-атакам.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "27": {
@@ -2211,19 +2219,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с женщиной и согласись подождать дождя для начала битвы."
+        "ru": "Найди Cielestine во внутреннем боевом дворе и поговори о поединке во время дождя."
       },
       {
         "id": "s02",
-        "ru": "Она использует уровень 46 Skrelp, Clawitzer и Slowking."
+        "ru": "В диалоге согласись подождать: игра автоматически переключит погоду на дождь перед началом боя."
       },
       {
         "id": "s03",
-        "ru": "После победы получи $2000, Mystic Water и 2 x Fresh Water."
+        "ru": "Победи Skrelp, Clawitzer и Slowking уровня 46. Electric-атаки подходят против двух Water-покемонов, но Skrelp имеет Poison/Water-тип."
       },
       {
         "id": "s04",
-        "ru": "К сожалению, дождь прекратится сразу после битвы."
+        "ru": "После победы получи ₽2000, Mystic Water и Fresh Water ×2. Дождь немедленно прекратится — эту сцену нельзя использовать для эволюции Sliggoo."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2231,8 +2239,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Следите за погодными условиями в игре.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Если цель — эволюция Sliggoo, ищи естественный дождь: сюжетный дождь этого боя заканчивается слишком быстро.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "65": {
@@ -2359,15 +2367,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Seizi для начала битвы."
+        "ru": "Перед Restaurant Le Nah найди Seizi и поговори с ней об использовании Leftovers."
       },
       {
         "id": "s02",
-        "ru": "Она использует уровень 48 Diggersby, Onix и уровень 49 Hippowdon."
+        "ru": "В бою у неё Diggersby и Onix уровня 48, затем Hippowdon уровня 49. Каждый Pokémon держит Leftovers и постепенно восстанавливает HP."
       },
       {
         "id": "s03",
-        "ru": "Победи ее и получи $1500 и Leftovers."
+        "ru": "Для Onix (Rock/Ground) используй Water либо Grass. Против Diggersby (Normal/Ground) подходят Water, Grass, Ice и Fighting; против Hippowdon — Water, Grass или Ice."
+      },
+      {
+        "id": "s04",
+        "ru": "Наноси урон быстрее, чем соперники восстанавливаются, и выиграй все три поединка. Награда — ₽1500 и Leftovers."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2375,8 +2387,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Контролируйте здоровье ваших покемонов.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Leftovers восстанавливает HP по ходу боя, поэтому слабые атаки здесь особенно неэффективны.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "69": {
@@ -2563,19 +2575,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поймай Delibird, который бегает вокруг, чтобы начать битву."
+        "ru": "Во дворе найди Delibird, который бегает кругами, и начни с ним взаимодействие."
       },
       {
         "id": "s02",
-        "ru": "Он призовет уровень 50 Garbodor, сразись с ним."
+        "ru": "Вступи в схватку с неожиданно появившимся Garbodor уровня 50. Для Poison-типа подходят Ground и Psychic-атаки."
       },
       {
         "id": "s03",
-        "ru": "После победы можно поймать Delibird."
+        "ru": "После победы над Garbodor появится возможность поймать Delibird. Используй её, если хочешь сохранить покемона."
       },
       {
         "id": "s04",
-        "ru": "Delibird даст тебе Aspear Berry, а его тренер — $500 и 5 x Seed of Mastery."
+        "ru": "Заверши событие с Delibird и владельцем: получишь Aspear Berry, ₽500 и Seed of Mastery ×5."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2583,8 +2595,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте сильные покемоны против Garbodor.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Здесь последовательность необычная: сначала Delibird, затем бой с Garbodor, а поимка Delibird доступна после него.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "75": {
@@ -2677,23 +2689,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поднимись по строительным лесам к северо-северозападному входу в Wild Area 9."
+        "ru": "Найди Réu возле Nouveau Café (Truck No. 3) и узнай об ускользающем Mawile."
       },
       {
         "id": "s02",
-        "ru": "Ты увидишь Mawile на краю крыши."
+        "ru": "Иди к северо-северо-западному входу Wild Zone 9 и поднимись по строительным лесам на крыши."
       },
       {
         "id": "s03",
-        "ru": "Вызови его на битву (уровень 52)."
+        "ru": "На краю одной из крыш увидишь Mawile уровня 52. Подойди к нему и начни бой."
       },
       {
         "id": "s04",
-        "ru": "После победы получи $1900 и 20 x Ultra Ball."
+        "ru": "Ослабь Mawile и поймай при появлении возможности. Fire и Ground эффективны против его Steel/Fairy-типа."
       },
       {
         "id": "s05",
-        "ru": "Тренер похвалит тебя за улов."
+        "ru": "После поимки Réu поднимется на крышу и поздравит тебя. Получи ₽1900 и Ultra Ball ×20."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2701,8 +2713,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используйте покемонов с мощными атаками.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Mawile сидит на крыше у входа в Wild Zone 9, а не внутри самой зоны на уровне улицы.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "78": {
@@ -2783,15 +2795,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Подойди к Manectric и Ampharos для начала битвы."
+        "ru": "Найди Amordél у неисправного Holovator и подойди к спорящим Manectric и Ampharos."
       },
       {
         "id": "s02",
-        "ru": "Они оба на уровне 52 и атакуют одновременно."
+        "ru": "Начнётся бой сразу против обоих Pokémon уровня 52. Ловить их нельзя — это сюжетные противники."
       },
       {
         "id": "s03",
-        "ru": "После победы Holovator станет оперативным."
+        "ru": "Оба относятся к Electric-типу, поэтому Ground-атаки особенно полезны; избегай выставлять водных и летающих Pokémon без защиты."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи Manectric и Ampharos, чтобы завершить спор и восстановить Holovator."
+      },
+      {
+        "id": "s05",
+        "ru": "Получишь ₽3500, Quick Ball ×4 и Lumiose Galette."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
@@ -2799,8 +2819,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Комбинируйте свои атаки чтобы быстрее победить.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Здесь два Pokémon атакуют одновременно. Не пытайся тратить Poké Balls: они не доступны для поимки.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "81": {
@@ -2923,15 +2943,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с тренером, чтобы начать бой."
+        "ru": "На боевой площадке рядом с Quasartico Inc. поговори с Flynn об атаках, вызывающих Flinch."
       },
       {
         "id": "s02",
-        "ru": "Сразись с его покемонами: уровень 52 Sharpedo, Arbok и уровень 53 Gyarados."
+        "ru": "Начни бой против Sharpedo и Arbok уровня 52, затем Gyarados уровня 53."
       },
       {
         "id": "s03",
-        "ru": "Используй покемонов с высокими значениями скорости и силы, чтобы оглушить противника."
+        "ru": "Соперники держат King's Rock и используют приёмы с возможностью заставить Pokémon вздрогнуть, включая Waterfall. Уходи из прямой линии атаки и не рассчитывай на неподвижное разменивание ударами."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи всех троих, после чего получишь ₽2800 и King's Rock."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -2939,8 +2963,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Обязательно следи за атакующими покемонами противника.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Особенность задания — удерживаемый King's Rock и эффекты Flinch, а не просто высокая скорость противников.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "85": {
@@ -3029,15 +3053,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Используй Psycho Cut на куклу-заполнителе."
+        "ru": "Найди Mirte рядом с салоном Furfrou и выслушай условие открытия полного набора стрижек."
       },
       {
         "id": "s02",
-        "ru": "Найдите Kadabra в Wild Zone 9, чтобы использовать этот ход."
+        "ru": "Поймай Kadabra в Wild Zone 9 или возьми другого покемона, знающего Psycho Cut; при необходимости открой его список приёмов."
       },
       {
         "id": "s03",
-        "ru": "Завершив задание, все стили Furfrou будут доступны в магазине."
+        "ru": "Подойди к кукле Substitute, прицелься и примени именно Psycho Cut. Другая Psychic-атака не заменяет требуемый приём."
+      },
+      {
+        "id": "s04",
+        "ru": "После успешного удара вернись к Mirte. Откроются все стили Furfrou; получишь ₽2400, Max Revive и Exp. Candy L ×2."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3045,8 +3073,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Убедись, что Kadabra знает Psycho Cut перед началом миссии.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это испытание на конкретный приём Psycho Cut, а не на любой Psychic-тип.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "88": {
@@ -3131,15 +3159,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Начни миссию, поговорив с деревом."
+        "ru": "Найди дерево на тротуаре, которое отмечено для миссии, и взаимодействуй с ним."
       },
       {
         "id": "s02",
-        "ru": "Это вызовет Froslass, которую нужно будет следовать."
+        "ru": "Из дерева появится Froslass. Следуй за ней, наблюдая за поворотами и остановками на улицах."
       },
       {
         "id": "s03",
-        "ru": "Используй указания при поиске. Успешно завершив, получи награду."
+        "ru": "Если потерял Froslass из виду, включи подсказки активной миссии в журнале, чтобы увидеть следующий участок пути."
+      },
+      {
+        "id": "s04",
+        "ru": "Дойди до конечной точки маршрута, где Froslass оставит ₽400 и Dawn Stone."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3147,8 +3179,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Внимательно следи за движениями Froslass, чтобы не потерять её.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Froslass не требуется побеждать или ловить: цель — проследовать за ней до конца.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "91": {
@@ -3161,15 +3193,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с тренером, чтобы начать бой."
+        "ru": "Найди Guivre около боевой площадки и согласись на бой с командой Dragon-типа."
       },
       {
         "id": "s02",
-        "ru": "Используй покемонов типа Fairy против её драконов."
+        "ru": "Противница использует Gabite уровня 47, Shelgon уровня 48 и Dragonair уровня 49. Каждый держит Dragon Fang, усиливающий Dragon-атаки."
       },
       {
         "id": "s03",
-        "ru": "Победи её Dragonair, Shelgon и Gabite."
+        "ru": "Возьми Fairy-покемона: его Fairy-тип невосприимчив к Dragon-атакам. Однако учитывай, что у противников могут быть приёмы других типов."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи всех троих и получи ₽5000, Dragon Fang и Haban Berry ×5."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3177,8 +3213,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Нападай первее, чтобы уменьшить урон от её атак.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не полагайся только на Dragon-атаки: Fairy-соперник выигрывает за счёт иммунитета к Dragon, но не к дополнительным приёмам.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "92": {
@@ -3191,15 +3227,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Сразись с группой Beldum сразу."
+        "ru": "Подойди к четырём Beldum, которые заблокировали неработающий Holovator."
       },
       {
         "id": "s02",
-        "ru": "Используй массовые атаки, чтобы одолеть всех."
+        "ru": "Взаимодействуй с группой для начала единого боя против всех четырёх Beldum одновременно."
       },
       {
         "id": "s03",
-        "ru": "Побеждая, Holovator станет функциональным."
+        "ru": "Steel/Psychic Beldum уязвимы к Ground, Fire, Ghost и Dark. Приём Earthquake особенно удобен, поскольку поражает область."
+      },
+      {
+        "id": "s04",
+        "ru": "После победы Holovator заработает; получи ₽3000, Rocky Helmet и Full Restore."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3207,8 +3247,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Атакуй одновременно, чтобы не дать им шанса нападать.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это бой 1 против 4 одновременно. Лучше иметь хотя бы одну эффективную атаку по площади.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "93": {
@@ -3359,15 +3399,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с женщиной, чтобы начать бой."
+        "ru": "Поговори с Fina на боевой площадке и начни её необычный художественный поединок."
       },
       {
         "id": "s02",
-        "ru": "Все её покемоны будут использовать самоуничтожение сразу."
+        "ru": "В команде Fina Carbink, Haunter, Onix, Vanilluxe, Garbodor и Gourgeist — все уровня 57."
       },
       {
         "id": "s03",
-        "ru": "Избегай взрывов, чтобы не потерять здоровье."
+        "ru": "Почти все противники сразу используют Self-Destruct или Explosion; исключение — последний Pokémon."
+      },
+      {
+        "id": "s04",
+        "ru": "Не стой в центре арены: перемещайся вдоль края и уходи из области взрыва, позволяя соперникам самостоятельно потерять сознание."
+      },
+      {
+        "id": "s05",
+        "ru": "Добей оставшегося противника обычными атаками и получи ₽1900, TM048 Self-Destruct и Bottle Cap ×2."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3375,8 +3423,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Старайся держаться подальше от центра битвы.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Для прохождения не обязательно быстрее всех наносить урон — безопаснее уклоняться от взрывов.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "97": {
@@ -3529,15 +3577,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Грантом для начала боя."
+        "ru": "У входа в Passage de la Félicité поговори с участницей Rust Syndicate о проверке устойчивости Steel-типа."
       },
       {
         "id": "s02",
-        "ru": "Применяй стратегии против уровня 56 Excadrill, Steelix, Scizor и Mawile."
+        "ru": "Она использует Excadrill, Steelix, Scizor и Mawile, все уровня 56."
       },
       {
         "id": "s03",
-        "ru": "Завершив бой, получишь награду."
+        "ru": "Поскольку все они Steel-типа, Fire- и Ground-атаки подходят для большинства. Scizor (Bug/Steel) особенно уязвим к Fire; Mawile — Steel/Fairy, а не Dark."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи команду и получи ₽3000, Metal Coat и Exp. Candy M ×2."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3545,8 +3597,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Используй воды типа. Mawile обладает темным типом, что может быть уязвимо для боя.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Не используй прежнюю ошибочную подсказку про Dark-тип Mawile — его действительный тип Steel/Fairy.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "102": {
@@ -3559,19 +3611,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Возьми в команду только покемонов типа Ледяной."
+        "ru": "В Wild Zone 12 найди Glace. Она принимает вызов только от команды Pokémon Ice-типа."
       },
       {
         "id": "s02",
-        "ru": "Поговори с Гласом, чтобы начать бой."
+        "ru": "Убери из активной команды всех Pokémon, не относящихся к Ice-типу. Двойной тип допустим, если один из них Ice."
       },
       {
         "id": "s03",
-        "ru": "Побеждай уровень 58 Glalie и Abomasnow и уровень 59 Froslass."
+        "ru": "Поговори с Glace и начни бой: у неё Glalie и Abomasnow уровня 58, Froslass уровня 59."
       },
       {
         "id": "s04",
-        "ru": "После победы заходи в Café Woof."
+        "ru": "Выбирай Ice-покемонов с подходящими дополнительными типами и Fire-, Steel- или Fighting-приёмами по ситуации. Против Froslass учитывай его дополнительный Ghost-тип."
+      },
+      {
+        "id": "s05",
+        "ru": "После победы получи ₽4200, Never-Melt Ice и Ice Stone."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3579,8 +3635,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Ядовитые и боевые атаки могут быть эффективны против ледяных покемонов.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Условие касается всей активной команды, а не только стартующего покемона.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "103": {
@@ -3643,15 +3699,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с тренером для начала поединка."
+        "ru": "На боевой площадке поговори с Constance и согласись на испытание с командой Bug-типа."
       },
       {
         "id": "s02",
-        "ru": "Подготовь покемонов уровня 57 Beedrill, Ariados, Scyther и уровня 58 Heracross и Mega Pinsir."
+        "ru": "Constance использует Beedrill, Ariados и Scyther уровня 57, затем Heracross и Mega Pinsir уровня 58."
       },
       {
         "id": "s03",
-        "ru": "Используй мощные атаки, чтобы быстро одолеть противников."
+        "ru": "Подготовь собственных Pokémon уровня примерно 58 и выше. Fire и Flying помогают против большинства Bug-противников; Rock особенно эффективен против Bug/Flying Scyther."
+      },
+      {
+        "id": "s04",
+        "ru": "Победи всех пятерых, включая Mega Pinsir. Получишь ₽2500, Exp. Candy M ×5 и Power Lens."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3659,8 +3719,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Сосредоточься на использовании атак, которые сокращают жизнь противников быстро.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Перечисленные Beedrill, Ariados и другие Pokémon принадлежат сопернице — их не нужно ловить или приводить с собой.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "105": {
@@ -3919,15 +3979,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Отдайте женщине 20 Cheri Berries, 5 Tamato Berries и 5 Occa Berries."
+        "ru": "У канала найди Sente, которая хочет создать аромат при помощи определённых ягод."
       },
       {
         "id": "s02",
-        "ru": "Найди ягоды на полях или купи у продавцов."
+        "ru": "Собери Cheri Berry ×20, Tamato Berry ×5 и Occa Berry ×5. Ягоды встречаются среди предметов на улицах и продаются на рыночных тележках."
       },
       {
         "id": "s03",
-        "ru": "Говори с ней после получения всех ягод."
+        "ru": "Удобная торговая площадка расположена западнее Wild Zone 3, внутри квартала между зданиями."
+      },
+      {
+        "id": "s04",
+        "ru": "Когда все три вида ягод будут в сумке, вернись к Sente и передай их."
+      },
+      {
+        "id": "s05",
+        "ru": "После сдачи получишь ₽4000, Modest Mint ×3 и Exp. Candy L."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
@@ -3935,8 +4003,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_101-119",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Ягоды можно собрать в окрестностях Wild Zone 3.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Внимательно проверяй количества: для Cheri требуется двадцать штук, а двух других ягод — по пять.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "113": {
