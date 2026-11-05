@@ -29,6 +29,7 @@ jobs:
           node tests/za-guide-092.mjs
           node tests/za-guide-093.mjs
           node tests/za-main-handbook.mjs
+          node tests/za-side-handbook.mjs
       - name: Check application and Pokédex regressions
         run: |
           node tests/smoke.mjs
@@ -38,6 +39,7 @@ jobs:
           node tests/team.mjs
       - name: Verify HTML, service-worker and new handbook are linked
         run: |
-          grep -q "app.js?v=094" index.html
-          grep -q "atlas-shell-v094" sw.js
+          grep -q "app.js?v=095" index.html
+          grep -q "atlas-shell-v095" sw.js
           grep -q "za-main-handbook.js" sw.js
+          grep -q "za-side-handbook.js" sw.js
