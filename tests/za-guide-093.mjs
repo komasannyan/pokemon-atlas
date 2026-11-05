@@ -3,6 +3,9 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {ZA_MAIN} from '../src/za-main-data.js';
+import {ZA_BASE_DEEP} from '../src/za-base-handbook.js';
+import {ZA_SIDE_DETAILED} from '../src/za-guide-extras.js';
+import {ZA_SIDE_CLARIFICATIONS} from '../src/za-mission-clarifications.js';
 import {ZA_SIDE} from '../src/za-side-data.js';
 import {ZA_DLC_MAIN} from '../src/za-dlc-data.js';
 import {ZA_DLC_81} from '../src/za-dlc-all-side.js';
@@ -12,6 +15,11 @@ import {ZA_ZONES} from '../src/za-data.js';
 
 assert.equal(ZA_MAIN.length,42,'base story mission count');
 assert.equal(ZA_SIDE.length,119,'base side mission count');
+for(let id=1;id<=119;id++){
+ const steps=ZA_SIDE_DETAILED[id]?.steps||ZA_SIDE_CLARIFICATIONS[id]||ZA_BASE_DEEP[id];
+ assert.ok(Array.isArray(steps)&&steps.length>=2,`base side mission ${id} lacks a multi-step walkthrough`);
+ assert.ok(steps.every(s=>s.length>=15),`base side mission ${id} has a trivial placeholder`);
+}
 assert.equal(ZA_DLC_MAIN.length,14,'DLC main mission count');
 assert.equal(ZA_DLC_81.length,81,'DLC side mission count');
 assert.equal(ZA_TMS_ENRICHED.length,160,'TM count');
@@ -48,11 +56,13 @@ const ui=readFileSync(new URL('../src/guides-v09.js',import.meta.url),'utf8');
 assert.match(ui,/ZA_DLC_DEEP\[x\.id\]/,'DLC guide steps connected');
 assert.match(ui,/ZA_DLC_STORY_DEEP\[x\.id\]/,'DLC story steps connected');
 assert.match(ui,/ZA_FAQ_EXTENDED\.map/,'help topics connected');
+assert.match(ui,/ZA_BASE_DEEP\[x\.id\]/,'base guide steps connected');
 assert.match(ui,/Check source/,'sources visible');
 const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const translations=readFileSync(new URL('../src/i18n.js',import.meta.url),'utf8');
 assert.match(sw,/za-guide-handbook\.js/,'new data should be cached');
+assert.match(sw,/za-base-handbook\.js/,'base data should be cached');
 assert.match(sw,/atlas-shell-v093/,'service worker cache should be bumped');
 assert.match(html,/src\/app\.js\?v=093/,'HTML should load fresh JS');
 assert.match(translations,/Версия 0\.9\.3/,'Russian UI release label should be updated');
