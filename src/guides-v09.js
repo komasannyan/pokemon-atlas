@@ -14,6 +14,7 @@ import {ZA_MEGA,ZA_RESOURCES} from './za-items-data.js';
 import {ZA_MAIN_STEPS,ZA_BOSS_TIPS,ZA_GLOBAL_HELP} from './za-walkthrough-details.js';
 import {ZA_SIDE_DETAILED,ZA_REWARDS,ZA_EX_MISSIONS,ZA_DONUT_RECIPES} from './za-guide-extras.js';
 import {isEnglish} from './i18n.js';
+import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED} from './za-guide-handbook.js';
 
 const KEY='pokemon-atlas-guide-progress-v1',STEP_KEY='pokemon-atlas-guide-steps-v1',GAME_KEY='pokemon-atlas-guide-game-v1';
 const $=s=>document.querySelector(s);
@@ -37,14 +38,14 @@ const sideRows=ZA_SIDE.map(x=>{
     :ZA_SIDE_SPECIAL_UNLOCK[x.id]||null};
 });
 const mainRows=ZA_MAIN.map(x=>({...x,kind:'main',steps:(ZA_MAIN_STEPS[x.id]||x.steps||'').split('|').filter(Boolean)}));
-const dlcRows=[...ZA_DLC_MAIN.map(x=>({...x,kind:'dlc-main',steps:(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)})),...ZA_DLC_81.map(x=>({...x,kind:'dlc-side',steps:ZA_SIDE_DETAILED[x.id]?.steps||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)}))];
+const dlcRows=[...ZA_DLC_MAIN.map(x=>({...x,kind:'dlc-main',steps:ZA_DLC_STORY_DEEP[x.id]||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)})),...ZA_DLC_81.map(x=>({...x,kind:'dlc-side',extraReq:ZA_DLC_UNLOCKS[x.id]||null,steps:ZA_DLC_DEEP[x.id]||ZA_SIDE_DETAILED[x.id]?.steps||(x.steps||'').split(/(?<=\.)\s+(?=[А-ЯЁ])/).filter(Boolean)}))];
 const exRows=ZA_EX_MISSIONS.map(x=>({...x,kind:'extra'}));
 const bossRows=ZA_BOSS_TIPS.map(x=>({...x,kind:'boss',name:'Rogue Mega '+x.pokemon,steps:[x.tactic],location:mainRows.find(m=>m.id===x.id)?.location||null}));
 const zoneRows=ZA_ZONES.map(z=>({...z,id:z.n,kind:'zone',name:'Wild Zone '+z.n,unlock:z.mission,location:z.area,spawnDetails:ZA_ZONE_SPAWNS.find(x=>x.n===z.n)?.spots||[],steps:['Открывается с началом основного задания №'+z.mission+'.','Район: '+z.area+'.','Список видов и ориентиры приведены ниже.']}));
 const tmRows=ZA_TMS_ENRICHED.map(x=>({...x,id:x.n,kind:'tm',name:'TM'+num(x.n)+' · '+x.name,steps:[x.location],location:x.location,reward:null}));
 const itemRows=[...ZA_MEGA,...ZA_RESOURCES].map((x,i)=>({...x,id:i+1,kind:'item',name:x.name,steps:[x.location],location:x.location}));
 const recipeRows=ZA_DONUT_RECIPES.map((x,i)=>({...x,id:i+1,kind:'recipe',location:'Hotel Z, кухня Ansha',steps:[tx('Приготовь пончик у Ansha после открытия соответствующего рецепта по сюжету.','Prepare the donut with Ansha after unlocking its story recipe.')] }));
-const helpRows=ZA_GLOBAL_HELP.map((x,i)=>({...x,id:i+1,kind:'help',location:'',steps:x.steps}));
+const helpRows=[...ZA_GLOBAL_HELP.map((x,i)=>({...x,id:i+1,guideTopic:x.id,kind:'help',location:'',steps:x.steps})),...ZA_FAQ_EXTENDED.map(x=>({...x,id:'faq-'+x.id,guideTopic:x.id,kind:'help',location:'',steps:x.steps,source:'https://www.serebii.net/legendsz-a/sidemissions.shtml'}))];
 const ALL=[...mainRows,...sideRows,...bossRows,...zoneRows,...tmRows,...itemRows,...dlcRows,...exRows,...recipeRows,...helpRows];
 const TABS=[
  ['start','Маршрут','Route'],['main','Сюжет','Story'],['side','Побочные','Side quests'],['boss','Боссы','Bosses'],
@@ -79,13 +80,21 @@ function tableFor(tab){
  return ALL;
 }
 function keywords(x){
- const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' ')];
+ const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic];
  return normalize(values.join(' '));
 }
 function filtered(){
- const q=normalize(state.query);
+ const q=normalize(state.query), raw=state.query.trim();
+ const numberMatch=raw.match(/^(?:(?:побочное\\s+)?(?:задани[ея]|миссия|mission|quest|side|tm|тм)\\s*)?[№#]?\\s*(\\d{1,3})$/i);
+ const number=numberMatch?Number(numberMatch[1]):null;
  const base=q?ALL:tableFor(state.tab);
- return base.filter(x=>(!q||keywords(x).includes(q))&&(state.filter==='all'||(state.filter==='pending'?!done(x):done(x))));
+ const matches=base.filter(x=>(!q||keywords(x).includes(q)||number!==null&&Number(x.id)===number)&&(state.filter==='all'||(state.filter==='pending'?!done(x):done(x))));
+ if(!q)return matches;
+ const wantsTM=/^(?:tm|тм)/i.test(raw);
+ return matches.sort((a,b)=>{
+  const score=x=>(wantsTM&&x.kind==='tm'?80:0)+(number!==null&&Number(x.id)===number?60:0)+(normalize(x.name)===q?30:0)+(normalize(x.name).includes(q)?10:0);
+  return score(b)-score(a);
+ });
 }
 function badge(s){return '<span class="guide-tag">'+esc(s)+'</span>';}
 function linksFor(x){
@@ -103,6 +112,14 @@ function linksFor(x){
  if(x.kind==='side'||x.kind==='dlc-side'){
    const matching=tmRows.filter(t=>t.location&&t.location.includes('№'+x.id)&&((x.kind==='dlc-side')===!!t.dlc));
    if(matching.length)elems.push('<p class="guide-related">'+tx('Связанные TM: ','Related TMs: ')+matching.map(t=>'<button type="button" data-guide-jump="tm:'+t.id+'">TM'+num(t.id)+'</button>').join(' ')+'</p>');
+ }
+ if(x.related?.length){
+  const links=x.related.map(([kind,id])=>{
+   const ref=kind==='help'?helpRows.find(h=>h.guideTopic===id)?.id:id;
+   const target=ALL.find(row=>row.kind===kind&&String(row.id)===String(ref));
+   return target?'<button type="button" data-guide-jump="'+esc(kind+':'+ref)+'">'+esc(target.name)+'</button>':'';
+  }).filter(Boolean);
+  if(links.length)elems.push('<p class="guide-related">'+tx('Связанные статьи и задания: ','Related guides and missions: ')+links.join(' ')+'</p>');
  }
  return elems.join('');
 }
@@ -168,6 +185,7 @@ function card(x){
   (x.reward?'<div class="guide-info-line"><b>'+tx('НАГРАДА','REWARDS')+'</b><p>'+esc(x.reward)+'</p></div>':'')+
   (x.kind==='side'&&!x.reward?'<p class="guide-muted">'+tx('Точные награды этой миссии ещё не сверены.','Exact rewards are not yet verified for this mission.')+'</p>':'')+
   linksFor(x)+
+  (x.source?'<p class="guide-source"><a href="'+esc(x.source)+'" target="_blank" rel="noopener noreferrer">'+tx('Проверить источник','Check source')+'</a></p>':'')+
  '</div></details></article>';
 }
 function pageItems(){
@@ -186,7 +204,7 @@ function hero(){
  }).join('')+'</div>';
 }
 function intro(){
- return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Введи название задания, покемона, TM, предмета или района: поиск работает по всем разделам Z-A. В карточках указаны проверенные условия и ориентиры, а неполные сведения отмечены.','Search a mission, Pokémon, TM, item or district across all Z-A sections. Open a card and follow each step.')+'</p></div>';
+ return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Введи название задания, его номер, покемона, предмет или свою проблему — например, «не появляется Marshadow», «999 монет» или «не открывается DLC». Открой карточку и отмечай этапы по мере прохождения.','Search a mission, number, Pokémon, item or problem (such as missing Marshadow, 999 coins or DLC unlocks). Open a card and check off steps.')+'</p></div>';
 }
 function render(){
  if(!root)return;
@@ -218,7 +236,7 @@ function renderResults(){
  const title=root?.querySelector('.guide-bar span');if(title)title.textContent=state.query?tx('Поиск по всем разделам','Searching all sections'):tx('Раздел','Section');
 }
 function navigateTo(kind,id){
- const x=ALL.find(x=>x.kind===kind&&String(x.id)===String(id));if(!x)return;
+ const x=ALL.find(x=>x.kind===kind&&String(x.id)===String(id))||(kind==='help'?helpRows.find(x=>x.guideTopic===id):null);if(!x)return;
  const tab=groupOf(x);state.tab=tab==='dlc'?'dlc':tab==='zone'?'zone':tab==='boss'?'boss':tab;
  state.query='';state.filter='all';state.focus=idOf(x);state.shown=45;
  const idx=tableFor(state.tab).findIndex(v=>idOf(v)===idOf(x));if(idx>=state.shown)state.shown=idx+1;
