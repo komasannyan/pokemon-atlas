@@ -4,7 +4,7 @@ const store=new Map();
 globalThis.localStorage={getItem:key=>store.get(key)||null,setItem:(key,value)=>store.set(key,String(value))};
 globalThis.document={documentElement:{lang:'ru'}};
 const {parseCSV}=await import('../src/data.js');
-const {fetchMoveDex,describeEffect}=await import('../src/moves.js');
+const {fetchMoveDex,describeEffect}=await import('../src/pokedex/moves.js');
 const {t,setLanguage,typeLabel}=await import('../src/i18n.js');
 assert.equal(parseCSV('id,text\n1,"hello, world"\n2,"a ""quote"""')[1].text,'a "quote"');
 const header='id,identifier,generation_id,type_id,power,pp,accuracy,priority,target_id,damage_class_id,effect_id,effect_chance,contest_type_id,contest_effect_id,super_contest_effect_id';

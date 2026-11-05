@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import {CORE_GAMES,recordedInVersion,recordedVersions} from '../src/game-availability.js';
-import {cleanSource} from '../src/translate-ru.js';
+import {CORE_GAMES,recordedInVersion,recordedVersions} from '../src/pokedex/game-availability.js';
+import {cleanSource} from '../src/pokedex/translate-ru.js';
 import {readFileSync} from 'node:fs';
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const app=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
@@ -20,5 +20,5 @@ assert.match(html,/src="\.\/src\/app\.js\?v=\d{3}"/);
 assert(app.includes('translatedRussian('));
 assert(app.includes('chooseHero(state.dex)'));
 assert(app.includes('state.moveSort'));
-assert(app.includes("from './game-availability.js'"),'location availability logic should remain connected');
+assert(app.includes("from './pokedex/game-availability.js'"),'location availability logic should remain connected');
 console.log('v0.6 navigation, game index, hero, localization and sort tests passed');

@@ -1,7 +1,7 @@
 import {strict as assert} from 'node:assert';
-import {configureUniverse,fullPool,speciesLegal,itemLegal,setsFor,movesLegal} from '../src/team-universe.js';
-import {generateSuggestions,showdownExport,championsText,spread} from '../src/team-engine.js';
-import {fullRuMoveInfo,fullRuAbilityInfo,effectCoverage} from '../src/effects-ru.js';
+import {configureUniverse,fullPool,speciesLegal,itemLegal,setsFor,movesLegal} from '../src/team/team-universe.js';
+import {generateSuggestions,showdownExport,championsText,spread} from '../src/team/team-engine.js';
+import {fullRuMoveInfo,fullRuAbilityInfo,effectCoverage} from '../src/pokedex/effects-ru.js';
 const ids=[248,530,445,970,1000,823,959,282,6,3,1,150,1007,1008,658,130];
 const names=['Tyranitar','Excadrill','Garchomp','Glimmora','Gholdengo','Corviknight','Tinkaton','Gardevoir','Charizard','Venusaur','Bulbasaur','Mewtwo','Koraidon','Miraidon','Greninja','Gyarados'];
 const types=[['rock','dark'],['ground','steel'],['dragon','ground'],['rock','poison'],['steel','ghost'],['flying','steel'],['fairy','steel'],['psychic','fairy'],['fire','flying'],['grass','poison'],['grass','poison'],['psychic'],['fighting','dragon'],['electric','dragon'],['water','dark'],['water','flying']];
