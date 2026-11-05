@@ -85,7 +85,7 @@ function keywords(x){
 }
 function filtered(){
  const q=normalize(state.query), raw=state.query.trim();
- const numberMatch=raw.match(/^(?:(?:побочное\\s+)?(?:задани[ея]|миссия|mission|quest|side|tm|тм)\\s*)?[№#]?\\s*(\\d{1,3})$/i);
+ const numberMatch=raw.match(/^(?:(?:побочное\s+)?(?:задани[ея]|миссия|mission|quest|side|tm|тм)\s*)?[№#]?\s*(\d{1,3})$/i);
  const number=numberMatch?Number(numberMatch[1]):null;
  const base=q?ALL:tableFor(state.tab);
  const matches=base.filter(x=>(!q||keywords(x).includes(q)||number!==null&&Number(x.id)===number)&&(state.filter==='all'||(state.filter==='pending'?!done(x):done(x))));
