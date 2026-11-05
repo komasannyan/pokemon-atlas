@@ -13,15 +13,15 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Следуй за мужчиной в переулок."
+        "ru": "Во дворе восточнее Wild Zone 3 найди Trevelle под деревом и поговори с ним о необычно крупном Bunnelby."
       },
       {
         "id": "s02",
-        "ru": "Сразись с Альфа Bunnelby (уровень 10)."
+        "ru": "Иди за Trevelle в прилегающий переулок: здесь появится Alpha Bunnelby уровня 10."
       },
       {
         "id": "s03",
-        "ru": "После победы забери $400 и 2 x Fresh Water."
+        "ru": "Победи Alpha Bunnelby; после сражения дождись разговора с Trevelle и получения награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -29,8 +29,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Будь готов к сильному противнику.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Alpha Pokémon заметно сильнее обычных особей того же уровня. Не обязательно пытаться поймать этого Bunnelby ради завершения задания.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "2": {
@@ -43,11 +43,15 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Проведи обмен Pikachu на Heracross."
+        "ru": "В Wild Zone 3 поймай Pikachu; если он уже есть в коробках, перемести нужный экземпляр в активную команду."
       },
       {
         "id": "s02",
-        "ru": "Найди Pikachu в дикой зоне 3."
+        "ru": "Перед Le Passe-temps Shopping Mall найди Tracie, которая предлагает обмен."
+      },
+      {
+        "id": "s03",
+        "ru": "Подтверди обмен Pikachu на Heracross. Полученного Heracross можно оставить себе; дополнительные предметы выдаются вместе с завершением миссии."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -55,8 +59,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Heracross может быть найден в дикой зоне 3.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это внутриигровой обмен с NPC, он работает без сетевого соединения.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "3": {
@@ -69,19 +73,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Иди в кладбище Dormez Bien (дикая зона 4)."
+        "ru": "Перед входом в Wild Zone 4 у Dormez Bien Cemetery поговори с Moire, потерявшей Cherished Ring."
       },
       {
         "id": "s02",
-        "ru": "Ищи кольцо на пустом участке земли."
+        "ru": "Зайди на кладбище и иди к дальнему участку с голой землёй. Осмотри этот участок, чтобы спровоцировать бой с Sableye уровня 20."
       },
       {
         "id": "s03",
-        "ru": "Сразись с Sableye (уровень 20)."
+        "ru": "Победи Sableye; после битвы появится возможность его поймать и получить потерянное кольцо."
       },
       {
         "id": "s04",
-        "ru": "Вернись к женщине с кольцом."
+        "ru": "Вернись к Moire за пределами кладбища и передай Cherished Ring."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -89,8 +93,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Сейблай может быть пойман после боя.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Кольцо связано с Sableye: обычный поиск предмета у могил без сражения не завершает миссию.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "4": {
@@ -181,11 +185,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Chespin, который атакует такси."
+        "ru": "У стоянки такси юго-восточнее Wild Zone 3 найди Axi и Chespin, который мешает работе транспорта."
       },
       {
         "id": "s02",
-        "ru": "Победи его три раза подряд."
+        "ru": "Подойди к Chespin и начни сражение. Это Pokémon уровня 14."
+      },
+      {
+        "id": "s03",
+        "ru": "Chespin упрям: после первой победы он снова вызовет тебя на бой. Победи его три раза подряд."
+      },
+      {
+        "id": "s04",
+        "ru": "После третьей победы Chespin успокоится и присоединится к твоей команде; получи награду за поручение."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -193,8 +205,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Чеспин агрессивен, но его можно победить!",
-    "review": "source-extracted-unplaytested",
+    "tip": "Три победы — часть одного задания. После первого боя миссия не должна закрыться.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "8": {
@@ -207,19 +219,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори со стариком в Café Classe."
+        "ru": "Найди Branche и больного Fennekin, затем отправляйся к травнику в Café Classe на юге Люмиоса."
       },
       {
         "id": "s02",
-        "ru": "Найди Revitalizing Twig в дикой зоне 5 (в подземелье)."
+        "ru": "Выслушай указания травника и направляйся в Wild Zone 5. Нужная часть зоны ведёт через загрязнённый проход к комнате, где находится Alpha Whirlipede."
       },
       {
         "id": "s03",
-        "ru": "Собери все пять веток."
+        "ru": "Возьми покемона с Water-атакой и очисти мешающую грязь, чтобы добраться до комнаты с растениями."
       },
       {
         "id": "s04",
-        "ru": "Вернись к женщине с Fennekin."
+        "ru": "Собери все пять Revitalizing Twigs — только одна окажется пригодной, поэтому нельзя остановиться на первой."
+      },
+      {
+        "id": "s05",
+        "ru": "Вернись к Branche и Fennekin, передай свежую ветку. После лечения Fennekin присоединится к твоей команде."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -227,8 +243,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Понадобится водный покемон для очистки слизи.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Проверяй именно комнату за загрязнённым проходом: ветка не лежит просто у входа в Wild Zone 5.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "9": {
@@ -241,15 +257,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с мужчиной около Froakie."
+        "ru": "У строительных лесов поговори с Surv, стоящим рядом с Froakie, и согласись на испытание по подъёму."
       },
       {
         "id": "s02",
-        "ru": "Узнай, как пройти испытание за 30 секунд."
+        "ru": "Пройди первую полосу препятствий до Froakie не более чем за 30 секунд."
       },
       {
         "id": "s03",
-        "ru": "Завершите три испытания по облегчению платформ."
+        "ru": "Перейди к следующему маршруту на другой стороне зелёной площадки. Второй подъём нужно закончить за 40 секунд; внимательно проходи узкие платформы."
+      },
+      {
+        "id": "s04",
+        "ru": "Отправляйся к Rouge Pokémon Center, чтобы найти третий, самый длинный маршрут. На нём придётся перекатываться через увеличенные промежутки между настилами; лимит — 50 секунд."
+      },
+      {
+        "id": "s05",
+        "ru": "После успешного прохождения всех трёх участков поговори с Froakie и получи его в команду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -257,8 +281,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Через узкие платформы удобно проходить.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Последовательность лимитов: 30 → 40 → 50 секунд, а не наоборот.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "10": {
@@ -323,27 +347,27 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди все пять цветов Flabébé в разных местах города."
+        "ru": "В Coiffure Clips поговори с Vivace: для новых цветов причёсок она просит показать все пять вариантов Flabébé."
       },
       {
         "id": "s02",
-        "ru": "Красный - дикая зона 3."
+        "ru": "Красный Flabébé находится в Wild Zone 3. Оранжевый встречается на крышах около Wild Zone 6."
       },
       {
         "id": "s03",
-        "ru": "Оранжевый - крыша в дикой зоне 6."
+        "ru": "Жёлтого ищи на мосту к югу от Wild Zone 6; белого — во внутреннем дворе к северо-востоку от Wild Zone 2."
       },
       {
         "id": "s04",
-        "ru": "Жёлтый - мост к югу от дикой зоны 6."
+        "ru": "Синего Flabébé ищи на крышах вокруг Wild Zone 3. Не путай цвет цветка с окраской самой модели Pokémon."
       },
       {
         "id": "s05",
-        "ru": "Белый - двор к северо-востоку от дикой зоны 2."
+        "ru": "Показывай Vivace по одному Flabébé каждого цвета: за каждый новый вариант открывается соответствующий цвет волос."
       },
       {
         "id": "s06",
-        "ru": "Синий - крыши вокруг зоны 3."
+        "ru": "После предъявления всех пяти цветов получи оставшиеся дополнительные оттенки в парикмахерской и завершение задания."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -351,8 +375,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Добавляет новые цвета волос в магазин.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Все пять Pokémon не обязательно носить в команде одновременно: игра принимает цвета по одному.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "13": {
@@ -365,11 +389,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Убери хлесты вокруг фонтана с помощью огненного или режущего хода."
+        "ru": "У фонтана в Jaune Sector 7 поговори с художницей Croquis: мешают разросшиеся колючие заросли."
       },
       {
         "id": "s02",
-        "ru": "Поговори с художницей после каждого удаления зарослей."
+        "ru": "Уничтожь первую группу зарослей Fire-атакой или режущим приёмом, например Razor Leaf либо Aerial Ace."
+      },
+      {
+        "id": "s03",
+        "ru": "Снова поговори с Croquis. После диалога появятся ещё три скопления — убери их тем же способом."
+      },
+      {
+        "id": "s04",
+        "ru": "Повтори разговор: появится последняя, более крупная группа из пяти зарослей. Уничтожь все пять."
+      },
+      {
+        "id": "s05",
+        "ru": "Вернись к художнице; выяснится, что за происходящим стоял Phantump, и миссия завершится."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -377,8 +413,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Проблема с Phantump - это заслуга.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Уничтожение первого кустарника не завершает миссию: появятся ещё две последовательные волны зарослей.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "14": {
@@ -443,11 +479,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с мужчиной в Pokémon Center."
+        "ru": "Найди Jardin внутри Vernal Pokémon Center и согласись участвовать в Budew Pokémon Show."
       },
       {
         "id": "s02",
-        "ru": "Отправляйся в Bleu Sector 8 с Budew в команде."
+        "ru": "Поймай Budew в Wild Zone 2 или возьми уже пойманного; перед дальнейшей частью помести его в активную команду."
+      },
+      {
+        "id": "s03",
+        "ru": "Отправляйся в Bleu Sector 8 к месту выставки. Для входа понадобится ₽5800: подготовь эту сумму заранее."
+      },
+      {
+        "id": "s04",
+        "ru": "Начни показ с Budew, затем пройди вопросы организаторов. Варианты ответов не влияют на признание Budew победителем."
+      },
+      {
+        "id": "s05",
+        "ru": "Получи денежную награду ₽10000 и Miracle Seed: вступительный взнос компенсируется итоговой наградой."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -455,8 +503,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Также приготовь $5800 для участия.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Свойства Budew и варианты ответов не меняют итог конкурса. Если вход не предлагается, проверь Budew в команде и наличие ₽5800.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "17": {
@@ -469,11 +517,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Доберись до самой высокой точки дикой зоны 1."
+        "ru": "Поговори с Duve возле Wild Zone 1 о необычном Mareep."
       },
       {
         "id": "s02",
-        "ru": "Позвони женщине для завершения квеста."
+        "ru": "Зайди в Wild Zone 1 и доберись до самой высокой площадки: минуй валуны и поднимись по двум лестницам."
+      },
+      {
+        "id": "s03",
+        "ru": "На вершине автоматически начнётся связь с заказчицей, и цель миссии будет засчитана."
+      },
+      {
+        "id": "s04",
+        "ru": "Осмотрись и по возможности поймай появившегося Shiny Mareep: это дополнительная уникальная награда, не обязательная для получения денег и перьев."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -481,8 +537,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Можете поймать Shiny Mareep как дополнительный бонус.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Задание завершается после достижения верхней точки. Shiny Mareep можно поймать отдельно; не уходи сразу, если хочешь сохранить его.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "18": {
@@ -495,11 +551,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Имей Pansage, Panpour и Pansear в своей команде."
+        "ru": "В Café Cyclone поговори с Servando: ему нужны три элементальные обезьяны для приготовления чая."
       },
       {
         "id": "s02",
-        "ru": "Поговори с Servando для заваривания Pantrio Tea."
+        "ru": "Найди Pansage, Pansear и Panpour. Их можно встретить на деревьях у входов в Wild Zone 6 и на крышах в том же районе."
+      },
+      {
+        "id": "s03",
+        "ru": "Поймай по одному экземпляру каждого вида и одновременно помести всех трёх в активную команду."
+      },
+      {
+        "id": "s04",
+        "ru": "Вернись к Servando с полной тройкой. После сцены Pantrio Tea появится в меню кафе, а миссия будет завершена."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -507,8 +571,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Обязательно собрать всех трёх до путешествия к Сервандо.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Нужны три разных вида одновременно — одна-две обезьяны не подходят.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "19": {
@@ -521,11 +585,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с каждой женщиной для боя."
+        "ru": "На боевой площадке Vert Sector 3 поговори с Venin и другими участницами испытания статусов."
       },
       {
         "id": "s02",
-        "ru": "Первый тренер: уровень 16 Electrike и Budew. Второй тренер: уровень 16 Venipede и Bellsprout."
+        "ru": "Сначала сразись с тренером паралича: у неё Electrike и Budew уровня 16."
+      },
+      {
+        "id": "s03",
+        "ru": "Затем победи тренера отравления: Venipede и Bellsprout уровня 16. Если эффекты мешают, используй Paralyze Heal и Antidote либо устойчивых по типам покемонов."
+      },
+      {
+        "id": "s04",
+        "ru": "После обеих побед поговори с организаторами и забери награду."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
@@ -533,8 +605,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_1-20",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Не бойтесь применять стратегию.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это два отдельных поединка, а не один общий бой.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "20": {
@@ -573,55 +645,35 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди 12 Spewpa в музее."
+        "ru": "В Lumiose Museum поговори с парой на первом этаже: необходимо найти 12 замаскированных Spewpa."
       },
       {
         "id": "s02",
-        "ru": "На перилах внизу лестницы на первом этаже."
+        "ru": "№1 — на перилах внизу лестницы на первом (ground) этаже. №2 — за статуей Lucario на том же этаже."
       },
       {
         "id": "s03",
-        "ru": "За статуей Lucario на первом этаже."
+        "ru": "№3 — между диванами на середине лестницы. №4 — на верхнем этаже, изображает шлем рыцарских доспехов."
       },
       {
         "id": "s04",
-        "ru": "Между диванами на лестнице."
+        "ru": "№5 — перед рядом картин с людьми. №6 — между статуями Dialga и Palkia."
       },
       {
         "id": "s05",
-        "ru": "На вершине лестницы на первом этаже на шлеме доспехов."
+        "ru": "№7 — в экспозиции одежды Hisui. №8 — внутри макета/витрины магазина Hisui."
       },
       {
         "id": "s06",
-        "ru": "Перед рядом картин людей на первом этаже."
+        "ru": "№9 — на верстаке для изготовления предметов напротив костюмов. №10 — среди Poké Balls в выставленном ряду."
       },
       {
         "id": "s07",
-        "ru": "Между статуями Dialga и Palkia на первом этаже."
+        "ru": "№11 — на диване рядом с витриной Poké Balls. №12 — на голограмме Lumiose City."
       },
       {
         "id": "s08",
-        "ru": "На выставке хисуианской одежды на первом этаже."
-      },
-      {
-        "id": "s09",
-        "ru": "В хисуианском магазине на первом этаже."
-      },
-      {
-        "id": "s10",
-        "ru": "На верстаке для изготовления напротив костюмов на первом этаже."
-      },
-      {
-        "id": "s11",
-        "ru": "В ряду Poké Balls на первом этаже."
-      },
-      {
-        "id": "s12",
-        "ru": "На диване рядом с Poké Balls на первом этаже."
-      },
-      {
-        "id": "s13",
-        "ru": "На голограмме Lumiose City на первом этаже."
+        "ru": "После взаимодействия со всеми двенадцатью вернись к паре на нижнем этаже. Они подарят Spewpa и положенные награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -629,8 +681,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "После разговора с каждым Spewpa вернитесь к паре на первом этаже для награды.",
-    "review": "source-extracted-unplaytested",
+    "tip": "На англоязычной карте ground floor — нижний этаж, first floor — этаж над ним. Не перепутай этаж у доспехов и картин.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "22": {
@@ -643,15 +695,15 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Получите звонок от Mable после посещения Центра Pokémon."
+        "ru": "После подходящего сюжетного этапа и посещения Pokémon Center дождись звонка Mable, которая пригласит в Pokémon Research Lab."
       },
       {
         "id": "s02",
-        "ru": "Посетите Исследовательскую лабораторию."
+        "ru": "Приди в кабинет директора исследовательской лаборатории: там ждут Charmander, Squirtle и Bulbasaur."
       },
       {
         "id": "s03",
-        "ru": "В офисе директора выбери одного из Pokémon: Squirtle, Bulbasaur или Charmander."
+        "ru": "Выбери одного из трёх покемонов и поговори с Mable. Выбранный стартовый Pokémon региона Kanto присоединится к команде."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -659,8 +711,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Выбранный Покемон будет вашим вознаграждением.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это выбор одного Pokémon из трёх, а не награда всеми тремя сразу.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "23": {
@@ -703,15 +755,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Найди Abra для обмена на Riolu."
+        "ru": "Найди заказчика, предлагающего Riolu за Abra: это внутриигровой обмен между NPC и игроком."
       },
       {
         "id": "s02",
-        "ru": "Abra часто встречаются на крышах и в Wild Zone 5."
+        "ru": "Отправляйся на крыши или в Wild Zone 5. Найди Abra; он может телепортироваться при обнаружении персонажа."
       },
       {
         "id": "s03",
-        "ru": "Брось Poké Ball, прежде чем она телепортируется."
+        "ru": "Не приближайся к Abra слишком резко: прицелься заранее и брось Poké Ball до его исчезновения."
+      },
+      {
+        "id": "s04",
+        "ru": "После поимки нужного Abra вернись к заказчику, выбери покемона для обмена и получи Riolu."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -719,8 +775,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Риолу будет наградой за обмен.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Abra может исчезнуть из поля зрения, но поймать его можно обычным Poké Ball без сетевых функций.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "25": {
@@ -733,15 +789,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Fumi, чтобы начать задание."
+        "ru": "Найди Fumi возле Café Pokémon-Amie и поговори о трёх Trubbish, которых нужно отвести к мусорным бакам."
       },
       {
         "id": "s02",
-        "ru": "Она даст тебе Tasty Trash для трех Trubbish, которые будут следовать за тобой."
+        "ru": "После начала задания получи Tasty Trash: три Trubbish начнут идти следом за персонажем."
       },
       {
         "id": "s03",
-        "ru": "Иди к мусорным бакам, чтобы закончить задание."
+        "ru": "Иди пешком к отмеченным мусорным контейнерам; бег и слишком быстрый отрыв от сопровождаемых покемонов мешают процессу."
+      },
+      {
+        "id": "s04",
+        "ru": "Подойди к нужному баку и осмотри его, затем заверши разговор с Fumi."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -749,8 +809,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Не спешите, когда Труббиш следуют за вами.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Это сопровождение, не бой и не ловля: придерживайся темпа Trubbish.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "26": {
@@ -793,15 +853,19 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Reg в лаборатории."
+        "ru": "В Pokémon Research Lab поговори с Reg о восстановлении ископаемых Pokémon. Он выделит ₽20000 для первой покупки."
       },
       {
         "id": "s02",
-        "ru": "Купи Jaw или Sail fossil за 20000 долларов."
+        "ru": "Зайди в Stone Emporium немного севернее лаборатории и купи Jaw Fossil (Tyrunt) либо Sail Fossil (Amaura)."
       },
       {
         "id": "s03",
-        "ru": "Вернись к Reg, чтобы восстановить ископаемое."
+        "ru": "Вернись к Reg и передай купленное ископаемое для восстановления. Полученный Pokémon останется у тебя."
+      },
+      {
+        "id": "s04",
+        "ru": "После завершения Reg сможет восстанавливать и другие ископаемые: при наличии денег позднее можно купить второй ископаемый и Old Amber (Aerodactyl)."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -809,8 +873,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Это даст вам возможность восстанавливать другие ископаемые.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Выбор Jaw/Sail Fossil не блокирует альтернативный вид навсегда.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "28": {
@@ -853,19 +917,23 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с Rintaro в ресторане для начала квеста."
+        "ru": "В Restaurant Le Nah поговори с Rintaro и согласись на последовательность из трёх боёв без перерыва."
       },
       {
         "id": "s02",
-        "ru": "Сразись с тремя противниками подряд: Audrey с уровнем 30 Pansage и Skiddo."
+        "ru": "Сначала победи Audrey: Pansage и Skiddo уровня 30 (Grass)."
       },
       {
         "id": "s03",
-        "ru": "Следующий Thomas с уровнем 30 Panpour и Carvanha."
+        "ru": "Затем победа над Thomas: Panpour и Carvanha уровня 30 (Water/Dark)."
       },
       {
         "id": "s04",
-        "ru": "Наконец, сразись с Thierry, у которого уровень 30 Pansear и Litleo."
+        "ru": "В заключительном поединке одолей Thierry: Pansear и Litleo уровня 30 (Fire)."
+      },
+      {
+        "id": "s05",
+        "ru": "После трёх побед получи TM085 Substitute и остальные награды."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
@@ -873,8 +941,8 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_21-40",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Готовьтесь к постоянным боям.",
-    "review": "source-extracted-unplaytested",
+    "tip": "Подготовь Fire, Grass и Water-покрытие заранее — соперники представляют три элементальные группы.",
+    "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
   "30": {
