@@ -1,0 +1,68 @@
+// 0.9.5: all 119 base-game side quests must be detailed, sourced, navigable.
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {ZA_SIDE_HANDBOOK} from '../src/za-side-handbook.js';
+import {ZA_SIDE} from '../src/za-side-data.js';
+import {ZA_SIDE_VERIFIED} from '../src/za-verified-catalog.js';
+const records=Object.entries(ZA_SIDE_HANDBOOK);
+assert.equal(records.length,119);
+assert.equal(ZA_SIDE.length,119);
+assert.equal(ZA_SIDE_VERIFIED.length,119);
+assert.deepEqual(records.map(([k])=>Number(k)),Array.from({length:119},(_,i)=>i+1));
+let stepsTotal=0;
+for(const [s,id] of records.map(([key,value])=>[key,value])){
+ const n=Number(s),v=ZA_SIDE_VERIFIED[n-1],base=ZA_SIDE[n-1];
+ assert.equal(base.id,n);
+ assert.equal(v.id,n);
+ assert.ok(id.startHint?.trim().length>=10,'NPC/landmark missing: '+n);
+ assert.ok(id.location?.trim().length>=6,'quest area missing: '+n);
+ assert.ok(id.reward?.trim().length>=3,'reward missing: '+n);
+ assert.ok(Array.isArray(id.steps)&&id.steps.length>=3,'too few steps: '+n);
+ const used=new Set();
+ for(const step of id.steps){
+   assert.equal(typeof step.ru,'string');
+   assert.ok(step.ru.length>=28,'unhelpful detail in quest '+n+': '+step.ru);
+   assert.ok(/^s[0-9]{2}$/.test(step.id),'stable step id required: '+n);
+   assert.ok(!used.has(step.id),'duplicate id for quest '+n);
+   used.add(step.id);
+ }
+ assert.ok(id.source?.startsWith('https://bulbapedia.bulbagarden.net/wiki/Walkthrough:'),'missing precise source for '+n);
+ assert.ok(id.sources?.length>=1&&id.sources.every(url=>url.startsWith('https://')),'source list missing: '+n);
+ assert.equal(id.checked,'2026-11-05');
+ assert.ok(id.review?.includes('source')||id.review?.includes('reviewed'),'provenance missing: '+n);
+ stepsTotal+=id.steps.length;
+}
+assert.ok(stepsTotal>=490,'expected hundreds of concrete steps');
+const text=id=>ZA_SIDE_HANDBOOK[id].steps.map(x=>x.ru).join(' ');
+assert.match(text(9),/30 секунд/);
+assert.match(text(9),/40 секунд/);
+assert.match(text(9),/50 секунд/);
+assert.match(text(12),/красн/);
+assert.match(text(12),/син/);
+assert.match(text(21),/№12/);
+assert.match(text(21),/Spewpa/);
+assert.match(text(63),/XL Gogoat/);
+assert.match(text(67),/пят/);
+assert.match(text(72),/Stunfisk/);
+assert.match(text(76),/Eelektrossite/);
+assert.match(text(82),/Water Gun/);
+assert.match(text(83),/Pupitar/);
+assert.match(text(93),/Magenta Street/);
+for(const place of ['Restaurant Le Nah','Restaurant Le Yeah','Restaurant Le Wow','Sushi High Roller','Café Woof'])assert.ok(text(103).includes(place),'Furfrou location missing: '+place);
+assert.match(text(107),/Pikachu/);
+assert.match(text(108),/Alolan Raichu/);
+assert.match(text(116),/Aurorus/);
+assert.match(text(118),/Galerie de la Lune/);
+assert.match(text(119),/20 Reward Matches/);
+assert.match(text(119),/четыр/);
+assert.match(ZA_SIDE_HANDBOOK[119].startHint,/Hotel Richissime/);
+assert.match(ZA_SIDE_HANDBOOK[118].unlockExtra,/117/);
+const app=readFileSync(new URL('../src/guides-v09.js',import.meta.url),'utf8');
+const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+assert.ok(app.includes("import {ZA_SIDE_HANDBOOK} from './za-side-handbook.js'"));
+assert.ok(app.includes('ZA_SIDE_HANDBOOK[x.id]'));
+assert.ok(app.includes("(x.kind==='main'||x.kind==='side')&&step?.id"),'side steps need stable keys');
+assert.ok(app.includes("if(x.kind==='side'&&!arr.some("),'no generic blue-marker filler for authored quests');
+assert.ok(app.includes("data-guide-jump=\"side:"));
+assert.ok(worker.includes("'./src/za-side-handbook.js'"),'new handbook must be cached offline');
+console.log('0.9.5: verified 119 side quests, '+stepsTotal+' original steps, mission links and migration integration.');
