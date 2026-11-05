@@ -22,6 +22,17 @@
 5. **Visual route verification.** No screenshot/coordinate atlas for every quest and no hands-on mobile navigation audit in this session.
 6. **Live site.** Successful code tests plus Pages deployment status do not prove that every live card loads correctly on all devices; browser testing is separate.
 
+## Session 3 — base-game side quests (November 5, 2026)
+
+- **119/119 side quest IDs** have dedicated records in `src/za-side-handbook.js`, containing **528 mission-specific checklist steps** at the time of this report. Each includes a source page, NPC/start hint, area, reward, recorded story unlock, and optional special requirements; the UI now prioritizes these records over earlier brief summaries.
+- Individually clarified several easily missed puzzles and objectives, including Froakie timed climbs (#9); five Flabébé colors (#12); the museum's 12 Spewpa (#21); extra-large Gogoat (#63); five Sylveon disputes (#67); disguised Galarian Stunfisk (#72); solo Pupitar (#83); hidden Heliolisk home (#93); Furfrou restaurant battles (#103); and the 20-match requirement for Jacinthe (#119).
+- Re-checked seventeen thin or mistranslated records with the underlying walkthrough page, correcting mixed-up trainer teams (#104), Mawile type (#101), simultaneous uncatchable Pokémon (#80), Self-Destruct tactics (#96), and more.
+- **Step progress compatibility:** whole-quest completion state is retained. Updated side checklist step keys are fingerprinted (`:v3:sNN:<content hash>`) to avoid accidentally checking unrelated new objectives. Earlier step checkmarks are preserved separately and generate a visible migration warning rather than being silently reassigned.
+- **Limits:** source pages vary in depth; a number of short battle-only missions remain only 3–4 steps. Exact game-map coordinates, every trainer's full moveset, every hidden checkpoint, and edge-case verification are **not independently playtested**. The 119/119 figure is *index completeness*, not proof of exhaustive solutions. Some source descriptions could still be wrong and should be verified during playtesting.
+- **Language:** side steps are now generally Russian with English in-game names, but an English translation of each step is not yet complete; EN mode shows a caution.
+- New targeted assertions for corrected quest mechanics and all 119 records run as part of the guide CI suite.
+- Version **0.9.6** is a maintenance update on 0.9.5; it does **not** qualify the project for 1.0.
+
 ## Main story: session 2 (November 5, 2026)
 
 - Every base-game main mission **1–42** has a new individual structured record in `src/za-main-handbook.js` (42/42), totaling **248 ordered mission-specific steps** at the time of this report.
@@ -62,6 +73,7 @@ for f in src/*.js; do node --check "$f"; done
 node tests/za-guide-092.mjs
 node tests/za-guide-093.mjs
 node tests/za-main-handbook.mjs
+node tests/za-side-handbook.mjs
 node tests/za-side-handbook.mjs
 node tests/smoke.mjs
 node tests/atlas-06.mjs
