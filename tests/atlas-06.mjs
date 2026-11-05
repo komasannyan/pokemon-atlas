@@ -20,5 +20,5 @@ assert.match(html,/src="\.\/src\/app\.js\?v=\d{3}"/);
 assert(app.includes('translatedRussian('));
 assert(app.includes('chooseHero(state.dex)'));
 assert(app.includes('state.moveSort'));
-assert(app.includes('CORE_GAMES.map'));
+assert(app.includes("from './game-availability.js'"),'location availability logic should remain connected');
 console.log('v0.6 navigation, game index, hero, localization and sort tests passed');
