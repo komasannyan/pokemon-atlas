@@ -1,34 +1,43 @@
-name: Validate Pokémon Z-A guide
+name: Validate Pokémon Atlas
 on:
   push:
     branches: [main]
     paths:
-      - 'src/za-*.js'
-      - 'src/guides-v09.js'
-      - 'src/i18n.js'
-      - 'tests/za-guide-*.mjs'
+      - 'src/**'
+      - 'tests/**'
       - 'index.html'
       - 'sw.js'
+      - 'docs/ZA-GUIDE-QUALITY.md'
       - '.github/workflows/guide-validation.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  guide-check:
+  full-project-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Syntax-check guide modules
+      - name: Syntax-check every application module
         run: |
-          node --check src/guides-v09.js
-          node --check src/za-guide-handbook.js
-          node --check src/za-base-handbook.js
-          node --check src/za-walkthrough-details.js
-          node --check src/za-dlc-all-side.js
-      - name: Check existing data catalog
-        run: node tests/za-guide-092.mjs
-      - name: Check expanded walkthrough
-        run: node tests/za-guide-093.mjs
+          for file in src/*.js; do node --check "$file"; done
+      - name: Check Z-A catalog and mission guides
+        run: |
+          node tests/za-guide-092.mjs
+          node tests/za-guide-093.mjs
+          node tests/za-main-handbook.mjs
+      - name: Check application and Pokédex regressions
+        run: |
+          node tests/smoke.mjs
+          node tests/atlas-06.mjs
+          node tests/pokedex-extended.test.mjs
+          node tests/localization.mjs
+          node tests/team.mjs
+      - name: Verify HTML, service-worker and new handbook are linked
+        run: |
+          grep -q "app.js?v=094" index.html
+          grep -q "atlas-shell-v094" sw.js
+          grep -q "za-main-handbook.js" sw.js
