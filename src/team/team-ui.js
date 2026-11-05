@@ -12,7 +12,7 @@ let getDex=()=>[];
 const state={format:'ou',size:6,seeds:[],roles:{},search:'',teams:[],selected:0,notice:''};
 try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved&&FORMATS[saved.format]){
  state.format=saved.format;state.size=Math.min(6,Math.max(FORMATS[state.format].min,Number(saved.size)||6));
- state.seeds=Array.isArray(saved.seeds)?saved.seeds.slice(0,2).map(Number):[];
+ state.seeds=Array.isArray(saved.seeds)?saved.seeds.slice(0,3).map(Number):[];
  state.roles=saved.roles&&typeof saved.roles==='object'?saved.roles:{};
 }}catch{}
 function remember(){try{localStorage.setItem(STORE,JSON.stringify({format:state.format,size:state.size,seeds:state.seeds,roles:state.roles}));}catch{}}
@@ -30,7 +30,7 @@ function scoreWarning(format){return FORMATS[format].champions
  ?L('Champions Regulation M-C: только доступные виды и предметы, запрет повторных предметов, до одной Mega Evolution, без Tera. Атаки проверяются по таблице Champions, однако сложные комбинации и переносы требуют проверки в игре.','Champions Regulation M-C: legal roster and items only, Item Clause, one Mega Evolution and no Tera. Moves are checked against the Champions learnset; complex interactions still require in-game validation.')
  :L('Виды, предметы и атаки фильтруются по выбранному формату, но полная проверка сочетаний, переносов и правил конкретного сезона остаётся за Pokémon Showdown.','Species, items and moves are filtered by format, but exact combo / transfer legality and current season rules should be checked with Pokémon Showdown.');}
 const formatOptions=()=>Object.entries(FORMATS).map(([key,fmt])=>`<option value="${key}" ${key===state.format?'selected':''}>${e(isEnglish()?fmt.label:fmt.titleRu)}</option>`).join('');
-function outputTeam(){if(!state.teams.length)return `<div class="builder-placeholder"><div class="builder-big-icon">⚔</div><h3>${L('Сначала подбери команду','Generate a team to begin')}</h3><p>${L('Можно добавить одного или двух покемонов, закрепить их роли или оставить оба слота пустыми.','You can choose zero, one or two Pokémon and optionally lock their roles.')}</p></div>`;
+function outputTeam(){if(!state.teams.length)return `<div class="builder-placeholder"><div class="builder-big-icon">⚔</div><h3>${L('Сначала подбери команду','Generate a team to begin')}</h3><p>${L('Можно добавить до трёх покемонов, закрепить их роли или оставить слоты пустыми.','You can choose zero to three Pokémon and optionally lock their roles.')}</p></div>`;
  const variant=state.teams[state.selected]||state.teams[0],fmt=FORMATS[state.format],roster=variant.roster,coverage=teamCoverage(roster);
  const threats=coverage.filter(x=>x.weak>=2).slice(0,4);
  return `<div class="builder-result">
@@ -53,14 +53,14 @@ function render(){
  const root=$('#team-builder-root');if(!root)return;
  const candidates=pool();
  const format=FORMATS[state.format];
- state.seeds=state.seeds.filter(id=>!getUniverse()||!!byId(id)).slice(0,2);
+ state.seeds=state.seeds.filter(id=>!getUniverse()||!!byId(id)).slice(0,3);
  state.size=Math.max(format.min,Math.min(6,state.size));
- root.innerHTML=`${!getUniverse()?`<div class="loading-row">${e(state.notice||L('Подготовка базы форматов, атак и списков изучения…','Preparing format rules and legal move lists…'))}</div>`:''}<div class="builder-intro"><div class="builder-top-line"><div><div class="section-kicker">TEAM LAB · BETA</div><h2>${L('Конструктор команд','Team Builder')}</h2><p>${L('Выбери от 0 до 2 покемонов — Atlas предложит партнёров и варианты билдов под формат и роли.','Select 0–2 Pokémon and get format-aware teammates and role-specific sets.')}</p></div><div class="builder-beta">BETA · 0.4</div></div>
+ root.innerHTML=`${!getUniverse()?`<div class="loading-row">${e(state.notice||L('Подготовка базы форматов, атак и списков изучения…','Preparing format rules and legal move lists…'))}</div>`:''}<div class="builder-intro"><div class="builder-top-line"><div><div class="section-kicker">TEAM LAB · BETA</div><h2>${L('Конструктор команд','Team Builder')}</h2><p>${L('Выбери от 0 до 3 покемонов — Atlas предложит партнёров и варианты билдов под формат и роли.','Select 0–3 Pokémon and get format-aware teammates and role-specific sets.')}</p></div><div class="builder-beta">BETA · 0.5</div></div>
  <div class="builder-panel"><div class="builder-config-grid"><label>${L('Формат боя','Battle format')}<select id="team-format">${formatOptions()}</select></label><label>${L('Размер команды','Team size')}<select id="team-size">${[3,4,5,6].filter(n=>n>=format.min).map(n=>`<option value="${n}" ${n===state.size?'selected':''}>${n} / 6</option>`).join('')}</select></label></div>
  <p class="builder-format-note">${e(isEnglish()?format.descriptionEn:format.descriptionRu)}</p>
- <div class="builder-seeds-head"><h3>${L('Твои покемоны','Your starting Pokémon')} <span>${state.seeds.length}/2</span></h3><small>${L('Можешь зафиксировать роль каждого','Lock a role for each chosen Pokémon')}</small></div>
+ <div class="builder-seeds-head"><h3>${L('Твои покемоны','Your starting Pokémon')} <span>${state.seeds.length}/3</span></h3><small>${L('Можешь зафиксировать роль каждого','Lock a role for each chosen Pokémon')}</small></div>
  <div class="builder-seeds">${selectedMarkup()}</div>
- <div class="builder-picker"><label><span>${L('Добавить покемона','Add Pokémon')} · ${L('доступно в формате','eligible in format')}: ${candidates.length}</span><input id="team-search" list="team-pokemon-options" value="${e(state.search)}" placeholder="${e(L('Начни вводить имя на русском или английском','Search English / Russian name'))}" ${state.seeds.length>=2?'disabled':''} autocomplete="off"></label><datalist id="team-pokemon-options">${candidates.filter(p=>!state.seeds.includes(p.id)).map(p=>`<option value="${e(p.name)}">${e(nameFor(p))}</option>`).join('')}</datalist><button id="team-add" ${state.seeds.length>=2?'disabled':''}>${L('Добавить','Add')}</button></div>
+ <div class="builder-picker"><label><span>${L('Добавить покемона','Add Pokémon')} · ${L('доступно в формате','eligible in format')}: ${candidates.length}</span><input id="team-search" list="team-pokemon-options" value="${e(state.search)}" placeholder="${e(L('Начни вводить имя на русском или английском','Search English / Russian name'))}" ${state.seeds.length>=3?'disabled':''} autocomplete="off"></label><datalist id="team-pokemon-options">${candidates.filter(p=>!state.seeds.includes(p.id)).map(p=>`<option value="${e(p.name)}">${e(nameFor(p))}</option>`).join('')}</datalist><button id="team-add" ${state.seeds.length>=3?'disabled':''}>${L('Добавить','Add')}</button></div>
  <p class="builder-data-hint">${L('Поиск охватывает все виды Национального Покедекса. Показываются только разрешённые выбранным форматом; атаки сверяются с данными Showdown. Составы автоматически проверяются по ограничениям.','Search includes all National Pokédex species. Only format-eligible species appear, and moves are checked against Showdown data. Sets are filtered by rules.')}</p>
  <div class="builder-actions"><button id="team-generate" class="builder-primary">${L('Подобрать команду','Generate team')}</button><button id="team-reset" class="builder-reset">${L('Очистить выбор','Clear selection')}</button><span id="team-notice" aria-live="polite">${e(state.notice)}</span></div></div></div>
  ${outputTeam()}`;
@@ -75,7 +75,7 @@ function runBuilder(){state.notice='';if(!getUniverse()){state.notice=L('Баз�
  if(!state.teams.length)state.notice=L('Не удалось построить проверенный набор для выбранного сочетания. Попробуй другую роль или формат.','No validated sets for this combination. Try another role or format.');render();
 }
 function addSeed(){const entry=formatSelect(state.search);if(!entry){state.notice=L('Покемон недоступен в этом формате либо не найден. Проверь выбранный формат.','Pokémon is not legal in this format or was not found.');render();$('#team-search')?.focus();return;}
- if(state.seeds.length<2&&!state.seeds.includes(entry.id)){state.seeds.push(entry.id);state.roles[entry.id]='auto';state.search='';state.notice='';state.teams=[];remember();render();}
+ if(state.seeds.length<3&&!state.seeds.includes(entry.id)){state.seeds.push(entry.id);state.roles[entry.id]='auto';state.search='';state.notice='';state.teams=[];remember();render();}
 }
 async function copyTeam(){const team=state.teams[state.selected];if(!team)return;
  const value=FORMATS[state.format].champions?championsText(team.roster):showdownExport(team.roster,state.format);
