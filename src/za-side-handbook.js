@@ -3255,19 +3255,51 @@ export const ZA_SIDE_HANDBOOK={
     "steps": [
       {
         "id": "s01",
-        "ru": "Поговори с управляющим ресторанного испытания Full Course of Battles: Three Stars и согласись на длинную серию боёв."
+        "ru": "Перед стартом Full Course of Battles: Three Stars в Restaurant Le Wow приготовься к десяти боям подряд против 30 покемонов уровня 55. Между раундами и во время серии лечиться нельзя; поражение позволяет начать заново бесплатно."
       },
       {
         "id": "s02",
-        "ru": "Подготовь запас лечащих предметов и универсальные атаки до входа; противников будет много, а их составы меняются."
+        "ru": "Раунд 1: Victreebel, Scolipede, Garbodor. Все три стремятся отравить команду Toxic. Начинай со Steel- или Poison-покемона, чтобы избежать потери HP на всю оставшуюся серию."
       },
       {
         "id": "s03",
-        "ru": "Проходи поединки серии до завершения турнира. Проигрыш не блокирует повторную попытку: вход снова бесплатный."
+        "ru": "Раунд 2: Camerupt, Talonflame, Pyroar. Противники используют мощные атаки с отдачей и Shell Bell для частичного восстановления. Применяй Water против Camerupt, Rock против Talonflame и Ground/Water против Pyroar."
       },
       {
         "id": "s04",
-        "ru": "После последнего сражения забери предусмотренные рестораном награды."
+        "ru": "Раунд 3: Carbink, Clefable, Gardevoir. Они устанавливают защитные экраны Light Screen/Reflect. Brick Break или Psychic Fangs разрушает экраны и мешает противнику затянуть бой."
+      },
+      {
+        "id": "s05",
+        "ru": "Раунд 4: Avalugg, Sableye, Noivern. Все держат Rocky Helmet и используют восстановление HP. Избегай частых контактных физических атак, предпочтительнее специальные. Подбирай Fairy, Fire или Ice под конкретную цель."
+      },
+      {
+        "id": "s06",
+        "ru": "Раунд 5: Kangaskhan, Gengar, Steelix. Это тройка с разными типами и мощными ударами; подготовь Fighting против Kangaskhan, Dark/Ghost против Gengar, Water/Ground/Fire против Steelix."
+      },
+      {
+        "id": "s07",
+        "ru": "Раунд 6: Scizor, Lucario, Aegislash. Все активно применяют Protect, Detect или King's Shield. Не трать длинный удар в защиту — дождись окончания анимации. Fire полезен против Scizor."
+      },
+      {
+        "id": "s08",
+        "ru": "Раунд 7: Aerodactyl, Starmie, Froslass. Это очень быстрая тройка: Aerodactyl держит Quick Claw, Froslass начинает с Icy Wind. Прочность и устойчивость команды здесь важнее одной только скорости."
+      },
+      {
+        "id": "s09",
+        "ru": "Раунд 8: Arbok, Gogoat, Roserade. Соперники часто используют Leech Seed для восстановления. Выводи быстро атакующих Pokémon и старайся не оставлять им несколько циклов лечения."
+      },
+      {
+        "id": "s10",
+        "ru": "Раунд 9: Gyarados, Dragalge, Dragonite. Все с Life Orb: огромный урон, особенно по уже ослабленной команде. Подготовь Electric, Ground, Ice/Fairy соответственно, но учитывай Dragon-атаки врагов."
+      },
+      {
+        "id": "s11",
+        "ru": "Финальный раунд 10: Drampa, Skarmory, Mega Tyranitar. Сохрани сильного Fighting-покемона для Rock/Dark Tyranitar (четырёхкратная слабость) и Fire/Electric для Skarmory."
+      },
+      {
+        "id": "s12",
+        "ru": "После десятой победы получи ₽2000, TM045 Knock Off, HP Up ×5 и Carbos ×5. Если проиграл на любом этапе, повторный вход бесплатный, а уже накопленный опыт Pokémon сохраняется."
       }
     ],
     "source": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
@@ -3275,7 +3307,7 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_81-100",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Это длительный gauntlet; если проиграл, опыт уже полученных уровней сохраняется.",
+    "tip": "Без лечения 10 раундов очень тяжёлые. Ключевые опасности: Toxic в раунде 1, защитные экраны в 3, Rocky Helmet и восстановление в 4, защитные приёмы в 6, Life Orb в 9 и Mega Tyranitar в 10.",
     "review": "editor-reviewed-against-source",
     "checked": "2026-11-05"
   },
