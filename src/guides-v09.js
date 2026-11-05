@@ -85,7 +85,7 @@ function stepKey(x,i){
 function hasLegacyStepMarks(x){
  if(x.kind!=='main'&&x.kind!=='side'&&x.kind!=='dlc-side')return false;
  const prefix=savedKey(x)+':';
- return Object.keys(state.checkedSteps).some(key=>key.startsWith(prefix)&&( /^\\d+$/.test(key.slice(prefix.length)) || (x.kind==='side'&&key.startsWith(prefix+'v2:'))));
+ return Object.keys(state.checkedSteps).some(key=>key.startsWith(prefix)&&( /^\d+$/.test(key.slice(prefix.length)) || (x.kind==='side'&&key.startsWith(prefix+'v2:'))));
 }
 function setStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));notice='';return true;}catch{notice=tx('Браузер не дал сохранить прогресс. Проверь свободное место и настройки хранения.','Unable to save progress. Check browser storage permissions and space.');return false;}}
 function groupOf(x){return x.kind==='main'?'main':x.kind==='side'?'side':x.kind==='dlc-main'||x.kind==='dlc-side'?'dlc':x.kind;}
