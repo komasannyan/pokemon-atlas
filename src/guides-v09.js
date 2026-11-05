@@ -67,7 +67,22 @@ try{const saved=localStorage.getItem(GAME_KEY);if(COLLECTION_GAMES.some(g=>g.key
 function idOf(x){return x.kind+':'+x.id;}
 function savedKey(x){const oldType=x.kind==='zone'?'zone':x.kind==='item'?'item':x.kind==='tm'?'tm':x.kind;return state.game+':'+oldType+':'+x.id;}
 function done(x){return !!state.completed[savedKey(x)];}
-function stepKey(x,i){const step=x.steps?.[i];return x.kind==='main'&&step?.id?savedKey(x)+':v2:'+step.id:savedKey(x)+':'+i;}
+function stepDigest(s){
+ let h=2166136261;
+ for(const ch of String(s??'')){h=Math.imul(h^ch.charCodeAt(0),16777619);}
+ return (h>>>0).toString(36);
+}
+function stepKey(x,i){
+ const step=x.steps?.[i];
+ if(x.kind==='main'&&step?.id)return savedKey(x)+':v2:'+step.id;
+ if(x.kind==='dlc-side')return savedKey(x)+':content:'+stepDigest(objectiveSteps(x)[i]);
+ return savedKey(x)+':'+i;
+}
+function hasLegacyStepMarks(x){
+ if(x.kind!=='main'&&x.kind!=='dlc-side')return false;
+ const prefix=savedKey(x)+':';
+ return Object.keys(state.checkedSteps).some(key=>key.startsWith(prefix)&&/^\d+$/.test(key.slice(prefix.length)));
+}
 function setStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));notice='';return true;}catch{notice=tx('Браузер не дал сохранить прогресс. Проверь свободное место и настройки хранения.','Unable to save progress. Check browser storage permissions and space.');return false;}}
 function groupOf(x){return x.kind==='main'?'main':x.kind==='side'?'side':x.kind==='dlc-main'||x.kind==='dlc-side'?'dlc':x.kind;}
 function labelOf(kind){const labels={route:['Этап маршрута','Completion route'],main:['Основное задание','Main mission'],side:['Побочное задание','Side mission'],boss:['Босс','Boss'],zone:['Зона','Zone'],tm:['Техническая машина','Technical Machine'],item:['Предмет','Item'],'dlc-main':['Сюжет DLC','DLC story'],'dlc-side':['Побочное DLC','DLC side quest'],extra:['Особое задание','Extra mission'],recipe:['Рецепт','Recipe'],help:['Справка','Help']};return tx(...(labels[kind]||['Запись','Entry']));}
@@ -196,6 +211,7 @@ function card(x){
   (x.kind==='main'&&x.battle?'<div class="guide-info-line"><b>'+tx('БОИ И ПОДГОТОВКА','BATTLES & PREPARATION')+'</b><p>'+esc(x.battle)+'</p></div>':'')+
   '<h4>'+tx('Что делать — по шагам','Step-by-step')+'</h4>'+stepMarkup(x)+
   (x.kind==='main'&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
+  (hasLegacyStepMarks(x)?'<p class="guide-warning">'+tx('Шаги этого задания обновились. Старые отметки шагов сохранены в браузере, но не применяются к новым инструкциям, чтобы не отметить ошибочное действие. Отметка завершения всей миссии сохранена.','This quest checklist changed. Earlier step marks are kept in storage but not mapped to different instructions. Mission completion remains saved.')+'</p>':'')+
   (x.kind==='main'&&x.steps?.some(s=>typeof s==='object'&&!s.en)?'<p class="guide-muted">'+tx('Инструкции проверены по англоязычным источникам и пока доступны по-русски.','Mission walkthrough text is currently Russian-only; English translation is planned.')+'</p>':'')+
   (x.kind==='zone'?zoneMarkup(x):'')+
   (x.reward?'<div class="guide-info-line"><b>'+tx('НАГРАДА','REWARDS')+'</b><p>'+esc(x.reward)+'</p></div>':'')+
