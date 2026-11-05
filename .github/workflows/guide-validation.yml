@@ -1,0 +1,32 @@
+name: Validate Pokémon Z-A guide
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/za-*.js'
+      - 'src/guides-v09.js'
+      - 'src/i18n.js'
+      - 'tests/za-guide-*.mjs'
+      - 'index.html'
+      - 'sw.js'
+      - '.github/workflows/guide-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  guide-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax-check guide modules
+        run: |
+          node --check src/guides-v09.js
+          node --check src/za-guide-handbook.js
+          node --check src/za-dlc-all-side.js
+      - name: Check existing data catalog
+        run: node tests/za-guide-092.mjs
+      - name: Check expanded walkthrough
+        run: node tests/za-guide-093.mjs
