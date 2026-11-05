@@ -1,5 +1,7 @@
 # Pokémon Atlas — full-project baseline audit
-**Date:** 2026-11-05  
+**Date:** 2026-11-05
+
+*Historical audit: source paths below were updated after the 0.9.7 folder refactor. Descriptions of previously observed defects are retained as historical findings, not assertions that the bug is still present.*  
 **Audited branch:** `main`  
 **Baseline HEAD before this audit:** `36f59832366cc99266f67e2a99ebebe6bfc59eee`  
 **Current public version:** 0.9.3 (as labeled in source)  
@@ -46,7 +48,7 @@ Note: prose length is a **weak depth proxy**, not a substitute for reading or ve
 ## P0: confirmed blockers
 
 ### AUD-001 — Absolite obtained in mission 9, but item card says mission 10
-- Files: `src/za-items-data.js` (`ZA_MEGA` Absolite entry), `src/za-walkthrough-details.js` (mission 9).
+- Files: `src/guides/za-items-data.js` (`ZA_MEGA` Absolite entry), `src/guides/za-walkthrough-details.js` (mission 9).
 - Current item card: «Завершение сюжетного события, миссия 10».
 - Story guide: fight Rogue Mega Absol in **main mission 9** and obtain Absolite.
 - Verified independently: [Serebii mission 9](https://www.serebii.net/legendsz-a/mainmissions/chasethatmysteriouspokemon.shtml), [Bulbapedia part 9](https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Part_9).
@@ -61,7 +63,7 @@ Note: prose length is a **weak depth proxy**, not a substitute for reading or ve
 - Evidence: **confirmed static contradiction**.
 
 ### AUD-003 — the same generic «blue quest marker» directions are prepended to ALL DLC side missions
-- File: `src/guides-v09.js` `objectiveSteps()`.
+- File: `src/guides/guides-v09.js` `objectiveSteps()`.
 - Code unconditionally inserts «На карте найди голубой маркер побочного задания №… рядом с …» for `side` AND `dlc-side` entries.
 - DLC mission **139** is reached via a **Hyperspace portal**, which can appear as a special yellow portal, not an ordinary blue side-mission map marker; see [Nintendo Life](https://www.nintendolife.com/guides/pokemon-legends-z-a-mega-dimension-all-new-dlc-mega-evolutions) and [Dexerto](https://www.dexerto.com/wikis/pokemon-legends-z-a/all-hyperspace-side-missions-walkthrough-in-mega-dimension-dlc/).
 - **Fix:** separate quest-entry instruction by mechanism (map NPC, distortion/portal, postgame encounter, gift), and suppress generalized location hints when inapplicable.
@@ -70,50 +72,50 @@ Note: prose length is a **weak depth proxy**, not a substitute for reading or ve
 ## P1: must fix for a self-contained guide
 
 ### AUD-004 — numbered coverage ≠ actionable walkthrough
-- Files: `src/za-main-data.js`, `src/za-side-data.js`, `src/za-dlc-all-side.js`, `src/za-base-handbook.js`, `src/za-guide-handbook.js`, `src/za-walkthrough-details.js`.
+- Files: `src/guides/za-main-data.js`, `src/guides/za-side-data.js`, `src/guides/za-dlc-all-side.js`, `src/guides/za-base-handbook.js`, `src/guides/za-guide-handbook.js`, `src/guides/za-walkthrough-details.js`.
 - Every quest ID is present, but most mission-specific instructions are only 2–4 short steps. Many say «поговори», «следуй за маркером», «победи», without a full from-landmark route, coordinates/level, special conditions and what to do when stuck.
 - **Fix:** for every entry require unlock, exact start, full route including vertical access, objective sequence, branch differences, failure recovery, rewards and cross-links; mark unknown facts explicitly. Avoid adding generic filler.
 - **Acceptance:** manual review for each of the **256** base/DLC story/side mission cards.
 
 ### AUD-005 — prerequisite graph is incomplete
-- Files: `src/za-side-locations.js`, `src/za-verified-catalog.js`, `src/za-guide-handbook.js`.
+- Files: `src/guides/za-side-locations.js`, `src/guides/za-verified-catalog.js`, `src/guides/za-guide-handbook.js`.
 - Only **23/81** DLC sides have additional structured prerequisites; missing conditions may be ordinary or unknown. Base verified side #119 lacks starting-person hint. Base #31/#32/#116 have nonstandard dependencies represented separately.
 - **Fix:** build structured `unlock: {mainMission, sideMissions, dlcMission, rank, dayNight, special}` for ALL records; use `not_required` vs `unknown` explicitly; validate topological consistency.
 - **Acceptance:** player can see why any absent quest marker/portal is not available.
 
 ### AUD-006 — the catalog of Mega Stones is very incomplete
-- File: `src/za-items-data.js` contains **31** selected stones, not a complete index.
+- File: `src/guides/za-items-data.js` contains **31** selected stones, not a complete index.
 - External catalog: [Serebii Mega Stones](https://www.serebii.net/legendsz-a/megastones.shtml); [PowerPyx 62 base-game stones](https://www.powerpyx.com/pokemon-legends-z-a-all-mega-stones-locations/), plus later DLC/other distribution mechanisms.
 - **Fix:** full stone registry, variant, source, cost, story threshold, missability/online/event status and linked Pokémon.
 - **Acceptance:** no game-available stone silently absent from Items.
 
 ### AUD-007 — Pokémon acquisition is not a unified source of truth
-- Files: `src/data.js`, `src/collection-games.js`, `src/locations-v09.js`, `src/za-data.js`, `src/za-wild-spawns.js`.
+- Files: `src/data.js`, `src/collection/collection-games.js`, `src/pokedex/locations-v09.js`, `src/guides/za-data.js`, `src/guides/za-wild-spawns.js`.
 - National Dex and game membership rely primarily on PokéAPI; the Z-A guide uses hand-maintained encounter/quest catalogs. The availability UI correctly warns that a regional dex entry is not capture proof, but does not give a fully unified method-per-species Z-A entry.
 - Wild Zones: 20 rosters, 179 observations, 39 Alpha observations. **Zone 20 has 73 names and only 15 detailed spot observations**. No full levels, conditions, special encounters, quests, gifts, exchanges, Hyperpace, and evolution path coverage for all available species.
 - **Fix:** a keyed species/form/acquisition data model with game scope, method, exact area, unlocks, day/night, confirmed source and confidence; use the SAME model in Pokédex, guide, and collection tracker.
 - **Acceptance:** query any species/form and retrieve all documented Z-A acquisition methods with transparent unknowns.
 
 ### AUD-008 — incomplete TM routes, evolution items and donut recipes
-- Files: `src/za-tms-complete.js`, `src/za-tms-enriched.js`, `src/za-items-data.js`, `src/za-guide-extras.js`.
+- Files: `src/guides/za-tms-complete.js`, `src/guides/za-tms-enriched.js`, `src/guides/za-items-data.js`, `src/guides/za-guide-extras.js`.
 - 160 TM IDs exist; shop prices/quest ID lookup for DLC are documented but not all findable TMs have roof access directions. Special donut entries record five flavor thresholds; a threshold is not a verified exact berry combination.
 - **Fix:** each TM with obtainable method, map-level landmark, building entrance and roof route; every required evolution item with acquisition paths; special donuts with reproducible checked ingredient sets and recipe unlock rules.
 - **Acceptance:** no need to leave Atlas to locate TM or satisfy a story donut recipe.
 
 ### AUD-009 — opponent team data and battle-specific help are patchy
-- Files: `src/za-walkthrough-details.js`, `src/za-guide-handbook.js`.
+- Files: `src/guides/za-walkthrough-details.js`, `src/guides/za-guide-handbook.js`.
 - Boss tactics include type weaknesses and a selection of move-counterplay, but the guide lacks structured complete opponent rosters, levels, moves, lead order and variant dependent on selected starter for every relevant battle.
 - **Fix:** opponent registry keyed to mission/event, specific team variants, level, moves, battle restriction, item/reward, safe practice tips, source.
 - **Acceptance:** full key battles can be prepared for without searching another website.
 
 ### AUD-010 — guide language switch changes chrome, not mission content
-- File: `src/guides-v09.js`; most `steps` strings in `src/za-*.js` are Russian-only.
+- File: `src/guides/guides-v09.js`; most `steps` strings in `src/za-*.js` are Russian-only.
 - `tx(ru,en)` is used for labels but not to supply distinct translated mission steps; selecting English still leaves Russian body paragraphs. A few descriptions are precomputed at module import time, preventing later language switching.
 - **Fix:** every translatable field as `{ru,en}` or locale registry, including names where useful, route steps, help, warnings, and unlocks. Snapshot-test both languages.
 - **Acceptance:** no Russian-only gameplay instruction when EN is selected (except intentional proper names).
 
 ### AUD-011 — progress checkbox indices are unstable on content edits
-- File: `src/guides-v09.js`, `stepKey(x,i)` based on step index rather than stable step ID.
+- File: `src/guides/guides-v09.js`, `stepKey(x,i)` based on step index rather than stable step ID.
 - When step ordering changes across updates, an old checked box can refer to a different step. Completed mission status uses separate stable keys and is preserved.
 - **Fix:** stable per-step IDs and migration from old index records; never silently lose or misattribute user progress.
 - **Acceptance:** regression test from real 0.9.2/0.9.3 localStorage fixtures.
@@ -121,20 +123,20 @@ Note: prose length is a **weak depth proxy**, not a substitute for reading or ve
 ## Pokédex-specific blockers for version 1.0
 
 ### AUD-012 — Legends: Z-A move learnsets and mechanics lack dedicated integration
-- Files: `src/constants.js` `GAME_GROUPS`, `src/app.js` `state.moveGame`, `src/moves.js`.
+- Files: `src/constants.js` `GAME_GROUPS`, `src/app.js` `state.moveGame`, `src/pokedex/moves.js`.
 - The move version-group selector currently ends at **Scarlet / Violet**: no Z-A option in `GAME_GROUPS`. Default selected move game is `scarlet-violet`.
 - Most underlying move descriptions come from cross-generation generic PokéAPI records; mechanics can vary by game, especially Z-A's real-time combat.
 - **Fix:** separate move learnsets and live-game effects/cooldown data by actual source and game; clearly distinguish unknown move availability from impossible moves.
 - **Acceptance:** an accurate Z-A-specific Pokémon move page where data exists, with honest unknown indicators otherwise.
 
 ### AUD-013 — live external data and cache lifecycle lack explicit source-version management
-- Files: `src/data.js`, `src/api.js`, `src/moves.js`, `src/abilities.js`.
+- Files: `src/data.js`, `src/api.js`, `src/pokedex/moves.js`, `src/pokedex/abilities.js`.
 - National Dex loads multiple remote CSVs + a Russian name list; move/ability pages load additional remote tables and API requests. Cache accepts a national dex with >=1000 species and stores it under a long-lived v1 key without a publication/sync date or upstream refresh path in the UI.
 - **Fix:** pin verified snapshots with sync metadata, provide refreshing/offline behavior, detect missing game updates and degrade gracefully; add schema tests and image fallback verification.
 - **Acceptance:** data freshness and loading failures are intelligible, resilient and independently testable.
 
 ### AUD-014 — bilingual content consistency and provenance
-- Files: `src/moves.js` (~59 manually mapped Russian move names), `src/effects-ru.js`, `src/abilities-ru-expanded.js`, `src/translate-ru.js`.
+- Files: `src/pokedex/moves.js` (~59 manually mapped Russian move names), `src/pokedex/effects-ru.js`, `src/pokedex/abilities-ru-expanded.js`, `src/pokedex/translate-ru.js`.
 - Manual Russian ability text coverage is strong, but many move names/effects rely on generic English or on-demand machine translation; machine translations are not canon verified.
 - **Fix:** maintain complete bilingual strings for supported scope and per-field provenance/status (checked vs machine vs unavailable); game-specific effects and exceptions.
 - **Acceptance:** EN/RU switch provides consistent labels and appropriate source warnings.
@@ -142,13 +144,13 @@ Note: prose length is a **weak depth proxy**, not a substitute for reading or ve
 ## UX, design and delivery blockers for version 1.0
 
 ### AUD-015 — presentation architecture is fragmented
-- Files: **seven** imported CSS files: `styles.css`, `styles-v02.css`, `styles-v03.css`, `collection.css`, `pokedex-v08.css`, `styles-v09.css`, `styles-guide-full.css`; large `src/app.js` and HTML-string generated cards.
+- Files: **seven** imported CSS files: `css/styles.css`, `css/styles-v02.css`, `css/styles-v03.css`, `css/collection.css`, `css/pokedex-v08.css`, `css/styles-v09.css`, `css/styles-guide-full.css`; large `src/app.js` and HTML-string generated cards.
 - **Fix:** design tokens, typography, layout grid, responsive spacing, composable components, typography/contrast/focus rules, consistent mobile/tablet/desktop view.
 - **Acceptance:** deliberate visual redesign verified with screenshots and manual device-width review.
 - **Evidence limitation:** a static code audit **does not** establish what looks good/bad on a rendered page.
 
 ### AUD-016 — source links and search need semantic upgrades
-- File: `src/guides-v09.js`.
+- File: `src/guides/guides-v09.js`.
 - Search is a normalized substring match plus limited number handling, not a question-answer system. Most mission source links resolve to overview pages rather than unique mission evidence. Free-form queries and Russian/English synonyms are not systematically validated.
 - **Fix:** synonyms, entities (Pokémon, items, missions), indexed questions, ranking/filters; deep source references per mission.
 - **Acceptance:** a 50+ query test set (including unknown quest names, wrong floor, item aliases, missing markers) returns relevant cards at top.

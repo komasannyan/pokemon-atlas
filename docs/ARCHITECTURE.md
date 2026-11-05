@@ -16,7 +16,7 @@
    │               → словарь ru.json (русские имена)
    │               → localStorage (снимок каталога)
    │
-   ├─ src/moves.js → CSV moves/names/effects, localStorage (список атак)
+   ├─ src/pokedex/moves.js → CSV moves/names/effects, localStorage (список атак)
    ├─ src/i18n.js  → RU/EN UI + сохранение выбора языка
    ├─ src/api.js   → PokéAPI REST (species, abilities, moves, encounters)
    ├─ Sprites     → PokeAPI/sprites (удалённые изображения)
@@ -111,11 +111,11 @@ source_ref(id, url, author, license, verified_at, confidence)
 ## Release 0.3 — Team Builder beta and localized effects
 
 **New modules**
-- `src/effects-ru.js`: manually reviewed Russian descriptions for common moves and abilities, plus conservative regex rules for simple API effect prose. Untranslated advanced effects remain visibly labeled in English (do not fabricate a translation).
-- `src/team-data.js`: versioned, format-scoped candidate sets. Each entry includes Pokémon, a role, four moves, item, ability, nature, stat spread, and allowed prototype formats.
-- `src/team-engine.js`: deterministic heuristic team composition. Seeds (0–2), role locking, type matchup chart, immunities, hazard/removal/speed/coverage evaluation, weather, item and Mega duplication safeguards, and Showdown or Champions text export.
-- `src/team-ui.js`: UI state, format/size selector, searchable available pool, role selectors, three generated options, reasons, shared weaknesses and clipboard export.
-- `styles-v03.css`: responsive UI for the team lab; the original layout remains intact.
+- `src/pokedex/effects-ru.js`: manually reviewed Russian descriptions for common moves and abilities, plus conservative regex rules for simple API effect prose. Untranslated advanced effects remain visibly labeled in English (do not fabricate a translation).
+- `src/team/team-data.js`: versioned, format-scoped candidate sets. Each entry includes Pokémon, a role, four moves, item, ability, nature, stat spread, and allowed prototype formats.
+- `src/team/team-engine.js`: deterministic heuristic team composition. Seeds (0–2), role locking, type matchup chart, immunities, hazard/removal/speed/coverage evaluation, weather, item and Mega duplication safeguards, and Showdown or Champions text export.
+- `src/team/team-ui.js`: UI state, format/size selector, searchable available pool, role selectors, three generated options, reasons, shared weaknesses and clipboard export.
+- `css/styles-v03.css`: responsive UI for the team lab; the original layout remains intact.
 
 **Supported prototype formats**: casual Gen 9 singles, Gen 9 OU/UU/Ubers, Gen 9 Doubles OU, Gen 9 National Dex, and Champions Regulation M-C Doubles. A format label identifies a *prototype template pool*, not current legal validation. Champions enforces no duplicate items and at most one active Mega-stone candidate in recommended teams as a conservative restriction. The builder does not yet validate the Pokémon Champions eligible roster, banned items/moves, exact format usage tiers, or move learnability across all forms.
 
@@ -126,16 +126,16 @@ source_ref(id, url, author, license, verified_at, confidence)
 
 ## v0.4: правила форматов и полный список видов
 
-Конструктор использует 1025 видов из кэша Национального Покедекса. Статические таблицы `src/format-rules.json` и `src/champions-learnsets.json` — срез Pokémon Showdown за ноябрь 2026. Общие learnsets ген9 загружаются из публичного JSON Showdown; если источник недоступен, конструктор не генерирует непроверенные наборы. `src/team-universe.js` фильтрует виды и предметы, выбирает допустимые атаки и создаёт шаблоны ролей. `src/team-engine.js` оценивает синергию и подбирает команду.
+Конструктор использует 1025 видов из кэша Национального Покедекса. Статические таблицы `src/format-rules.json` и `src/champions-learnsets.json` — срез Pokémon Showdown за ноябрь 2026. Общие learnsets ген9 загружаются из публичного JSON Showdown; если источник недоступен, конструктор не генерирует непроверенные наборы. `src/team/team-universe.js` фильтрует виды и предметы, выбирает допустимые атаки и создаёт шаблоны ролей. `src/team/team-engine.js` оценивает синергию и подбирает команду.
 
 Champions — Regulation M-C от 9 сентября до 2 декабря 2026, без легендарных, с Item Clause и одной Mega Evolution. Нельзя гарантировать полную легальность составов без Showdown Team Validator; эта версия не проверяет сложные форменные и событийные ограничения. Русские описания способностей и атак пока частично проверены, остальная информация помечена как требующая ручного перевода и сверки.
 
 
 ## Покедекс 0.8 — формы и история
 
-- `src/pokedex-extended.js` — нормализация разновидностей, индивидуальных базовых характеристик, типов и способностей, эволюций, исторических сведений.
-- `src/pokedex-extended-ui.js` — интерфейс выбора разновидностей, дерево эволюций с условиями и история изменений.
-- `pokedex-v08.css` — адаптивное оформление новых разделов.
+- `src/pokedex/pokedex-extended.js` — нормализация разновидностей, индивидуальных базовых характеристик, типов и способностей, эволюций, исторических сведений.
+- `src/pokedex/pokedex-extended-ui.js` — интерфейс выбора разновидностей, дерево эволюций с условиями и история изменений.
+- `css/pokedex-v08.css` — адаптивное оформление новых разделов.
 - Сведения берутся по запросу из `pokemon-species/{id}`, `pokemon/{variety}` и `evolution-chain/{id}` PokéAPI. Основной каталог и записи коллекции используют прежние ID видов, поэтому старые данные пользователей сохраняются.
 - В PokeAPI разновидности не равны доступным для поимки формам конкретной игры; косметические разновидности и история данных представлены настолько полно, насколько позволяет источник. Условия эволюции в разных играх могут различаться.
 - Проверка: `node tests/pokedex-extended.test.mjs`.
