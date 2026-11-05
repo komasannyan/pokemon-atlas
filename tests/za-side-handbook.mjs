@@ -41,7 +41,7 @@ assert.match(text(12),/[Кк]расн/);
 assert.match(text(12),/[Сс]ин/);
 assert.match(text(21),/№12/);
 assert.match(text(21),/Spewpa/);
-assert.match(text(63),/XL Gogoat/);
+assert.match(text(63),/Gogoat размера XL/);
 assert.match(text(67),/пят/);
 assert.match(text(72),/Stunfisk/);
 assert.match(text(76),/Eelektrossite/);
