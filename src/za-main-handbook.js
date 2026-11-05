@@ -1082,7 +1082,7 @@ export const ZA_MAIN_HANDBOOK={
       },
       {
         "id": "s05",
-        "ru": "Во время боя сохраняй дистанцию при ледяных залпах и отступай с отмеченных площадок, затем наказывай босса Fire-атаками."
+        "ru": "Во время боя сохраняй дистанцию при ледяных залпах и отступай с отмеченных площадок, затем отвечай Fire-атаками."
       },
       {
         "id": "s06",
@@ -1149,7 +1149,7 @@ export const ZA_MAIN_HANDBOOK={
       },
       {
         "id": "s03",
-        "ru": "Mega Venusaur — Grass/Poison, но из-за способности Thick Fat огненные и ледяные удары могут быть менее полезны, чем кажется по типам. Предпочти Flying или Psychic."
+        "ru": "Mega Venusaur — Grass/Poison. В Legends: Z-A обычные Abilities не работают, поэтому Fire, Ice, Flying и Psychic здесь действительно бьют с удвоенной эффективностью; заранее выбери подходящего покемона."
       },
       {
         "id": "s04",
@@ -1165,7 +1165,7 @@ export const ZA_MAIN_HANDBOOK={
       }
     ],
     "unlock": "Получить миссию №29 в ходе №26.",
-    "battle": "Rogue Mega Venusaur — Grass/Poison; Flying и Psychic эффективны. Thick Fat ослабляет Fire/Ice по сравнению с обычной слабостью.",
+    "battle": "Rogue Mega Venusaur — Grass/Poison; слабости Fire, Ice, Flying, Psychic. В Legends: Z-A нельзя автоматически применять к боссу эффект Thick Fat из других игр.",
     "reward": "Venusaurite.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "sources": [
@@ -1728,7 +1728,7 @@ export const ZA_MAIN_HANDBOOK={
       },
       {
         "id": "s05",
-        "ru": "В подземной арене начни битву с Zygarde. Сохраняй движение при атаках по площади и учитывай смену форм/фаз боя."
+        "ru": "В подземной арене начни битву с Zygarde. Сохраняй движение при атаках по площади и учитывай смену форм и последовательные фазы боя."
       },
       {
         "id": "s06",
