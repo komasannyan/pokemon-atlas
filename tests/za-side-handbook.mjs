@@ -58,7 +58,7 @@ assert.match(text(119),/четыр/);
 assert.match(text(23),/Diggersby уровня 28/);
 assert.match(text(26),/Numel/);
 assert.match(text(64),/Sliggoo/);
-assert.match(text(80),/ловить их нельзя/);
+assert.match(text(80),/[Лл]овить их нельзя/);
 assert.match(text(84),/King.s Rock/);
 assert.match(text(87),/Psycho Cut/);
 assert.match(text(90),/Froslass/);
