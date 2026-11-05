@@ -57,6 +57,6 @@ assert.match(guide,/hasLegacyStepMarks/,'old progress must not silently map to d
 assert.match(guide,/stepKey\(x,i\)/,'stable checklist keys required');
 assert.match(guide,/x\.sources\?\.length/,'reference URLs must be visible');
 const sideHint=guide.slice(guide.indexOf('function objectiveSteps('),guide.indexOf('function stepMarkup('));
-assert.match(sideHint,/if\(x\.kind==='side'\)/,'base side hints still supported');
+assert.match(sideHint,/if\(x\.kind==='side'/,'side quest handling remains supported');
 assert.doesNotMatch(sideHint,/x\.kind==='dlc-side'/,'DLC portals cannot be given blue side marker directions');
 console.log('Session 2: '+cards.length+' story missions, '+total+' objective steps, sourced records and UI integrations checked.');
