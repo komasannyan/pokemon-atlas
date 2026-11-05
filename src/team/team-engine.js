@@ -11,7 +11,14 @@ export const multiplier=(attack,types,ability='')=>{
  if(ability==='Water Absorb'&&attack==='water')return 0;
  if(ability==='Volt Absorb'&&attack==='electric')return 0;
  if(ability==='Sap Sipper'&&attack==='grass')return 0;
- return types.reduce((v,type)=>v*(TYPE_CHART[attack]?.[type]??1),1);
+ if(ability==='Lightning Rod'&&attack==='electric')return 0;
+ if(ability==='Storm Drain'&&attack==='water')return 0;
+ if(ability==='Motor Drive'&&attack==='electric')return 0;
+ if(ability==='Dry Skin'&&attack==='water')return 0;
+ const base=types.reduce((v,type)=>v*(TYPE_CHART[attack]?.[type]??1),1);
+ if(ability==='Thick Fat'&&(attack==='fire'||attack==='ice'))return base*0.5;
+ if(ability==='Dry Skin'&&attack==='fire')return base*1.25;
+ return base;
 };
 const has=(s,names)=>s.moves.some(m=>names.includes(m));
 const HAZARDS=['Stealth Rock','Spikes','Toxic Spikes','Sticky Web'];
@@ -22,6 +29,12 @@ const REDIRECT=['Follow Me','Rage Powder'];
 const PROTECT=['Protect','Spiky Shield','Detect','Baneful Bunker','King\'s Shield'];
 const PHYS=['Close Combat','Earthquake','Headlong Rush','Knock Off','Sucker Punch','Dragon Darts','Flare Blitz','Stone Edge','Iron Head','Kowtow Cleave','Grassy Glide','Collision Course','Precipice Blades','Rage Fist','Play Rough','Icicle Crash','Scale Shot','Rock Slide','Dragon Claw','Extreme Speed','Waterfall','Wood Hammer','Body Press'];
 const SPECIAL=['Make It Rain','Shadow Ball','Draco Meteor','Electro Drift','Moonblast','Psychic','Psyshock','Heat Wave','Earth Power','Sludge Bomb','Power Gem','Water Spout','Overheat','Flamethrower','Thunderbolt','Torch Song','Fickle Beam','Giga Drain','Energy Ball','Hyper Voice','Snarl','Icy Wind','Dazzling Gleam'];
+
+// Common overlapping weaknesses that make teams fragile
+const DANGEROUS_WEAK = {
+ electric:2.2, rock:2.0, ground:1.9, ice:1.8, fighting:1.6, fire:1.5, dark:1.4, fairy:1.4
+};
+
 const countFlags=roster=>{
  const count=fn=>roster.reduce((n,p)=>n+(fn(p.set)?1:0),0);
  return {
@@ -29,7 +42,8 @@ const countFlags=roster=>{
   physical:count(s=>has(s,PHYS)&&['physical','setup','tank','mega','hazards','pivot'].includes(s.role)),
   special:count(s=>has(s,SPECIAL)&&['special','setup','tank','mega','weather'].includes(s.role)),
   wall:count(s=>['wall','support','redirect','trickroom'].includes(s.role)),
-  mega:count(s=>/ite$/i.test(s.item)&&!/eviolite/i.test(s.item))
+  mega:count(s=>isMega(s)),
+  setup:count(s=>['setup','mega'].includes(s.role))
  };
 };
 const weaknessCounts=(roster)=>Object.fromEntries(TYPES.map(type=>[type,roster.filter(p=>multiplier(type,p.entry.types,p.set.ability)>=2).length]));
@@ -38,106 +52,253 @@ export function teamCoverage(roster){
  return results.sort((a,b)=>b.weak-a.weak||a.resist-b.resist);
 }
 const isMega=s=>/(?:ite|itex|itey|itez)$/i.test(String(s.item||'').replace(/[^a-z]/gi,'')) && !['Eviolite'].includes(s.item);
-function candidateValue(entry,set,roster,format,plan,index){
- const flags=countFlags(roster),fmt=FORMATS[format];
+
+// Shared types between two mons (penalize stacking same defensive profile)
+function sharedWeaknesses(typesA,abA,typesB,abB){
+ return TYPES.filter(t=>multiplier(t,typesA,abA)>=2 && multiplier(t,typesB,abB)>=2).length;
+}
+
+function candidateValue(entry,set,roster,format,plan,index,context=null){
+ const flags=context?.flags||countFlags(roster),fmt=FORMATS[format];
  if(roster.some(p=>p.entry.id===entry.id))return -1e9;
  if(fmt.champions&&set.item&&roster.some(p=>p.set.item===set.item))return -1e9;
- if(fmt.champions&&isMega(set)&&roster.some(p=>isMega(p.set)))return -1e9;
- const before=weaknessCounts(roster),after=weaknessCounts([...roster,{entry,set}]);
- let score=8;
+ if(isMega(set)&&roster.some(p=>isMega(p.set)))return -1e9; // one Mega per team in formats that permit it
+
+ const before=context?.weaknesses||weaknessCounts(roster);
+ const nextFlags=countFlags([...roster,{entry,set}]);
+ let score=10;
+
+ // --- Weakness management (much stronger) ---
  for(const type of TYPES){
-   if(before[type]>0&&multiplier(type,entry.types,set.ability)<1)score+=3.0+Math.min(before[type],3);
-   if(after[type]>=3&&before[type]<after[type])score-=6+(after[type]-3)*3;
-   else if(after[type]===2&&before[type]<after[type])score-=1.6;
+  const mult = multiplier(type,entry.types,set.ability);
+  // Reward covering existing team weaknesses
+  if(before[type]>=1 && mult < 1){
+   score += 4.5 + Math.min(before[type],3)*1.8;
+   if(DANGEROUS_WEAK[type]) score += DANGEROUS_WEAK[type];
+  }
+  // Heavy penalty for increasing already-bad weaknesses
+  if(mult >= 2){
+   const nextWeakness=before[type]+1;
+   if(nextWeakness >= 3) score -= 14 + (nextWeakness-3)*6;
+   else if(nextWeakness === 2) score -= 5.5;
+   else score -= 1.8;
+   if(DANGEROUS_WEAK[type] && nextWeakness >= 2) score -= DANGEROUS_WEAK[type]*1.5;
+  }
  }
- const wanted=fmt.doubles?{speed:11,redirect:7,fakeout:6,protect:2,physical:6,special:6} : {hazards:11,removal:10,pivot:4,physical:7,special:7,wall:3};
+
+ // Penalize sharing many weaknesses with existing members
+ for(const p of roster){
+  const shared = sharedWeaknesses(entry.types,set.ability,p.entry.types,p.set.ability);
+  if(shared >= 3) score -= 7;
+  else if(shared === 2) score -= 3.2;
+ }
+
+ // --- Role balance ---
+ const wanted = fmt.doubles
+  ? {speed:12, redirect:8, fakeout:7, protect:3, physical:6, special:6, wall:3}
+  : {hazards:12, removal:11, pivot:5.5, physical:7, special:7, wall:4, speed:3};
  for(const [key,w] of Object.entries(wanted)){
-   const next=countFlags([...roster,{entry,set}]);
-   if(!flags[key]&&next[key])score+=w;
-   if(flags[key]>=2&&next[key]>flags[key])score-=key==='protect'?0:key==='physical'||key==='special'?2:4;
+  if(!flags[key] && nextFlags[key]) score += w;
+  // Discourage stacking too many of the same role
+  if(flags[key] >= 2 && nextFlags[key] > flags[key]){
+   score -= (key==='protect' ? 0.5 : (key==='physical'||key==='special' ? 2.5 : 5));
+  }
  }
+
+ // Prefer having both physical and special pressure
+ if(flags.physical===0 && nextFlags.physical) score += 3;
+ if(flags.special===0 && nextFlags.special) score += 3;
+
+ // --- Format-specific ---
  if(fmt.doubles){
-   if(!has(set,PROTECT)&&!['Assault Vest','Choice Scarf','Choice Specs','Choice Band'].includes(set.item))score-=2;
-   if(set.role==='lead'&&has(set,HAZARDS))score-=4;
- } else if(set.role==='redirect')score-=7;
- if(plan==='offense')score+=['physical','special','setup','mega','tank'].includes(set.role)?4:0;
- if(plan==='control')score+=['pivot','wall','support','speed','redirect','hazards','removal'].includes(set.role)?4:0;
- if(plan==='balanced')score+=['pivot','removal','speed'].includes(set.role)?1.5:0;
- // Give varied but reproducible tie breaks; discourage picking the same lead in each variant.
- score+=((entry.id*31+index*17)%13)/100;
- if(roster.some(p=>p.set.ability==='Sand Stream')&&set.ability==='Sand Rush')score+=9;
- if(roster.some(p=>p.set.ability==='Drizzle')&&set.ability==='Swift Swim')score+=8;
- if(roster.some(p=>p.set.ability==='Drought')&&set.ability==='Chlorophyll')score+=8;
- if(set.ability==='Sand Stream'&&roster.some(p=>p.set.ability==='Sand Rush'))score+=9;
- if(roster.some(p=>p.set.ability==='Grassy Surge')&&has(set,['Earthquake']))score-=3;
+  if(!has(set,PROTECT) && !['Assault Vest','Choice Scarf','Choice Specs','Choice Band'].includes(set.item)) score -= 2.5;
+  if(set.role==='lead' && has(set,HAZARDS)) score -= 5;
+ } else {
+  if(set.role==='redirect') score -= 8; // almost never useful in singles
+ }
+
+ // Plan preferences
+ if(plan==='offense'){
+  score += ['physical','special','setup','mega','tank'].includes(set.role) ? 5 : 0;
+  score -= ['wall','support'].includes(set.role) ? 1.5 : 0;
+ }
+ if(plan==='control'){
+  score += ['pivot','wall','support','speed','redirect','hazards','removal'].includes(set.role) ? 5 : 0;
+  score -= ['setup','mega'].includes(set.role) ? 1 : 0;
+ }
+ if(plan==='balanced'){
+  score += ['pivot','removal','speed','hazards'].includes(set.role) ? 2.5 : 0;
+  // Prefer mixed offense + some bulk
+  if(['physical','special','wall','tank'].includes(set.role)) score += 1.2;
+ }
+
+ // --- Weather / terrain synergy ---
+ const teamAbilities = roster.map(p=>p.set.ability);
+ if(teamAbilities.includes('Sand Stream') && set.ability==='Sand Rush') score += 11;
+ if(teamAbilities.includes('Drizzle') && (set.ability==='Swift Swim' || has(set,['Hurricane','Thunder']))) score += 10;
+ if(teamAbilities.includes('Drought') && (set.ability==='Chlorophyll' || has(set,['Solar Beam','Growth']))) score += 10;
+ if(set.ability==='Sand Stream' && roster.some(p=>p.set.ability==='Sand Rush')) score += 9;
+ if(set.ability==='Drizzle' && roster.some(p=>p.set.ability==='Swift Swim')) score += 9;
+ if(set.ability==='Drought' && roster.some(p=>p.set.ability==='Chlorophyll')) score += 9;
+ if(teamAbilities.includes('Grassy Surge') && has(set,['Earthquake','High Horsepower'])) score -= 4;
+ if(teamAbilities.includes('Electric Surge') && has(set,['Rising Voltage'])) score += 3;
+
+ // Speed control is valuable when team is slow
+ const slowRoles = roster.filter(p=>['wall','tank','support','hazards'].includes(p.set.role)).length;
+ if(slowRoles >= 2 && (has(set,SPEED) || set.role==='speed' || set.role==='pivot')) score += 4;
+
+ // Avoid too many pure setup sweepers without support
+ if(flags.setup >= 2 && set.role==='setup') score -= 6;
+
+ // Small deterministic tie-break so different variants stay different
+ score += ((entry.id * 31 + index * 17) % 13) / 100;
+
  return score;
 }
+
 function buildWithSeeds(seedIds,roles,format,size,plan,variant){
- const entire=fullPool(format);
- // Every eligible species is manually selectable; automatic recommendations scan a
- // competitively relevant, diverse shortlist for responsiveness on mobile devices.
- const pool=entire;const candidatesPool=entire.filter(p=>!!setsFor(p,format).length).sort((a,b)=>(b.stats?.reduce((x,y)=>x+y,0)||0)-(a.stats?.reduce((x,y)=>x+y,0)||0)).slice(0,175);
- const byId=new Map(pool.map(p=>[p.id,p]));
- const seeds=seedIds.map(id=>byId.get(id));if(seeds.some(x=>!x))return null;
- // Enumerate all seed roles (up to 2 seed mons) to optimize the sets for the existing team.
- const choices=seeds.map((entry,i)=>setsFor(entry,format).filter(s=>!roles[i]||roles[i]==='auto'||s.role===roles[i]));
- if(choices.some(c=>!c.length))return null;
- const combos=choices.reduce((arr,sets)=>arr.flatMap(prefix=>sets.map(set=>[...prefix,set])),[[]]);
- let result=null;
- for(const combo of combos){
-  const roster=[];
-  for(let i=0;i<seeds.length;i++){
-   const set=adjustItem(combo[i],format,roster);
-   roster.push({entry:seeds[i],set,seed:true,why:[]});
-  }
-  if(FORMATS[format].champions){
-    const items=roster.map(x=>x.set.item).filter(Boolean);if(new Set(items).size!==items.length||roster.filter(x=>isMega(x.set)).length>1)continue;
-  }
-  let quality=combo.reduce((v,set,i)=>v+candidateValue(seeds[i],set,roster.filter((_,j)=>j!==i),format,plan,i),0);
-  while(roster.length<size){
-   const candidates=[];
-   for(const entry of candidatesPool)if(!roster.some(p=>p.entry.id===entry.id))for(const set of setsFor(entry,format)){
-    const candidateSet=adjustItem(set,format,roster);
-    const value=candidateValue(entry,candidateSet,roster,format,plan,variant+roster.length);
-    if(value>-100000)candidates.push({entry,set:candidateSet,value});
+ const entire = fullPool(format);
+ // Larger and more diverse candidate pool than pure BST sort
+ // Calculate legal sets once per candidate instead of rebuilding them for every slot.
+ const withSets = entire.map(entry=>({entry, sets:setsFor(entry,format)})).filter(x=>x.sets.length);
+ const bst=x=>x.entry.stats?.reduce((a,b)=>a+b,0)||0;
+ const byBst=withSets.sort((a,b)=>bst(b)-bst(a));
+ // Include strong picks and a deterministic sample of lower-BST support and defensive species.
+ const core=byBst.slice(0,155),rest=byBst.slice(155),diverse=[];
+ if(rest.length){for(let j=0;j<45&&j<rest.length;j++)diverse.push(rest[Math.floor(j*rest.length/Math.min(45,rest.length))]);}
+ const candidatesPool=[...core,...diverse];
+
+ const byId = new Map(entire.map(p=>[p.id,p]));
+ const seeds = seedIds.map(id=>byId.get(id));
+ if(seeds.some(x=>!x)) return null;
+
+ // Role choices for seeds
+ const choices = seeds.map((entry,i)=>{
+  const wanted = roles[i];
+  return setsFor(entry,format).filter(s => !wanted || wanted==='auto' || s.role===wanted);
+ });
+ if(choices.some(c=>!c.length)) return null;
+
+ // Limit combo explosion when 3 seeds
+ let combos;
+ if(seeds.length <= 2){
+  combos = choices.reduce((arr,sets)=>arr.flatMap(prefix=>sets.map(set=>[...prefix,set])), [[]]);
+ } else {
+  // For 3 seeds take best set per seed first, then limited variants
+  combos = [choices.map(sets => sets[0])];
+  for(let i=0;i<choices.length;i++){
+   for(let j=1;j<Math.min(3,choices[i].length);j++){
+    const alt = choices.map((sets,k)=> k===i ? sets[j] : sets[0]);
+    combos.push(alt);
    }
-   candidates.sort((a,b)=>b.value-a.value||a.entry.id-b.entry.id);
-   if(!candidates.length)break;
-   // Different plans naturally lead to varied builds; avoid pointless randomization.
-   const chosen=candidates[0];quality+=chosen.value;
-   roster.push({...chosen,seed:false,why:[]});
   }
-  if(roster.length===size&&(!result||quality>result.score))result={roster,score:quality};
+ }
+
+ let result = null;
+ for(const combo of combos){
+  const roster = [];
+  for(let i=0;i<seeds.length;i++){
+   const set = adjustItem(combo[i],format,roster);
+   roster.push({entry:seeds[i], set, seed:true, why:[]});
+  }
+
+  // Hard constraints
+  if(roster.filter(x=>isMega(x.set)).length > 1) continue;
+  if(FORMATS[format].champions){
+   const items = roster.map(x=>x.set.item).filter(Boolean);
+   if(new Set(items).size !== items.length) continue;
+  }
+
+  // Never reject the player's chosen trio solely for shared weaknesses.
+  // The fragility score already penalizes the risk while retaining fixed Pokémon.
+
+  let quality = combo.reduce((v,set,i)=>v + candidateValue(seeds[i],set,roster.filter((_,j)=>j!==i),format,plan,i), 0);
+
+  while(roster.length < size){
+   const candidates = [];
+   const context={flags:countFlags(roster),weaknesses:weaknessCounts(roster)};
+   for(const {entry,sets} of candidatesPool){
+    if(roster.some(p=>p.entry.id===entry.id)) continue;
+    for(const set of sets){
+     const candidateSet = adjustItem(set,format,roster);
+     const value = candidateValue(entry,candidateSet,roster,format,plan,variant + roster.length,context);
+     if(value > -50000) candidates.push({entry, set:candidateSet, value});
+    }
+   }
+   candidates.sort((a,b)=>b.value - a.value || a.entry.id - b.entry.id);
+   if(!candidates.length) break;
+
+   // Take best, but occasionally look at top-3 for variety between plans
+   const pickIndex = (plan==='offense' && variant%2===0 && candidates.length>1) ? 1 : 0;
+   const chosen = candidates[Math.min(pickIndex, candidates.length-1)];
+   quality += chosen.value;
+   roster.push({...chosen, seed:false, why:[]});
+  }
+
+  if(roster.length === size){
+   // Final team quality adjustment: punish overall fragile teams
+   const finalWeak = weaknessCounts(roster);
+   let fragility = 0;
+   for(const t of TYPES){
+    if(finalWeak[t] >= 3) fragility += 8 + (finalWeak[t]-3)*4;
+    else if(finalWeak[t] === 2) fragility += 2.5;
+   }
+   quality -= fragility;
+
+   if(!result || quality > result.score) result = {roster, score:quality};
+  }
  }
  return result;
 }
+
 function reasonsFor(roster,format,lang){
- const ru=lang!=='en';return roster.map((p,i)=>{
-  const others=roster.filter((_,j)=>i!==j);
-  const reasons=[];
-  const helps=TYPES.filter(type=>others.some(o=>multiplier(type,o.entry.types,o.set.ability)>=2)&&multiplier(type,p.entry.types,p.set.ability)<1);
-  if(helps.length)reasons.push(ru?`Прикрывает слабости команды к типам: ${helps.slice(0,3).join(', ')}.`:`Covers team weaknesses to ${helps.slice(0,3).join(', ')}.`);
-  if(p.set.role==='removal')reasons.push(ru?'Убирает Stealth Rock и другие ловушки, облегчая переключения.':'Clears hazards for safer switches.');
-  if(p.set.role==='lead'||p.set.role==='hazards')reasons.push(ru?'Создаёт давление ловушками на поле соперника.':'Adds hazard pressure.');
-  if(p.set.role==='speed')reasons.push(ru?'Даёт контроль скорости для союзников.':'Supplies speed control.');
-  if(p.set.role==='redirect')reasons.push(ru?'Отводит направленные атаки от партнёра.':'Redirects targeted attacks from its partner.');
-  if(p.set.ability==='Sand Rush'&&others.some(o=>o.set.ability==='Sand Stream'))reasons.push(ru?'Sand Rush удваивает скорость под песком партнёра.':'Sand Rush gains speed under teammate sand.');
-  if(p.set.role==='mega')reasons.push(ru?'Использует слот Mega Evolution для атакующей роли.':'Uses the Mega slot for offensive pressure.');
-  if(!reasons.length)reasons.push(ru?'Дополняет набор атак и ролей команды.':'Adds an additional offensive or defensive role.');
-  return {...p,why:reasons.slice(0,2)};
+ const ru = lang !== 'en';
+ return roster.map((p,i)=>{
+  const others = roster.filter((_,j)=>i!==j);
+  const reasons = [];
+  const helps = TYPES.filter(type =>
+   others.some(o => multiplier(type,o.entry.types,o.set.ability) >= 2) &&
+   multiplier(type,p.entry.types,p.set.ability) < 1
+  );
+  if(helps.length){
+   reasons.push(ru
+    ? `Прикрывает слабости команды к: ${helps.slice(0,3).join(', ')}.`
+    : `Covers team weaknesses to ${helps.slice(0,3).join(', ')}.`);
+  }
+  if(p.set.role==='removal') reasons.push(ru ? 'Убирает ловушки, облегчая переключения.' : 'Clears hazards for safer switches.');
+  if(p.set.role==='lead' || p.set.role==='hazards') reasons.push(ru ? 'Ставит ловушки и создаёт давление.' : 'Adds hazard pressure.');
+  if(p.set.role==='speed') reasons.push(ru ? 'Даёт контроль скорости.' : 'Supplies speed control.');
+  if(p.set.role==='redirect') reasons.push(ru ? 'Отводит атаки от партнёра.' : 'Redirects targeted attacks from its partner.');
+  if(p.set.role==='pivot') reasons.push(ru ? 'Даёт безопасные переключения (U-turn / Volt Switch).' : 'Provides safe pivots.');
+  if(p.set.ability==='Sand Rush' && others.some(o=>o.set.ability==='Sand Stream'))
+   reasons.push(ru ? 'Sand Rush удваивает скорость под песком.' : 'Sand Rush gains speed under teammate sand.');
+  if(p.set.ability==='Swift Swim' && others.some(o=>o.set.ability==='Drizzle'))
+   reasons.push(ru ? 'Swift Swim под дождём партнёра.' : 'Swift Swim under partner rain.');
+  if(p.set.ability==='Chlorophyll' && others.some(o=>o.set.ability==='Drought'))
+   reasons.push(ru ? 'Chlorophyll под солнцем партнёра.' : 'Chlorophyll under partner sun.');
+  if(p.set.role==='mega') reasons.push(ru ? 'Mega Evolution для сильного атакующего слота.' : 'Uses the Mega slot for offensive pressure.');
+  if(!reasons.length) reasons.push(ru ? 'Дополняет роли и покрытие команды.' : 'Adds an additional offensive or defensive role.');
+  return {...p, why:reasons.slice(0,2)};
  });
 }
-export function generateSuggestions({format='ou',seedIds=[],roles=[],size=6,lang='ru'}){
- if(!FORMATS[format])throw Error('Unknown format');
- if(seedIds.length>2||new Set(seedIds).size!==seedIds.length)throw Error('Select zero, one or two unique Pokémon');
- size=Math.max(FORMATS[format].min,Math.min(6,+size||6));
- const result=[];
+
+export function generateSuggestions({format='ou', seedIds=[], roles=[], size=6, lang='ru'}){
+ if(!FORMATS[format]) throw Error('Unknown format');
+ if(seedIds.length > 3 || new Set(seedIds).size !== seedIds.length)
+  throw Error('Select zero to three unique Pokémon');
+ size = Math.max(FORMATS[format].min, Math.min(6, +size || 6));
+ const result = [];
  for(const [i,plan] of ['balanced','offense','control'].entries()){
-  const built=buildWithSeeds(seedIds,roles,format,size,plan,i+1);
-  if(built){const ids=built.roster.map(p=>p.entry.id+':'+p.set.role).join(',');if(!result.some(t=>t.key===ids))result.push({plan,key:ids,score:Math.round(built.score),roster:reasonsFor(built.roster,format,lang)});}
+  const built = buildWithSeeds(seedIds, roles, format, size, plan, i+1);
+  if(built){
+   const ids = built.roster.map(p => p.entry.id + ':' + p.set.role).join(',');
+   if(!result.some(t => t.key === ids))
+    result.push({plan, key:ids, score:Math.round(built.score), roster:reasonsFor(built.roster, format, lang)});
+  }
  }
  return result;
 }
+
 export const spread=(kind,champions=false)=>{
  const codes={phys:['Atk','Spe'],spa:['SpA','Spe'],bulkphys:['HP','Atk'],bulkspa:['HP','SpA'],def:['HP','Def'],spdef:['HP','SpD'],support:['HP','SpD'],trickroom:['HP','SpA']};
  const [a,b]=codes[kind]||codes.phys;
