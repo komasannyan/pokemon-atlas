@@ -103,13 +103,12 @@ function navigation(viewName,scroll=true){
   $('#catalog-view').hidden=!['catalog','favorites'].includes(viewName);
   $('#moves-view').hidden=viewName!=='moves';
   $('#abilities-view').hidden=viewName!=='abilities';
-  $('#roadmap-view').hidden=viewName!=='roadmap';
   $('#builder-view').hidden=viewName!=='builder';
   $('#collection-view').hidden=viewName!=='collection';
   $('#guides-view').hidden=viewName!=='guides';
   $('#hero').hidden=viewName!=='catalog';
   document.querySelectorAll('.nav-link').forEach(el=>el.classList.toggle('active',el.dataset.view===viewName));
-  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='collection'?'crumbCollection':viewName==='guides'?'crumbGuides':viewName==='roadmap'?'crumbRoadmap':'crumbDex';
+  const crumb=viewName==='favorites'?'crumbFav':viewName==='moves'?'crumbMoves':viewName==='abilities'?'crumbAbilities':viewName==='builder'?'crumbBuilder':viewName==='collection'?'crumbCollection':viewName==='guides'?'crumbGuides':'crumbDex';
   $('#breadcrumb-page').textContent=t(crumb);
   $('#list-title').textContent=t(viewName==='favorites'?'favTitle':'dexTitle');
   $('#list-subtitle').textContent=t(viewName==='favorites'?'favSubtitle':'dexSubtitle');

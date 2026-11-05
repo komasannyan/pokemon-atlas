@@ -1,11 +1,8 @@
-// Source-extracted and independently paraphrased Russian side mission walkthroughs (session 3).
-// 119 quest IDs; each record links to the specific Bulbapedia walkthrough range and verified catalog.
-// WARNING: these are reference-derived, not personally playtested; source depth varies by quest.
-// Stable checklist IDs: do NOT renumber existing steps after future edits.
+// Sourced mission guides. Existing checklist IDs remain stable.
 export const ZA_SIDE_HANDBOOK={
   "1": {
-    "startHint": "Speak with Trevelle under the tree in the courtyard",
-    "location": "East of Wild Zone 3",
+    "startHint": "Поговори с Trevelle: К востоку от Wild Zone 3.",
+    "location": "К востоку от Wild Zone 3",
     "unlockMain": 5,
     "unlockExtra": null,
     "rank": "Y",
@@ -31,11 +28,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Alpha Pokémon заметно сильнее обычных особей того же уровня. Не обязательно пытаться поймать этого Bunnelby ради завершения задания.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Trevelle under the tree in the courtyard",
+    "locationEn": "East of Wild Zone 3"
   },
   "2": {
-    "startHint": "Speak with Tracie in front of Le Passe-temps",
-    "location": "Le Passe-temps Shopping Mall",
+    "startHint": "Поговори с Tracie: Le Passe-temps торговый центр.",
+    "location": "Le Passe-temps торговый центр",
     "unlockMain": 5,
     "unlockExtra": null,
     "rank": "Y",
@@ -61,10 +60,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это внутриигровой обмен с NPC, он работает без сетевого соединения.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Tracie in front of Le Passe-temps",
+    "locationEn": "Le Passe-temps Shopping Mall",
+    "prep": "Pikachu для обмена."
   },
   "3": {
-    "startHint": "Speak with Moire in front of Wild Zone 4",
+    "startHint": "Поговори с Moire: Wild Zone 4.",
     "location": "Wild Zone 4",
     "unlockMain": 5,
     "unlockExtra": null,
@@ -95,11 +97,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Кольцо связано с Sableye: обычный поиск предмета у могил без сражения не завершает миссию.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Moire in front of Wild Zone 4",
+    "locationEn": "Wild Zone 4"
   },
   "4": {
-    "startHint": "Speak with Sommi next to the broken Holovator",
-    "location": "West of Wild Zone 3",
+    "startHint": "Поговори с Sommi: К западу от Wild Zone 3.",
+    "location": "К западу от Wild Zone 3",
     "unlockMain": 5,
     "unlockExtra": null,
     "rank": "Y",
@@ -129,10 +133,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Используй заработавший Holovator для исследования крыш — это открывает альтернативные точки поимки Pokémon.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Sommi next to the broken Holovator",
+    "locationEn": "West of Wild Zone 3"
   },
   "5": {
-    "startHint": "Speak with Ismene next to the building",
+    "startHint": "Поговори с Ismene: Magenta Sector 1.",
     "location": "Magenta Sector 1",
     "unlockMain": 6,
     "unlockExtra": null,
@@ -163,11 +169,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не требуется отдавать Ekans: достаточно показать его из активной команды.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Ismene next to the building",
+    "locationEn": "Magenta Sector 1"
   },
   "6": {
-    "startHint": "Speak with Distan in the battle courtyard",
-    "location": "Northeast of Wild Zone 16",
+    "startHint": "Поговори с Distan: К северо-востоку от Wild Zone 16.",
+    "location": "К северо-востоку от Wild Zone 16",
     "unlockMain": 6,
     "unlockExtra": null,
     "rank": "Y",
@@ -197,11 +205,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не нужно подбирать только дальнобойные атаки: это тема задания, но не обязательное условие победы.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Distan in the battle courtyard",
+    "locationEn": "Northeast of Wild Zone 16"
   },
   "7": {
-    "startHint": "Speak with Axi next to a taxi",
-    "location": "Southeast of Wild Zone 3",
+    "startHint": "Поговори с Axi: К юго-востоку от Wild Zone 3.",
+    "location": "К юго-востоку от Wild Zone 3",
     "unlockMain": 6,
     "unlockExtra": null,
     "rank": "Y",
@@ -231,10 +241,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Три победы — часть одного задания. После первого боя миссия не должна закрыться.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Axi next to a taxi",
+    "locationEn": "Southeast of Wild Zone 3"
   },
   "8": {
-    "startHint": "Speak with Branche in the courtyard",
+    "startHint": "Поговори с Branche: Café Classe.",
     "location": "Café Classe",
     "unlockMain": 6,
     "unlockExtra": null,
@@ -269,11 +281,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Проверяй именно комнату за загрязнённым проходом: ветка не лежит просто у входа в Wild Zone 5.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Branche in the courtyard",
+    "locationEn": "Café Classe",
+    "quick": "Найди все пять Revitalizing Twigs за грязным проходом в Wild Zone 5.",
+    "prep": "Покемон с Water-атакой."
   },
   "9": {
-    "startHint": "Speak with Surv in the courtyard next to Café Action!",
-    "location": "East of Wild Zone 19",
+    "startHint": "Поговори с Surv: К востоку от Wild Zone 19.",
+    "location": "К востоку от Wild Zone 19",
     "unlockMain": 6,
     "unlockExtra": null,
     "rank": "Y",
@@ -307,11 +323,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Последовательность лимитов: 30 → 40 → 50 секунд, а не наоборот.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Surv in the courtyard next to Café Action!",
+    "locationEn": "East of Wild Zone 19",
+    "quick": "Три маршрута Froakie: 30, 40 и 50 секунд; третий начинается у Rouge Pokémon Center."
   },
   "10": {
-    "startHint": "Speak with Odette in front of Boutique Couture",
-    "location": "South of Vernal Pokemon Center",
+    "startHint": "Поговори с Odette: К югу от Vernal Pokémon Center.",
+    "location": "К югу от Vernal Pokémon Center",
     "unlockMain": 7,
     "unlockExtra": null,
     "rank": "X",
@@ -341,11 +360,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Skiddo остаётся у тебя; для зачёта его не нужно развивать в Gogoat.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Odette in front of Boutique Couture",
+    "locationEn": "South of Vernal Pokemon Center"
   },
   "11": {
-    "startHint": "Speak with Montée in the center of a park under a tree",
-    "location": "Northeast of Wild Zone 20",
+    "startHint": "Поговори с Montée: К северо-востоку от Wild Zone 20.",
+    "location": "К северо-востоку от Wild Zone 20",
     "unlockMain": 7,
     "unlockExtra": null,
     "rank": "X",
@@ -375,11 +396,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Beedrill сильнее трёх Kakuna. Сохрани для него хотя бы один суперэффективный приём.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Montée in the center of a park under a tree",
+    "locationEn": "Northeast of Wild Zone 20"
   },
   "12": {
-    "startHint": "Speak with Vivace in front of Coiffure Clips",
-    "location": "Hair Salon Southwest of Wild Zone 12",
+    "startHint": "Поговори с Vivace: Парикмахерская Southwest of Wild Zone 12.",
+    "location": "Парикмахерская Southwest of Wild Zone 12",
     "unlockMain": 7,
     "unlockExtra": null,
     "rank": "X",
@@ -417,10 +440,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Все пять Pokémon не обязательно носить в команде одновременно: игра принимает цвета по одному.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Vivace in front of Coiffure Clips",
+    "locationEn": "Hair Salon Southwest of Wild Zone 12",
+    "quick": "Покажи пять цветов Flabébé: красный, оранжевый, жёлтый, белый и синий.",
+    "prep": "Пять цветов Flabébé."
   },
   "13": {
-    "startHint": "Speak with Croquis in the courtyard",
+    "startHint": "Поговори с Croquis: Jaune Sector 7.",
     "location": "Jaune Sector 7",
     "unlockMain": 7,
     "unlockExtra": null,
@@ -455,10 +482,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Уничтожение первого кустарника не завершает миссию: появятся ещё две последовательные волны зарослей.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Croquis in the courtyard",
+    "locationEn": "Jaune Sector 7"
   },
   "14": {
-    "startHint": "Speak with Meuse in front of the Shutterbug Café",
+    "startHint": "Поговори с Meuse: Shutterbug Café.",
     "location": "Shutterbug Café",
     "unlockMain": 7,
     "unlockExtra": null,
@@ -489,11 +518,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Нужно сопровождение Slurpuff до кафе, а не самостоятельная доставка предмета.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Meuse in front of the Shutterbug Café",
+    "locationEn": "Shutterbug Café"
   },
   "15": {
-    "startHint": "Speak with Hea under a tree on the sidewalk",
-    "location": "West of Wild Zone 3",
+    "startHint": "Поговори с Hea: К западу от Wild Zone 3.",
+    "location": "К западу от Wild Zone 3",
     "unlockMain": 7,
     "unlockExtra": null,
     "rank": "X",
@@ -523,10 +554,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Audino принадлежит NPC и не может быть пойман в этой битве.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Hea under a tree on the sidewalk",
+    "locationEn": "West of Wild Zone 3"
   },
   "16": {
-    "startHint": "Speak with Jardin inside the Vernal Pokémon Center",
+    "startHint": "Поговори с Jardin: Vernal Pokémon Center.",
     "location": "Vernal Pokémon Center",
     "unlockMain": 7,
     "unlockExtra": null,
@@ -561,10 +594,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Свойства Budew и варианты ответов не меняют итог конкурса. Если вход не предлагается, проверь Budew в команде и наличие ₽5800.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Jardin inside the Vernal Pokémon Center",
+    "locationEn": "Vernal Pokémon Center"
   },
   "17": {
-    "startHint": "Speak with Duve outside of Wild Zone 1",
+    "startHint": "Поговори с Duve: Wild Zone 1.",
     "location": "Wild Zone 1",
     "unlockMain": 8,
     "unlockExtra": null,
@@ -595,11 +630,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Задание завершается после достижения верхней точки. Shiny Mareep можно поймать отдельно; не уходи сразу, если хочешь сохранить его.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Duve outside of Wild Zone 1",
+    "locationEn": "Wild Zone 1",
+    "quick": "Нужен Shiny Mareep из Wild Zone 1."
   },
   "18": {
-    "startHint": "Speak with Servando outside of Café Cyclone",
-    "location": "Cafe Cyclone",
+    "startHint": "Поговори с Servando: Café Cyclone.",
+    "location": "Café Cyclone",
     "unlockMain": 8,
     "unlockExtra": null,
     "rank": "W",
@@ -629,10 +667,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Нужны три разных вида одновременно — одна-две обезьяны не подходят.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Servando outside of Café Cyclone",
+    "locationEn": "Cafe Cyclone"
   },
   "19": {
-    "startHint": "Speak with Venin inside the battle courtyard",
+    "startHint": "Поговори с Venin: Vert Sector 3.",
     "location": "Vert Sector 3",
     "unlockMain": 8,
     "unlockExtra": null,
@@ -663,10 +703,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это два отдельных поединка, а не один общий бой.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Venin inside the battle courtyard",
+    "locationEn": "Vert Sector 3"
   },
   "20": {
-    "startHint": "Speak with Ticien in the battle courtyard inside Wild Zone 6",
+    "startHint": "Поговори с Ticien: Wild Zone 6.",
     "location": "Wild Zone 6",
     "unlockMain": 8,
     "unlockExtra": null,
@@ -697,11 +739,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Oran Berry восстанавливает HP автоматически один раз; не рассчитывай, что враг останется при малом HP после первого удара.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Ticien in the battle courtyard inside Wild Zone 6",
+    "locationEn": "Wild Zone 6"
   },
   "21": {
-    "startHint": "Speak with Bundo inside the Lumiose Museum",
-    "location": "Lumiose Museum",
+    "startHint": "Поговори с Bundo: Музей Люмиоса.",
+    "location": "Музей Люмиоса",
     "unlockMain": 8,
     "unlockExtra": null,
     "rank": "W",
@@ -747,11 +791,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "На англоязычной карте ground floor — нижний этаж, first floor — этаж над ним. Не перепутай этаж у доспехов и картин.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Bundo inside the Lumiose Museum",
+    "locationEn": "Lumiose Museum",
+    "quick": "В Lumiose Museum спрятаны 12 Spewpa — проверь перила, лестницу, доспехи, картины и витрины."
   },
   "22": {
-    "startHint": "Receive a call from Mable",
-    "location": "Pokemon Research Lab",
+    "startHint": "Дождись звонка Mable по сюжету.",
+    "location": "Лаборатория покемонов",
     "unlockMain": 8,
     "unlockExtra": null,
     "rank": "W",
@@ -777,10 +824,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это выбор одного Pokémon из трёх, а не награда всеми тремя сразу.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Receive a call from Mable",
+    "locationEn": "Pokemon Research Lab"
   },
   "23": {
-    "startHint": "Speak with Terra on the sidewalk outside Boutique Couture",
+    "startHint": "Поговори с Terra: Vert Sector 9.",
     "location": "Vert Sector 9",
     "unlockMain": 10,
     "unlockExtra": null,
@@ -811,11 +860,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "До боя нужно взаимодействовать именно с подозрительной землёй перед Holovator, а не с панелью подъёмника.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Terra on the sidewalk outside Boutique Couture",
+    "locationEn": "Vert Sector 9"
   },
   "24": {
-    "startHint": "Speak with Bond next to a group of hedges",
-    "location": "East of Wild Zone 3",
+    "startHint": "Поговори с Bond: К востоку от Wild Zone 3.",
+    "location": "К востоку от Wild Zone 3",
     "unlockMain": 10,
     "unlockExtra": null,
     "rank": "V",
@@ -845,11 +896,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Abra может исчезнуть из поля зрения, но поймать его можно обычным Poké Ball без сетевых функций.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Bond next to a group of hedges",
+    "locationEn": "East of Wild Zone 3"
   },
   "25": {
-    "startHint": "Speak with Fumi outside of Café Pokémon-Amie",
-    "location": "Cafe Pokemon-Amie",
+    "startHint": "Поговори с Fumi: Café Pokémon-Amie.",
+    "location": "Café Pokémon-Amie",
     "unlockMain": 10,
     "unlockExtra": null,
     "rank": "V",
@@ -879,10 +932,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это сопровождение, не бой и не ловля: придерживайся темпа Trubbish.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Fumi outside of Café Pokémon-Amie",
+    "locationEn": "Cafe Pokemon-Amie"
   },
   "26": {
-    "startHint": "Speak with Armie in the street in front of Restaurant Le Yeah",
+    "startHint": "Поговори с Armie: Restaurant Le Yeah.",
     "location": "Restaurant Le Yeah",
     "unlockMain": 10,
     "unlockExtra": null,
@@ -913,11 +968,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Против Numel осторожнее с Electric-покемонами: из-за Ground-типа он невосприимчив к Electric-атакам.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Armie in the street in front of Restaurant Le Yeah",
+    "locationEn": "Restaurant Le Yeah"
   },
   "27": {
-    "startHint": "Speak with Reg on the second floor of the Pokémon Research Lab",
-    "location": "Pokemon Research Lab",
+    "startHint": "Поговори с Reg: Лаборатория покемонов.",
+    "location": "Лаборатория покемонов",
     "unlockMain": 10,
     "unlockExtra": null,
     "rank": "F",
@@ -947,11 +1004,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Выбор Jaw/Sail Fossil не блокирует альтернативный вид навсегда.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Reg on the second floor of the Pokémon Research Lab",
+    "locationEn": "Pokemon Research Lab"
   },
   "28": {
-    "startHint": "Speak with Marnole under a tree in a courtyard",
-    "location": "West of Wild Zone 1",
+    "startHint": "Поговори с Marnole: К западу от Wild Zone 1.",
+    "location": "К западу от Wild Zone 1",
     "unlockMain": 10,
     "unlockExtra": null,
     "rank": "F",
@@ -981,10 +1040,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не нужно предъявлять определённый Pokémon для начала: это обычный тренерский бой.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Marnole under a tree in a courtyard",
+    "locationEn": "West of Wild Zone 1"
   },
   "29": {
-    "startHint": "Speak with Rintaro inside Restaurant Le Nah",
+    "startHint": "Поговори с Rintaro: Restaurant Le Nah.",
     "location": "Restaurant Le Nah",
     "unlockMain": 11,
     "unlockExtra": null,
@@ -1019,11 +1080,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Подготовь Fire, Grass и Water-покрытие заранее — соперники представляют три элементальные группы.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Rintaro inside Restaurant Le Nah",
+    "locationEn": "Restaurant Le Nah"
   },
   "30": {
-    "startHint": "Speak with Arden on the sidewalk across the street from the Hair Salon",
-    "location": "Vernal Pokemon Center",
+    "startHint": "Поговори с Arden: Vernal Pokémon Center.",
+    "location": "Vernal Pokémon Center",
     "unlockMain": 14,
     "unlockExtra": null,
     "rank": "F",
@@ -1057,11 +1120,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для зачёта необходимо хотя бы один раз показать именно Mega Camerupt во время боя; если его затем нокаутируют, можно завершить бой другими покемонами.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Arden on the sidewalk across the street from the Hair Salon",
+    "locationEn": "Vernal Pokemon Center",
+    "quick": "Сначала нужна награда Cameruptite из сюжетной миссии №12."
   },
   "31": {
-    "startHint": "Speak with Arden on the sidewalk across the street from the Hair Salon",
-    "location": "Vernal Pokemon Center",
+    "startHint": "Поговори с Arden: Vernal Pokémon Center.",
+    "location": "Vernal Pokémon Center",
     "unlockMain": null,
     "unlockExtra": null,
     "rank": "??",
@@ -1095,11 +1161,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Выполнение №31 зависит от №30. Победа без демонстрации Mega Sableye не заменяет условия задания.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Arden on the sidewalk across the street from the Hair Salon",
+    "locationEn": "Vernal Pokemon Center",
+    "quick": "Сначала заверши побочную №30; подготовь Sableye."
   },
   "32": {
-    "startHint": "Speak with Arden on the sidewalk across the street from the Hair Salon",
-    "location": "Vernal Pokemon Center",
+    "startHint": "Поговори с Arden: Vernal Pokémon Center.",
+    "location": "Vernal Pokémon Center",
     "unlockMain": null,
     "unlockExtra": null,
     "rank": "??",
@@ -1133,11 +1202,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не достаточно просто иметь Medicham с камнем: игрок должен показать Mega Evolution в поединке.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Arden on the sidewalk across the street from the Hair Salon",
+    "locationEn": "Vernal Pokemon Center",
+    "quick": "Сначала заверши №31; Meditite можно найти в Wild Zone 6."
   },
   "33": {
-    "startHint": "Speak with Kingsley on the sidewalk next to the water",
-    "location": "West of Wild Zone 1",
+    "startHint": "Поговори с Kingsley: К западу от Wild Zone 1.",
+    "location": "К западу от Wild Zone 1",
     "unlockMain": 14,
     "unlockExtra": null,
     "rank": "F",
@@ -1167,10 +1239,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для надежного результата подходит Alpha Magikarp из Wild Zone 2: обычный экземпляр может не соответствовать требуемому размеру.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Kingsley on the sidewalk next to the water",
+    "locationEn": "West of Wild Zone 1"
   },
   "34": {
-    "startHint": "Speak with Muro on the corner of the street",
+    "startHint": "Поговори с Muro: Jaune Sector 8.",
     "location": "Jaune Sector 8",
     "unlockMain": 14,
     "unlockExtra": null,
@@ -1201,11 +1275,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "У противника два разных защитных экрана: не переключай все атаки на один тип урона.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Muro on the corner of the street",
+    "locationEn": "Jaune Sector 8"
   },
   "35": {
-    "startHint": "Speak with Paix on the sidewalk next to a park",
-    "location": "West of Wild Zone 8",
+    "startHint": "Поговори с Paix: К западу от Wild Zone 8.",
+    "location": "К западу от Wild Zone 8",
     "unlockMain": 14,
     "unlockExtra": null,
     "rank": "F",
@@ -1235,11 +1311,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Искомый мастер не стоит на улице: подсказка «ближе к небу» указывает на крышу Wild Zone 3.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Paix on the sidewalk next to a park",
+    "locationEn": "West of Wild Zone 8"
   },
   "36": {
-    "startHint": "Speak with Chou sitting in front of Café Rouleau",
-    "location": "Cafe Rouleau",
+    "startHint": "Поговори с Chou: Café Rouleau.",
+    "location": "Café Rouleau",
     "unlockMain": 14,
     "unlockExtra": null,
     "rank": "F",
@@ -1269,10 +1347,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это обычный бой без дополнительных условий по составу твоей команды.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Chou sitting in front of Café Rouleau",
+    "locationEn": "Cafe Rouleau"
   },
   "37": {
-    "startHint": "Speak with Barnie on the large dock next to the water",
+    "startHint": "Поговори с Barnie: Magenta Street.",
     "location": "Magenta Street",
     "unlockMain": 14,
     "unlockExtra": null,
@@ -1303,10 +1383,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Главная опасность — не уровни, а одновременный бой против пяти целей. Дистанция и массовые атаки существенно помогают.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Barnie on the large dock next to the water",
+    "locationEn": "Magenta Street"
   },
   "38": {
-    "startHint": "Speak with Maxen on the sidewalk in front of a building",
+    "startHint": "Поговори с Maxen: Magenta Stree.",
     "location": "Magenta Stree",
     "unlockMain": 14,
     "unlockExtra": null,
@@ -1337,11 +1419,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Вторая схватка открывается после первой; одна победа не завершает задание.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Maxen on the sidewalk in front of a building",
+    "locationEn": "Magenta Stree"
   },
   "39": {
-    "startHint": "Speak with Quille on the sidewalk next to the road",
-    "location": "Southwest of Wild Zone 10",
+    "startHint": "Поговори с Quille: К юго-западу от Wild Zone 10.",
+    "location": "К юго-западу от Wild Zone 10",
     "unlockMain": 14,
     "unlockExtra": null,
     "rank": "F",
@@ -1371,10 +1455,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Онлайн или другой игрок не требуются: это обмен с NPC.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Quille on the sidewalk next to the road",
+    "locationEn": "Southwest of Wild Zone 10"
   },
   "40": {
-    "startHint": "Speak with Élec next to the broken Holovator",
+    "startHint": "Поговори с Élec: South Boulevard.",
     "location": "South Boulevard",
     "unlockMain": 14,
     "unlockExtra": null,
@@ -1405,11 +1491,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Требуется сильный Electric-приём. Если слабая атака не сработала, используй Thunderbolt.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Élec next to the broken Holovator",
+    "locationEn": "South Boulevard"
   },
   "41": {
-    "startHint": "Speak with Piè at the battle courtyard outside Wild Zone 1",
-    "location": "North of Wild Zone 1",
+    "startHint": "Поговори с Piè: К северу от Wild Zone 1.",
+    "location": "К северу от Wild Zone 1",
     "unlockMain": 16,
     "unlockExtra": null,
     "rank": "E",
@@ -1439,11 +1527,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если ловушки мешают ближнему бою, дальняя или площадная атака безопаснее.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Piè at the battle courtyard outside Wild Zone 1",
+    "locationEn": "North of Wild Zone 1"
   },
   "42": {
-    "startHint": "Speak with Faye in the battle courtyard inside Wild Zone 6",
-    "location": "Wild Zone 6 Poke Court",
+    "startHint": "Поговори с Faye: Wild Zone 6 боевая площадка.",
+    "location": "Wild Zone 6 боевая площадка",
     "unlockMain": 16,
     "unlockExtra": null,
     "rank": "E",
@@ -1473,11 +1563,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это именно битва с тремя неэволюционировавшими Fairy-покемонами.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Faye in the battle courtyard inside Wild Zone 6",
+    "locationEn": "Wild Zone 6 Poke Court"
   },
   "43": {
-    "startHint": "Speak with Grandt in a courtyard next to a hedge",
-    "location": "Northwest of Cafe Gallant",
+    "startHint": "Поговори с Grandt in a courtyard: К северо-западу от Café Gallant.",
+    "location": "К северо-западу от Café Gallant",
     "unlockMain": 16,
     "unlockExtra": null,
     "rank": "E",
@@ -1511,11 +1603,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если отдашь Weedle заказчику, его можно будет видеть в городе, но не использовать в собственной команде.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Grandt in a courtyard next to a hedge",
+    "locationEn": "Northwest of Cafe Gallant"
   },
   "44": {
-    "startHint": "Speak with Odette in front of Boutique Couture",
-    "location": "South of Vernal Pokemon Center",
+    "startHint": "Поговори с Odette: К югу от Vernal Pokémon Center.",
+    "location": "К югу от Vernal Pokémon Center",
     "unlockMain": 19,
     "unlockExtra": "Complete Skiddo’s Fragrant Leaves",
     "rank": "E",
@@ -1545,10 +1639,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Предъявляй именно Vanillite, а не его эволюции.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Odette in front of Boutique Couture",
+    "locationEn": "South of Vernal Pokemon Center"
   },
   "45": {
-    "startHint": "Speak with Durstin next to the broken Holovator",
+    "startHint": "Поговори с Durstin: South Boulevard.",
     "location": "South Boulevard",
     "unlockMain": 19,
     "unlockExtra": null,
@@ -1579,11 +1675,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Любой один из трёх напитков подходит, не нужно приносить все три.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Durstin next to the broken Holovator",
+    "locationEn": "South Boulevard"
   },
   "46": {
-    "startHint": "Speak with Colis on a ledge over the water",
-    "location": "Northwest of Wild Zone 11",
+    "startHint": "Поговори с Colis: К северо-западу от Wild Zone 11.",
+    "location": "К северо-западу от Wild Zone 11",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1613,11 +1711,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "TM090 Fly выдаётся именно за этот поединок.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Colis on a ledge over the water",
+    "locationEn": "Northwest of Wild Zone 11"
   },
   "47": {
-    "startHint": "Speak with Mirte in a courtyard next to a building",
-    "location": "Northwest of Wild Zone 11",
+    "startHint": "Поговори с Mirte in a courtyard: К северо-западу от Wild Zone 11.",
+    "location": "К северо-западу от Wild Zone 11",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1647,11 +1747,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Требуется освоенный Plus Move, не обычный Slash.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Mirte in a courtyard next to a building",
+    "locationEn": "Northwest of Wild Zone 11"
   },
   "48": {
-    "startHint": "Investigate the cocoon hanging from a tree",
-    "location": "North of Wild Zone 3",
+    "startHint": "Осмотри объект задания: К северу от Wild Zone 3.",
+    "location": "К северу от Wild Zone 3",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1681,11 +1783,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Важна именно базовая сила приёма (100+), а не реальный урон, уровень или тип атакующего Pokémon.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Investigate the cocoon hanging from a tree",
+    "locationEn": "North of Wild Zone 3"
   },
   "49": {
-    "startHint": "Speak with Piresse near the entrance to Galerie de la Lune",
-    "location": "South of Restaurant Le Wow",
+    "startHint": "Поговори с Piresse: К югу от Restaurant Le Wow.",
+    "location": "К югу от Restaurant Le Wow",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1715,10 +1819,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если бой затягивается, дело в сочетании поглощающих атак и Big Root.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Piresse near the entrance to Galerie de la Lune",
+    "locationEn": "South of Restaurant Le Wow"
   },
   "50": {
-    "startHint": "Speak with the Goomy on the bench next to the canal",
+    "startHint": "Поговори с Goomy: Magenta Street.",
     "location": "Magenta Street",
     "unlockMain": 19,
     "unlockExtra": null,
@@ -1749,11 +1855,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Тратить время на «правильные» ответы не нужно: вопросы не влияют на результат.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the Goomy on the bench next to the canal",
+    "locationEn": "Magenta Street"
   },
   "51": {
-    "startHint": "Speak with Vivace in front of Coiffure Clips",
-    "location": "West of Bleu Pokemon Center",
+    "startHint": "Поговори с Vivace: К западу от Bleu Pokémon Center.",
+    "location": "К западу от Bleu Pokémon Center",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "??",
@@ -1783,10 +1891,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Пять Floette атакуют одновременно — лучше разделить их позиционированием.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Vivace in front of Coiffure Clips",
+    "locationEn": "West of Bleu Pokemon Center"
   },
   "52": {
-    "startHint": "Speak with Gelli next to their frozen Numel inside Wild Zone 12",
+    "startHint": "Поговори с Gelli: Wild Zone 12.",
     "location": "Wild Zone 12",
     "unlockMain": 19,
     "unlockExtra": null,
@@ -1817,11 +1927,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Нужна Fire-атака с требуемой базовой мощностью, а не просто любая огненная атака.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Gelli next to their frozen Numel inside Wild Zone 12",
+    "locationEn": "Wild Zone 12"
   },
   "53": {
-    "startHint": "Speak with Anguil next to a newspaper stand near Wild Zone 12",
-    "location": "West of Wild Zone 12",
+    "startHint": "Поговори с Anguil: К западу от Wild Zone 12.",
+    "location": "К западу от Wild Zone 12",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1851,11 +1963,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "В Legends: Z-A традиционные боевые Abilities отсутствуют: не рассчитывай на Levitate, известную по другим играм.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Anguil next to a newspaper stand near Wild Zone 12",
+    "locationEn": "West of Wild Zone 12"
   },
   "54": {
-    "startHint": "Speak with Foco in the battle courtyard next to Quasartico Inc.",
-    "location": "South of Quasartico Inc",
+    "startHint": "Поговори с Foco: К югу от Quasartico Inc.",
+    "location": "К югу от Quasartico Inc",
     "unlockMain": 19,
     "unlockExtra": null,
     "rank": "E",
@@ -1885,10 +1999,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Критические попадания могут игнорировать часть защитных преимуществ — не полагайся только на высокий Defense.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Foco in the battle courtyard next to Quasartico Inc.",
+    "locationEn": "South of Quasartico Inc"
   },
   "55": {
-    "startHint": "Speak with the Director on the dock next to the water",
+    "startHint": "Поговори с режиссёром: Saison Canal.",
     "location": "Saison Canal",
     "unlockMain": 19,
     "unlockExtra": null,
@@ -1919,10 +2035,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Carvanha не нужно развивать в Sharpedo; заказчику нужен именно этот вид.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the Director on the dock next to the water",
+    "locationEn": "Saison Canal"
   },
   "56": {
-    "startHint": "Speak with Médierà next to the broken Holovator",
+    "startHint": "Поговори с Médierà: Jaune Sector 6.",
     "location": "Jaune Sector 6",
     "unlockMain": 19,
     "unlockExtra": null,
@@ -1953,11 +2071,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Специальный Fighting-приём может не удовлетворять условию: проверь категорию Physical.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Médierà next to the broken Holovator",
+    "locationEn": "Jaune Sector 6"
   },
   "57": {
-    "startHint": "Speak with Hérup in the sewers, accessible from the lot behind Café Woof",
-    "location": "Sewers",
+    "startHint": "Поговори с Hérup: Канализация.",
+    "location": "Канализация",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -1987,11 +2107,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для повторного входа в канализацию используй лестницу позади Café Woof либо проход из Wild Zone 5.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Hérup in the sewers, accessible from the lot behind Café Woof",
+    "locationEn": "Sewers"
   },
   "58": {
-    "startHint": "Speak with Claire inside the battle courtyard",
-    "location": "Poke Court Northwest of Bleu Plaza",
+    "startHint": "Поговори с Claire: боевая площадка Northwest of Bleu Plaza.",
+    "location": "боевая площадка Northwest of Bleu Plaza",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2021,11 +2143,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "В самом начале поединка действия Detect может избежать урона от твоего первого удара.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Claire inside the battle courtyard",
+    "locationEn": "Poke Court Northwest of Bleu Plaza"
   },
   "59": {
-    "startHint": "Speak with Dora on the roof of a building",
-    "location": "Rooftop West of Wild Zone 7",
+    "startHint": "Поговори с Dora: Крыша West of Wild Zone 7.",
+    "location": "Крыша West of Wild Zone 7",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2055,10 +2179,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это отдельный одиночный бой, не повторный Rogue Mega Hawlucha из сюжетной миссии.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Dora on the roof of a building",
+    "locationEn": "Rooftop West of Wild Zone 7"
   },
   "60": {
-    "startHint": "Speak with the waitress inside Restaurant Le Yeah",
+    "startHint": "Поговори с официанткой: Restaurant Le Yeah.",
     "location": "Restaurant Le Yeah",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2105,11 +2231,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это испытание на выносливость: лечение недоступно даже между пятью матчами. Подготовь состав и предметы заранее.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the waitress inside Restaurant Le Yeah",
+    "locationEn": "Restaurant Le Yeah"
   },
   "61": {
-    "startHint": "Speak with the grunt next to the Holovator",
-    "location": "North of Wild Zone 12",
+    "startHint": "Поговори с участником Rust Syndicate: К северу от Wild Zone 12.",
+    "location": "К северу от Wild Zone 12",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2135,11 +2263,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если подъёмник раньше не работал, после выполнения задания можно вернуться и исследовать новые крыши.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the grunt next to the Holovator",
+    "locationEn": "North of Wild Zone 12"
   },
   "62": {
-    "startHint": "Speak with Mirte in a courtyard next to a building",
-    "location": "Northwest of Wild Zone 11",
+    "startHint": "Поговори с Mirte in a courtyard: К северо-западу от Wild Zone 11.",
+    "location": "К северо-западу от Wild Zone 11",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2169,10 +2299,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Обычный Razor Leaf без усиления до Plus Move может не засчитать действие.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Mirte in a courtyard next to a building",
+    "locationEn": "Northwest of Wild Zone 11"
   },
   "63": {
-    "startHint": "Speak with Lugo on the sidewalk next to a tree",
+    "startHint": "Поговори с Lugo: North Boulevard.",
     "location": "North Boulevard",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2207,11 +2339,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Покемон отдаётся NPC навсегда. Не передавай единственного редкого Alpha, если хочешь оставить его для команды.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Lugo on the sidewalk next to a tree",
+    "locationEn": "North Boulevard",
+    "quick": "Покажи Gogoat именно размера XL, проверив его размер заранее.",
+    "prep": "Gogoat XL."
   },
   "64": {
-    "startHint": "Speak with Cielestine inside the battle courtyard",
-    "location": "Poke Court West of Wild Zone 4",
+    "startHint": "Поговори с Cielestine: боевая площадка West of Wild Zone 4.",
+    "location": "боевая площадка West of Wild Zone 4",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2241,10 +2377,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если цель — эволюция Sliggoo, ищи естественный дождь: сюжетный дождь этого боя заканчивается слишком быстро.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Cielestine inside the battle courtyard",
+    "locationEn": "Poke Court West of Wild Zone 4"
   },
   "65": {
-    "startHint": "Speak with Ante on the sidewalk",
+    "startHint": "Поговори с Ante: Rouge Sector 7.",
     "location": "Rouge Sector 7",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2275,10 +2413,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это погоня с финальным боем: поимка Dedenne не требуется для завершения.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Ante on the sidewalk",
+    "locationEn": "Rouge Sector 7"
   },
   "66": {
-    "startHint": "Speak with Rancun on the street corner",
+    "startHint": "Поговори с Rancun: Bleu Plaza.",
     "location": "Bleu Plaza",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2309,10 +2449,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для задания нужен Shuppet, с которым можно расстаться; заранее сохрани любимый экземпляр.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Rancun on the street corner",
+    "locationEn": "Bleu Plaza"
   },
   "67": {
-    "startHint": "Speak with Calma on the sidewalk next to the waterway",
+    "startHint": "Поговори с Calma: Coulant Waterway.",
     "location": "Coulant Waterway",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2355,11 +2497,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Ищи пять отдельных пар. Ни одной из них не требуется побеждать в бою.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Calma on the sidewalk next to the waterway",
+    "locationEn": "Coulant Waterway",
+    "quick": "Разреши пять ссор, связанных с Sylveon."
   },
   "68": {
-    "startHint": "Speak with Seizi in front of Restaurant Le Nah",
-    "location": "Southeast of Wild Area 11",
+    "startHint": "Поговори с Seizi: К юго-востоку от Wild Area 11.",
+    "location": "К юго-востоку от Wild Area 11",
     "unlockMain": 20,
     "unlockExtra": null,
     "rank": "D",
@@ -2389,10 +2534,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Leftovers восстанавливает HP по ходу боя, поэтому слабые атаки здесь особенно неэффективны.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Seizi in front of Restaurant Le Nah",
+    "locationEn": "Southeast of Wild Area 11"
   },
   "69": {
-    "startHint": "Speak with Volli near the corner of the roof of a building",
+    "startHint": "Поговори с Volli: Magenta Street Rooftop.",
     "location": "Magenta Street Rooftop",
     "unlockMain": 20,
     "unlockExtra": null,
@@ -2423,11 +2570,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Система проверяет именно Flying-тип, а не внешний вид и способность Pokémon летать.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Volli near the corner of the roof of a building",
+    "locationEn": "Magenta Street Rooftop"
   },
   "70": {
-    "startHint": "Approach the two grunts out on the sidewalk outside the Rust Syndicate Office",
-    "location": "Northwest of Wild Zone 5",
+    "startHint": "Подойди к персонажу или объекту задания: К северо-западу от Wild Zone 5.",
+    "location": "К северо-западу от Wild Zone 5",
     "unlockMain": 24,
     "unlockExtra": null,
     "rank": "D",
@@ -2457,11 +2606,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Разница типов двух соперников делает универсальный атакующий набор полезнее одной узкой специализации.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Approach the two grunts out on the sidewalk outside the Rust Syndicate Office",
+    "locationEn": "Northwest of Wild Zone 5"
   },
   "71": {
-    "startHint": "Speak with Chuckie next to the Holovator with an alpha Watchog standing in it",
-    "location": "Northeast of Wild Zone 7",
+    "startHint": "Поговори с Chuckie: К северо-востоку от Wild Zone 7.",
+    "location": "К северо-востоку от Wild Zone 7",
     "unlockMain": 24,
     "unlockExtra": null,
     "rank": "D",
@@ -2495,11 +2646,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Следи за сильными Alpha-атаками Watchog: безопаснее начать на расстоянии и уклоняться.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Chuckie next to the Holovator with an alpha Watchog standing in it",
+    "locationEn": "Northeast of Wild Zone 7"
   },
   "72": {
-    "startHint": "Speak with Terri on the sidewalk over the water",
-    "location": "Northeast of Restaurant Le Nah",
+    "startHint": "Поговори с Terri: К северо-востоку от Restaurant Le Nah.",
+    "location": "К северо-востоку от Restaurant Le Nah",
     "unlockMain": 24,
     "unlockExtra": null,
     "rank": "D",
@@ -2529,10 +2682,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не ищи обычную стоящую модель Stunfisk: он выглядит как предмет для подбора.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Terri on the sidewalk over the water",
+    "locationEn": "Northeast of Restaurant Le Nah",
+    "quick": "Galarian Stunfisk маскируется под Poké Ball в Wild Zone 11."
   },
   "73": {
-    "startHint": "Speak with the waitress inside Sushi High Roller",
+    "startHint": "Поговори с официанткой: Sushi High Roller.",
     "location": "Sushi High Roller",
     "unlockMain": 24,
     "unlockExtra": null,
@@ -2563,11 +2719,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Точный состав соперников для каждого раунда пока не подтверждён в использованном прохождении; не считай этот перечень полноценной боевой таблицей.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the waitress inside Sushi High Roller",
+    "locationEn": "Sushi High Roller"
   },
   "74": {
-    "startHint": "Speak with the Delibird running in circles in the courtyard",
-    "location": "West of Hotel Z",
+    "startHint": "Поговори с the Delibird running in circles: К западу от Hotel Z.",
+    "location": "К западу от Hotel Z",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2597,11 +2755,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Здесь последовательность необычная: сначала Delibird, затем бой с Garbodor, а поимка Delibird доступна после него.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the Delibird running in circles in the courtyard",
+    "locationEn": "West of Hotel Z"
   },
   "75": {
-    "startHint": "Speak with Touri in the battle courtyard next to Wild Zone 1",
-    "location": "North of Wild Zone 1",
+    "startHint": "Поговори с Touri: К северу от Wild Zone 1.",
+    "location": "К северу от Wild Zone 1",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2631,11 +2791,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Два предмета награды позволяют развивать Galarian Slowpoke в одну из региональных эволюций.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Touri in the battle courtyard next to Wild Zone 1",
+    "locationEn": "North of Wild Zone 1"
   },
   "76": {
-    "startHint": "Speak with Jondre in the middle of the courtyard",
-    "location": "East of Wild Zone 3",
+    "startHint": "Поговори с Jondre: К востоку от Wild Zone 3.",
+    "location": "К востоку от Wild Zone 3",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2677,11 +2839,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Последний ответ свободный; первые четыре нужно знать точно.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Jondre in the middle of the courtyard",
+    "locationEn": "East of Wild Zone 3",
+    "quick": "Ответы: Mega Stones → Eelektrossite → Plus Moves → Mega Ampharos → любой вариант."
   },
   "77": {
-    "startHint": "Speak with Réu in front of Nouveau Café (Truck No. 3)",
-    "location": "Nouveau Cafe Truck No. 3",
+    "startHint": "Поговори с Réu: Nouveau Café Truck No. 3.",
+    "location": "Nouveau Café Truck No. 3",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2715,10 +2880,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Mawile сидит на крыше у входа в Wild Zone 9, а не внутри самой зоны на уровне улицы.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Réu in front of Nouveau Café (Truck No. 3)",
+    "locationEn": "Nouveau Cafe Truck No. 3"
   },
   "78": {
-    "startHint": "Speak with Odette in front of Boutique Couture",
+    "startHint": "Поговори с Odette: Vernal Avenue.",
     "location": "Vernal Avenue",
     "unlockMain": 26,
     "unlockExtra": null,
@@ -2749,11 +2916,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не нужно отдавать Inkay или развивать его в Malamar.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Odette in front of Boutique Couture",
+    "locationEn": "Vernal Avenue"
   },
   "79": {
-    "startHint": "Speak with Furiko sitting outside Café Kizuna",
-    "location": "Cafe Kizuna",
+    "startHint": "Поговори с Furiko: Café Kizuna.",
+    "location": "Café Kizuna",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2781,13 +2950,16 @@ export const ZA_SIDE_HANDBOOK={
       "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A/Side_Missions_61-80",
       "https://www.gamerguides.com/pokemon-legends-z-a/guide/side-missions/overview/"
     ],
-    "tip": "Заранее продумайте стратегию.",
+    "tip": "Противник использует Metronome, а наградой является TM099 Metronome.",
     "review": "source-extracted-unplaytested",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Furiko sitting outside Café Kizuna",
+    "locationEn": "Cafe Kizuna",
+    "quick": "Два Clefairy ур. 51 и Clefable ур. 52 используют случайный Metronome. Награда — TM099."
   },
   "80": {
-    "startHint": "Speak with Amordél on the side walk in the middle of the street",
-    "location": "Southwest of Wild Zone 15",
+    "startHint": "Поговори с Amordél: К юго-западу от Wild Zone 15.",
+    "location": "К юго-западу от Wild Zone 15",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2821,10 +2993,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Здесь два Pokémon атакуют одновременно. Не пытайся тратить Poké Balls: они не доступны для поимки.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Amordél on the side walk in the middle of the street",
+    "locationEn": "Southwest of Wild Zone 15"
   },
   "81": {
-    "startHint": "Approach Andi in the middle of the street",
+    "startHint": "Подойди к персонажу или объекту задания: Racine Construction.",
     "location": "Racine Construction",
     "unlockMain": 26,
     "unlockExtra": null,
@@ -2859,11 +3033,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это совместный поединок с NPC-союзником, а не встреча с дикими Pokémon.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Approach Andi in the middle of the street",
+    "locationEn": "Racine Construction"
   },
   "82": {
-    "startHint": "Speak with Nett on the roof of a building",
-    "location": "Rooftop Northeast of Wild Zone 8",
+    "startHint": "Поговори с Nett: Крыша Northeast of Wild Zone 8.",
+    "location": "Крыша Northeast of Wild Zone 8",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2893,11 +3069,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для решения нужен конкретный приём Water Gun, а не просто любая атака Water-типа.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Nett on the roof of a building",
+    "locationEn": "Rooftop Northeast of Wild Zone 8",
+    "quick": "Нужен конкретно Water Gun, а не другая Water-атака.",
+    "prep": "Покемон с Water Gun."
   },
   "83": {
-    "startHint": "Speak with Acier on the sidewalk",
-    "location": "Rouge Pokemon Center",
+    "startHint": "Поговори с Acier: Rouge Pokémon Center.",
+    "location": "Rouge Pokémon Center",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2931,11 +3111,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для испытания нужен Pupitar, не Tyranitar и не Larvitar. Следи за составом активной команды.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Acier on the sidewalk",
+    "locationEn": "Rouge Pokemon Center",
+    "quick": "Larvitar находится в Wild Zone 15: маршрут проходит через крыши и Holovator."
   },
   "84": {
-    "startHint": "Speak with Flynn in the battle courtyard next to Quasartico Inc.",
-    "location": "South of Quasartico Inc.",
+    "startHint": "Поговори с Flynn: К югу от Quasartico Inc..",
+    "location": "К югу от Quasartico Inc.",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -2965,11 +3148,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Особенность задания — удерживаемый King's Rock и эффекты Flinch, а не просто высокая скорость противников.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Flynn in the battle courtyard next to Quasartico Inc.",
+    "locationEn": "South of Quasartico Inc."
   },
   "85": {
-    "startHint": "Speak with Consei across the street from Café Triste",
-    "location": "Cafe Triste",
+    "startHint": "Поговори с Consei: Café Triste.",
+    "location": "Café Triste",
     "unlockMain": 26,
     "unlockExtra": null,
     "rank": "C",
@@ -3003,10 +3188,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Litwick не требуется ловить. Цель — пройти весь маршрут до девушки в дальней комнате канализации.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Consei across the street from Café Triste",
+    "locationEn": "Cafe Triste"
   },
   "86": {
-    "startHint": "Investigate the hole in the ground in front of the Rust Syndicate Office",
+    "startHint": "Осмотри объект задания: Syndicate Office.",
     "location": "Syndicate Office",
     "unlockMain": 30,
     "unlockExtra": null,
@@ -3041,11 +3228,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Финальная точка — треугольная лужайка у лесов, а не произвольная яма рядом с Wild Zone 10.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Investigate the hole in the ground in front of the Rust Syndicate Office",
+    "locationEn": "Syndicate Office"
   },
   "87": {
-    "startHint": "Speak with Mirte in a courtyard next to a building",
-    "location": "Northwest of Wild Zone 11",
+    "startHint": "Поговори с Mirte in a courtyard: К северо-западу от Wild Zone 11.",
+    "location": "К северо-западу от Wild Zone 11",
     "unlockMain": 30,
     "unlockExtra": null,
     "rank": "C",
@@ -3075,11 +3264,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это испытание на конкретный приём Psycho Cut, а не на любой Psychic-тип.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Mirte in a courtyard next to a building",
+    "locationEn": "Northwest of Wild Zone 11"
   },
   "88": {
-    "startHint": "Speak with Tesse standing next to a taxi",
-    "location": "Northwest of Wild Zone 3",
+    "startHint": "Поговори с Tesse: К северо-западу от Wild Zone 3.",
+    "location": "К северо-западу от Wild Zone 3",
     "unlockMain": 30,
     "unlockExtra": null,
     "rank": "C",
@@ -3113,11 +3304,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Выбор платить за поездку или нет не влияет на завершение задания.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Tesse standing next to a taxi",
+    "locationEn": "Northwest of Wild Zone 3"
   },
   "89": {
-    "startHint": "Speak with Urmand on the roof of a building",
-    "location": "West of Wild Zone 15",
+    "startHint": "Поговори с Urmand: К западу от Wild Zone 15.",
+    "location": "К западу от Wild Zone 15",
     "unlockMain": 30,
     "unlockExtra": null,
     "rank": "C",
@@ -3147,10 +3340,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Emolga можно поймать после боя, но главное — довести преследование до строительных лесов.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Urmand on the roof of a building",
+    "locationEn": "West of Wild Zone 15"
   },
   "90": {
-    "startHint": "Investigate the tree in the middle of the sidewalk",
+    "startHint": "Осмотри объект задания: Bleu Sector 3.",
     "location": "Bleu Sector 3",
     "unlockMain": 30,
     "unlockExtra": null,
@@ -3181,10 +3376,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Froslass не требуется побеждать или ловить: цель — проследовать за ней до конца.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Investigate the tree in the middle of the sidewalk",
+    "locationEn": "Bleu Sector 3"
   },
   "91": {
-    "startHint": "Speak with Guivre next to the battle courtyard of a building",
+    "startHint": "Поговори с Guivre: Vert Sector 3.",
     "location": "Vert Sector 3",
     "unlockMain": 31,
     "unlockExtra": null,
@@ -3215,11 +3412,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не полагайся только на Dragon-атаки: Fairy-соперник выигрывает за счёт иммунитета к Dragon, но не к дополнительным приёмам.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Guivre next to the battle courtyard of a building",
+    "locationEn": "Vert Sector 3"
   },
   "92": {
-    "startHint": "Approach the broken Holovator surrounded by Beldum",
-    "location": "South of Cafe Soleil",
+    "startHint": "Подойди к персонажу или объекту задания: К югу от Café Soleil.",
+    "location": "К югу от Café Soleil",
     "unlockMain": 31,
     "unlockExtra": null,
     "rank": "B",
@@ -3249,11 +3448,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Это бой 1 против 4 одновременно. Лучше иметь хотя бы одну эффективную атаку по площади.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Approach the broken Holovator surrounded by Beldum",
+    "locationEn": "South of Cafe Soleil"
   },
   "93": {
-    "startHint": "Speak with Trale sitting in front of Café Soleil",
-    "location": "Cafe Soleil",
+    "startHint": "Поговори с Trale: Café Soleil.",
+    "location": "Café Soleil",
     "unlockMain": 31,
     "unlockExtra": null,
     "rank": "B",
@@ -3283,10 +3484,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Конкретное решение — крыша на южной стороне Magenta Street с длинной лестницей и зонтиками. Не нужно проверять каждый жилой дом вокруг башни.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Trale sitting in front of Café Soleil",
+    "locationEn": "Cafe Soleil",
+    "quick": "Ищи крышу, подходящую Heliolisk, с видом на Prism Tower."
   },
   "94": {
-    "startHint": "Speak with the waiter inside Restaurant Le Wow",
+    "startHint": "Поговори с официантом: Restaurant Le Wow.",
     "location": "Restaurant Le Wow",
     "unlockMain": 31,
     "unlockExtra": null,
@@ -3349,10 +3553,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Без лечения 10 раундов очень тяжёлые. Ключевые опасности: Toxic в раунде 1, защитные экраны в 3, Rocky Helmet и восстановление в 4, защитные приёмы в 6, Life Orb в 9 и Mega Tyranitar в 10.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the waiter inside Restaurant Le Wow",
+    "locationEn": "Restaurant Le Wow",
+    "quick": "Десять боёв без лечения. Особые угрозы: Toxic (1), экраны (3), Rocky Helmet (4), Life Orb (9), Mega Tyranitar (10).",
+    "prep": "Команда на 10 последовательных боёв без лечения."
   },
   "95": {
-    "startHint": "Speak with Malé next to a fountain on top of a roof near the Justice Dojo",
+    "startHint": "Поговори с Malé: Justice Dojo Rooftop.",
     "location": "Justice Dojo Rooftop",
     "unlockMain": 35,
     "unlockExtra": null,
@@ -3387,11 +3595,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если NPC не даёт начать бой, проверь каждого из шести слотов: никакого Pokémon без Ghost-типа быть не должно.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Malé next to a fountain on top of a roof near the Justice Dojo",
+    "locationEn": "Justice Dojo Rooftop"
   },
   "96": {
-    "startHint": "Speak with Fina inside the battle courtyard",
-    "location": "Centrico Pokemon Center",
+    "startHint": "Поговори с Fina: Centrico Pokémon Center.",
+    "location": "Centrico Pokémon Center",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3425,11 +3635,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для прохождения не обязательно быстрее всех наносить урон — безопаснее уклоняться от взрывов.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Fina inside the battle courtyard",
+    "locationEn": "Centrico Pokemon Center"
   },
   "97": {
-    "startHint": "Speak with Rouland on the sidewalk across the street from Wild Zone 9",
-    "location": "West of Wild Zone 9",
+    "startHint": "Поговори с Rouland: К западу от Wild Zone 9.",
+    "location": "К западу от Wild Zone 9",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3459,11 +3671,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не нужно ловить Whirlipede для зачёта: в прохождении указана победа в бою.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Rouland on the sidewalk across the street from Wild Zone 9",
+    "locationEn": "West of Wild Zone 9"
   },
   "98": {
-    "startHint": "Speak with Taille on the sidewalk near Café Action!",
-    "location": "Cafe Action",
+    "startHint": "Поговори с Taille: Café Action.",
+    "location": "Café Action",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3493,11 +3707,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не подменяй Jumbo Variety обычным Alpha — по условию задания это разные критерии.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Taille on the sidewalk near Café Action!",
+    "locationEn": "Cafe Action",
+    "quick": "Требуется Pumpkaboo Jumbo Variety, не просто Alpha.",
+    "prep": "Pumpkaboo Jumbo."
   },
   "99": {
-    "startHint": "Speak with Appée outside the Pokémon Research Lab next to a group of Aron",
-    "location": "Pokemon Research Lab",
+    "startHint": "Поговори с Appée: Лаборатория покемонов.",
+    "location": "Лаборатория покемонов",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3527,10 +3745,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Именно Sludge Bomb, а не Sludge или любой Poison-приём.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Appée outside the Pokémon Research Lab next to a group of Aron",
+    "locationEn": "Pokemon Research Lab"
   },
   "100": {
-    "startHint": "Speak with Cate next to the canal",
+    "startHint": "Поговори с Cate: Saison Canal.",
     "location": "Saison Canal",
     "unlockMain": 35,
     "unlockExtra": null,
@@ -3565,10 +3785,12 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Задание запускается ночью и требует Starmie, а не Staryu.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Cate next to the canal",
+    "locationEn": "Saison Canal"
   },
   "101": {
-    "startHint": "Speak with the grunt near the entrance to Passage de la Félicité",
+    "startHint": "Поговори с участником Rust Syndicate: Bleu Street.",
     "location": "Bleu Street",
     "unlockMain": 35,
     "unlockExtra": null,
@@ -3599,11 +3821,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не используй прежнюю ошибочную подсказку про Dark-тип Mawile — его действительный тип Steel/Fairy.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the grunt near the entrance to Passage de la Félicité",
+    "locationEn": "Bleu Street"
   },
   "102": {
-    "startHint": "Speak with Glace inside Wild Zone 12",
-    "location": "Northwest of Wild Zone 12",
+    "startHint": "Поговори с Glace: К северо-западу от Wild Zone 12.",
+    "location": "К северо-западу от Wild Zone 12",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3637,11 +3861,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Условие касается всей активной команды, а не только стартующего покемона.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Glace inside Wild Zone 12",
+    "locationEn": "Northwest of Wild Zone 12"
   },
   "103": {
-    "startHint": "Speak with Mirte in a courtyard next to a building",
-    "location": "Northwest of Wild Zone 11",
+    "startHint": "Поговори с Mirte in a courtyard: К северо-западу от Wild Zone 11.",
+    "location": "К северо-западу от Wild Zone 11",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3687,11 +3913,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Здесь четыре отдельных ресторана и финал в Café Woof. У Soignée шесть, а не семь Furfrou.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Mirte in a courtyard next to a building",
+    "locationEn": "Northwest of Wild Zone 11",
+    "quick": "Furfrou League: Le Nah → Le Yeah → Sushi High Roller → Le Wow → Café Woof. Финал — шесть Furfrou.",
+    "prep": "Тренированный Furfrou."
   },
   "104": {
-    "startHint": "Speak with Constance in the center of the battle courtyard",
-    "location": "South of Wild Zone 13",
+    "startHint": "Поговори с Constance: К югу от Wild Zone 13.",
+    "location": "К югу от Wild Zone 13",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3721,11 +3951,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Перечисленные Beedrill, Ariados и другие Pokémon принадлежат сопернице — их не нужно ловить или приводить с собой.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Constance in the center of the battle courtyard",
+    "locationEn": "South of Wild Zone 13"
   },
   "105": {
-    "startHint": "Speak with the Director on the street outside Wild Zone 4",
-    "location": "South of Wild Zone 4",
+    "startHint": "Поговори с режиссёром: К югу от Wild Zone 4.",
+    "location": "К югу от Wild Zone 4",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3755,11 +3987,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Ночной Alpha Trevenant позволяет получить вид без эволюции через обмен.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the Director on the street outside Wild Zone 4",
+    "locationEn": "South of Wild Zone 4"
   },
   "106": {
-    "startHint": "Speak with Cadena on the street corner",
-    "location": "South of Hotel Richissime",
+    "startHint": "Поговори с Cadena: К югу от Hotel Richissime.",
+    "location": "К югу от Hotel Richissime",
     "unlockMain": 35,
     "unlockExtra": null,
     "rank": "B",
@@ -3789,11 +4023,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Ключ лежит непосредственно на battle court, а не в парикмахерской или ресторане.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Cadena on the street corner",
+    "locationEn": "South of Hotel Richissime",
+    "quick": "Ключ лежит на боевой площадке Vert Sector 9 между Café Classe и парикмахерской."
   },
   "107": {
-    "startHint": "Speak with Pikami in the battle courtyard",
-    "location": "North of Wild Zone 20",
+    "startHint": "Поговори с Pikami: К северу от Wild Zone 20.",
+    "location": "К северу от Wild Zone 20",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -3823,10 +4060,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Покемонов в активной команде должен быть ровно один — Pikachu; просто поставить его первым недостаточно.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Pikami in the battle courtyard",
+    "locationEn": "North of Wild Zone 20",
+    "quick": "В активной команде должен быть только один Pikachu.",
+    "prep": "Только Pikachu в активной команде."
   },
   "108": {
-    "startHint": "Speak with Griddella in front of Quasartico Inc.",
+    "startHint": "Поговори с Griddella: Quasartico Inc.",
     "location": "Quasartico Inc",
     "unlockMain": 38,
     "unlockExtra": null,
@@ -3861,11 +4102,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Нужен обычный Raichu; Alolan Raichu выдаётся именно после победы и внутриигрового обмена.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Griddella in front of Quasartico Inc.",
+    "locationEn": "Quasartico Inc",
+    "quick": "Используй одного обычного Raichu, победи Alolan Raichu и затем обменяй своего.",
+    "prep": "Только обычный Raichu."
   },
   "109": {
-    "startHint": "Speak with Nurse Bien inside the Vert Pokémon Center",
-    "location": "Vert Pokemon Center",
+    "startHint": "Поговори с Nurse Bien: Vert Pokémon Center.",
+    "location": "Vert Pokémon Center",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -3895,11 +4140,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Lucky Egg — награда за конкретный бой, поэтому его стоит выполнить ради ускорения дальнейшей прокачки.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Nurse Bien inside the Vert Pokémon Center",
+    "locationEn": "Vert Pokemon Center"
   },
   "110": {
-    "startHint": "Speak with Chante on the street corner",
-    "location": "Southeast of Lumiose Museum",
+    "startHint": "Поговори с Chante: К юго-востоку от Lumiose Museum.",
+    "location": "К юго-востоку от Lumiose Museum",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -3933,11 +4180,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Если после Perish Song просто продолжать долгий бой тем же Pokémon, можно проиграть даже при большом запасе HP.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Chante on the street corner",
+    "locationEn": "Southeast of Lumiose Museum"
   },
   "111": {
-    "startHint": "Speak with Aimée inside the battle courtyard",
-    "location": "East of Wild Zone 12",
+    "startHint": "Поговори с Aimée: К востоку от Wild Zone 12.",
+    "location": "К востоку от Wild Zone 12",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -3967,11 +4216,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не недооценивай команду из-за маленьких форм: их уровень 68.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Aimée inside the battle courtyard",
+    "locationEn": "East of Wild Zone 12"
   },
   "112": {
-    "startHint": "Speak with Sente next to the canal",
-    "location": "Northwest of Wild Zone 14",
+    "startHint": "Поговори с Sente: К северо-западу от Wild Zone 14.",
+    "location": "К северо-западу от Wild Zone 14",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -4005,11 +4256,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Внимательно проверяй количества: для Cheri требуется двадцать штук, а двух других ягод — по пять.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Sente next to the canal",
+    "locationEn": "Northwest of Wild Zone 14"
   },
   "113": {
-    "startHint": "Speak with Brina in front of the building surrounded by Bergmite",
-    "location": "Southwest of Bleu Pokemon Cente",
+    "startHint": "Поговори с Brina: К юго-западу от Bleu Pokémon Cente.",
+    "location": "К юго-западу от Bleu Pokémon Cente",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -4039,11 +4292,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Учитывается размер XL: не каждый обычный Avalugg обязательно подходит.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Brina in front of the building surrounded by Bergmite",
+    "locationEn": "Southwest of Bleu Pokemon Cente"
   },
   "114": {
-    "startHint": "Speak with Couper on the bridge outside Wild Zone 17",
-    "location": "West of Racine Construction",
+    "startHint": "Поговори с Couper: К западу от Racine Construction.",
+    "location": "К западу от Racine Construction",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -4073,11 +4328,13 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Не путай светящиеся предметы на разных крышах: нужный находится между двумя дымоходами на крыше Alpha Mawile.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Couper on the bridge outside Wild Zone 17",
+    "locationEn": "West of Racine Construction"
   },
   "115": {
-    "startHint": "Speak with the Director on the side walk in front of the Poké Ball Boutique",
-    "location": "North of Quasartico Inc",
+    "startHint": "Поговори с режиссёром: К северу от Quasartico Inc.",
+    "location": "К северу от Quasartico Inc",
     "unlockMain": 38,
     "unlockExtra": null,
     "rank": "A",
@@ -4107,11 +4364,15 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для Tyrantrum важны и уровень 39+, и день. Ночью Tyrunt может не эволюционировать.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with the Director on the side walk in front of the Poké Ball Boutique",
+    "locationEn": "North of Quasartico Inc",
+    "quick": "Нужен Tyrantrum; получи Tyrunt из Jaw Fossil и развей его.",
+    "prep": "Tyrantrum или Jaw Fossil."
   },
   "116": {
-    "startHint": "Speak with Nage in front of the Stone Emporium",
-    "location": "East of Wild Zone 12",
+    "startHint": "Поговори с Nage: К востоку от Wild Zone 12.",
+    "location": "К востоку от Wild Zone 12",
     "unlockMain": null,
     "unlockExtra": null,
     "rank": "A",
@@ -4145,10 +4406,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Нужно оставить единственного Aurorus: сильная команда с Aurorus на первом месте не проходит условие.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Nage in front of the Stone Emporium",
+    "locationEn": "East of Wild Zone 12",
+    "quick": "В активной команде должен быть только один Aurorus.",
+    "prep": "Только Aurorus в активной команде."
   },
   "117": {
-    "startHint": "Speak with Josée inside the Justice Dojo",
+    "startHint": "Поговори с Josée: Justice Dojo.",
     "location": "Justice Dojo",
     "unlockMain": 39,
     "unlockExtra": null,
@@ -4179,11 +4444,14 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Здесь две боевые части: команда Josée, затем два Alpha Pangoro одновременно.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Josée inside the Justice Dojo",
+    "locationEn": "Justice Dojo",
+    "quick": "Победи Josée и двух Alpha Pangoro, чтобы открыть №118."
   },
   "118": {
-    "startHint": "Speak with Gänger inside the old building",
-    "location": "South of Wild Zone 10",
+    "startHint": "Поговори с Gänger: К югу от Wild Zone 10.",
+    "location": "К югу от Wild Zone 10",
     "unlockMain": 39,
     "unlockExtra": "Завершить побочную миссию №117 (Josée’s Training).",
     "rank": "A",
@@ -4217,7 +4485,10 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Победа над Gwynn в доджо — лишь первая половина. После неё обязательно пройти маршрут Hotel Richissime → waterways → Galerie de la Lune.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Speak with Gänger inside the old building",
+    "locationEn": "South of Wild Zone 10",
+    "quick": "Для открытия пройди №117; затем поговори с Gwynn в Justice Dojo."
   },
   "119": {
     "startHint": "Hotel Richissime: Jacinthe / Lebanne после 20 Reward Matches Infinite Z-A Royale.",
@@ -4255,6 +4526,10 @@ export const ZA_SIDE_HANDBOOK={
     ],
     "tip": "Для открытия требуется 20 Reward Matches, а не завершение миссии №42 и не только 15 матчей ради Floette. Четыре противостояния с Jacinthe — в одном побочном задании.",
     "review": "editor-reviewed-against-source",
-    "checked": "2026-11-05"
+    "checked": "2026-11-05",
+    "startEn": "Hotel Richissime: Jacinthe / Lebanne после 20 Reward Matches Infinite Z-A Royale.",
+    "locationEn": "Hotel Richissime",
+    "quick": "Выиграй 20 Reward Matches в Infinite Z-A Royale и обратись к Jacinthe в Hotel Richissime.",
+    "prep": "20 побед в Reward Matches."
   }
 };

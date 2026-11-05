@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {ZA_MAIN_HANDBOOK} from '../src/guides/za-main-handbook.js';
+import {ZA_SIDE_HANDBOOK} from '../src/guides/za-side-handbook.js';
+import {readFileSync} from 'node:fs';
+assert.equal(Object.keys(ZA_MAIN_HANDBOOK).length,42);
+assert.equal(Object.keys(ZA_SIDE_HANDBOOK).length,119);
+assert.ok(Object.values(ZA_SIDE_HANDBOOK).every(x=>x.startHint?.length>15&&x.location?.length>3&&x.startEn&&x.locationEn));
+assert.match(ZA_MAIN_HANDBOOK[14].quick,/DYN4MO/);
+assert.match(ZA_SIDE_HANDBOOK[76].quick,/Eelektrossite/);
+const ui=readFileSync(new URL('../src/guides/guides-v09.js',import.meta.url),'utf8');
+assert.match(ui,/guide-quick/);assert.match(ui,/guide-neighbors/);assert.match(ui,/function stepProgress/);

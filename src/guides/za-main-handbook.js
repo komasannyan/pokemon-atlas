@@ -1,8 +1,4 @@
-// Pokémon Atlas: main-story 42-mission, independently sourced structured walkthrough (session 2).
-// Original Russian instructions summarizing in-game mission objectives and verified navigation.
-// The checklist ids (s01 etc.) are STABLE: insert future steps with suffix IDs, never renumber.
-// Sources: Bulbapedia's mission table; game-specific guides from Thonky, Serebii and Neoseeker.
-// Lack of console playtesting means we do not assert exact AI move pools or unknown coordinates.
+// Sourced mission guides. Existing checklist IDs remain stable.
 export const ZA_MAIN_HANDBOOK={
   "1": {
     "startHint": "За воротами Gare de Lumiose: сразу после выхода с вокзала.",
@@ -327,7 +323,8 @@ export const ZA_MAIN_HANDBOOK={
     "tip": "Здесь не требуется искать собственный Mega Stone или покупать Mega Ring: битва обучающая и опирается на предоставленного Lucario.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "Absolite выдаётся в миссии №9 после Rogue Mega Absol, не в №10."
   },
   "10": {
     "startHint": "Hotel Z → Quasartico Inc. → battle court → Nouveau Café → Hotel Z.",
@@ -556,7 +553,9 @@ export const ZA_MAIN_HANDBOOK={
     "tip": "Ответы на первый раунд: ✓, ×, ✓. Пароль: Let's / go / DYN4MO!. После конкурса нужен поход в Racine Construction, а не немедленный бой на сцене.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "Пароль: Let's / go / DYN4MO!; ответы на первый раунд: ✓, ×, ✓. Во втором принеси Lumiose Galette из Café Gallant; финальный ответ — «дедушка». После викторины отправляйся в Racine Construction к Tarragon и Canari.",
+    "prep": "Подготовь команду примерно 37–39 уровня, пригодятся Ground-атаки против части Electric-противников."
   },
   "15": {
     "startHint": "Hotel Z → крыши позади Hotel Z → маршруты Rogue Mega в трёх районах.",
@@ -774,7 +773,9 @@ export const ZA_MAIN_HANDBOOK={
     "tip": "Если не открывается канализация: нужен именно Ice Beam на фонтан Clawitzer; Wild Zone 12 даст Vanillite с Ice Beam или TM. Если тупик в канализации: обследуй отмеченные объекты, затем пройди через иллюзорную стену.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "Ice Beam по фонтану Clawitzer открывает канализацию. Внутри поймай Klefki, обследуй комнату с тупиком, затем найди скрытую стену.",
+    "prep": "Нужен Pokémon с Ice Beam."
   },
   "20": {
     "startHint": "Rust Syndicate HQ → Hotel Z → три Rogue Mega → старое здание, подземелье, банк → Rust Syndicate HQ.",
@@ -1219,7 +1220,9 @@ export const ZA_MAIN_HANDBOOK={
       "https://www.dexerto.com/wikis/pokemon-legends-z-a/all-main-story-missions-in-pokemon-legends-z-a-full-walkthrough/"
     ],
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "Турнир: Canari → Ivor → Corbeau → Jacinthe. После появления Zygarde заверши финальный матч.",
+    "prep": "Универсальная команда для нескольких матчей подряд."
   },
   "31": {
     "startHint": "Quasartico Inc. → Hotel Z → три последних Rogue Mega.",
@@ -1437,7 +1440,8 @@ export const ZA_MAIN_HANDBOOK={
     "tip": "Если запутался в Lysandre Labs: ищи не случайные коридоры, а карты доступа с видимых столов, активируй панели порталов и сверяй значки замков. Сюжет продолжается на B3F.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "В Lysandre Labs активируй панели, собирай ключ-карты и Elevator Key. Сюжет идёт на B3F."
   },
   "36": {
     "startHint": "Hotel Z → перед Prism Tower → крыши вокруг башни.",
@@ -1671,7 +1675,8 @@ export const ZA_MAIN_HANDBOOK={
     "tip": "Если Xerneas не виден в Wild Zone 11, сначала заверши конкретное исследование Mable и её сюжетный диалог.",
     "source": "https://bulbapedia.bulbagarden.net/wiki/Task_(Legends:_Z-A)",
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "После поручений Mable получи Xerneas, чтобы открыть дальнейшую цепочку."
   },
   "41": {
     "startHint": "Hotel Z → Quasartico Inc. → Rogue Mega Simulator 3000 → Galerie de la Lune, Rouge District.",
@@ -1711,7 +1716,8 @@ export const ZA_MAIN_HANDBOOK={
       "https://www.dexerto.com/wikis/pokemon-legends-z-a/all-main-story-missions-in-pokemon-legends-z-a-full-walkthrough/"
     ],
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "После поручений Grisham получи Yveltal, чтобы открыть дальнейшую цепочку."
   },
   "42": {
     "startHint": "Hotel Z → встреча с L → подземная область под Prism Tower.",
@@ -1769,6 +1775,7 @@ export const ZA_MAIN_HANDBOOK={
       "https://www.dexerto.com/wikis/pokemon-legends-z-a/all-main-story-missions-in-pokemon-legends-z-a-full-walkthrough/"
     ],
     "checked": "2026-11-05",
-    "status": "source-checked"
+    "status": "source-checked",
+    "quick": "Проверь поимку Xerneas и Yveltal; последняя встреча с Zygarde — под Prism Tower."
   }
 };

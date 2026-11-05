@@ -105,7 +105,7 @@ function tableFor(tab){
  return ALL;
 }
 function keywords(x){
- const values=[x.name,x.location,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.map(s=>typeof s==='string'?s:[s.ru,s.en].filter(Boolean).join(' ')).join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
+ const values=[x.name,x.location,x.locationEn,x.startEn,x.quick,x.prep,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.map(s=>typeof s==='string'?s:[s.ru,s.en].filter(Boolean).join(' ')).join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
  return normalize(values.join(' '));
 }
 function filtered(){
@@ -151,6 +151,12 @@ function linksFor(x){
    return target?'<button type="button" data-guide-jump="'+esc(kind+':'+ref)+'">'+esc(target.name)+'</button>':'';
   }).filter(Boolean);
   if(links.length)elems.push('<p class="guide-related">'+tx('Связанные статьи и задания: ','Related guides and missions: ')+links.join(' ')+'</p>');
+ }
+ if(x.kind==='main'||x.kind==='side'){
+ const r=x.kind==='main'?mainRows:sideRows,buttons=[];
+ if(r.some(y=>y.id===x.id-1))buttons.push('<button type="button" data-guide-jump="'+x.kind+':'+(x.id-1)+'">'+tx('← Предыдущее №','← Previous #')+(x.id-1)+'</button>');
+ if(r.some(y=>y.id===x.id+1))buttons.push('<button type="button" data-guide-jump="'+x.kind+':'+(x.id+1)+'">'+tx('Следующее №','Next #')+(x.id+1)+' →</button>');
+ if(buttons.length)elems.push('<p class="guide-related guide-neighbors">'+buttons.join(' ')+'</p>');
  }
  return elems.join('');
 }
@@ -205,13 +211,14 @@ function topInfo(x){
  if(x.kind==='extra')a.push(badge('Mystery Gift'));
  return a.join('');
 }
+function stepProgress(x){const steps=objectiveSteps(x);return {total:steps.length,checked:steps.filter((_,i)=>state.checkedSteps[stepKey(x,i)]).length};}
 function card(x){
- const key=idOf(x),highlight=state.focus===key,checked=done(x);
+ const key=idOf(x),highlight=state.focus===key,checked=done(x),progress=stepProgress(x);
  return '<article class="guide-card '+(checked?'is-done ':'')+(highlight?'is-focused':'')+'" id="guide-'+esc(x.kind)+'-'+esc(x.id)+'">'+
   '<div class="guide-card-check"><input type="checkbox" data-guide-done="'+esc(key)+'" '+(checked?'checked':'')+' aria-label="'+tx('Отметить как выполненное','Mark completed')+'"></div>'+
   '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+' · '+esc(x.kind==='extra'?x.id:x.id)+'</small><strong>'+esc(x.name)+'</strong><span class="guide-card-tags">'+topInfo(x)+'</span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
-  (x.location?'<div class="guide-info-line"><b>'+tx('ГДЕ ИСКАТЬ','WHERE TO GO')+'</b><p>'+esc(x.location)+'</p></div>':'')+
-  (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(x.startHint)+'</p></div>':'')+
+  (x.location?'<div class="guide-info-line"><b>'+tx('ГДЕ ИСКАТЬ','WHERE TO GO')+'</b><p>'+esc(tx(x.location,x.locationEn||x.location))+'</p></div>':'')+
+  (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(tx(x.startHint,x.startEn||x.startHint))+'</p></div>':'')+
   (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
   (x.extraReq||x.specialUnlock||x.kind==='extra'?'<div class="guide-info-line"><b>'+tx('УСЛОВИЯ','REQUIREMENTS')+'</b><p>'+esc(x.extraReq||x.specialUnlock||x.unlock||'—')+'</p></div>':'')+
   (x.kind==='main'&&x.unlock?'<div class="guide-info-line"><b>'+tx('УСЛОВИЕ ОТКРЫТИЯ','UNLOCK REQUIREMENT')+'</b><p>'+esc(x.unlock)+'</p></div>':'')+
@@ -220,6 +227,8 @@ function card(x){
   ((x.kind==='recipe')?recipeMarkup(x):'')+
   (x.kind==='boss'?bossMarkup(x):'')+
   (x.kind==='main'&&x.battle?'<div class="guide-info-line"><b>'+tx('БОИ И ПОДГОТОВКА','BATTLES & PREPARATION')+'</b><p>'+esc(x.battle)+'</p></div>':'')+
+  (x.prep?'<div class="guide-info-line guide-prep"><b>'+tx('ПОДГОТОВКА','PREPARE')+'</b><p>'+esc(x.prep)+'</p></div>':'')+
+  (x.quick?'<div class="guide-info-line guide-quick"><b>'+tx('КОРОТКИЙ ОТВЕТ','QUICK ANSWER')+'</b><p>'+esc(x.quick)+'</p></div>':'')+
   '<h4>'+tx('Что делать — по шагам','Step-by-step')+'</h4>'+stepMarkup(x)+
   ((x.kind==='main'||x.kind==='side')&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
   (hasLegacyStepMarks(x)?'<p class="guide-warning">'+tx('Шаги этого задания обновились. Старые отметки шагов сохранены в браузере, но не применяются к новым инструкциям, чтобы не отметить ошибочное действие. Отметка завершения всей миссии сохранена.','This quest checklist changed. Earlier step marks are kept in storage but not mapped to different instructions. Mission completion remains saved.')+'</p>':'')+
@@ -295,7 +304,7 @@ export function setupGuides({pokemonByName,onOpenPokemon}={}){
   if(el.id==='guide-game'){state.game=el.value;state.tab='start';state.query='';state.focus=null;state.shown=35;try{localStorage.setItem(GAME_KEY,state.game);}catch{}render();return;}
   if(el.id==='guide-filter'){state.filter=el.value;state.shown=35;state.focus=null;renderResults();return;}
   const key=el.dataset.guideDone;if(key){const row=ALL.find(x=>idOf(x)===key);if(!row)return;if(el.checked)state.completed[savedKey(row)]=true;else delete state.completed[savedKey(row)];setStorage(KEY,state.completed);el.closest('.guide-card')?.classList.toggle('is-done',el.checked);renderResults();return;}
-  const step=el.dataset.guideStep;if(step){const idx=step.lastIndexOf(':'),k=step.slice(0,idx),n=+step.slice(idx+1),row=ALL.find(x=>idOf(x)===k);if(!row)return;const sk=stepKey(row,n);if(el.checked)state.checkedSteps[sk]=true;else delete state.checkedSteps[sk];setStorage(STEP_KEY,state.checkedSteps);el.closest('li')?.classList.toggle('is-done',el.checked);}
+  const step=el.dataset.guideStep;if(step){const idx=step.lastIndexOf(':'),k=step.slice(0,idx),n=+step.slice(idx+1),row=ALL.find(x=>idOf(x)===k);if(!row)return;const sk=stepKey(row,n);if(el.checked)state.checkedSteps[sk]=true;else delete state.checkedSteps[sk];setStorage(STEP_KEY,state.checkedSteps);el.closest('li')?.classList.toggle('is-done',el.checked);const c=el.closest('.guide-card')?.querySelector('[data-guide-count]');if(c){const p=stepProgress(row);c.textContent=p.checked+'/'+p.total;}}
  });
  root.addEventListener('input',event=>{if(event.target.id==='guide-query'){state.query=event.target.value;state.shown=35;state.focus=null;renderResults();}});
  root.addEventListener('click',event=>{

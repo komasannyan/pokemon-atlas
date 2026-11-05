@@ -8,7 +8,6 @@ on:
       - 'tests/**'
       - 'index.html'
       - 'sw.js'
-      - 'docs/ZA-GUIDE-QUALITY.md'
       - '.github/workflows/guide-validation.yml'
   pull_request:
     branches: [main]
@@ -18,7 +17,6 @@ on:
       - 'tests/**'
       - 'index.html'
       - 'sw.js'
-      - 'docs/ZA-GUIDE-QUALITY.md'
       - '.github/workflows/guide-validation.yml'
   workflow_dispatch:
 permissions:
@@ -41,6 +39,7 @@ jobs:
           node tests/za-guide-093.mjs
           node tests/za-main-handbook.mjs
           node tests/za-side-handbook.mjs
+          node tests/za-guide-polish.mjs
           node tests/project-paths.mjs
       - name: Check application and Pokédex regressions
         run: |
@@ -49,12 +48,12 @@ jobs:
           node tests/pokedex-extended.test.mjs
           node tests/localization.mjs
           node tests/team.mjs
-          node tests/team-grok.mjs
+          node tests/team-builder-regression.mjs
           node tests/guides-lazy.mjs
           node tests/service-worker.mjs
       - name: Verify HTML, service-worker and new handbook are linked
         run: |
-          grep -q "app.js?v=099" index.html
-          grep -q "atlas-shell-v099" sw.js
+          grep -q "app.js?v=0910" index.html
+          grep -q "atlas-shell-v0910" sw.js
           grep -q "za-main-handbook.js" sw.js
           grep -q "za-side-handbook.js" sw.js

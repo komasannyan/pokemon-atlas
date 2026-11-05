@@ -1,4 +1,4 @@
-// Regression tests for Grok's team-builder improvements, adapted to the existing Atlas universe.
+// Team builder regression tests.
 import './team.mjs'; // Initializes a verified 16-species mock universe and runs the preexisting suite.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -52,4 +52,4 @@ assert.match(ui,/seeds\.length>=3/,'UI must stop at three');
 assert.match(ui,/slice\(0,3\)/,'three saved selections must be retained');
 assert.match(ui,/state\.seeds\.length}\/3/,'UI shows correct selection count');
 assert.match(ui,/scoreWarning/,'format legality warnings must remain visible');
-console.log('Grok team builder: three seeds, immunities, Thick Fat, Champions clauses and UI state verified.');
+console.log('Team builder: three seeds, immunities, Thick Fat, Champions clauses and UI state verified.');
