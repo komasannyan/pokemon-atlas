@@ -1,5 +1,5 @@
 import {FORMATS, ROLE_NAMES, ROLE_DESC} from './team-data.js';
-import {fullPool, setsFor, loadUniverse, getUniverse} from './team-universe.js';
+import {fullPool, setsFor, loadUniverse, getUniverse, normalizeSelection} from './team-universe.js';
 import {generateSuggestions, showdownExport, championsText, teamCoverage, displaySpread} from './team-engine.js';
 import {t,isEnglish, typeLabel} from '../i18n.js';
 import {artUrl,numberLabel} from '../constants.js';
@@ -9,7 +9,7 @@ const e=(text)=>String(text??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;'
 const L=(ru,en)=>isEnglish()?en:ru;
 const STORE='atlas-team-builder-v03';
 let getDex=()=>[];
-const state={format:'ou',size:6,seeds:[],roles:{},search:'',teams:[],selected:0,notice:''};
+const state={format:'ou',size:6,seeds:[],roles:{},search:'',teams:[],selected:0,notice:'',loadFailed:false};
 try{const saved=JSON.parse(localStorage.getItem(STORE)||'null');if(saved&&FORMATS[saved.format]){
  state.format=saved.format;state.size=Math.min(6,Math.max(FORMATS[state.format].min,Number(saved.size)||6));
  state.seeds=Array.isArray(saved.seeds)?saved.seeds.slice(0,3).map(Number):[];
@@ -53,9 +53,9 @@ function render(){
  const root=$('#team-builder-root');if(!root)return;
  const candidates=pool();
  const format=FORMATS[state.format];
- state.seeds=state.seeds.filter(id=>!getUniverse()||!!byId(id)).slice(0,3);
+ if(getUniverse())Object.assign(state,normalizeSelection(state.seeds,state.roles,state.format,candidates));
  state.size=Math.max(format.min,Math.min(6,state.size));
- root.innerHTML=`${!getUniverse()?`<div class="loading-row">${e(state.notice||L('Подготовка базы форматов, атак и списков изучения…','Preparing format rules and legal move lists…'))}</div>`:''}<div class="builder-intro"><div class="builder-top-line"><div><div class="section-kicker">TEAM LAB · BETA</div><h2>${L('Конструктор команд','Team Builder')}</h2><p>${L('Выбери от 0 до 3 покемонов — Atlas предложит партнёров и варианты билдов под формат и роли.','Select 0–3 Pokémon and get format-aware teammates and role-specific sets.')}</p></div><div class="builder-beta">BETA · 0.6</div></div>
+ root.innerHTML=`${!getUniverse()?`<div class="loading-row">${e(state.notice||L('Подготовка базы форматов, атак и списков изучения…','Preparing format rules and legal move lists…'))}${state.loadFailed?` <button type="button" data-team-retry>${L('Повторить загрузку','Retry loading')}</button>`:''}</div>`:''}<div class="builder-intro"><div class="builder-top-line"><div><div class="section-kicker">TEAM LAB · BETA</div><h2>${L('Конструктор команд','Team Builder')}</h2><p>${L('Выбери от 0 до 3 покемонов — Atlas предложит партнёров и варианты билдов под формат и роли.','Select 0–3 Pokémon and get format-aware teammates and role-specific sets.')}</p></div><div class="builder-beta">BETA · 0.6</div></div>
  <div class="builder-panel"><div class="builder-config-grid"><label>${L('Формат боя','Battle format')}<select id="team-format">${formatOptions()}</select></label><label>${L('Размер команды','Team size')}<select id="team-size">${[3,4,5,6].filter(n=>n>=format.min).map(n=>`<option value="${n}" ${n===state.size?'selected':''}>${n} / 6</option>`).join('')}</select></label></div>
  <p class="builder-format-note">${e(isEnglish()?format.descriptionEn:format.descriptionRu)}</p>
  <div class="builder-seeds-head"><h3>${L('Твои покемоны','Your starting Pokémon')} <span>${state.seeds.length}/3</span></h3><small>${L('Можешь зафиксировать роль каждого','Lock a role for each chosen Pokémon')}</small></div>
@@ -85,17 +85,18 @@ async function copyTeam(){const team=state.teams[state.selected];if(!team)return
 }
 let fetching=false;
 export function setupTeamBuilder(dexGetter){getDex=dexGetter;
- async function boot(){if(fetching||getUniverse()||getDex().length<1000)return;fetching=true;state.notice=L('Загружаем все виды, актуальные правила и learnsets…','Loading all species, format rules, and learnsets…');render();try{await loadUniverse(getDex);state.notice='';}catch(err){console.warn('[Team Atlas] Could not load legality data',err);state.notice=L('Не удалось загрузить правила или learnsets. Проверь интернет и обнови страницу.','Could not load legality rules or learnsets. Check the network and refresh.');}finally{fetching=false;render();}}
+ async function boot(){if(fetching||getUniverse()||getDex().length<1000)return;fetching=true;state.loadFailed=false;state.notice=L('Загружаем все виды, актуальные правила и learnsets…','Loading all species, format rules, and learnsets…');render();try{await loadUniverse(getDex);state.notice='';}catch(err){console.warn('[Team Atlas] Could not load legality data',err);state.loadFailed=true;state.notice=L('Не удалось загрузить правила или learnsets. Проверь интернет и повтори загрузку.','Could not load legality rules or learnsets. Check the network and retry loading.');}finally{fetching=false;render();}}
  boot();
  window.addEventListener('atlas:dex-ready',boot);
  $('#team-builder-root').addEventListener('input',ev=>{if(ev.target.id==='team-search')state.search=ev.target.value;});
  $('#team-builder-root').addEventListener('change',ev=>{
-  if(ev.target.id==='team-format'){state.format=ev.target.value;state.size=Math.max(FORMATS[state.format].min,state.size);state.seeds=state.seeds.filter(x=>!!byId(x));state.search='';state.teams=[];state.notice='';remember();render();}
+  if(ev.target.id==='team-format'){state.format=ev.target.value;state.size=Math.max(FORMATS[state.format].min,state.size);state.search='';state.teams=[];state.notice='';render();remember();}
   if(ev.target.id==='team-size'){state.size=+ev.target.value;state.teams=[];remember();render();}
   if(ev.target.dataset.teamRole){state.roles[ev.target.dataset.teamRole]=ev.target.value;state.teams=[];remember();render();}
  });
  $('#team-builder-root').addEventListener('keydown',ev=>{if(ev.target.id==='team-search'&&ev.key==='Enter'){ev.preventDefault();addSeed();}});
  $('#team-builder-root').addEventListener('click',ev=>{
+  if(ev.target.closest('[data-team-retry]')){boot();return;}
   if(ev.target.closest('#team-add')){addSeed();return;}
   const del=ev.target.closest('[data-team-remove]');if(del){const id=+del.dataset.teamRemove;state.seeds=state.seeds.filter(x=>x!==id);delete state.roles[id];state.teams=[];remember();render();return;}
   if(ev.target.closest('#team-reset')){state.seeds=[];state.roles={};state.search='';state.notice='';state.teams=[];remember();render();return;}

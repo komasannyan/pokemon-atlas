@@ -26,7 +26,7 @@ const state={
   view:'catalog',search:'',generation:'all',types:[],sort:'number',shown:30,
   abilities:[],abilityError:false,abilityLoading:null,abilitySearch:'',abilityGeneration:'all',abilityShown:40,moveSort:'number',heroId:null,
   moveSearch:'',moveType:'all',moveClass:'all',moveGeneration:'all',moveShown:40,
-  speciesExtra:null,formData:null,formSlug:'',formBusy:false,formError:false,evoData:null,evoError:false,detailRequest:0,
+  speciesExtra:null,formData:null,formSlug:'',formBusy:false,formError:false,evoData:null,evoError:false,detailRequest:0,detailRender:0,
   detail:null,detailTab:'overview',shiny:false,style:'art',moveGame:'scarlet-violet',method:'all',encounterGame:'',lastFocus:null,
   statusKey:'demoCollection',alertKey:'loadingDex'
 };
@@ -310,20 +310,21 @@ async function loadPokedexDescription(id){
 }
 function renderTab(){
   if(!state.detail)return;
+  const ticket=++state.detailRender;
   document.querySelectorAll('.detail-tab').forEach(el=>el.classList.toggle('active',el.dataset.tab===state.detailTab));
   const effective=activeDetailPokemon();if(state.detailTab==='overview')renderOverview(effective);
-  else if(state.detailTab==='moves')renderLearnset(effective);
-  else if(state.detailTab==='locations')renderLocations(effective);
+  else if(state.detailTab==='moves')renderLearnset(effective,ticket);
+  else if(state.detailTab==='locations')renderLocations(effective,ticket);
   else if(state.detailTab==='gallery')renderGallery(effective);
    else if(state.detailTab==='evolution')$('#detail-body').innerHTML=state.evoError?'<p class="error-detail">'+(isEnglish()?'Evolution data are unavailable.':'Не удалось загрузить цепочку эволюции.')+'</p>':evolutionPage(state.evoData,state.detail.id,isEnglish());
    else if(state.detailTab==='history')$('#detail-body').innerHTML=historyPage(state.formData,state.detail.name,isEnglish());
 }
-const currentDetailIs=(id,tab)=>state.detail?.id===id&&state.detailTab===tab;
-async function renderLearnset(p){
+const currentDetailIs=(id,tab,ticket)=>state.detail?.id===id&&state.detailTab===tab&&state.detailRender===ticket;
+async function renderLearnset(p,ticket=++state.detailRender){
   $('#detail-body').innerHTML=`<div class="loading-detail">${esc(t('movesLoading'))}</div>`;
   try{
     const [data,moveIndex]=await Promise.all([fetchPokemon(p.pokemonId||p.id),ensureMoves()]);
-    if(!currentDetailIs(p.id,'moves'))return;
+    if(!currentDetailIs(p.id,'moves',ticket))return;
     const indexed=new Map((moveIndex||[]).map(m=>[m.slug,m]));
     const gameSet=new Set(data.moves.flatMap(m=>m.version_group_details.map(d=>d.version_group.name)));
     const groups=Object.keys(GAME_GROUPS).filter(g=>gameSet.has(g));
@@ -338,9 +339,9 @@ async function renderLearnset(p){
     const methods=['level-up','machine','egg','tutor','form-change'];
     const moveMarkup=filtered.map(m=>moveDetailsHTML(m,`${esc(methodLabel(m.method))}${m.method==='level-up'?' · Lv. '+m.level:''}`)).join('');
     $('#detail-body').innerHTML=`<h3>${esc(t('learnedMoves'))} <span class="muted-count">· ${filtered.length} ${esc(t('records'))}</span></h3><div class="controls-line"><label>${esc(t('game'))}: <select id="move-game">${groups.map(g=>`<option value="${esc(g)}" ${g===state.moveGame?'selected':''}>${esc(GAME_GROUPS[g])}</option>`).join('')}</select></label><label>${esc(t('method'))}: <select id="move-method"><option value="all" ${state.method==='all'?'selected':''}>${esc(t('allMethods'))}</option>${methods.map(key=>`<option value="${key}" ${state.method===key?'selected':''}>${esc(methodLabel(key))}</option>`).join('')}</select></label></div><div class="move-dex-list in-detail">${moveMarkup||`<p class="helper-note">${esc(t('movesFilteredNone'))}</p>`}</div><p class="helper-note">${esc(t('learnsetNote'))}</p>`;
-  }catch(err){if(currentDetailIs(p.id,'moves'))$('#detail-body').innerHTML=`<p class="error-detail">${esc(t('movesError'))} (${esc(err.message)})</p>`;}
+  }catch(err){if(currentDetailIs(p.id,'moves',ticket))$('#detail-body').innerHTML=`<p class="error-detail">${esc(t('movesError'))} (${esc(err.message)})</p>`;}
 }
-async function renderLocations(p){
+async function renderLocations(p,ticket=++state.detailRender){
  const panel=$('#detail-body');if(!panel)return;
  panel.innerHTML='<div class="loading-detail">'+esc(t('locationsLoading'))+'</div>';
  const results=await Promise.allSettled([
@@ -348,7 +349,7 @@ async function renderLocations(p){
    fetchPokemon(p.pokemonId||p.id),
    fetchRegionalDex()
  ]);
- if(!currentDetailIs(p.id,'locations'))return;
+ if(!currentDetailIs(p.id,'locations',ticket))return;
  const encounters=results[0].status==='fulfilled'?results[0].value:[];
  const api=results[1].status==='fulfilled'?results[1].value:null;
  const dexes=results[2].status==='fulfilled'?results[2].value:null;
@@ -472,4 +473,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=099').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=911').catch(console.warn));}

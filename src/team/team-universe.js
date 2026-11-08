@@ -73,7 +73,7 @@ const TYPES_FAV=['fire','water','electric','grass','ground','fairy','steel','dra
 function buildMoves(entry, role, u,format){
  const pool=learned(u.learnsets,entry,format);
  if(!pool?.size)return [];
- const available=u.moves.filter(m=>pool.has(norm(m.name))&&m.id>0&&m.type!=='unknown'&&!(format!=='casual'&&STRICT_MOVE_BANS.has(norm(m.name))));
+ const available=u.moves.filter(m=>pool.has(norm(m.name))&&m.id>0&&m.type!=='unknown'&&!(format!=='casual'&&STRICT_MOVE_BANS.has(norm(m.name)))&&!(norm(entry.item)==='assaultvest'&&m.category==='status'));
  const stat=entry.stats||[],special=stat[3]>stat[1]*1.12;
  const category=role==='physical'?'physical':role==='special'?'special':special?'special':'physical';
  const attacks=available.filter(m=>m.category!=='status'&&m.power>0).sort((a,b)=>{
@@ -146,7 +146,7 @@ function normalizeCuratedSet(entry,s,format,u){
  if(!s.formats.includes(format)||!itemLegal(s.item,format,u.rules))return null;
  if(s.ability&&!entry.abilities.some(a=>norm(a.name)===norm(s.ability)))return null;
  const legal=learned(u.learnsets,entry,format);if(!legal?.size)return null;
- const proposed=s.moves.filter(m=>legal.has(norm(m)) && !(format!=='casual'&&format!=='champions'&&STRICT_MOVE_BANS.has(norm(m))));
+ const proposed=s.moves.filter(m=>legal.has(norm(m)) && !(format!=='casual'&&format!=='champions'&&STRICT_MOVE_BANS.has(norm(m))) && !(norm(s.item)==='assaultvest'&&u.moves.find(move=>norm(move.name)===norm(m))?.category==='status'));
  const backup=buildMoves({...entry,item:s.item},s.role,u,format);
  const moves=[...new Set([...proposed,...backup])].slice(0,4);
  if(moves.length!==4)return null;
@@ -169,6 +169,15 @@ export function setsFor(entry,format){
  const curated=entry.sets||[],roles=chooseRoles(entry,format,universe),generated=roles.map(r=>genSet(entry,r,format,universe)).filter(Boolean);
  // Curated options have priority but still MUST be verified for item, ability and learnset.
  return [...curated,...generated.filter(s=>!curated.some(x=>x.role===s.role))];
+}
+export function normalizeSelection(seedIds,roles,format,candidates=fullPool(format)){
+ const byId=new Map(candidates.map(entry=>[entry.id,entry]));
+ const seeds=[...new Set((Array.isArray(seedIds)?seedIds:[]).map(Number))].filter(id=>Number.isInteger(id)&&byId.has(id)).slice(0,3);
+ const selectedRoles=Object.fromEntries(seeds.map(id=>{
+  const wanted=roles?.[id];
+  return [id,setsFor(byId.get(id),format).some(set=>set.role===wanted)?wanted:'auto'];
+ }));
+ return {seeds,roles:selectedRoles};
 }
 export async function loadUniverse(getDex){
  if(promise)return promise;

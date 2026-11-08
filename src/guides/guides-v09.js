@@ -87,7 +87,13 @@ function hasLegacyStepMarks(x){
  const prefix=savedKey(x)+':';
  return Object.keys(state.checkedSteps).some(key=>key.startsWith(prefix)&&( /^\d+$/.test(key.slice(prefix.length)) || (x.kind==='side'&&key.startsWith(prefix+'v2:'))));
 }
-function setStorage(key,data){try{localStorage.setItem(key,JSON.stringify(data));notice='';return true;}catch{notice=tx('Браузер не дал сохранить прогресс. Проверь свободное место и настройки хранения.','Unable to save progress. Check browser storage permissions and space.');return false;}}
+function setStorage(key,data){
+ let saved=false;
+ try{localStorage.setItem(key,JSON.stringify(data));notice='';saved=true;}
+ catch{notice=tx('Браузер не дал сохранить прогресс. Проверь свободное место и настройки хранения.','Unable to save progress. Check browser storage permissions and space.');}
+ const status=root?.querySelector('#guide-notice');if(status)status.textContent=notice;
+ return saved;
+}
 function groupOf(x){return x.kind==='main'?'main':x.kind==='side'?'side':x.kind==='dlc-main'||x.kind==='dlc-side'?'dlc':x.kind;}
 function labelOf(kind){const labels={route:['Этап маршрута','Completion route'],main:['Основное задание','Main mission'],side:['Побочное задание','Side mission'],boss:['Босс','Boss'],zone:['Зона','Zone'],tm:['Техническая машина','Technical Machine'],item:['Предмет','Item'],'dlc-main':['Сюжет DLC','DLC story'],'dlc-side':['Побочное DLC','DLC side quest'],extra:['Особое задание','Extra mission'],recipe:['Рецепт','Recipe'],help:['Справка','Help']};return tx(...(labels[kind]||['Запись','Entry']));}
 function tableFor(tab){
@@ -141,7 +147,10 @@ function linksFor(x){
       const dependency=({31:30,32:31,118:117})[x.id];
       if(dependency)elems.push('<p class="guide-related">'+tx('Сначала выполни: ','First complete: ')+'<button type="button" data-guide-jump="side:'+dependency+'">'+tx('Побочное задание №','Side mission #')+dependency+'</button></p>');
    }
-   const matching=tmRows.filter(t=>t.location&&t.location.includes('№'+x.id)&&((x.kind==='dlc-side')===!!t.dlc));
+   const matching=tmRows.filter(t=>{
+     const mission=t.side??t.location?.match(/побочн\S*\s+задани\S*\s+№\s*(\d+)/i)?.[1];
+     return Number(mission)===x.id&&((x.kind==='dlc-side')===!!t.dlc);
+   });
    if(matching.length)elems.push('<p class="guide-related">'+tx('Связанные TM: ','Related TMs: ')+matching.map(t=>'<button type="button" data-guide-jump="tm:'+t.id+'">TM'+num(t.id)+'</button>').join(' ')+'</p>');
  }
  if(x.related?.length){
@@ -216,7 +225,7 @@ function card(x){
  const key=idOf(x),highlight=state.focus===key,checked=done(x),progress=stepProgress(x);
  return '<article class="guide-card '+(checked?'is-done ':'')+(highlight?'is-focused':'')+'" id="guide-'+esc(x.kind)+'-'+esc(x.id)+'">'+
   '<div class="guide-card-check"><input type="checkbox" data-guide-done="'+esc(key)+'" '+(checked?'checked':'')+' aria-label="'+tx('Отметить как выполненное','Mark completed')+'"></div>'+
-  '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+' · '+esc(x.kind==='extra'?x.id:x.id)+'</small><strong>'+esc(x.name)+'</strong><span class="guide-card-tags">'+topInfo(x)+'</span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
+  '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+' · '+esc(x.kind==='extra'?x.id:x.id)+'</small><strong>'+esc(x.name)+'</strong><span class="guide-card-tags">'+topInfo(x)+'<span class="guide-step-count" data-guide-count aria-label="'+tx('Выполнено шагов','Completed steps')+'">'+progress.checked+'/'+progress.total+'</span></span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
   (x.location?'<div class="guide-info-line"><b>'+tx('ГДЕ ИСКАТЬ','WHERE TO GO')+'</b><p>'+esc(tx(x.location,x.locationEn||x.location))+'</p></div>':'')+
   (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(tx(x.startHint,x.startEn||x.startHint))+'</p></div>':'')+
   (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
@@ -252,7 +261,7 @@ function hero(){
  const counts=[['main',mainRows],['side',sideRows],['dlc',dlcRows],['tm',tmRows]];
  return '<div class="guide-dashboard">'+counts.map(([key,list])=>{
  const completed=list.filter(done).length,percent=Math.round(completed/list.length*100);
- const label={main:tx('Сюжет','Main story'),side:tx('Побочные','Side missions'),dlc:tx('Mega Dimension','Mega Dimension'),tm:'TM'};
+ const label={main:tx('Сюжет','Main story'),side:tx('Побочные','Side missions'),dlc:tx('Mega Dimension','Mega Dimension'),tm:'TM'}[key];
  return '<button type="button" data-guide-tab="'+key+'" class="guide-progress-card"><small>'+label+'</small><strong>'+completed+' / '+list.length+'</strong><span class="guide-progressbar"><i style="width:'+percent+'%"></i></span></button>';
  }).join('')+'</div>';
 }
