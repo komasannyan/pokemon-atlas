@@ -26,7 +26,7 @@ const state={
   view:'catalog',search:'',generation:'all',types:[],sort:'number',shown:30,
   abilities:[],abilityError:false,abilityLoading:null,abilitySearch:'',abilityGeneration:'all',abilityShown:40,moveSort:'number',heroId:null,
   moveSearch:'',moveType:'all',moveClass:'all',moveGeneration:'all',moveShown:40,
-  speciesExtra:null,formData:null,formSlug:'',formBusy:false,formError:false,evoData:null,evoError:false,detailRequest:0,detailRender:0,
+  speciesExtra:null,formData:null,formSlug:'',formBusy:false,formError:false,evoData:null,evoError:false,detailRequest:0,detailRender:0,detailFocus:null,
   detail:null,detailTab:'overview',shiny:false,style:'art',moveGame:'scarlet-violet',method:'all',encounterGame:'',lastFocus:null,
   statusKey:'demoCollection',alertKey:'loadingDex'
 };
@@ -262,17 +262,43 @@ function detailTop(p){
 }
 function openDetail(id,updateUrl=true){
   const p=state.dex.find(x=>x.id===id);if(!p)return;
+  if(!state.detail)state.lastFocus=document.activeElement;
+  state.detailFocus=null;
   state.detail=p;state.detailTab='overview';state.shiny=false;state.style='art';state.moveGame='scarlet-violet';state.method='all';state.encounterGame='legends-za';
   state.speciesExtra=null;state.formData=null;state.formSlug='';state.formBusy=false;state.formError=false;state.evoData=null;state.evoError=false;const ticket=++state.detailRequest;
-  state.lastFocus=document.activeElement;$('#detail-overlay').hidden=false;document.body.style.overflow='hidden';renderDetail();$('.detail-dialog').focus();loadExtendedDetail(p,ticket);
+  $('#detail-overlay').hidden=false;document.body.style.overflow='hidden';renderDetail();$('.detail-dialog').focus();loadExtendedDetail(p,ticket);
   if(updateUrl){const url=new URL(location.href);url.searchParams.set('pokemon',id);history.pushState({},'',url);}
 }
 function closeDetail(updateUrl=true){
   if(!state.detail)return;state.detail=null;state.detailRequest++;$('#detail-overlay').hidden=true;document.body.style.overflow='';
   if(updateUrl){const url=new URL(location.href);url.searchParams.delete('pokemon');history.replaceState({},'',url);}
-  state.lastFocus?.focus?.();
+  const origin=state.lastFocus;
+  const fallback=origin?.dataset?.open?document.querySelector(`#pokemon-grid [data-open="${Number(origin.dataset.open)}"]`):null;
+  (origin?.isConnected?origin:fallback)?.focus?.();
 }
-function renderDetail(){if(state.detail){$('#detail-content').innerHTML=detailTop(activeDetailPokemon());renderTab();}}
+function renderDetail(){if(state.detail){
+  const root=$('#detail-content'),active=document.activeElement;
+  const attribute=root.contains(active)?['data-form-slug','data-tab','data-shiny','data-favorite','data-close'].find(key=>active.hasAttribute(key)):null;
+  const saved=attribute?{attribute,value:active.getAttribute(attribute)}:active===$('.detail-dialog')?state.detailFocus:null;
+  state.detailFocus=null;
+  root.innerHTML=detailTop(activeDetailPokemon());renderTab();
+  if(saved){
+    const replacement=[...root.querySelectorAll(`[${saved.attribute}]`)].find(el=>el.getAttribute(saved.attribute)===saved.value&&!el.disabled);
+    if(!replacement)state.detailFocus=saved;
+    (replacement||$('.detail-dialog')).focus({preventScroll:true});
+  }
+}}
+function containDetailFocus(event){
+  if(event.key!=='Tab'||!state.detail)return;
+  const dialog=$('.detail-dialog');
+  const controls=[...dialog.querySelectorAll('button, a[href], input, select, textarea, summary, [tabindex]')]
+    .filter(el=>el.tabIndex>=0&&!el.matches(':disabled')&&el.getClientRects().length);
+  const first=controls[0],last=controls.at(-1),active=document.activeElement;
+  if(!first){event.preventDefault();dialog.focus();return;}
+  if(!dialog.contains(active)||active===dialog||(event.shiftKey?active===first:active===last)){
+    event.preventDefault();(event.shiftKey?last:first).focus();
+  }
+}
 function evolutionHTML(p){
   const family=state.dex.filter(x=>p.chainId!=null&&x.chainId===p.chainId).sort((a,b)=>a.id-b.id);
   if(!family.length)return `<p class="helper-note">${esc(t('evoMissing'))}</p>`;
@@ -450,6 +476,7 @@ $('#detail-overlay').addEventListener('change',e=>{
 });
 document.addEventListener('toggle',e=>{if(e.target.matches('details[data-ability], details[data-move]')&&e.target.open)openEffect(e.target);},true);
 document.addEventListener('keydown',e=>{
+  containDetailFocus(e);
   if(e.key==='Escape'&&state.detail){closeDetail();return;}
   if(e.key==='/'&&!state.detail&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){e.preventDefault();if(!['catalog','favorites','moves','abilities'].includes(state.view))navigation('catalog');$(state.view==='moves'?'#move-search':state.view==='abilities'?'#ability-search':'#search').focus();}
 });
@@ -473,4 +500,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=911').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=912').catch(console.warn));}

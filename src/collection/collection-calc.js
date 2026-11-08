@@ -20,10 +20,11 @@ const natureMod=(nature,index)=>{
 export function inferIVs(base,level,nature,observed,evs,evKnown=true){
  if(!Number.isInteger(level)||level<1||level>100)return Array(6).fill(null);
  return Array.from({length:6},(_,i)=>{
-  const value=+observed?.[i];if(!Number.isInteger(value)||value<=0)return null;
+  const raw=observed?.[i];if(raw===undefined||raw===null||String(raw).trim()==='')return null;
+  const value=+raw;if(!Number.isInteger(value)||value<=0)return {min:null,max:null,count:0,error:true};
   const b=base?.[i];if(!Number.isFinite(b)||b<1)return null;
-  if(i===0&&b===1)return {min:0,max:31,count:32,unidentifiable:true};
-  const candidates=[];const ivs=new Set();
+  if(i===0&&b===1)return value===1?{min:0,max:31,count:32,unidentifiable:true}:{min:null,max:null,count:0,error:true};
+  const ivs=new Set();
   const evList=evKnown?[+evs?.[i]||0]:Array.from({length:64},(_,j)=>j*4);
   for(const ev of evList)for(let iv=0;iv<=31;iv++){
    if(statFor(b,iv,ev,level,natureMod(nature,i),i===0)===value)ivs.add(iv);
@@ -47,8 +48,9 @@ function natureBonus(nature,role){
 export function evaluateIndividual(p,record){
  const filled=(record.observed||[]).filter(v=>String(v??'')!==''&&+v>0).length;
  const base=p.stats||[];const lv=+record.level;
- const valid=base.length===6&&lv>=1&&lv<=100;
+ const valid=base.length===6&&base.every(v=>Number.isFinite(v)&&v>0);
  if(!valid)return {ranges:[],error:'no-base'};
+ if(!Number.isInteger(lv)||lv<1||lv>100)return {ranges:[],filled,error:'inconsistent'};
  const evs=record.evs||Array(6).fill(0), evKnown=record.evMode!=='unknown';
  if(evKnown&&(evs.some(v=>v===''||v===null||+v<0||+v>252||!Number.isInteger(+v))||evs.reduce((a,b)=>a+(+b||0),0)>510))return {ranges:[],error:'invalid-ev'};
  const ranges=inferIVs(base,lv,record.nature,record.observed,evs,evKnown);

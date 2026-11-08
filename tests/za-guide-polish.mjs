@@ -48,4 +48,27 @@ step.checked=false;
 handlers.change({target:step});
 assert.equal(status.textContent,'','successful save should clear the storage warning');
 assert.equal(counter.textContent,'0/'+ZA_SIDE_HANDBOOK[29].steps.length);
-console.log('Guide dashboard, exact TM reward links, checklist counts and storage notices verified.');
+
+// Structured lookups identify the requested record, not every mission whose
+// steps happen to mention the same number. Free text terms can appear apart.
+const search=value=>{
+ handlers.input({target:{id:'guide-query',value}});
+ return [...results.innerHTML.matchAll(/id="guide-([^"]+)"/g)].map(match=>match[1]);
+};
+assert.deepEqual(search('TM001'),['tm-1']);
+assert.deepEqual(search('ТМ №085'),['tm-85']);
+assert.deepEqual(search('side mission #29'),['side-29']);
+assert.deepEqual(search('Побочное задание №29'),['side-29']);
+assert.deepEqual(search('main mission 14'),['main-14']);
+assert.deepEqual(search('Wild Zone 20'),['zone-20']);
+assert.deepEqual(search('TM161'),[],'unknown TM IDs should not return unrelated cards');
+assert.deepEqual(search('!!!'),[],'punctuation must not act like an empty query');
+assert.ok(search('Substitute TM').includes('tm-85'),'word order must not hide the requested move');
+assert.ok(search('TM Fake Out').includes('tm-141'),'numeric TM prefix must not break multiword move search');
+assert.ok(search('Задание №106').includes('side-106'));
+
+handlers.change({target:{id:'guide-filter',value:'done'}});
+openGuideTab('main');
+assert.match(root.innerHTML,/id="guide-main-1"/,'opening a guide explicitly must clear a stale completion filter');
+assert.match(root.innerHTML,/<option value="all" selected>/);
+console.log('Guide dashboard, exact lookups, checklist counts, storage notices and explicit navigation verified.');
