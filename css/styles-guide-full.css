@@ -88,5 +88,8 @@
 
 /* Mission controls */
 .guide-step-count{padding:2px 7px;border:1px solid rgba(130,150,180,.3);border-radius:99px;font-size:.73rem;white-space:nowrap}
+.guide-related button{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left}
+.guide-route-list{display:grid;gap:7px;padding-left:25px}
+.guide-route-list button{width:100%;min-height:40px}
 .guide-prep,.guide-quick{border-left:3px solid rgba(95,161,230,.5)}
 .guide-neighbors{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
