@@ -83,7 +83,7 @@ function renderModal(){const root=$('#collection-modal-content'),p=findMon(state
  root.innerHTML=`<div class="col-modal-header"><img src="${artUrl(p.id)}" alt="${esc(p.name)}"><div><small>${numberLabel(p.id)} · ${esc(extra)}</small><h2>${esc(niceName(p))}</h2><small>${esc(p.types.join(' / '))} · BST ${p.bst||'—'}</small></div><button class="col-close" type="button" id="col-close-modal" aria-label="Close">×</button></div>
  <div class="col-record-controls"><label>${txt('Всего экземпляров','Total specimens')}<input type="number" min="0" max="9999" id="col-count" value="${r.count||0}"></label><label>Shiny ✦<input type="number" min="0" max="9999" id="col-shiny" value="${r.shiny||0}"></label><button id="col-save-count" type="button">${txt('Сохранить количество','Save quantities')}</button></div>
  <div class="col-instance-head"><h3>${txt('Мои экземпляры','My specimens')} (${r.instances?.length||0})</h3><button type="button" id="col-new-specimen">+ ${txt('Записать экземпляр','Add specimen')}</button></div>
- <div class="col-instances">${(r.instances||[]).map((x,i)=>specimenHTML(x,i,p,game)).join('')||`<p class="col-hint">${txt('Можно просто отметить количество или добавить данные каждого экземпляра отдельно.','Track totals or add detailed records for individual specimens.')}</p>`}</div>
+ <div class="col-instances">${(r.instances||[]).map((x,i)=>instanceHTML(x,i,p,game)).join('')||`<p class="col-hint">${txt('Можно просто отметить количество или добавить данные каждого экземпляра отдельно.','Track totals or add detailed records for individual specimens.')}</p>`}</div>
  <div id="col-specimen-editor">${state.editing?formHTML(p,r.instances?.[state.editIndex]||specimenDefault(),game):''}</div>`;
  if(state.editing)refreshEvaluation();
 }

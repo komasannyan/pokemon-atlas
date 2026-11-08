@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {runInNewContext} from 'node:vm';
 import {normalizeVarieties,formSnapshot,formArtwork,varietyLabel,evolutionTree,evolutionRequirements,historySnapshots,generationLabel} from '../src/pokedex/pokedex-extended.js';
 import {formSelector,evolutionPage,historyPage} from '../src/pokedex/pokedex-extended-ui.js';
 const species={varieties:[{pokemon:{name:'charizard-mega-y'},is_default:false},{pokemon:{name:'charizard'},is_default:true},{pokemon:{name:'charizard-mega-x'},is_default:false}]};
@@ -15,4 +17,31 @@ assert.match(evolutionPage(chain,133,false),/data-open="700"/);assert.match(evol
 assert.deepEqual(historySnapshots(raw).map(x=>x.generation),['generation-v','generation-vi']);assert.equal(generationLabel('generation-vii'),'VII (7)');
 assert.match(historyPage(raw,'Charizard',false),/634/);assert.match(historyPage(raw,'Charizard',true),/Historical record/);
 assert.doesNotMatch(formSelector({varieties:[{pokemon:{name:'pikachu'},is_default:true}]},'Pikachu','pikachu',false,false,false),/undefined/);
-console.log('Pokémon Atlas 0.8: 19+ forms/evolutions/history assertions passed');
+// Exercise the actual asynchronous panel renderers with out-of-order form
+// responses: a late response or failure must not replace the selected form.
+const app=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+const renderers=app.slice(app.indexOf('const currentDetailIs='),app.indexOf('function renderGallery'));
+const panel={innerHTML:''},requests=new Map();
+const state={detail:{id:6},detailTab:'moves',detailRender:0};
+const context={
+ state,$:()=>panel,t:key=>key,esc:String,
+ fetchPokemon:id=>new Promise((resolve,reject)=>requests.set(id,{resolve,reject})),
+ ensureMoves:async()=>[],GAME_GROUPS:{'scarlet-violet':'Scarlet / Violet'},
+ fetchEncounters:async()=>[],fetchRegionalDex:async()=>({}),
+ locationMatrixHTML:()=> 'current location records',isEnglish:()=>true
+};
+runInNewContext(renderers,context);
+const previous=context.renderLearnset({id:6,pokemonId:6});
+const current=context.renderLearnset({id:6,pokemonId:10034});
+requests.get(10034).resolve({moves:[]});await current;
+assert.match(panel.innerHTML,/movesNone/);
+requests.get(6).reject(Error('old form failed'));await previous;
+assert.match(panel.innerHTML,/movesNone/,'an obsolete failure must not overwrite the current form');
+
+state.detailTab='locations';
+const oldLocations=context.renderLocations({id:6,pokemonId:6});
+state.detailTab='overview';state.detailRender++;
+panel.innerHTML='overview';
+requests.get(6).resolve({});await oldLocations;
+assert.equal(panel.innerHTML,'overview','a late location response must not replace another tab');
+console.log('Pokémon Atlas: forms, evolutions, history and out-of-order detail responses passed');

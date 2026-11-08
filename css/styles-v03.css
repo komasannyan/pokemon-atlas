@@ -59,7 +59,7 @@
 .original-effect>summary{cursor:pointer;color:#d4b878;font-weight:750;font-size:11px}.original-effect p{font-size:11px;color:#adc4e0;padding-top:8px;line-height:1.7}
 @media(max-width:1250px){.builder-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.builder-seeds{grid-template-columns:1fr}.builder-mon-art{width:80px;height:80px}}
-@media(max-width:760px){.sidebar .nav{grid-template-columns:repeat(5,minmax(0,1fr))}.nav-link .tiny-soon{display:none}.builder-panel{padding:16px}.builder-team-grid{grid-template-columns:1fr 1fr}.builder-result-head{align-items:start}}
+@media(max-width:760px){.nav-link .tiny-soon{display:none}.builder-panel{padding:16px}.builder-team-grid{grid-template-columns:1fr 1fr}.builder-result-head{align-items:start}}
 @media(max-width:550px){.builder-top-line{align-items:start}.builder-team-grid{grid-template-columns:1fr}.builder-config-grid{grid-template-columns:1fr}.builder-seeds-head{align-items:start;flex-direction:column;gap:5px}.builder-picker button{padding:11px 12px}.builder-score strong{font-size:19px}.builder-result-head{flex-direction:column;gap:5px}.builder-score{text-align:left}.builder-score strong{display:inline-block;margin:0 5px}.builder-score small{display:inline;margin:0}.builder-team-bottom{flex-direction:column;align-items:stretch}.builder-team-bottom button{width:100%}.builder-mon-top{gap:14px}.builder-mon-art{width:99px;height:99px}}
 /* Pokémon Atlas 0.6 — ability encyclopedia, game coverage grid, and move sorting */
 #abilities-view{min-width:0}
@@ -86,5 +86,5 @@
 .game-location-list{margin:12px 0 14px}
 #move-sort{min-width:140px}
 @media(max-width:940px){.game-status-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ability-owner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.sidebar .nav{grid-template-columns:repeat(3,minmax(0,1fr))}.game-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ability-dex-title{gap:9px}.ability-dex-title>small{min-width:75px}}
+@media(max-width:760px){.game-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ability-dex-title{gap:9px}.ability-dex-title>small{min-width:75px}}
 @media(max-width:430px){.ability-owner-grid{grid-template-columns:1fr}.ability-dex-card>summary{padding:13px}.ability-dex-expanded{padding:0 12px 12px}}

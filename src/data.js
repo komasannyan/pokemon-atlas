@@ -51,7 +51,7 @@ export async function fetchNationalDex() {
     const id=+s.id,p=defaults.get(id),pid=+p?.id;
     const base=(statsByPokemon.get(pid)||[]).sort((a,b)=>+a.stat_id - +b.stat_id).map(a=>+a.base_stat);
     const typeNames=(typesByPokemon.get(pid)||[]).sort((a,b)=>+a.slot - +b.slot).map(x=>TYPES[+x.type_id]?.[0]).filter(Boolean);
-    const ab=(abilitiesByPokemon.get(pid)||[]).sort((a,b)=>+a.slot - +b.slot).map(a=>({name:abilityNames.get(+a.ability_id)||`#${a.ability_id}`,hidden:a.is_hidden==='1'}));
+    const ab=(abilitiesByPokemon.get(pid)||[]).sort((a,b)=>+a.slot - +b.slot).map(a=>({name:abilityNames.get(+a.ability_id)||`#${a.ability_id}`,slot:+a.slot,hidden:a.is_hidden==='1'}));
     return {
       id,name:names.get(id)||nameFromIdentifier(s.identifier),ru:ru[id-1]||'',gen:+s.generation_id,
       types:typeNames,stats:base.length===6?base:[],bst:base.reduce((a,b)=>a+b,0),
@@ -68,7 +68,10 @@ export async function fetchNationalDex() {
 export function loadCachedDex(){
   try{
     const raw=localStorage.getItem(STORE_KEY);
-    if(raw){const p=JSON.parse(raw);if(Array.isArray(p)&&p.length>=1000)return p;}
+    if(raw){
+      const p=JSON.parse(raw);
+      if(Array.isArray(p)&&p.length>=1000&&p.every(r=>r&&Number.isInteger(r.id)&&r.id>0&&typeof r.name==='string'&&Array.isArray(r.types)&&r.types.every(x=>typeof x==='string')&&Array.isArray(r.stats)&&r.stats.every(Number.isFinite)&&Array.isArray(r.abilities)&&r.abilities.every(a=>a&&typeof a.name==='string')))return p;
+    }
   }catch{}return null;
 }
 export function saveDex(records){try{localStorage.setItem(STORE_KEY,JSON.stringify(records));}catch{}}

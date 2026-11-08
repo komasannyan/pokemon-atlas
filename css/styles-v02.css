@@ -60,7 +60,6 @@
 .move-dex-list.in-detail{gap:9px}
 @media(max-width:1250px){.move-entry>summary{flex-wrap:wrap}.move-list-tags{min-width:0}.move-card-stats{margin-left:auto}.in-detail .move-list-tags{flex-wrap:nowrap}}
 @media(max-width:760px){
- .sidebar .nav{grid-template-columns:repeat(4,minmax(0,1fr))}
  .topbar .top-actions{gap:7px}.language-picker{padding:0 8px;height:30px}
  .move-filters-panel .field-select{min-width:0}
  .move-filters-panel .filters-primary{gap:8px}

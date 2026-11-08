@@ -10,7 +10,10 @@ async function table(filename){
 }
 export function fetchAbilityDex(){
  if(pending)return pending;
- try{const old=JSON.parse(localStorage.getItem(STORE)||'null');if(Array.isArray(old)&&old.length>=250)return pending=Promise.resolve(old);}catch{}
+ try{
+  const old=JSON.parse(localStorage.getItem(STORE)||'null');
+  if(Array.isArray(old)&&old.length>=250&&old.every(a=>a&&Number.isInteger(a.id)&&a.id>0&&['slug','name','effect'].every(key=>typeof a[key]==='string')))return pending=Promise.resolve(old);
+ }catch{}
  pending=Promise.all([table('abilities.csv'),table('ability_names.csv'),table('ability_prose.csv')]).then(([abilities,names,prose])=>{
   const english=new Map(names.filter(x=>x.local_language_id==='9').map(x=>[+x.ability_id,x.name]));
   const effects=new Map(prose.filter(x=>x.local_language_id==='9').map(x=>[+x.ability_id,x.short_effect||x.effect||'']));

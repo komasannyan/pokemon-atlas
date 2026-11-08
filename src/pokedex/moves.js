@@ -24,7 +24,10 @@ export const RU_MOVE_NAMES={
  'icy-wind':'Ледяной ветер','air-slash':'Воздушный разрез','flame-charge':'Огненный рывок'
 };
 
-function fromCache(){try {const record=JSON.parse(localStorage.getItem(STORE));if(record?.length>=800)return record;}catch{}return null;}
+function fromCache(){try {
+  const record=JSON.parse(localStorage.getItem(STORE));
+  if(Array.isArray(record)&&record.length>=800&&record.every(m=>m&&Number.isInteger(m.id)&&m.id>0&&['slug','name','type','category'].every(key=>typeof m[key]==='string')))return record;
+}catch{}return null;}
 function saveCache(rows){try{localStorage.setItem(STORE,JSON.stringify(rows));}catch{}}
 let promise=null;
 async function fetchCsv(name){const ctl=new AbortController(),timeout=setTimeout(()=>ctl.abort(),22000);try{const response=await fetch(CSV_BASE+name,{signal:ctl.signal});if(!response.ok)throw Error(`HTTP ${response.status}: ${name}`);return parseCSV(await response.text());}finally{clearTimeout(timeout);}}
