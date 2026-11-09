@@ -1,4 +1,4 @@
-/* Pokédex 0.8 · battle forms, historical data, full evolution chains */
+/* Pokémon forms, historical data and full evolution chains. */
 .form-panel{border-top:1px solid #2c4058;background:#15243a;padding:17px 26px 19px}
 .form-panel-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:12px}
 .form-panel-head h3{margin:0;font-size:12px;color:#e7d4ab;text-transform:uppercase;letter-spacing:1px}

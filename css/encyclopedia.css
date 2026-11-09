@@ -1,4 +1,4 @@
-/* Pokémon Atlas 0.2 — additional components. Original styling preserved. */
+/* Move catalogue, Pokémon descriptions, effects and language controls. */
 [hidden]{display:none!important}
 .language-picker{display:flex;align-items:center;background:#1c2b42;border:1px solid #40516c;border-radius:10px;padding:0 10px;height:33px;flex:none}
 .language-picker select{appearance:none;outline:none;border:0;color:#f5d894;background:transparent;font-size:11px;font-weight:850;letter-spacing:.4px;cursor:pointer;padding-right:17px;background-image:url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="6"%3E%3Cpath fill="none" stroke="%23e7c778" d="m1 1 4 4 4-4"/%3E%3C/svg%3E');background-position:right center;background-repeat:no-repeat}

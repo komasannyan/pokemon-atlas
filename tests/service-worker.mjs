@@ -62,6 +62,14 @@ async function dispatch(env,req){
 const get=(path,mode='no-cors')=>({method:'GET',url:absolute(path),mode});
 {
   const env=environment();
+  for(const [oldPath,newPath] of [['src/guides/guides-v09.js','src/guides/guide-ui.js'],['src/guides/za-tms-enriched.js','src/guides/data/za/tms-enriched.js'],['css/styles-v02.css','css/encyclopedia.css']]){
+    const {res}=await dispatch(env,get(oldPath+'?v=913'));
+    assert.equal(res.status,307,'old tabs receive a module redirect');
+    assert.equal(res.headers.get('Location'),absolute(newPath+'?v=913'));
+  }
+}
+{
+  const env=environment();
   env.network.set(absolute('src/app.js?v=098'),'export default 1');
   const {res}=await dispatch(env,get('src/app.js?v=098'));
   assert.equal(res.status,200);assert.equal(await res.text(),'export default 1');
@@ -69,7 +77,7 @@ const get=(path,mode='no-cors')=>({method:'GET',url:absolute(path),mode});
 }
 {
   const env=environment();await lifecycle(env,'install');env.online=false;
-  for(const path of ['src/app.js','css/styles.css','src/guides/guides-loader.js','src/guides/za-side-handbook.js','src/guides/sv-guide-data.js','src/guides/za-practical-guide.js']){
+  for(const path of ['src/app.js','css/base.css','src/guides/guide-loader.js','src/guides/data/za/side-handbook.js','src/guides/data/sv/base-game.js','src/guides/data/za/practical-guide.js']){
     const {res}=await dispatch(env,get(path+'?v=098'));
     assert.equal(res.status,200,path);
     assert.equal(await res.text(),'precached ./'+path,'offline asset must not become HTML');

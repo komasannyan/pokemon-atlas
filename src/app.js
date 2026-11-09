@@ -8,7 +8,7 @@ import {setupTeamBuilder,refreshTeamBuilder} from './team/team-ui.js';
 import {setupCollection,refreshCollection} from './collection/collection-ui.js';
 import {fetchRegionalDex} from './collection/collection-games.js';
 import {locationMatrixHTML} from './pokedex/locations-v09.js';
-import {createLazyGuides} from './guides/guides-loader.js';
+import {createLazyGuides} from './guides/guide-loader.js';
 import {formSnapshot,formArtwork,varietyLabel} from './pokedex/pokedex-extended.js';
 import {formSelector,evolutionPage,historyPage} from './pokedex/pokedex-extended-ui.js';
 import {fetchEvolutionChain} from './api.js';
@@ -500,4 +500,4 @@ fetchNationalDex().then(records=>{
 });
 const initialId=+new URL(location.href).searchParams.get('pokemon');
 if(initialId&&state.dex.some(p=>p.id===initialId))openDetail(initialId,false);
-if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=913').catch(console.warn));}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||['localhost','127.0.0.1'].includes(location.hostname))){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=914').catch(console.warn));}
