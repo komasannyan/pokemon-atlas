@@ -1,9 +1,9 @@
 // 0.9.7: all 119 base-game side quests must be detailed, sourced, navigable.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {ZA_SIDE_HANDBOOK} from '../src/guides/za-side-handbook.js';
-import {ZA_SIDE} from '../src/guides/za-side-data.js';
-import {ZA_SIDE_VERIFIED} from '../src/guides/za-verified-catalog.js';
+import {ZA_SIDE_HANDBOOK} from '../src/guides/data/za/side-handbook.js';
+import {ZA_SIDE} from '../src/guides/data/za/side-data.js';
+import {ZA_SIDE_VERIFIED} from '../src/guides/data/za/verified-catalog.js';
 const records=Object.entries(ZA_SIDE_HANDBOOK);
 assert.equal(records.length,119);
 assert.equal(ZA_SIDE.length,119);
@@ -76,14 +76,14 @@ for(const [id,quest] of records){
 }
 assert.match(ZA_SIDE_HANDBOOK[119].startHint,/Hotel Richissime/);
 assert.match(ZA_SIDE_HANDBOOK[118].unlockExtra,/117/);
-const app=readFileSync(new URL('../src/guides/guides-v09.js',import.meta.url),'utf8');
+const app=readFileSync(new URL('../src/guides/guide-ui.js',import.meta.url),'utf8');
 const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
-assert.ok(app.includes("import {ZA_SIDE_HANDBOOK} from './za-side-handbook.js'"));
-assert.ok(app.includes('ZA_SIDE_HANDBOOK[x.id]'));
+const {sideRows}=await import('../src/guides/catalogs/za.js');
+for(const row of sideRows)assert.deepEqual(row.steps,ZA_SIDE_HANDBOOK[row.id].steps,'catalogue retains rich side objectives');
 assert.ok(app.includes("if(x.kind==='side'&&step?.id"),'side steps need stable keys');
 assert.ok(app.includes("':v3:'+step.id+':'+stepDigest(step.ru)"),'side checklist should fingerprint step text');
 assert.ok(app.includes("key.startsWith(prefix+'v2:')"),'old side step marks must trigger migration warning');
 assert.ok(app.includes("if(x.kind==='side'&&!arr.some("),'no generic blue-marker filler for authored quests');
 assert.ok(app.includes("data-guide-jump=\"side:"));
-assert.ok(worker.includes("'./src/guides/za-side-handbook.js'"),'new handbook must be cached offline');
+assert.ok(worker.includes("'./src/guides/data/za/side-handbook.js'"),'new handbook must be cached offline');
 console.log('0.9.7: checked 119 side quest records, '+stepsTotal+' steps, known guide regressions and navigation integration.');

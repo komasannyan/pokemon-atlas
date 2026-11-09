@@ -1,6 +1,6 @@
 // Load the large Legends: Z-A guide module on first use, instead of importing it with the app.
 // Concurrent callers share one load. Failed loads can be retried without reloading the page.
-export function createLazyGuides({options,load=()=>import('./guides-v09.js'),onStatus=()=>{}}={}){
+export function createLazyGuides({options,load=()=>import('./guide-ui.js'),onStatus=()=>{}}={}){
   let module=null, pending=null, pendingTab=null;
   function report(status){try{onStatus(status);}catch(error){console.warn('Guide status callback failed',error);}}
   function ensure(){

@@ -1,4 +1,4 @@
-/* Pokémon Atlas v0.3 — team lab. Complements existing visual system. */
+/* Team builder, ability catalogue and game-availability controls. */
 [hidden]{display:none!important}
 #builder-view{min-width:0}
 .builder-intro{margin-bottom:24px}.builder-top-line{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:22px}

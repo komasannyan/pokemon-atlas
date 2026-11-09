@@ -46,7 +46,7 @@ export const SV_GUIDE=[
    ['Далее: Bombirdier → Giacomo → Iono → Mela → Orthworm → Kofu → Atticus.','Next: Bombirdier → Giacomo → Iono → Mela → Orthworm → Kofu → Atticus.'],
    ['Продолжай: Larry → Ryme → титан Asado Desert → Tulip → Grusha → Ortega → Dondozo/Tatsugiri → Eri.','Continue: Larry → Ryme → the Asado Desert Titan → Tulip → Grusha → Ortega → Dondozo/Tatsugiri → Eri.'],
    ['Заверши каждую историю отдельным финалом: Лига и Nemona, бой с Arven, затем развязка с Clavell и Penny. Одних 18 значков недостаточно для The Way Home.','Finish each story with its own finale: the League and Nemona, Arven’s battle, and the Clavell/Penny conclusion. The 18 badges alone do not complete the prerequisites for The Way Home.'],
-   ['После завершения всех трёх историй отправляйся к Zero Gate для The Way Home. DLC в этот начальный гайд не входит.','After completing all three stories, head to Zero Gate for The Way Home. DLC is outside this starter guide.']
+   ['После завершения всех трёх историй отправляйся к Zero Gate для The Way Home. Затем открой раздел «После титров». DLC в этот гайд не входит.','After completing all three stories, head to Zero Gate for The Way Home. Then open the Postgame section. DLC is outside this guide.']
   ),sources:[WALKTHROUGH,ORDER,SEREBII+'thewayhome.shtml'],related:[['finale','victory-road'],['finale','arven'],['finale','starfall'],['finale','the-way-home']]
  },
  gym(1,'Katy · Cortondo',1,'Cortondo',15,
@@ -242,7 +242,7 @@ export const SV_GUIDE=[
   steps:steps(
    ['Уровни лидеров арен фиксированы: поздний визит к Katy не повышает уровень её команды.','Gym Leader levels are fixed: visiting Katy later does not raise her team’s levels.'],
    ['Рекомендуемый маршрут чередует три истории; если встреча слишком сложная, вернись к более ранней цели и подготовь команду.','The suggested route alternates the three stories; if an encounter is too difficult, return to an earlier objective and prepare your team.'],
-   ['Это первый гайд по основной игре до титров. The Teal Mask, The Indigo Disk, эпилог, все TM и постгейм пока не покрыты.','This is the first base-game guide through the credits. The Teal Mask, The Indigo Disk, the epilogue, all TMs and postgame are not covered yet.']
+   ['Это первый гайд по основной игре до титров. Раздел «После титров» описывает первые постгейм-задачи. The Teal Mask, The Indigo Disk, эпилог и полный список TM пока не покрыты.','This is the first base-game guide through the credits. The Postgame section covers initial postgame tasks. The Teal Mask, The Indigo Disk, the epilogue and the full TM list are not covered yet.']
   ),sources:[ORDER,WALKTHROUGH],related:[['route','paldea-order']]
  }
 ];
