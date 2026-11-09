@@ -18,6 +18,8 @@ import {ZA_DLC_DEEP,ZA_DLC_UNLOCKS,ZA_DLC_STORY_DEEP,ZA_FAQ_EXTENDED,ZA_COMPLETI
 import {ZA_BASE_DEEP} from './za-base-handbook.js';
 import {ZA_MAIN_HANDBOOK} from './za-main-handbook.js';
 import {ZA_SIDE_HANDBOOK} from './za-side-handbook.js';
+import {ZA_PRACTICAL_GUIDE} from './za-practical-guide.js';
+import {SV_GUIDE,SV_TABS} from './sv-guide-data.js';
 
 const KEY='pokemon-atlas-guide-progress-v1',STEP_KEY='pokemon-atlas-guide-steps-v1',GAME_KEY='pokemon-atlas-guide-game-v1';
 const $=s=>document.querySelector(s);
@@ -55,6 +57,7 @@ const itemRows=[...ZA_MEGA,...ZA_RESOURCES].map((x,i)=>({...x,id:i+1,kind:'item'
 const recipeRows=ZA_DONUT_RECIPES.map((x,i)=>({...x,id:i+1,kind:'recipe',location:'Hotel Z, кухня Ansha',steps:[tx('Приготовь пончик у Ansha после открытия соответствующего рецепта по сюжету.','Prepare the donut with Ansha after unlocking its story recipe.')] }));
 const routeRows=ZA_COMPLETION_ROUTE.map(x=>({...x,kind:'route'}));
 const helpRows=[...ZA_GLOBAL_HELP.map((x,i)=>({...x,id:i+1,guideTopic:x.id,kind:'help',location:'',steps:x.steps})),...ZA_FAQ_EXTENDED.map(x=>({...x,id:'faq-'+x.id,guideTopic:x.id,kind:'help',location:'',steps:x.steps,source:'https://www.serebii.net/legendsz-a/sidemissions.shtml'}))];
+helpRows.push(...ZA_PRACTICAL_GUIDE);
 const ALL=[...routeRows,...mainRows,...sideRows,...bossRows,...zoneRows,...tmRows,...itemRows,...dlcRows,...exRows,...recipeRows,...helpRows];
 const TABS=[
  ['start','Маршрут','Route'],['main','Сюжет','Story'],['side','Побочные','Side quests'],['boss','Боссы','Bosses'],
@@ -64,6 +67,11 @@ const TABS=[
 ];
 const state={game:'legends-za',tab:'start',query:'',filter:'all',shown:35,focus:null,completed:{},checkedSteps:{}};
 let root=null,dexProvider=null,openDex=null,notice='';
+const isZA=()=>state.game==='legends-za';
+const isSV=()=>['scarlet','violet'].includes(state.game);
+const activeRows=()=>isZA()?ALL:isSV()?SV_GUIDE:[];
+const activeTabs=()=>isSV()?SV_TABS:TABS;
+const entryName=x=>tx(x.name,x.nameEn||x.name);
 try{const old=JSON.parse(localStorage.getItem(KEY)||'{}');if(old&&typeof old==='object'&&!Array.isArray(old))state.completed=old;}catch{}
 try{const old=JSON.parse(localStorage.getItem(STEP_KEY)||'{}');if(old&&typeof old==='object'&&!Array.isArray(old))state.checkedSteps=old;}catch{}
 try{const saved=localStorage.getItem(GAME_KEY);if(COLLECTION_GAMES.some(g=>g.key===saved))state.game=saved;}catch{}
@@ -77,6 +85,8 @@ function stepDigest(s){
 }
 function stepKey(x,i){
  const step=x.steps?.[i];
+ if(isSV())return savedKey(x)+':content:'+stepDigest((step?.id||i)+':'+(step?.ru||step));
+ if(x.kind==='help'&&step?.id)return savedKey(x)+':content:'+stepDigest(step.id+':'+step.ru);
  if(x.kind==='main'&&step?.id)return savedKey(x)+':v2:'+step.id;
  if(x.kind==='side'&&step?.id)return savedKey(x)+':v3:'+step.id+':'+stepDigest(step.ru);
  if(x.kind==='dlc-side')return savedKey(x)+':content:'+stepDigest(objectiveSteps(x)[i]);
@@ -95,8 +105,11 @@ function setStorage(key,data){
  return saved;
 }
 function groupOf(x){return x.kind==='main'?'main':x.kind==='side'?'side':x.kind==='dlc-main'||x.kind==='dlc-side'?'dlc':x.kind;}
-function labelOf(kind){const labels={route:['Этап маршрута','Completion route'],main:['Основное задание','Main mission'],side:['Побочное задание','Side mission'],boss:['Босс','Boss'],zone:['Зона','Zone'],tm:['Техническая машина','Technical Machine'],item:['Предмет','Item'],'dlc-main':['Сюжет DLC','DLC story'],'dlc-side':['Побочное DLC','DLC side quest'],extra:['Особое задание','Extra mission'],recipe:['Рецепт','Recipe'],help:['Справка','Help']};return tx(...(labels[kind]||['Запись','Entry']));}
+const KIND_LABELS={route:['Этап маршрута','Completion route'],main:['Основное задание','Main mission'],side:['Побочное задание','Side mission'],boss:['Босс','Boss'],zone:['Зона','Zone'],tm:['Техническая машина','Technical Machine'],item:['Предмет','Item'],'dlc-main':['Сюжет DLC','DLC story'],'dlc-side':['Побочное DLC','DLC side quest'],extra:['Особое задание','Extra mission'],recipe:['Рецепт','Recipe'],help:['Справка','Help'],gym:['Арена · Victory Road','Gym · Victory Road'],titan:['Титан · Path of Legends','Titan · Path of Legends'],star:['База · Starfall Street','Base · Starfall Street'],finale:['Завершение сюжетной ветки','Story conclusion']};
+function labelOf(kind){return tx(...(KIND_LABELS[kind]||['Запись','Entry']));}
 function tableFor(tab){
+ if(isSV())return SV_GUIDE.filter(x=>x.kind===(tab==='start'?'route':tab));
+ if(!isZA())return [];
  if(tab==='main')return mainRows;
  if(tab==='side')return sideRows;
  if(tab==='boss')return bossRows;
@@ -111,10 +124,10 @@ function tableFor(tab){
  return ALL;
 }
 function keywords(x){
- const values=[x.name,x.location,x.locationEn,x.startEn,x.quick,x.prep,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.map(s=>typeof s==='string'?s:[s.ru,s.en].filter(Boolean).join(' ')).join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
+ const values=[x.name,x.nameEn,x.kind,...(KIND_LABELS[x.kind]||[]),x.location,x.locationEn,x.startEn,x.quick,x.quickEn,x.prep,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.map(s=>typeof s==='string'?s:[s.ru,s.en].filter(Boolean).join(' ')).join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
  return normalize(values.join(' '));
 }
-const searchText=new Map(ALL.map(x=>[x,keywords(x)]));
+const searchText=new Map([...ALL,...SV_GUIDE].map(x=>[x,keywords(x)]));
 function numberedQuery(raw){
  const match=raw.match(/^(.*?)\s*[№#]?\s*(\d{1,3})$/);
  if(!match)return null;
@@ -124,6 +137,7 @@ function numberedQuery(raw){
   side:['side','dlc-side'],sidemission:['side','dlc-side'],sidequest:['side','dlc-side'],побочноезадание:['side','dlc-side'],побочнаямиссия:['side','dlc-side'],
   main:['main'],mainmission:['main'],mainquest:['main'],основноезадание:['main'],основнаямиссия:['main'],
   zone:['zone'],wildzone:['zone'],зона:['zone'],
+  gym:['gym'],арена:['gym'],titan:['titan'],титан:['titan'],star:['star'],база:['star'],
   mission:['main','side','dlc-main','dlc-side'],quest:['main','side','dlc-main','dlc-side'],задание:['main','side','dlc-main','dlc-side'],задания:['main','side','dlc-main','dlc-side'],миссия:['main','side','dlc-main','dlc-side']
  };
  return prefix===''?{number,kinds:null}:kinds[prefix]?{number,kinds:kinds[prefix]}:null;
@@ -133,7 +147,7 @@ function filtered(){
  if(raw&&!q)return [];
  const numbered=numberedQuery(raw),number=numbered?.number??null;
  const terms=raw.split(/\s+/).map(normalize).filter(Boolean);
- const base=raw?ALL:tableFor(state.tab);
+ const base=raw?activeRows():tableFor(state.tab);
  const matches=base.filter(x=>{
   const searchMatch=!raw||(numbered
    ?Number(x.id)===number&&(!numbered.kinds||numbered.kinds.includes(x.kind))
@@ -150,6 +164,17 @@ function filtered(){
 function badge(s){return '<span class="guide-tag">'+esc(s)+'</span>';}
 function linksFor(x){
  const elems=[];
+ if(isSV()){
+  if(x.kind==='route'&&x.id==='paldea-order'){
+   elems.push('<div class="guide-related"><h4>'+tx('Открыть этап маршрута','Open a route objective')+'</h4><ol class="guide-route-list">'+SV_GUIDE.filter(row=>row.order).sort((a,b)=>a.order-b.order).map(row=>'<li><button type="button" data-guide-jump="'+esc(idOf(row))+'">'+esc(entryName(row))+'</button></li>').join('')+'</ol></div>');
+  }
+  const links=(x.related||[]).map(([kind,id])=>{
+   const ref=activeRows().find(row=>row.kind===kind&&String(row.id)===String(id));
+   return ref?'<button type="button" data-guide-jump="'+esc(idOf(ref))+'">'+esc(entryName(ref))+'</button>':'';
+  }).filter(Boolean);
+  if(links.length)elems.push('<p class="guide-related">'+tx('Дальше по маршруту: ','Related route objectives: ')+links.join(' ')+'</p>');
+  return elems.join('');
+ }
  if(x.kind==='main'){
   const nearby=ZA_ZONES.filter(z=>z.mission===x.id);
   if(nearby.length)elems.push('<p class="guide-related">'+tx('Открываются зоны: ','Zones unlocked: ')+nearby.map(z=>'<button type="button" data-guide-jump="zone:'+z.n+'">Wild Zone '+z.n+'</button>').join(' ')+'</p>');
@@ -229,6 +254,12 @@ function bossMarkup(x){
 }
 function topInfo(x){
  let a=[];
+ if(isSV()){
+  a.push(badge(tx('Основная игра · Paldea','Base game · Paldea')));
+  if(x.order)a.push(badge(tx('Маршрут: этап ','Route: stage ')+x.order));
+  if(x.level)a.push(badge(tx('Макс. уровень соперника: ','Highest opponent level: ')+x.level));
+  return a.join('');
+ }
  if(x.kind==='main'||x.kind==='side')a.push(badge(tx('Основная игра','Base game')));
  if(['dlc-main','dlc-side','recipe'].includes(x.kind)||x.dlc)a.push(badge('Mega Dimension'));
  if(x.kind==='side'&&x.unlock)a.push(badge(tx('После осн. задания ','After main mission ')+x.unlock));
@@ -245,7 +276,7 @@ function card(x){
  const key=idOf(x),highlight=state.focus===key,checked=done(x),progress=stepProgress(x);
  return '<article class="guide-card '+(checked?'is-done ':'')+(highlight?'is-focused':'')+'" id="guide-'+esc(x.kind)+'-'+esc(x.id)+'">'+
   '<div class="guide-card-check"><input type="checkbox" data-guide-done="'+esc(key)+'" '+(checked?'checked':'')+' aria-label="'+tx('Отметить как выполненное','Mark completed')+'"></div>'+
-  '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+' · '+esc(x.kind==='extra'?x.id:x.id)+'</small><strong>'+esc(x.name)+'</strong><span class="guide-card-tags">'+topInfo(x)+'<span class="guide-step-count" data-guide-count aria-label="'+tx('Выполнено шагов','Completed steps')+'">'+progress.checked+'/'+progress.total+'</span></span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
+  '<details '+(highlight?'open':'')+'><summary><span class="guide-card-heading"><small>'+esc(labelOf(x.kind))+(typeof x.id==='number'||x.kind==='extra'?' · '+esc(x.id):'')+'</small><strong>'+esc(entryName(x))+'</strong><span class="guide-card-tags">'+topInfo(x)+'<span class="guide-step-count" data-guide-count aria-label="'+tx('Выполнено шагов','Completed steps')+'">'+progress.checked+'/'+progress.total+'</span></span></span><span class="guide-expand">⌄</span></summary><div class="guide-card-body">'+
   (x.location?'<div class="guide-info-line"><b>'+tx('ГДЕ ИСКАТЬ','WHERE TO GO')+'</b><p>'+esc(tx(x.location,x.locationEn||x.location))+'</p></div>':'')+
   (x.startHint?'<div class="guide-info-line"><b>'+tx('КАК НАЧАТЬ · NPC И ОРИЕНТИР','HOW TO START · NPC & LANDMARK')+'</b><p>'+esc(tx(x.startHint,x.startEn||x.startHint))+'</p></div>':'')+
   (x.kind==='tm'&&x.region?'<div class="guide-info-line"><b>'+tx('ПРОВЕРЕННЫЙ РАЙОН / СПОСОБ','VERIFIED AREA / METHOD')+'</b><p>'+esc(x.region)+'</p></div>':'')+
@@ -256,8 +287,8 @@ function card(x){
   ((x.kind==='recipe')?recipeMarkup(x):'')+
   (x.kind==='boss'?bossMarkup(x):'')+
   (x.kind==='main'&&x.battle?'<div class="guide-info-line"><b>'+tx('БОИ И ПОДГОТОВКА','BATTLES & PREPARATION')+'</b><p>'+esc(x.battle)+'</p></div>':'')+
-  (x.prep?'<div class="guide-info-line guide-prep"><b>'+tx('ПОДГОТОВКА','PREPARE')+'</b><p>'+esc(x.prep)+'</p></div>':'')+
-  (x.quick?'<div class="guide-info-line guide-quick"><b>'+tx('КОРОТКИЙ ОТВЕТ','QUICK ANSWER')+'</b><p>'+esc(x.quick)+'</p></div>':'')+
+  (x.prep?'<div class="guide-info-line guide-prep"><b>'+tx('ПОДГОТОВКА','PREPARE')+'</b><p>'+esc(tx(x.prep,x.prepEn||x.prep))+'</p></div>':'')+
+  (x.quick?'<div class="guide-info-line guide-quick"><b>'+tx('КОРОТКИЙ ОТВЕТ','QUICK ANSWER')+'</b><p>'+esc(tx(x.quick,x.quickEn||x.quick))+'</p></div>':'')+
   '<h4>'+tx('Что делать — по шагам','Step-by-step')+'</h4>'+stepMarkup(x)+
   ((x.kind==='main'||x.kind==='side')&&x.tip?'<div class="guide-info-line"><b>'+tx('ЕСЛИ ЗАСТРЯЛ','IF YOU ARE STUCK')+'</b><p>'+esc(x.tip)+'</p></div>':'')+
   (hasLegacyStepMarks(x)?'<p class="guide-warning">'+tx('Шаги этого задания обновились. Старые отметки шагов сохранены в браузере, но не применяются к новым инструкциям, чтобы не отметить ошибочное действие. Отметка завершения всей миссии сохранена.','This quest checklist changed. Earlier step marks are kept in storage but not mapped to different instructions. Mission completion remains saved.')+'</p>':'')+
@@ -278,29 +309,30 @@ function pageItems(){
   (data.length>state.shown?'<button type="button" class="guide-more" id="guide-more">'+tx('Показать ещё','Show more')+' ('+(data.length-state.shown)+')</button>':'');
 }
 function hero(){
- const counts=[['main',mainRows],['side',sideRows],['dlc',dlcRows],['tm',tmRows]];
+ const counts=isSV()?['gym','titan','star','finale'].map(kind=>[kind,SV_GUIDE.filter(x=>x.kind===kind)]):[['main',mainRows],['side',sideRows],['dlc',dlcRows],['tm',tmRows]];
  return '<div class="guide-dashboard">'+counts.map(([key,list])=>{
- const completed=list.filter(done).length,percent=Math.round(completed/list.length*100);
- const label={main:tx('Сюжет','Main story'),side:tx('Побочные','Side missions'),dlc:tx('Mega Dimension','Mega Dimension'),tm:'TM'}[key];
+ const completed=list.filter(done).length,percent=list.length?Math.round(completed/list.length*100):0;
+ const label={main:tx('Сюжет','Main story'),side:tx('Побочные','Side missions'),dlc:tx('Mega Dimension','Mega Dimension'),tm:'TM',gym:'Victory Road',titan:'Path of Legends',star:'Starfall Street',finale:tx('Финалы веток','Story finales')}[key];
  return '<button type="button" data-guide-tab="'+key+'" class="guide-progress-card"><small>'+label+'</small><strong>'+completed+' / '+list.length+'</strong><span class="guide-progressbar"><i style="width:'+percent+'%"></i></span></button>';
  }).join('')+'</div>';
 }
 function intro(){
- return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Введи название задания, его номер, покемона, предмет или свою проблему — например, «не появляется Marshadow», «999 монет» или «не открывается DLC». Открой карточку и отмечай этапы по мере прохождения.','Search a mission, number, Pokémon, item or problem (such as missing Marshadow, 999 coins or DLC unlocks). Open a card and check off steps.')+'</p></div>';
+ if(isSV())return '<div class="guide-hints"><strong>'+tx('Начало гайда: основная игра','First guide section: the base game')+'</strong><p>'+tx('Начни с маршрута, затем открой нужную арену, титана или базу Team Star. Здесь собраны три сюжетные ветки и выход к The Way Home; DLC пока не описаны. Порядок маршрута рекомендательный. Прогресс Scarlet, Violet и Z-A хранится отдельно.','Start with the route, then open a gym, Titan or Team Star base. This first section covers the three story paths and The Way Home; DLC walkthroughs are not included yet. The route order is a recommendation. Scarlet, Violet and Z-A progress is tracked separately.')+'</p></div>';
+ return '<div class="guide-hints"><strong>'+tx('Как пользоваться','How to use')+'</strong><p>'+tx('Введи название задания, его номер, покемона, предмет или свою проблему — например, «не появляется Marshadow», «999 монет» или «не открывается DLC». Открой карточку и отмечай этапы по мере прохождения.','Search a mission, number, Pokémon, item or problem (such as missing Marshadow, 999 coins or DLC unlocks). Open a card and check off steps.')+'</p><div class="guide-related">'+ZA_PRACTICAL_GUIDE.map(x=>'<button type="button" data-guide-jump="'+esc(idOf(x))+'">'+esc(entryName(x))+'</button>').join(' ')+'</div></div>';
 }
 function render(){
  if(!root)return;
  const game=COLLECTION_GAMES.find(g=>g.key===state.game);
- const za=state.game==='legends-za';
+ const supported=isZA()||isSV();
  root.innerHTML='<div class="guide-head"><div><span class="section-kicker">ATLAS WALKTHROUGH</span><h2>'+tx('Гайды по играм','Game walkthroughs')+'</h2><p>'+tx('Прохождение, поисковик предметов и личный прогресс.','Walkthroughs, item finder and progress tracking.')+'</p></div>'+
  '<label>'+tx('ВЫБЕРИ ИГРУ','CHOOSE GAME')+'<select id="guide-game">'+COLLECTION_GAMES.map(g=>'<option value="'+esc(g.key)+'" '+(g.key===state.game?'selected':'')+'>'+esc(g.label)+'</option>').join('')+'</select></label></div>'+
- '<div class="guide-game-banner"><strong>'+esc(game?.label||'Pokémon')+'</strong><span>'+tx('Подробный путеводитель','In-depth walkthrough')+'</span></div>'+
- (za?hero()+intro()+
- '<label class="guide-global-search"><span>'+tx('ПОИСК ПО ВСЕМУ Z-A','SEARCH EVERYTHING IN Z-A')+'</span><input id="guide-query" type="search" autocomplete="off" placeholder="'+tx('Задание №106, Gible, Earthquake, Mega Stone…','Mission #106, Gible, Earthquake, Mega Stone…')+'" value="'+esc(state.query)+'"></label>'+
- '<div class="guide-tabs">'+TABS.map(([key,ru,en])=>'<button data-guide-tab="'+key+'" type="button" class="'+(state.tab===key?'active':'')+'">'+esc(tx(ru,en))+'</button>').join('')+'</div>'+
- '<div class="guide-bar"><span>'+(state.query?tx('Результаты по всем разделам','Results across all sections'):tx('Раздел: ','Section: ')+tx(...(TABS.find(x=>x[0]===state.tab)?.slice(1)||['',''])))+'</span><select id="guide-filter" aria-label="'+tx('Фильтр прогресса','Progress filter')+'"><option value="all" '+(state.filter==='all'?'selected':'')+'>'+tx('Все','All')+'</option><option value="pending" '+(state.filter==='pending'?'selected':'')+'>'+tx('Не выполнено','Not completed')+'</option><option value="done" '+(state.filter==='done'?'selected':'')+'>'+tx('Выполнено','Completed')+'</option></select></div>'+
+ '<div class="guide-game-banner"><strong>'+esc(game?.label||'Pokémon')+'</strong><span>'+(supported?isSV()?tx('Основная игра · первый раздел','Base game · first section'):tx('Подробный путеводитель','In-depth walkthrough'):tx('Гайд пока не подготовлен','Guide not available yet'))+'</span></div>'+
+ (supported?hero()+intro()+
+ '<label class="guide-global-search"><span>'+(isSV()?tx('ПОИСК ПО SCARLET & VIOLET','SEARCH SCARLET & VIOLET'):tx('ПОИСК ПО ВСЕМУ Z-A','SEARCH EVERYTHING IN Z-A'))+'</span><input id="guide-query" type="search" autocomplete="off" placeholder="'+(isSV()?tx('Katy, Klawf, Team Star, Area Zero…','Katy, Klawf, Team Star, Area Zero…'):tx('Задание №106, Gible, Earthquake, Mega Stone…','Mission #106, Gible, Earthquake, Mega Stone…'))+'" value="'+esc(state.query)+'"></label>'+
+ '<div class="guide-tabs">'+activeTabs().map(([key,ru,en])=>'<button data-guide-tab="'+key+'" type="button" class="'+(state.tab===key?'active':'')+'">'+esc(tx(ru,en))+'</button>').join('')+'</div>'+
+ '<div class="guide-bar"><span>'+(state.query?tx('Результаты по всем разделам','Results across all sections'):tx('Раздел: ','Section: ')+tx(...(activeTabs().find(x=>x[0]===state.tab)?.slice(1)||['',''])))+'</span><select id="guide-filter" aria-label="'+tx('Фильтр прогресса','Progress filter')+'"><option value="all" '+(state.filter==='all'?'selected':'')+'>'+tx('Все','All')+'</option><option value="pending" '+(state.filter==='pending'?'selected':'')+'>'+tx('Не выполнено','Not completed')+'</option><option value="done" '+(state.filter==='done'?'selected':'')+'>'+tx('Выполнено','Completed')+'</option></select></div>'+
  '<div id="guide-results">'+pageItems()+'</div>':
- '<div class="guide-empty">'+tx('Для выбранной игры пока нет полноценного проверенного гайда. Здесь не показываются задания из Legends: Z-A.','No fully verified guide for this game yet. Legends: Z-A missions are not reused here.')+'</div>')+
+ '<div class="guide-empty">'+tx('Для выбранной игры пока нет полноценного проверенного гайда. Задания других игр здесь не подставляются.','No fully verified guide for this game yet. Objectives from other games are not reused here.')+'</div>')+
  '<div id="guide-notice" role="status" class="guide-message">'+esc(notice)+'</div>'+
  '<p class="guide-footer">'+tx('Галочки хранятся в этом браузере. Справочник составлен на основе игровых данных и проверенных источников; для некоторых редких находок пока нет точных координат или полного списка команд.','Checkmarks are stored in this browser. Some rare encounters lack verified precise coordinates or full opponent teams.')+'</p>';
  if(state.focus){const el=root.querySelector('#guide-'+CSSsafe(state.focus.replace(':','-')));el?.scrollIntoView?.({block:'nearest'});}
@@ -318,8 +350,8 @@ function renderResults(){
  const title=root?.querySelector('.guide-bar span');if(title)title.textContent=state.query?tx('Поиск по всем разделам','Searching all sections'):tx('Раздел','Section');
 }
 function navigateTo(kind,id){
- const x=ALL.find(x=>x.kind===kind&&String(x.id)===String(id))||(kind==='help'?helpRows.find(x=>x.guideTopic===id):null);if(!x)return;
- const tab=groupOf(x);state.tab=tab==='dlc'?'dlc':tab==='zone'?'zone':tab==='boss'?'boss':tab;
+ const x=activeRows().find(x=>x.kind===kind&&String(x.id)===String(id))||(kind==='help'?activeRows().find(x=>x.guideTopic===id):null);if(!x)return;
+ const tab=groupOf(x);state.tab=tab==='route'?'start':tab;
  state.query='';state.filter='all';state.focus=idOf(x);state.shown=45;
  const idx=tableFor(state.tab).findIndex(v=>idOf(v)===idOf(x));if(idx>=state.shown)state.shown=idx+1;
  render();
@@ -330,10 +362,10 @@ export function setupGuides({pokemonByName,onOpenPokemon}={}){
  if(!root)return;
  root.addEventListener('change',event=>{
   const el=event.target;
-  if(el.id==='guide-game'){state.game=el.value;state.tab='start';state.query='';state.focus=null;state.shown=35;try{localStorage.setItem(GAME_KEY,state.game);}catch{}render();return;}
+  if(el.id==='guide-game'){state.game=el.value;state.tab='start';state.query='';state.filter='all';state.focus=null;state.shown=35;try{localStorage.setItem(GAME_KEY,state.game);}catch{}render();return;}
   if(el.id==='guide-filter'){state.filter=el.value;state.shown=35;state.focus=null;renderResults();return;}
-  const key=el.dataset.guideDone;if(key){const row=ALL.find(x=>idOf(x)===key);if(!row)return;if(el.checked)state.completed[savedKey(row)]=true;else delete state.completed[savedKey(row)];setStorage(KEY,state.completed);el.closest('.guide-card')?.classList.toggle('is-done',el.checked);renderResults();return;}
-  const step=el.dataset.guideStep;if(step){const idx=step.lastIndexOf(':'),k=step.slice(0,idx),n=+step.slice(idx+1),row=ALL.find(x=>idOf(x)===k);if(!row)return;const sk=stepKey(row,n);if(el.checked)state.checkedSteps[sk]=true;else delete state.checkedSteps[sk];setStorage(STEP_KEY,state.checkedSteps);el.closest('li')?.classList.toggle('is-done',el.checked);const c=el.closest('.guide-card')?.querySelector('[data-guide-count]');if(c){const p=stepProgress(row);c.textContent=p.checked+'/'+p.total;}}
+  const key=el.dataset.guideDone;if(key){const row=activeRows().find(x=>idOf(x)===key);if(!row)return;if(el.checked)state.completed[savedKey(row)]=true;else delete state.completed[savedKey(row)];setStorage(KEY,state.completed);el.closest('.guide-card')?.classList.toggle('is-done',el.checked);renderResults();return;}
+  const step=el.dataset.guideStep;if(step){const idx=step.lastIndexOf(':'),k=step.slice(0,idx),n=+step.slice(idx+1),row=activeRows().find(x=>idOf(x)===k);if(!row||!Number.isInteger(n)||n<0||n>=objectiveSteps(row).length)return;const sk=stepKey(row,n);if(el.checked)state.checkedSteps[sk]=true;else delete state.checkedSteps[sk];setStorage(STEP_KEY,state.checkedSteps);el.closest('li')?.classList.toggle('is-done',el.checked);const c=el.closest('.guide-card')?.querySelector('[data-guide-count]');if(c){const p=stepProgress(row);c.textContent=p.checked+'/'+p.total;}}
  });
  root.addEventListener('input',event=>{if(event.target.id==='guide-query'){state.query=event.target.value;state.shown=35;state.focus=null;renderResults();}});
  root.addEventListener('click',event=>{
@@ -351,5 +383,5 @@ export function setupGuides({pokemonByName,onOpenPokemon}={}){
 export function refreshGuides(){if(root)render();}
 export function openGuideTab(tab='start',game='legends-za'){
  state.game=COLLECTION_GAMES.some(g=>g.key===game)?game:'legends-za';
- state.tab=TABS.some(x=>x[0]===tab)?tab:'start';state.query='';state.filter='all';state.focus=null;state.shown=35;render();
+ state.tab=activeTabs().some(x=>x[0]===tab)?tab:'start';state.query='';state.filter='all';state.focus=null;state.shown=35;render();
 }
