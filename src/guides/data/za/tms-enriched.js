@@ -1,6 +1,6 @@
-import {ZA_TMS_FULL} from './za-tms-complete.js';
-import {ZA_TMS_VERIFIED} from './za-verified-catalog.js';
-import {ZA_DLC_TM_ACQUISITION} from './za-dlc-tm-acquisition.js';
+import {ZA_TMS_FULL} from './tms-complete.js';
+import {ZA_TMS_VERIFIED} from './verified-catalog.js';
+import {ZA_DLC_TM_ACQUISITION} from './dlc-tm-acquisition.js';
 
 // The original detailed landmarks are retained for base-game TMs, while the
 // DLC reward/shop methods and exact prices use independently checked records.

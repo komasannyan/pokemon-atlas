@@ -1,10 +1,10 @@
 // Session 2: validate completeness, ordering, source links and public UI wiring of Z-A story.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {ZA_MAIN_HANDBOOK} from '../src/guides/za-main-handbook.js';
-import {ZA_MAIN} from '../src/guides/za-main-data.js';
-import {ZA_MEGA} from '../src/guides/za-items-data.js';
-import {ZA_MAIN_STEPS} from '../src/guides/za-walkthrough-details.js';
+import {ZA_MAIN_HANDBOOK} from '../src/guides/data/za/main-handbook.js';
+import {ZA_MAIN} from '../src/guides/data/za/main-data.js';
+import {ZA_MEGA} from '../src/guides/data/za/items-data.js';
+import {ZA_MAIN_STEPS} from '../src/guides/data/za/walkthrough-details.js';
 const cards=Object.entries(ZA_MAIN_HANDBOOK);
 assert.equal(cards.length,42,'all 42 base-game main missions have handbook entries');
 assert.deepEqual(cards.map(([id])=>+id),Array.from({length:42},(_,i)=>i+1));
@@ -50,9 +50,9 @@ const absolite=ZA_MEGA.find(x=>x.name==='Absolite');
 assert.ok(absolite);
 assert.match(absolite.location,/№9/,'Absolite is obtained in mission 9');
 assert.doesNotMatch(ZA_MAIN[8].location,/Jaune Sector 6/,'old rogue Absol location must not show');
-const guide=readFileSync(new URL('../src/guides/guides-v09.js',import.meta.url),'utf8');
-assert.match(guide,/import \{ZA_MAIN_HANDBOOK\}/,'new handbook must be imported');
-assert.match(guide,/ZA_MAIN_HANDBOOK\[x\.id\]/,'all main rows must use rich records');
+const guide=readFileSync(new URL('../src/guides/guide-ui.js',import.meta.url),'utf8');
+const {mainRows}=await import('../src/guides/catalogs/za.js');
+for(const row of mainRows)assert.deepEqual(row.steps,ZA_MAIN_HANDBOOK[row.id].steps,'catalogue retains rich story steps');
 assert.match(guide,/hasLegacyStepMarks/,'old progress must not silently map to different instructions');
 assert.match(guide,/stepKey\(x,i\)/,'stable checklist keys required');
 assert.match(guide,/x\.sources\?\.length/,'reference URLs must be visible');

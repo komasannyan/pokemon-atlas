@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
-import {ZA_MAIN_HANDBOOK} from '../src/guides/za-main-handbook.js';
-import {ZA_SIDE_HANDBOOK} from '../src/guides/za-side-handbook.js';
+import {ZA_MAIN_HANDBOOK} from '../src/guides/data/za/main-handbook.js';
+import {ZA_SIDE_HANDBOOK} from '../src/guides/data/za/side-handbook.js';
+import {tmRows} from '../src/guides/catalogs/za.js';
 import {readFileSync} from 'node:fs';
 assert.equal(Object.keys(ZA_MAIN_HANDBOOK).length,42);
 assert.equal(Object.keys(ZA_SIDE_HANDBOOK).length,119);
 assert.ok(Object.values(ZA_SIDE_HANDBOOK).every(x=>x.startHint?.length>15&&x.location?.length>3&&x.startEn&&x.locationEn));
 assert.match(ZA_MAIN_HANDBOOK[14].quick,/DYN4MO/);
 assert.match(ZA_SIDE_HANDBOOK[76].quick,/Eelektrossite/);
-const ui=readFileSync(new URL('../src/guides/guides-v09.js',import.meta.url),'utf8');
+const ui=readFileSync(new URL('../src/guides/guide-ui.js',import.meta.url),'utf8');
 assert.match(ui,/guide-quick/);assert.match(ui,/guide-neighbors/);assert.match(ui,/function stepProgress/);
 
 // Exercise guide rendering and progress events without requiring a DOM dependency.
@@ -24,7 +25,7 @@ globalThis.localStorage={
  setItem:(key,value)=>{if(blockStorage)throw Error('Storage disabled');stored.set(key,value);}
 };
 globalThis.document={getElementById:()=>root};
-const {setupGuides,openGuideTab}=await import('../src/guides/guides-v09.js');
+const {setupGuides,openGuideTab}=await import('../src/guides/guide-ui.js');
 setupGuides();
 assert.doesNotMatch(root.innerHTML,/\[object Object\]/,'dashboard must render section labels');
 assert.match(root.innerHTML,/<small>Сюжет<\/small>/);
@@ -35,6 +36,24 @@ assert.ok(card(29)?.includes('data-guide-jump="tm:85"'),'quest #29 must link to 
 assert.doesNotMatch(card(2),/data-guide-jump="tm:/,'quest #2 must not match #24/#29/#126');
 assert.doesNotMatch(card(1),/data-guide-jump="tm:/,'quest #1 must not match main #10/#19 or DLC #138');
 assert.match(card(29),/data-guide-count[^>]*>0\/\d+</,'checklist count should be visible');
+assert.ok(card(34)?.includes('data-guide-jump="tm:31"'),'quest #34 must link to TM31 even without a № marker in legacy text');
+assert.ok(card(26)?.includes('data-guide-jump="tm:57"'),'quest #26 must link to TM57 even without a № marker');
+for(const [tm,side] of [[31,34],[43,46],[47,88],[48,96],[57,26]]){
+ const reward=tmRows.find(row=>row.id===tm);
+ assert.equal(reward.side,side,'catalogue normalizes the exact side mission');
+ assert.equal(reward.method,'quest','a side mission reward is not a world find');
+}
+
+// Follow the visible reward link in both directions through the actual handlers.
+const jump=value=>handlers.click({target:{closest:selector=>selector==='[data-guide-jump]'?{dataset:{guideJump:value}}:null}});
+jump('tm:31');
+assert.match(root.innerHTML,/id="guide-tm-31"[\s\S]*?data-guide-jump="side:34"/);
+jump('side:34');
+assert.match(root.innerHTML,/id="guide-side-34"[\s\S]*?data-guide-jump="tm:31"/);
+jump('tm:57');
+assert.match(root.innerHTML,/id="guide-tm-57"[\s\S]*?data-guide-jump="side:26"/);
+jump('side:26');
+assert.match(root.innerHTML,/id="guide-side-26"[\s\S]*?data-guide-jump="tm:57"/);
 const step={
  dataset:{guideStep:'side:29:0'},checked:true,
  closest:selector=>selector==='li'?{classList:{toggle(){}}}:{querySelector:()=>counter}

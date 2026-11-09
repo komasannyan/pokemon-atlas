@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {dirname,join,normalize} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createLazyGuides} from '../src/guides/guides-loader.js';
+import {createLazyGuides} from '../src/guides/guide-loader.js';
 
 const root=join(dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>readFileSync(join(root,p),'utf8');
@@ -16,14 +16,14 @@ while(stack.length){
     stack.push(normalize(join(dirname(file),match[1])).replaceAll('\\','/'));
 }
 const eager=[...seen].filter(p=>p.startsWith('src/guides/')).sort();
-assert.deepEqual(eager,['src/guides/guides-loader.js','src/guides/za-data.js','src/guides/za-wild-spawns.js']);
-const app=read('src/app.js'),loader=read('src/guides/guides-loader.js');
+assert.deepEqual(eager,['src/guides/guide-loader.js','src/guides/data/za/world.js','src/guides/data/za/wild-spawns.js'].sort());
+const app=read('src/app.js'),loader=read('src/guides/guide-loader.js');
 assert.doesNotMatch(app,/\b(?:setupGuides|refreshGuides|openGuideTab)\b/,'app must use lazy abstraction');
 assert.match(app,/createLazyGuides/);
 assert.match(app,/data-guides-retry/);
 const dynamic=loader.match(/import\('(\.\/[^']+)'\)/)?.[1];
 assert.ok(dynamic&&existsSync(join(root,'src/guides',dynamic)),'dynamic guide module must exist');
-assert.match(read('sw.js'),/\.\/src\/guides\/guides-loader\.js/,'offline loader should be available');
+assert.match(read('sw.js'),/\.\/src\/guides\/guide-loader\.js/,'offline loader should be available');
 
 const fakeModule=log=>({
   setupGuides:opts=>log.push(['setup',opts]),

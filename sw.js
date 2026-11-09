@@ -1,8 +1,41 @@
 // Offline shell + cached data requests. Not a promise of offline access to every image or API result.
-const SHELL='atlas-shell-v913';
-const DATA='atlas-data-v913';
-const IMAGES='atlas-images-v913';
-const ASSETS=['./','./index.html','./css/styles.css','./css/styles-v02.css','./css/styles-v03.css','./manifest.webmanifest','./css/collection.css','./css/pokedex-v08.css','./css/styles-v09.css','./css/styles-guide-full.css','./src/pokedex/pokedex-extended.js','./src/pokedex/pokedex-extended-ui.js','./src/guides/za-data.js','./src/guides/za-main-data.js','./src/guides/za-side-data.js','./src/guides/za-side-locations.js','./src/guides/za-side-steps.js','./src/guides/za-dlc-data.js','./src/guides/za-dlc-all-side.js','./src/guides/za-tms-complete.js','./src/guides/za-tms-enriched.js','./src/guides/za-dlc-tm-acquisition.js','./src/guides/za-verified-catalog.js','./src/guides/za-wild-spawns.js','./src/guides/za-mission-clarifications.js','./src/guides/za-walkthrough-details.js','./src/guides/za-guide-extras.js','./src/guides/za-guide-handbook.js','./src/guides/za-base-handbook.js','./src/guides/za-main-handbook.js','./src/guides/za-side-handbook.js','./src/guides/za-items-data.js','./src/pokedex/locations-v09.js','./src/guides/guides-loader.js','./src/guides/guides-v09.js','./src/guides/sv-guide-data.js','./src/guides/za-practical-guide.js','./src/collection/collection-games.js','./src/collection/collection-calc.js','./src/collection/collection-ui.js','./src/collection/collection-dex.json','./src/app.js','./src/data.js','./src/demo.js','./src/api.js','./src/constants.js','./src/i18n.js','./src/pokedex/moves.js','./src/pokedex/effects-ru.js','./src/pokedex/abilities-ru-expanded.js','./src/team/team-data.js','./src/team/team-engine.js','./src/team/team-ui.js','./src/team/team-universe.js','./src/pokedex/abilities.js','./src/pokedex/game-availability.js','./src/pokedex/translate-ru.js','./src/team/format-rules.json','./src/team/champions-learnsets.json','./icons/icon-192.png','./icons/icon-512.png'];
+const SHELL='atlas-shell-v914';
+const DATA='atlas-data-v914';
+const IMAGES='atlas-images-v914';
+const ASSETS=['./','./index.html','./css/base.css','./css/encyclopedia.css','./css/team-abilities.css','./manifest.webmanifest','./css/collection.css','./css/pokemon-details.css','./css/locations-guides.css','./css/guides.css','./src/pokedex/pokedex-extended.js','./src/pokedex/pokedex-extended-ui.js','./src/guides/data/za/world.js','./src/guides/data/za/main-data.js','./src/guides/data/za/side-data.js','./src/guides/data/za/side-locations.js','./src/guides/data/za/side-steps.js','./src/guides/data/za/dlc-data.js','./src/guides/data/za/dlc-all-side.js','./src/guides/data/za/tms-complete.js','./src/guides/data/za/tms-enriched.js','./src/guides/data/za/dlc-tm-acquisition.js','./src/guides/data/za/verified-catalog.js','./src/guides/data/za/wild-spawns.js','./src/guides/data/za/mission-clarifications.js','./src/guides/data/za/walkthrough-details.js','./src/guides/data/za/extras.js','./src/guides/data/za/dlc-handbook.js','./src/guides/data/za/base-handbook.js','./src/guides/data/za/main-handbook.js','./src/guides/data/za/side-handbook.js','./src/guides/data/za/items-data.js','./src/pokedex/locations-v09.js','./src/guides/guide-loader.js','./src/guides/guide-ui.js','./src/guides/catalogs/za.js','./src/guides/catalogs/sv.js','./src/guides/guide-progress.js','./src/guides/data/sv/postgame.js','./src/guides/data/sv/base-game.js','./src/guides/data/za/practical-guide.js','./src/collection/collection-games.js','./src/collection/collection-calc.js','./src/collection/collection-ui.js','./src/collection/collection-dex.json','./src/app.js','./src/data.js','./src/demo.js','./src/api.js','./src/constants.js','./src/i18n.js','./src/pokedex/moves.js','./src/pokedex/effects-ru.js','./src/pokedex/abilities-ru-expanded.js','./src/team/team-data.js','./src/team/team-engine.js','./src/team/team-ui.js','./src/team/team-universe.js','./src/pokedex/abilities.js','./src/pokedex/game-availability.js','./src/pokedex/translate-ru.js','./src/team/format-rules.json','./src/team/champions-learnsets.json','./icons/icon-192.png','./icons/icon-512.png'];
+// Existing v913 tabs may still request these URLs after the file reorganization.
+const LEGACY_PATHS={
+  "src/guides/za-base-handbook.js": "src/guides/data/za/base-handbook.js",
+  "src/guides/za-data.js": "src/guides/data/za/world.js",
+  "src/guides/za-dlc-all-side.js": "src/guides/data/za/dlc-all-side.js",
+  "src/guides/za-dlc-data.js": "src/guides/data/za/dlc-data.js",
+  "src/guides/za-dlc-tm-acquisition.js": "src/guides/data/za/dlc-tm-acquisition.js",
+  "src/guides/za-guide-extras.js": "src/guides/data/za/extras.js",
+  "src/guides/za-guide-handbook.js": "src/guides/data/za/dlc-handbook.js",
+  "src/guides/za-items-data.js": "src/guides/data/za/items-data.js",
+  "src/guides/za-main-data.js": "src/guides/data/za/main-data.js",
+  "src/guides/za-main-handbook.js": "src/guides/data/za/main-handbook.js",
+  "src/guides/za-mission-clarifications.js": "src/guides/data/za/mission-clarifications.js",
+  "src/guides/za-practical-guide.js": "src/guides/data/za/practical-guide.js",
+  "src/guides/za-side-data.js": "src/guides/data/za/side-data.js",
+  "src/guides/za-side-handbook.js": "src/guides/data/za/side-handbook.js",
+  "src/guides/za-side-locations.js": "src/guides/data/za/side-locations.js",
+  "src/guides/za-side-steps.js": "src/guides/data/za/side-steps.js",
+  "src/guides/za-tms-complete.js": "src/guides/data/za/tms-complete.js",
+  "src/guides/za-tms-enriched.js": "src/guides/data/za/tms-enriched.js",
+  "src/guides/za-verified-catalog.js": "src/guides/data/za/verified-catalog.js",
+  "src/guides/za-walkthrough-details.js": "src/guides/data/za/walkthrough-details.js",
+  "src/guides/za-wild-spawns.js": "src/guides/data/za/wild-spawns.js",
+  "src/guides/sv-guide-data.js": "src/guides/data/sv/base-game.js",
+  "src/guides/guides-v09.js": "src/guides/guide-ui.js",
+  "src/guides/guides-loader.js": "src/guides/guide-loader.js",
+  "css/styles.css": "css/base.css",
+  "css/styles-v02.css": "css/encyclopedia.css",
+  "css/styles-v03.css": "css/team-abilities.css",
+  "css/pokedex-v08.css": "css/pokemon-details.css",
+  "css/styles-v09.css": "css/locations-guides.css",
+  "css/styles-guide-full.css": "css/guides.css"
+};
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
@@ -38,6 +71,13 @@ self.addEventListener('fetch',event=>{
   if(req.method!=='GET')return;
   const url=new URL(req.url);
   if(url.origin===self.location.origin){
+    const scope=new URL('./',self.location);
+    const relative=url.pathname.startsWith(scope.pathname)?url.pathname.slice(scope.pathname.length):'';
+    if(Object.hasOwn(LEGACY_PATHS,relative)){
+      const target=new URL(LEGACY_PATHS[relative],scope);target.search=url.search;
+      event.respondWith(Promise.resolve(Response.redirect(target.href,307)));
+      return;
+    }
     event.respondWith(sameOrigin(event));
     return;
   }

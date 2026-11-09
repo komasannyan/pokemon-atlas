@@ -93,3 +93,5 @@
 .guide-route-list button{width:100%;min-height:40px}
 .guide-prep,.guide-quick{border-left:3px solid rgba(95,161,230,.5)}
 .guide-neighbors{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+
+@media(max-width:760px){.guide-head>label{min-width:0}.guide-head select,.guide-global-search input,.guide-bar select{font-size:16px;min-height:44px}}
