@@ -69,7 +69,7 @@ const get=(path,mode='no-cors')=>({method:'GET',url:absolute(path),mode});
 }
 {
   const env=environment();await lifecycle(env,'install');env.online=false;
-  for(const path of ['src/app.js','css/styles.css','src/guides/guides-loader.js','src/guides/za-side-handbook.js']){
+  for(const path of ['src/app.js','css/styles.css','src/guides/guides-loader.js','src/guides/za-side-handbook.js','src/guides/sv-guide-data.js','src/guides/za-practical-guide.js']){
     const {res}=await dispatch(env,get(path+'?v=098'));
     assert.equal(res.status,200,path);
     assert.equal(await res.text(),'precached ./'+path,'offline asset must not become HTML');
