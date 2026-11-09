@@ -44,4 +44,38 @@ state.detailTab='overview';state.detailRender++;
 panel.innerHTML='overview';
 requests.get(6).resolve({});await oldLocations;
 assert.equal(panel.innerHTML,'overview','a late location response must not replace another tab');
+
+// Keyboard navigation must stay in the visible detail dialog, including when
+// an asynchronous rerender left focus on the dialog itself.
+const focused=[];
+const control=name=>({tabIndex:0,matches:()=>false,getClientRects:()=>[{}],focus:()=>focused.push(name)});
+const first=control('first'),last=control('last');
+const dialog={querySelectorAll:()=>[first,last],contains:el=>[first,last].includes(el)};
+const focusContext={state:{detail:{id:6}},document:{activeElement:last},$:()=>dialog};
+runInNewContext(app.slice(app.indexOf('function containDetailFocus'),app.indexOf('function evolutionHTML')),focusContext);
+let prevented=0;
+focusContext.containDetailFocus({key:'Tab',shiftKey:false,preventDefault:()=>prevented++});
+assert.equal(focused.pop(),'first','Tab from the last control wraps to the first');
+focusContext.document.activeElement=first;
+focusContext.containDetailFocus({key:'Tab',shiftKey:true,preventDefault:()=>prevented++});
+assert.equal(focused.pop(),'last','Shift+Tab wraps to the last control');
+focusContext.document.activeElement=dialog;
+focusContext.containDetailFocus({key:'Tab',shiftKey:false,preventDefault:()=>prevented++});
+assert.equal(focused.pop(),'first','Tab from the dialog enters its first control');
+assert.equal(prevented,3);
+
+// A form selector is temporarily disabled while its data loads. Remember its
+// focus through the loading render and restore it once the control is enabled.
+let busy=true;
+const original={hasAttribute:key=>key==='data-form-slug',getAttribute:()=> 'charizard-mega-x'};
+const selector={get disabled(){return busy;},getAttribute:()=> 'charizard-mega-x',focus:()=>restoration.document.activeElement=selector};
+const focusDialog={focus:()=>restoration.document.activeElement=focusDialog};
+const root={contains:el=>el===original,querySelectorAll:()=>[selector]};
+const restoration={state:{detail:{},detailFocus:null},document:{activeElement:original},
+ $:key=>key==='#detail-content'?root:focusDialog,detailTop:()=>'',activeDetailPokemon:()=>({}),renderTab(){}};
+runInNewContext(app.slice(app.indexOf('function renderDetail'),app.indexOf('function containDetailFocus')),restoration);
+restoration.renderDetail();
+assert.equal(restoration.document.activeElement,focusDialog,'loading form keeps focus inside the dialog');
+busy=false;restoration.renderDetail();
+assert.equal(restoration.document.activeElement,selector,'loaded form restores the selected button focus');
 console.log('Pokémon Atlas: forms, evolutions, history and out-of-order detail responses passed');

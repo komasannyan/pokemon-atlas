@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import {generateSuggestions, multiplier, teamCoverage, showdownExport} from '../src/team/team-engine.js';
-import {itemLegal, movesLegal, getUniverse, configureUniverse, fullPool, setsFor, normalizeSelection} from '../src/team/team-universe.js';
+import {itemLegal, movesLegal, getUniverse, configureUniverse, fullPool, setsFor, normalizeSelection, norm, speciesLegal} from '../src/team/team-universe.js';
 
 assert.equal(multiplier('fire',['grass','poison'],'Thick Fat'),1,'Thick Fat must halve final type effectiveness');
 assert.equal(multiplier('fire',['grass','steel'],'Thick Fat'),2,'dual-type weakness must be preserved');
@@ -17,6 +17,37 @@ assert.equal(multiplier('steel',['fairy','rock']),4);
 
 const u=getUniverse();
 assert.ok(u,'team universe should be initialized by original test');
+// PokéAPI localizes the two Nidoran names with gender symbols; Showdown uses
+// distinct nidoranf/nidoranm IDs for both the tier and learnset tables.
+assert.equal(norm('Nidoran♀'),'nidoranf');
+assert.equal(norm('Nidoran♂'),'nidoranm');
+const actualRules=JSON.parse(readFileSync(new URL('../src/team/format-rules.json',import.meta.url),'utf8'));
+assert.equal(speciesLegal({name:'Ferrothorn'},'natdex',actualRules),true,'National Dex uses its own tier for past species');
+assert.equal(speciesLegal({name:'Ferrothorn'},'ou',actualRules),false,'do not admit past species into standard Gen 9');
+assert.equal(speciesLegal({name:'Ho-Oh'},'natdex',actualRules),false,'retain the National Dex Uber ban');
+try{
+ const nidorans=[{id:29,name:'Nidoran♀'},{id:32,name:'Nidoran♂'}].map(p=>({...p,types:['poison'],stats:[55,47,52,40,40,41],abilities:[{name:'Poison Point'}]}));
+ const tiers={...u.rules.tiers,nidoranf:actualRules.tiers.nidoranf,nidoranm:actualRules.tiers.nidoranm};
+ const main={...u.learnsets.main,nidoranf:u.learnsets.main.tyranitar,nidoranm:u.learnsets.main.tyranitar};
+ configureUniverse([...u.dex,...nidorans],{...u.rules,tiers},u.moves,{...u.learnsets,main});
+ for(const id of [29,32]){
+  const entry=fullPool('natdex').find(p=>p.id===id);
+  assert.ok(entry,'gender-specific species must retain its tier identity');
+  const sets=setsFor(entry,'natdex');
+  assert.ok(sets.length,'gender-specific species must retain its learnset identity');
+  assert.ok(sets.every(set=>movesLegal(set,entry,'natdex',getUniverse())));
+ }
+}finally{configureUniverse(u.dex,u.rules,u.moves,u.learnsets);}
+
+// Surf and Rapid Spin are outside the old hardcoded scoring lists. Offensive
+// balance follows real move categories even when the member has a utility role.
+const engine=readFileSync(new URL('../src/team/team-engine.js',import.meta.url),'utf8');
+const flagContext={getUniverse,norm,WeakMap};
+runInNewContext(engine.replace(/^import .*;\s*$/gm,'').replace(/^export /gm,'')+'\nglobalThis.flags=countFlags;',flagContext);
+const flags=flagContext.flags([{set:{role:'wall',moves:['Surf'],item:''}},{set:{role:'removal',moves:['Rapid Spin'],item:''}}]);
+assert.equal(flags.special,1,'count special damage from the full move catalogue');
+assert.equal(flags.physical,1,'count physical damage independently of role labels');
+assert.equal(flagContext.flags([{set:{role:'physical',moves:['Protect'],item:''}}]).physical,0,'status moves must not count as physical damage');
 // A format change must reset a role that is no longer offered. Otherwise the
 // select displays Auto while generation silently filters out every legal set.
 const restored=normalizeSelection(['445',445,248,'bad',99999],{445:'mega',248:'physical'},'ou');

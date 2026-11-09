@@ -2,7 +2,7 @@
 // but *only* format-eligible species and known-learnable moves can be proposed.
 import {POKEMON_SETS, FORMATS} from './team-data.js';
 import {fetchMoveDex} from '../pokedex/moves.js';
-export const norm=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g,'');
+export const norm=s=>String(s||'').toLowerCase().replace(/♀/g,'f').replace(/♂/g,'m').normalize('NFKD').replace(/[^a-z0-9]/g,'');
 const CURATED_BY_ID=new Map(POKEMON_SETS.map(p=>[p.id,p]));
 const L='https://play.pokemonshowdown.com/data/learnsets.json';
 let promise=null, universe=null;
@@ -20,9 +20,11 @@ export function speciesLegal(p,format,rules){
  const key=norm(p.name), tier=(format==='champions'?rules.champions:rules.tiers)[key];
  if(!tier)return false; // fail closed: unknown/unmapped species are NOT assumed legal
  if(tier.isNonstandard && !(format==='natdex'&&tier.isNonstandard==='Past'))return false;
+ // A species absent from Scarlet/Violet can still have a legal National Dex
+ // tier. Its Gen 9 "Illegal" marker must not override that separate table.
+ if(format==='natdex')return tier.tier!=='Unreleased'&&!!tier.natDexTier&&!['Illegal','AG','Uber','(Uber)','Unreleased'].includes(tier.natDexTier);
  if(tier.tier==='Illegal'||tier.tier==='Unreleased')return false;
  if(format==='champions')return !p.legendary&&!p.mythical; // official M-C roster ALSO excludes legends
- if(format==='natdex')return !!tier.natDexTier&&!['Illegal','AG','Uber','(Uber)','Unreleased'].includes(tier.natDexTier);
  if(format==='doubles')return !['DUber','(DUber)'].includes(tier.doublesTier||'');
  if(format==='uu')return !['Uber','AG','OU','UUBL','Illegal'].includes(tier.tier);
  if(format==='ou')return !['Uber','AG','Illegal'].includes(tier.tier);

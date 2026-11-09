@@ -1,5 +1,5 @@
 import {FORMATS, ROLE_NAMES} from './team-data.js';
-import {fullPool, setsFor, adjustItem} from './team-universe.js';
+import {fullPool, setsFor, adjustItem, getUniverse, norm} from './team-universe.js';
 
 export const TYPE_CHART = {
  normal:{rock:.5,steel:.5,ghost:0},fire:{fire:.5,water:.5,grass:2,ice:2,bug:2,rock:.5,dragon:.5,steel:2},water:{fire:2,water:.5,grass:.5,ground:2,rock:2,dragon:.5},electric:{water:2,electric:.5,grass:.5,ground:0,flying:2,dragon:.5},grass:{fire:.5,water:2,grass:.5,poison:.5,ground:2,flying:.5,bug:.5,rock:2,dragon:.5,steel:.5},ice:{fire:.5,water:.5,grass:2,ice:.5,ground:2,flying:2,dragon:2,steel:.5},fighting:{normal:2,ice:2,poison:.5,flying:.5,psychic:.5,bug:.5,rock:2,ghost:0,dark:2,steel:2,fairy:.5},poison:{grass:2,poison:.5,ground:.5,rock:.5,ghost:.5,steel:0,fairy:2},ground:{fire:2,electric:2,grass:.5,poison:2,flying:0,bug:.5,rock:2,steel:2},flying:{electric:.5,grass:2,fighting:2,bug:2,rock:.5,steel:.5},psychic:{fighting:2,poison:2,psychic:.5,dark:0,steel:.5},bug:{fire:.5,grass:2,fighting:.5,poison:.5,flying:.5,psychic:2,ghost:.5,dark:2,steel:.5,fairy:.5},rock:{fire:2,ice:2,fighting:.5,ground:.5,flying:2,bug:2,steel:.5},ghost:{normal:0,psychic:2,ghost:2,dark:.5},dragon:{steel:.5,dragon:2,fairy:0},dark:{fighting:.5,psychic:2,ghost:2,dark:.5,fairy:.5},steel:{fire:.5,water:.5,electric:.5,ice:2,rock:2,steel:.5,fairy:2},fairy:{fire:.5,fighting:2,poison:.5,dragon:2,dark:2,steel:.5}
@@ -27,8 +27,15 @@ const PIVOT=['U-turn','Volt Switch','Flip Turn','Parting Shot'];
 const SPEED=['Tailwind','Icy Wind','Electroweb','Thunder Wave','Trick Room','Sticky Web'];
 const REDIRECT=['Follow Me','Rage Powder'];
 const PROTECT=['Protect','Spiky Shield','Detect','Baneful Bunker','King\'s Shield'];
-const PHYS=['Close Combat','Earthquake','Headlong Rush','Knock Off','Sucker Punch','Dragon Darts','Flare Blitz','Stone Edge','Iron Head','Kowtow Cleave','Grassy Glide','Collision Course','Precipice Blades','Rage Fist','Play Rough','Icicle Crash','Scale Shot','Rock Slide','Dragon Claw','Extreme Speed','Waterfall','Wood Hammer','Body Press'];
-const SPECIAL=['Make It Rain','Shadow Ball','Draco Meteor','Electro Drift','Moonblast','Psychic','Psyshock','Heat Wave','Earth Power','Sludge Bomb','Power Gem','Water Spout','Overheat','Flamethrower','Thunderbolt','Torch Song','Fickle Beam','Giga Drain','Energy Ball','Hyper Voice','Snarl','Icy Wind','Dazzling Gleam'];
+// The full move catalogue, rather than a short list of familiar attacks, defines
+// damage categories for dynamic builds. Index each loaded catalogue only once.
+const moveCategories=new WeakMap();
+function hasDamage(set,category){
+ const moves=getUniverse()?.moves;if(!moves)return false;
+ let index=moveCategories.get(moves);
+ if(!index){index=new Map(moves.map(m=>[norm(m.name),m.category]));moveCategories.set(moves,index);}
+ return set.moves.some(move=>index.get(norm(move))===category);
+}
 
 // Common overlapping weaknesses that make teams fragile
 const DANGEROUS_WEAK = {
@@ -39,8 +46,8 @@ const countFlags=roster=>{
  const count=fn=>roster.reduce((n,p)=>n+(fn(p.set)?1:0),0);
  return {
   hazards:count(s=>has(s,HAZARDS)),removal:count(s=>has(s,REMOVE)),pivot:count(s=>has(s,PIVOT)),speed:count(s=>has(s,SPEED)),redirect:count(s=>has(s,REDIRECT)),protect:count(s=>has(s,PROTECT)),fakeout:count(s=>has(s,['Fake Out'])),
-  physical:count(s=>has(s,PHYS)&&['physical','setup','tank','mega','hazards','pivot'].includes(s.role)),
-  special:count(s=>has(s,SPECIAL)&&['special','setup','tank','mega','weather'].includes(s.role)),
+  physical:count(s=>hasDamage(s,'physical')),
+  special:count(s=>hasDamage(s,'special')),
   wall:count(s=>['wall','support','redirect','trickroom'].includes(s.role)),
   mega:count(s=>isMega(s)),
   setup:count(s=>['setup','mega'].includes(s.role))
@@ -156,26 +163,23 @@ function candidateValue(entry,set,roster,format,plan,index,context=null){
  return score;
 }
 
-function buildWithSeeds(seedIds,roles,format,size,plan,variant){
- const entire = fullPool(format);
+function buildWithSeeds(seedIds,roles,format,size,plan,variant,withSets){
  // Larger and more diverse candidate pool than pure BST sort
- // Calculate legal sets once per candidate instead of rebuilding them for every slot.
- const withSets = entire.map(entry=>({entry, sets:setsFor(entry,format)})).filter(x=>x.sets.length);
  const bst=x=>x.entry.stats?.reduce((a,b)=>a+b,0)||0;
- const byBst=withSets.sort((a,b)=>bst(b)-bst(a));
+ const byBst=[...withSets].sort((a,b)=>bst(b)-bst(a));
  // Include strong picks and a deterministic sample of lower-BST support and defensive species.
  const core=byBst.slice(0,155),rest=byBst.slice(155),diverse=[];
  if(rest.length){for(let j=0;j<45&&j<rest.length;j++)diverse.push(rest[Math.floor(j*rest.length/Math.min(45,rest.length))]);}
  const candidatesPool=[...core,...diverse];
 
- const byId = new Map(entire.map(p=>[p.id,p]));
- const seeds = seedIds.map(id=>byId.get(id));
+ const byId = new Map(withSets.map(p=>[p.entry.id,p]));
+ const seeds = seedIds.map(id=>byId.get(id)?.entry);
  if(seeds.some(x=>!x)) return null;
 
  // Role choices for seeds
  const choices = seeds.map((entry,i)=>{
   const wanted = roles[i];
-  return setsFor(entry,format).filter(s => !wanted || wanted==='auto' || s.role===wanted);
+  return byId.get(entry.id).sets.filter(s => !wanted || wanted==='auto' || s.role===wanted);
  });
  if(choices.some(c=>!c.length)) return null;
 
@@ -287,9 +291,12 @@ export function generateSuggestions({format='ou', seedIds=[], roles=[], size=6, 
  if(seedIds.length > 3 || new Set(seedIds).size !== seedIds.length)
   throw Error('Select zero to three unique Pokémon');
  size = Math.max(FORMATS[format].min, Math.min(6, +size || 6));
+ // All three plans use the same legal candidates and sets. Prepare them once
+ // per generation, without retaining stale results after a universe refresh.
+ const withSets=fullPool(format).map(entry=>({entry,sets:setsFor(entry,format)})).filter(x=>x.sets.length);
  const result = [];
  for(const [i,plan] of ['balanced','offense','control'].entries()){
-  const built = buildWithSeeds(seedIds, roles, format, size, plan, i+1);
+  const built = buildWithSeeds(seedIds, roles, format, size, plan, i+1,withSets);
   if(built){
    const ids = built.roster.map(p => p.entry.id + ':' + p.set.role).join(',');
    if(!result.some(t => t.key === ids))

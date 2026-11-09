@@ -114,12 +114,32 @@ function keywords(x){
  const values=[x.name,x.location,x.locationEn,x.startEn,x.quick,x.prep,x.reward,x.extraReq,x.unlock,x.id,x.pokemon,x.types,x.weak,x.rank,x.startHint,x.region,x.recommended?.join(' '),x.area,x.for,x.steps?.map(s=>typeof s==='string'?s:[s.ru,s.en].filter(Boolean).join(' ')).join(' '),x.names?.join(' '),x.spawnDetails?.map(s=>s.name+' '+s.where+' '+s.when).join(' '),x.tags,x.guideTopic,x.tip,x.battle,x.unlock,x.startHint];
  return normalize(values.join(' '));
 }
+const searchText=new Map(ALL.map(x=>[x,keywords(x)]));
+function numberedQuery(raw){
+ const match=raw.match(/^(.*?)\s*[№#]?\s*(\d{1,3})$/);
+ if(!match)return null;
+ const prefix=normalize(match[1]),number=Number(match[2]);
+ const kinds={
+  tm:['tm'],тм:['tm'],
+  side:['side','dlc-side'],sidemission:['side','dlc-side'],sidequest:['side','dlc-side'],побочноезадание:['side','dlc-side'],побочнаямиссия:['side','dlc-side'],
+  main:['main'],mainmission:['main'],mainquest:['main'],основноезадание:['main'],основнаямиссия:['main'],
+  zone:['zone'],wildzone:['zone'],зона:['zone'],
+  mission:['main','side','dlc-main','dlc-side'],quest:['main','side','dlc-main','dlc-side'],задание:['main','side','dlc-main','dlc-side'],задания:['main','side','dlc-main','dlc-side'],миссия:['main','side','dlc-main','dlc-side']
+ };
+ return prefix===''?{number,kinds:null}:kinds[prefix]?{number,kinds:kinds[prefix]}:null;
+}
 function filtered(){
  const q=normalize(state.query), raw=state.query.trim();
- const numberMatch=raw.match(/^(?:(?:побочное\s+)?(?:задани[ея]|миссия|mission|quest|side|tm|тм)\s*)?[№#]?\s*(\d{1,3})$/i);
- const number=numberMatch?Number(numberMatch[1]):null;
- const base=q?ALL:tableFor(state.tab);
- const matches=base.filter(x=>(!q||keywords(x).includes(q)||number!==null&&Number(x.id)===number)&&(state.filter==='all'||(state.filter==='pending'?!done(x):done(x))));
+ if(raw&&!q)return [];
+ const numbered=numberedQuery(raw),number=numbered?.number??null;
+ const terms=raw.split(/\s+/).map(normalize).filter(Boolean);
+ const base=raw?ALL:tableFor(state.tab);
+ const matches=base.filter(x=>{
+  const searchMatch=!raw||(numbered
+   ?Number(x.id)===number&&(!numbered.kinds||numbered.kinds.includes(x.kind))
+   :terms.every(term=>searchText.get(x).includes(term)));
+  return searchMatch&&(state.filter==='all'||(state.filter==='pending'?!done(x):done(x)));
+ });
  if(!q)return matches;
  const wantsTM=/^(?:tm|тм)/i.test(raw);
  return matches.sort((a,b)=>{
@@ -331,5 +351,5 @@ export function setupGuides({pokemonByName,onOpenPokemon}={}){
 export function refreshGuides(){if(root)render();}
 export function openGuideTab(tab='start',game='legends-za'){
  state.game=COLLECTION_GAMES.some(g=>g.key===game)?game:'legends-za';
- state.tab=TABS.some(x=>x[0]===tab)?tab:'start';state.query='';state.focus=null;state.shown=35;render();
+ state.tab=TABS.some(x=>x[0]===tab)?tab:'start';state.query='';state.filter='all';state.focus=null;state.shown=35;render();
 }

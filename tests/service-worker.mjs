@@ -11,8 +11,9 @@ assert.ok(SHELL&&DATA&&IMAGES);
 const absolute=url=>new URL(url,BASE).href;
 class FakeCache{
   constructor(){this.map=new Map();}
-  async put(req,res){this.map.set(typeof req==='string'?absolute(req):req.url,res.clone());}
+  async put(req,res){if(this.failWrites)throw new Error('Quota exceeded');this.map.set(typeof req==='string'?absolute(req):req.url,res.clone());}
   async match(req,{ignoreSearch=false}={}){
+    if(this.failReads)throw new Error('Cache unavailable');
     const key=typeof req==='string'?absolute(req):req.url;
     let value=this.map.get(key);
     if(!value&&ignoreSearch){
@@ -32,7 +33,7 @@ function environment(){
   const stores=new Map(),listeners={},network=new Map();
   const env={stores,listeners,network,online:true};
   const caches={
-    open:async name=>{if(!stores.has(name))stores.set(name,new FakeCache());return stores.get(name);},
+    open:async name=>{if(env.storageUnavailable)throw new Error('Cache disabled');if(!stores.has(name))stores.set(name,new FakeCache());return stores.get(name);},
     keys:async()=>[...stores.keys()],
     delete:async name=>stores.delete(name),
     match:async(req,options)=>{for(const c of stores.values()){const hit=await c.match(req,options);if(hit)return hit;}}
@@ -115,4 +116,17 @@ const get=(path,mode='no-cors')=>({method:'GET',url:absolute(path),mode});
   await lifecycle(env,'activate');
   assert.deepEqual([...env.stores.keys()].sort(),[SHELL,'someone-elses-app-v2'].sort(),'cleanup must not delete other apps caches');
 }
-console.log('Service Worker: offline file responses, URL scope, navigation fallback, cache update and isolation verified.');
+// Storage is optional: a valid online response must survive quota, private-mode
+// storage restrictions and a broken cache entry.
+for(const failure of ['open','read','write']){
+  const env=environment(),cache=new FakeCache();
+  env.stores.set(DATA,cache);
+  env.storageUnavailable=failure==='open';
+  cache.failReads=failure==='read';cache.failWrites=failure==='write';
+  const url='https://pokeapi.co/api/v2/pokemon/25/';
+  env.network.set(url,'{"name":"pikachu"}');
+  const {res}=await dispatch(env,{method:'GET',url,mode:'cors'});
+  assert.equal(res.status,200,`${failure}: online data must not depend on cache storage`);
+  assert.deepEqual(await res.json(),{name:'pikachu'});
+}
+console.log('Service Worker: offline responses, cache isolation and online recovery when storage fails verified.');
